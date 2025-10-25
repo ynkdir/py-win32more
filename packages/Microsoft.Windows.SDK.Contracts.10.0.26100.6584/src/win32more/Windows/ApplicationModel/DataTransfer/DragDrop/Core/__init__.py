@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core
@@ -20,7 +20,7 @@ class CoreDragDropManager(ComPtr):
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManagerStatics) -> win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragDropManager: ...
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
-    TargetRequested = event()
+    TargetRequested = event(add_TargetRequested, remove_TargetRequested)
 class CoreDragInfo(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo
@@ -123,7 +123,7 @@ class ICoreDragDropManager(ComPtr):
     @winrt_commethod(9)
     def put_AreConcurrentOperationsEnabled(self, value: Boolean) -> Void: ...
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
-    TargetRequested = event()
+    TargetRequested = event(add_TargetRequested, remove_TargetRequested)
 class ICoreDragDropManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManagerStatics'

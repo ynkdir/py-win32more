@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
@@ -325,7 +325,7 @@ class IUserInformationStatics(ComPtr):
     def GetDomainNameAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     AccountPictureChangeEnabled = property(get_AccountPictureChangeEnabled, None)
     NameAccessAllowed = property(get_NameAccessAllowed, None)
-    AccountPictureChanged = event()
+    AccountPictureChanged = event(add_AccountPictureChanged, remove_AccountPictureChanged)
 class IUserProfilePersonalizationSettings(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.UserProfile.IUserProfilePersonalizationSettings'
@@ -409,6 +409,7 @@ class UserInformation(ComPtr, metaclass=_UserInformation_Meta_):
     def GetDomainNameAsync(cls: win32more.Windows.System.UserProfile.IUserInformationStatics) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     _UserInformation_Meta_.AccountPictureChangeEnabled = property(get_AccountPictureChangeEnabled, None)
     _UserInformation_Meta_.NameAccessAllowed = property(get_NameAccessAllowed, None)
+    _UserInformation_Meta_.AccountPictureChanged = event(add_AccountPictureChanged, remove_AccountPictureChanged)
 UserProfileContract: UInt32 = 131072
 UserProfileLockScreenContract: UInt32 = 65536
 class _UserProfilePersonalizationSettings_Meta_(ComPtr.__class__):

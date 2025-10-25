@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.ApplicationModel.Appointments.AppointmentsProvider
 import win32more.Windows.ApplicationModel.Background
@@ -1148,7 +1148,7 @@ class ISplashScreen(ComPtr):
     @winrt_commethod(8)
     def remove_Dismissed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageLocation = property(get_ImageLocation, None)
-    Dismissed = event()
+    Dismissed = event(add_Dismissed, remove_Dismissed)
 class IStartupTaskActivatedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IStartupTaskActivatedEventArgs'
@@ -1527,7 +1527,7 @@ class SplashScreen(ComPtr):
     @winrt_mixinmethod
     def remove_Dismissed(self: win32more.Windows.ApplicationModel.Activation.ISplashScreen, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageLocation = property(get_ImageLocation, None)
-    Dismissed = event()
+    Dismissed = event(add_Dismissed, remove_Dismissed)
 class StartupTaskActivatedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IStartupTaskActivatedEventArgs

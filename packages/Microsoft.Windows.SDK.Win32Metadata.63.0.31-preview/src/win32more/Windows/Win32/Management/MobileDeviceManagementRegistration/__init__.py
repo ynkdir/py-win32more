@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Management.MobileDeviceManagementRegistration
 MENROLL_E_DEVICE_MESSAGE_FORMAT_ERROR: win32more.Windows.Win32.Foundation.HRESULT = -2145910783

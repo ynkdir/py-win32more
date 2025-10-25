@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Services.TargetedContent
@@ -155,9 +155,9 @@ class ITargetedContentSubscription(ComPtr):
     @winrt_commethod(13)
     def remove_StateChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Id = property(get_Id, None)
-    ContentChanged = event()
-    AvailabilityChanged = event()
-    StateChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
+    ContentChanged = event(add_ContentChanged, remove_ContentChanged)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class ITargetedContentSubscriptionOptions(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions'
@@ -424,9 +424,9 @@ class TargetedContentSubscription(ComPtr):
     @winrt_classmethod
     def GetOptions(cls: win32more.Windows.Services.TargetedContent.ITargetedContentSubscriptionStatics, subscriptionId: WinRT_String) -> win32more.Windows.Services.TargetedContent.TargetedContentSubscriptionOptions: ...
     Id = property(get_Id, None)
-    ContentChanged = event()
-    AvailabilityChanged = event()
-    StateChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
+    ContentChanged = event(add_ContentChanged, remove_ContentChanged)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class TargetedContentSubscriptionOptions(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.Graphics.Canvas
 import win32more.Microsoft.Graphics.Canvas.Brushes
 import win32more.Microsoft.Graphics.Canvas.Effects
@@ -292,7 +292,7 @@ class CanvasDevice(ComPtr, metaclass=_CanvasDevice_Meta_):
     MaximumBitmapSizeInPixels = property(get_MaximumBitmapSizeInPixels, None)
     MaximumCacheSize = property(get_MaximumCacheSize, put_MaximumCacheSize)
     _CanvasDevice_Meta_.DebugLevel = property(get_DebugLevel, put_DebugLevel)
-    DeviceLost = event()
+    DeviceLost = event(add_DeviceLost, remove_DeviceLost)
 class CanvasDpiRounding(Enum, Int32):
     Floor = 0
     Round = 1
@@ -1146,7 +1146,7 @@ class ICanvasDevice(ComPtr):
     LowPriority = property(get_LowPriority, put_LowPriority)
     MaximumBitmapSizeInPixels = property(get_MaximumBitmapSizeInPixels, None)
     MaximumCacheSize = property(get_MaximumCacheSize, put_MaximumCacheSize)
-    DeviceLost = event()
+    DeviceLost = event(add_DeviceLost, remove_DeviceLost)
 class ICanvasDeviceFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.ICanvasDeviceFactory'

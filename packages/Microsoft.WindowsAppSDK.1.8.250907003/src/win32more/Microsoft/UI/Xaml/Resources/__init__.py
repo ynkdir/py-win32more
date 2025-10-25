@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI.Xaml.Resources
 class _CustomXamlResourceLoader_Meta_(ComPtr.__class__):
     pass

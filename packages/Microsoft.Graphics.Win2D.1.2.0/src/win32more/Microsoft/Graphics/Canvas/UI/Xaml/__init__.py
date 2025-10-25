@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.Graphics.Canvas
 import win32more.Microsoft.Graphics.Canvas.UI
 import win32more.Microsoft.Graphics.Canvas.UI.Xaml
@@ -74,8 +74,8 @@ class CanvasControl(ComPtr):
     ReadyToDraw = property(get_ReadyToDraw, None)
     Size = property(get_Size, None)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    Draw = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    Draw = event(add_Draw, remove_Draw)
 class CanvasDrawEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasDrawEventArgs
@@ -246,8 +246,8 @@ class CanvasVirtualControl(ComPtr):
     ReadyToDraw = property(get_ReadyToDraw, None)
     Size = property(get_Size, None)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    RegionsInvalidated = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    RegionsInvalidated = event(add_RegionsInvalidated, remove_RegionsInvalidated)
 class CanvasVirtualImageSource(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSource
@@ -319,7 +319,7 @@ class CanvasVirtualImageSource(ComPtr):
     Size = property(get_Size, None)
     SizeInPixels = property(get_SizeInPixels, None)
     Source = property(get_Source, None)
-    RegionsInvalidated = event()
+    RegionsInvalidated = event(add_RegionsInvalidated, remove_RegionsInvalidated)
 class ICanvasControl(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasControl'
@@ -367,8 +367,8 @@ class ICanvasControl(ComPtr):
     ReadyToDraw = property(get_ReadyToDraw, None)
     Size = property(get_Size, None)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    Draw = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    Draw = event(add_Draw, remove_Draw)
 class ICanvasDrawEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasDrawEventArgs'
@@ -489,8 +489,8 @@ class ICanvasVirtualControl(ComPtr):
     ReadyToDraw = property(get_ReadyToDraw, None)
     Size = property(get_Size, None)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    RegionsInvalidated = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    RegionsInvalidated = event(add_RegionsInvalidated, remove_RegionsInvalidated)
 class ICanvasVirtualImageSource(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSource'
@@ -531,7 +531,7 @@ class ICanvasVirtualImageSource(ComPtr):
     Size = property(get_Size, None)
     SizeInPixels = property(get_SizeInPixels, None)
     Source = property(get_Source, None)
-    RegionsInvalidated = event()
+    RegionsInvalidated = event(add_RegionsInvalidated, remove_RegionsInvalidated)
 class ICanvasVirtualImageSourceFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSourceFactory'

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Management.Setup
@@ -381,8 +381,8 @@ class IMachineProvisioningProgressReporter(ComPtr):
     SessionConnection = property(get_SessionConnection, None)
     SessionId = property(get_SessionId, None)
     SessionState = property(get_SessionState, None)
-    SessionStateChanged = event()
-    SessionConnectionChanged = event()
+    SessionConnectionChanged = event(add_SessionConnectionChanged, remove_SessionConnectionChanged)
+    SessionStateChanged = event(add_SessionStateChanged, remove_SessionStateChanged)
 class IMachineProvisioningProgressReporterStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IMachineProvisioningProgressReporterStatics'
@@ -416,8 +416,8 @@ class MachineProvisioningProgressReporter(ComPtr):
     SessionConnection = property(get_SessionConnection, None)
     SessionId = property(get_SessionId, None)
     SessionState = property(get_SessionState, None)
-    SessionStateChanged = event()
-    SessionConnectionChanged = event()
+    SessionConnectionChanged = event(add_SessionConnectionChanged, remove_SessionConnectionChanged)
+    SessionStateChanged = event(add_SessionStateChanged, remove_SessionStateChanged)
 
 
 make_ready(__name__)

@@ -47,6 +47,7 @@ from win32more._winrt import (
     PassArray,
     ReceiveArray,
     WinRT_String,
+    event,
     winrt_commethod,
 )
 
@@ -524,6 +525,23 @@ class TestWinrt(unittest.TestCase):
         mock = Mock()
         unknown = mock.as_(IInspectable)
         self.assertIs(mock, unknown.as_(ISelf).GetSelf())
+
+    def test_classevent_calls_adder_function_as_classmethod(self):
+        class Meta(type):
+            pass
+
+        class Mock(metaclass=Meta):
+            # @classmethod
+            def add_Changed(cls, callback):
+                trace.append(cls)
+
+            Meta.Changed = event(add_Changed, None)
+
+        trace = []
+
+        Mock.Changed += lambda: None
+
+        self.assertEqual(trace, [Mock])
 
 
 if __name__ == "__main__":

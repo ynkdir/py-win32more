@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Devices.Nfp
 import win32more.Windows.Win32.Foundation
 GUID_DEVINTERFACE_NFP: Guid = Guid('{fb3842cd-9e2a-4f83-8fcc-4b0761139ae9}')

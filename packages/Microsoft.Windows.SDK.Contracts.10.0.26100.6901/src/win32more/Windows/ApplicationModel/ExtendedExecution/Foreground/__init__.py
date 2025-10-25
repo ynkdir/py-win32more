@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.ExtendedExecution.Foreground
 import win32more.Windows.Foundation
 class ExtendedExecutionForegroundReason(Enum, Int32):
@@ -52,7 +52,7 @@ class ExtendedExecutionForegroundSession(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Description = property(get_Description, put_Description)
     Reason = property(get_Reason, put_Reason)
-    Revoked = event()
+    Revoked = event(add_Revoked, remove_Revoked)
 class IExtendedExecutionForegroundRevokedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundRevokedEventArgs'
@@ -81,7 +81,7 @@ class IExtendedExecutionForegroundSession(ComPtr):
     def put_Reason(self, value: win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundReason) -> Void: ...
     Description = property(get_Description, put_Description)
     Reason = property(get_Reason, put_Reason)
-    Revoked = event()
+    Revoked = event(add_Revoked, remove_Revoked)
 
 
 make_ready(__name__)

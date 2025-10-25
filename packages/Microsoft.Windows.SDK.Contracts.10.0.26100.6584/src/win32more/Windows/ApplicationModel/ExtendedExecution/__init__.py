@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.ExtendedExecution
 import win32more.Windows.Foundation
 class ExtendedExecutionReason(Enum, Int32):
@@ -56,7 +56,7 @@ class ExtendedExecutionSession(ComPtr):
     Description = property(get_Description, put_Description)
     PercentProgress = property(get_PercentProgress, put_PercentProgress)
     Reason = property(get_Reason, put_Reason)
-    Revoked = event()
+    Revoked = event(add_Revoked, remove_Revoked)
 class IExtendedExecutionRevokedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionRevokedEventArgs'
@@ -90,7 +90,7 @@ class IExtendedExecutionSession(ComPtr):
     Description = property(get_Description, put_Description)
     PercentProgress = property(get_PercentProgress, put_PercentProgress)
     Reason = property(get_Reason, put_Reason)
-    Revoked = event()
+    Revoked = event(add_Revoked, remove_Revoked)
 
 
 make_ready(__name__)

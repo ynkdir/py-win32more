@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.ApplicationModel.VoiceCommands
 import win32more.Windows.Foundation
@@ -168,7 +168,7 @@ class IVoiceCommandServiceConnection(ComPtr):
     @winrt_commethod(15)
     def remove_VoiceCommandCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Language = property(get_Language, None)
-    VoiceCommandCompleted = event()
+    VoiceCommandCompleted = event(add_VoiceCommandCompleted, remove_VoiceCommandCompleted)
 class IVoiceCommandServiceConnectionStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.IVoiceCommandServiceConnectionStatics'
@@ -377,7 +377,7 @@ class VoiceCommandServiceConnection(ComPtr):
     @winrt_classmethod
     def FromAppServiceTriggerDetails(cls: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandServiceConnectionStatics, triggerDetails: win32more.Windows.ApplicationModel.AppService.AppServiceTriggerDetails) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection: ...
     Language = property(get_Language, None)
-    VoiceCommandCompleted = event()
+    VoiceCommandCompleted = event(add_VoiceCommandCompleted, remove_VoiceCommandCompleted)
 class VoiceCommandUserMessage(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandUserMessage

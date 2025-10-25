@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Devices.Beep
 DD_BEEP_DEVICE_NAME: String = '\\Device\\Beep'
 DD_BEEP_DEVICE_NAME_U: String = '\\Device\\Beep'

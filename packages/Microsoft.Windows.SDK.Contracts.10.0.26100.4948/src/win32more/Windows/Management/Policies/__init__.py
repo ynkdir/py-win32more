@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Management.Policies
 import win32more.Windows.Storage.Streams
@@ -40,7 +40,7 @@ class INamedPolicyData(ComPtr):
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
     User = property(get_User, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class INamedPolicyStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Management.Policies.INamedPolicyStatics'
@@ -92,7 +92,7 @@ class NamedPolicyData(ComPtr):
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
     User = property(get_User, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class NamedPolicyKind(Enum, Int32):
     Invalid = 0
     Binary = 1

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Media.AppBroadcasting
 import win32more.Windows.System
@@ -24,7 +24,7 @@ class AppBroadcastingMonitor(ComPtr):
     @winrt_mixinmethod
     def remove_IsCurrentAppBroadcastingChanged(self: win32more.Windows.Media.AppBroadcasting.IAppBroadcastingMonitor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsCurrentAppBroadcasting = property(get_IsCurrentAppBroadcasting, None)
-    IsCurrentAppBroadcastingChanged = event()
+    IsCurrentAppBroadcastingChanged = event(add_IsCurrentAppBroadcastingChanged, remove_IsCurrentAppBroadcastingChanged)
 class AppBroadcastingStatus(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.AppBroadcasting.IAppBroadcastingStatus
@@ -86,7 +86,7 @@ class IAppBroadcastingMonitor(ComPtr):
     @winrt_commethod(8)
     def remove_IsCurrentAppBroadcastingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsCurrentAppBroadcasting = property(get_IsCurrentAppBroadcasting, None)
-    IsCurrentAppBroadcastingChanged = event()
+    IsCurrentAppBroadcastingChanged = event(add_IsCurrentAppBroadcastingChanged, remove_IsCurrentAppBroadcastingChanged)
 class IAppBroadcastingStatus(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.AppBroadcasting.IAppBroadcastingStatus'

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Core
@@ -38,11 +38,11 @@ class INDClient(ComPtr):
     def ReRegistrationAsync(self, registrationCustomData: win32more.Windows.Media.Protection.PlayReady.INDCustomData) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(19)
     def Close(self) -> Void: ...
-    RegistrationCompleted = event()
-    ProximityDetectionCompleted = event()
-    LicenseFetchCompleted = event()
-    ReRegistrationNeeded = event()
-    ClosedCaptionDataReceived = event()
+    ClosedCaptionDataReceived = event(add_ClosedCaptionDataReceived, remove_ClosedCaptionDataReceived)
+    LicenseFetchCompleted = event(add_LicenseFetchCompleted, remove_LicenseFetchCompleted)
+    ProximityDetectionCompleted = event(add_ProximityDetectionCompleted, remove_ProximityDetectionCompleted)
+    ReRegistrationNeeded = event(add_ReRegistrationNeeded, remove_ReRegistrationNeeded)
+    RegistrationCompleted = event(add_RegistrationCompleted, remove_RegistrationCompleted)
 class INDClientFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Protection.PlayReady.INDClientFactory'
@@ -736,11 +736,11 @@ class NDClient(ComPtr):
     def ReRegistrationAsync(self: win32more.Windows.Media.Protection.PlayReady.INDClient, registrationCustomData: win32more.Windows.Media.Protection.PlayReady.INDCustomData) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Media.Protection.PlayReady.INDClient) -> Void: ...
-    RegistrationCompleted = event()
-    ProximityDetectionCompleted = event()
-    LicenseFetchCompleted = event()
-    ReRegistrationNeeded = event()
-    ClosedCaptionDataReceived = event()
+    ClosedCaptionDataReceived = event(add_ClosedCaptionDataReceived, remove_ClosedCaptionDataReceived)
+    LicenseFetchCompleted = event(add_LicenseFetchCompleted, remove_LicenseFetchCompleted)
+    ProximityDetectionCompleted = event(add_ProximityDetectionCompleted, remove_ProximityDetectionCompleted)
+    ReRegistrationNeeded = event(add_ReRegistrationNeeded, remove_ReRegistrationNeeded)
+    RegistrationCompleted = event(add_RegistrationCompleted, remove_RegistrationCompleted)
 class NDClosedCaptionFormat(Enum, Int32):
     ATSC = 0
     SCTE20 = 1

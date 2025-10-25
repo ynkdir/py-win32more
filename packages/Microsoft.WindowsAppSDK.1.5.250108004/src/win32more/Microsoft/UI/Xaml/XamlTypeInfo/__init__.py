@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI.Xaml.Markup
 import win32more.Microsoft.UI.Xaml.XamlTypeInfo
 import win32more.Windows.UI.Xaml.Interop

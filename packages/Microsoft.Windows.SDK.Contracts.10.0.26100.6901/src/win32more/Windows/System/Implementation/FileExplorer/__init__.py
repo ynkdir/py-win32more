@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.System.Implementation.FileExplorer
 import win32more.Windows.Web.Http
@@ -24,7 +24,7 @@ class ISysStorageProviderEventSource(ComPtr):
     def add_EventReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.Implementation.FileExplorer.ISysStorageProviderEventSource, win32more.Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_EventReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    EventReceived = event()
+    EventReceived = event(add_EventReceived, remove_EventReceived)
 class ISysStorageProviderHandlerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Implementation.FileExplorer.ISysStorageProviderHandlerFactory'

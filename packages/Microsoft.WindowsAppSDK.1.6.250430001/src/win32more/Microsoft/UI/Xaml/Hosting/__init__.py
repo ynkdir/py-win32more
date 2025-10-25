@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Content
@@ -57,8 +57,8 @@ class DesktopWindowXamlSource(ComPtr):
     ShouldConstrainPopupsToWorkArea = property(get_ShouldConstrainPopupsToWorkArea, put_ShouldConstrainPopupsToWorkArea)
     SiteBridge = property(get_SiteBridge, None)
     SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
-    TakeFocusRequested = event()
-    GotFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    TakeFocusRequested = event(add_TakeFocusRequested, remove_TakeFocusRequested)
 class DesktopWindowXamlSourceGotFocusEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs
@@ -125,8 +125,8 @@ class IDesktopWindowXamlSource(ComPtr):
     HasFocus = property(get_HasFocus, None)
     SiteBridge = property(get_SiteBridge, None)
     SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
-    TakeFocusRequested = event()
-    GotFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    TakeFocusRequested = event(add_TakeFocusRequested, remove_TakeFocusRequested)
 class IDesktopWindowXamlSource2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSource2'
@@ -192,7 +192,7 @@ class IWindowsXamlManager2(ComPtr):
     def add_XamlShutdownCompletedOnThread(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager, win32more.Microsoft.UI.Xaml.Hosting.XamlShutdownCompletedOnThreadEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_XamlShutdownCompletedOnThread(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    XamlShutdownCompletedOnThread = event()
+    XamlShutdownCompletedOnThread = event(add_XamlShutdownCompletedOnThread, remove_XamlShutdownCompletedOnThread)
 class IWindowsXamlManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Hosting.IWindowsXamlManagerStatics'
@@ -262,7 +262,7 @@ class WindowsXamlManager(ComPtr):
     def GetForCurrentThread(cls: win32more.Microsoft.UI.Xaml.Hosting.IWindowsXamlManagerStatics2) -> win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager: ...
     @winrt_classmethod
     def InitializeForCurrentThread(cls: win32more.Microsoft.UI.Xaml.Hosting.IWindowsXamlManagerStatics) -> win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager: ...
-    XamlShutdownCompletedOnThread = event()
+    XamlShutdownCompletedOnThread = event(add_XamlShutdownCompletedOnThread, remove_XamlShutdownCompletedOnThread)
 class XamlShutdownCompletedOnThreadEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Hosting.IXamlShutdownCompletedOnThreadEventArgs

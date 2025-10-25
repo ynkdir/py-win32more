@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Devices.Geolocation.Provider
 import win32more.Windows.Foundation
@@ -27,7 +27,7 @@ class GeolocationProvider(ComPtr):
     @winrt_mixinmethod
     def remove_IsOverriddenChanged(self: win32more.Windows.Devices.Geolocation.Provider.IGeolocationProvider, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsOverridden = property(get_IsOverridden, None)
-    IsOverriddenChanged = event()
+    IsOverriddenChanged = event(add_IsOverriddenChanged, remove_IsOverriddenChanged)
 class IGeolocationProvider(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Geolocation.Provider.IGeolocationProvider'
@@ -43,7 +43,7 @@ class IGeolocationProvider(ComPtr):
     @winrt_commethod(10)
     def remove_IsOverriddenChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsOverridden = property(get_IsOverridden, None)
-    IsOverriddenChanged = event()
+    IsOverriddenChanged = event(add_IsOverriddenChanged, remove_IsOverriddenChanged)
 class LocationOverrideStatus(Enum, Int32):
     Success = 0
     AccessDenied = 1

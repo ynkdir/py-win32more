@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking.Sockets
@@ -96,7 +96,7 @@ class HttpBaseProtocolFilter(ComPtr):
     ServerCredential = property(get_ServerCredential, put_ServerCredential)
     UseProxy = property(get_UseProxy, put_UseProxy)
     User = property(get_User, None)
-    ServerCustomValidationRequested = event()
+    ServerCustomValidationRequested = event(add_ServerCustomValidationRequested, remove_ServerCustomValidationRequested)
 class HttpCacheControl(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Web.Http.Filters.IHttpCacheControl
@@ -226,7 +226,7 @@ class IHttpBaseProtocolFilter4(ComPtr):
     def remove_ServerCustomValidationRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def ClearAuthenticationCache(self) -> Void: ...
-    ServerCustomValidationRequested = event()
+    ServerCustomValidationRequested = event(add_ServerCustomValidationRequested, remove_ServerCustomValidationRequested)
 class IHttpBaseProtocolFilter5(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Web.Http.Filters.IHttpBaseProtocolFilter5'

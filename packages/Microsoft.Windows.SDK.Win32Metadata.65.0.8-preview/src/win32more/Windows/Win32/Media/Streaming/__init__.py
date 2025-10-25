@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Streaming
 DEVPKEY_Device_PacketWakeSupported: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{88ad39db-0d0c-4a38-8435-4043826b5c91}'), pid=0)

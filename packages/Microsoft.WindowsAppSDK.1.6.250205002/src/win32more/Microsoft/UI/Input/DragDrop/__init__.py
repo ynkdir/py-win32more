@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI.Content
 import win32more.Microsoft.UI.Input
 import win32more.Microsoft.UI.Input.DragDrop
@@ -24,7 +24,7 @@ class DragDropManager(ComPtr):
     @winrt_classmethod
     def GetForIsland(cls: win32more.Microsoft.UI.Input.DragDrop.IDragDropManagerStatics, content: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.DragDrop.DragDropManager: ...
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
-    TargetRequested = event()
+    TargetRequested = event(add_TargetRequested, remove_TargetRequested)
 class DragDropModifiers(Enum, UInt32):
     None_ = 0
     Shift = 1
@@ -136,7 +136,7 @@ class IDragDropManager(ComPtr):
     @winrt_commethod(9)
     def remove_TargetRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
-    TargetRequested = event()
+    TargetRequested = event(add_TargetRequested, remove_TargetRequested)
 class IDragDropManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.DragDrop.IDragDropManagerStatics'

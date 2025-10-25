@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 class AsyncActionCompletedHandler(MulticastDelegate):
@@ -221,7 +221,7 @@ class IMemoryBufferReference(ComPtr):
     @winrt_commethod(8)
     def remove_Closed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Capacity = property(get_Capacity, None)
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IPropertyValue(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Foundation.IPropertyValue'

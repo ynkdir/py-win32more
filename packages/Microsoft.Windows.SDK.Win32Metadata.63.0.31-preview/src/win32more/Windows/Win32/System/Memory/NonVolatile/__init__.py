@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.System.Memory.NonVolatile
 if ARCH in 'X64,ARM64':
     @winfunctype('ntdll.dll')

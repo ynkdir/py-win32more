@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -115,9 +115,9 @@ class DialDevicePicker(ComPtr):
     def SetDisplayStatus(self: win32more.Windows.Media.DialProtocol.IDialDevicePicker, device: win32more.Windows.Media.DialProtocol.DialDevice, status: win32more.Windows.Media.DialProtocol.DialDeviceDisplayStatus) -> Void: ...
     Appearance = property(get_Appearance, None)
     Filter = property(get_Filter, None)
-    DialDeviceSelected = event()
-    DisconnectButtonClicked = event()
-    DialDevicePickerDismissed = event()
+    DialDevicePickerDismissed = event(add_DialDevicePickerDismissed, remove_DialDevicePickerDismissed)
+    DialDeviceSelected = event(add_DialDeviceSelected, remove_DialDeviceSelected)
+    DisconnectButtonClicked = event(add_DisconnectButtonClicked, remove_DisconnectButtonClicked)
 class DialDevicePickerFilter(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.DialProtocol.IDialDevicePickerFilter
@@ -230,9 +230,9 @@ class IDialDevicePicker(ComPtr):
     def SetDisplayStatus(self, device: win32more.Windows.Media.DialProtocol.DialDevice, status: win32more.Windows.Media.DialProtocol.DialDeviceDisplayStatus) -> Void: ...
     Appearance = property(get_Appearance, None)
     Filter = property(get_Filter, None)
-    DialDeviceSelected = event()
-    DisconnectButtonClicked = event()
-    DialDevicePickerDismissed = event()
+    DialDevicePickerDismissed = event(add_DialDevicePickerDismissed, remove_DialDevicePickerDismissed)
+    DialDeviceSelected = event(add_DialDeviceSelected, remove_DialDeviceSelected)
+    DisconnectButtonClicked = event(add_DisconnectButtonClicked, remove_DisconnectButtonClicked)
 class IDialDevicePickerFilter(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.DialProtocol.IDialDevicePickerFilter'

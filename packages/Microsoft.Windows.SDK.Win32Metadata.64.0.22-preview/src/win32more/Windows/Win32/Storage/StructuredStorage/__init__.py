@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Storage.StructuredStorage
 JET_API_PTR = UIntPtr
 JET_HANDLE = UIntPtr

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -26,7 +26,7 @@ class IOfflineMapPackage(ComPtr):
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IOfflineMapPackageQueryResult(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult'
@@ -82,7 +82,7 @@ class OfflineMapPackage(ComPtr):
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class OfflineMapPackageQueryResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult

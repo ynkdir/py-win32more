@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
@@ -125,9 +125,9 @@ class DnssdServiceWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Stopped = event(add_Stopped, remove_Stopped)
 class DnssdServiceWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -217,9 +217,9 @@ class IDnssdServiceWatcher(ComPtr):
     @winrt_commethod(14)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Stopped = event(add_Stopped, remove_Stopped)
 
 
 make_ready(__name__)

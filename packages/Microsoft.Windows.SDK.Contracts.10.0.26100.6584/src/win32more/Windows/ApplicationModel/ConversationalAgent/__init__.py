@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.ConversationalAgent
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -79,7 +79,7 @@ class ActivationSignalDetectionConfiguration(ComPtr):
     TrainingStepCompletionMaxAllowedTime = property(get_TrainingStepCompletionMaxAllowedTime, None)
     TrainingStepsCompleted = property(get_TrainingStepsCompleted, None)
     TrainingStepsRemaining = property(get_TrainingStepsRemaining, None)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class ActivationSignalDetectionConfigurationCreationResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfigurationCreationResult
@@ -322,9 +322,9 @@ class ConversationalAgentSession(ComPtr):
     IsUserAuthenticated = property(get_IsUserAuthenticated, None)
     IsVoiceActivationAvailable = property(get_IsVoiceActivationAvailable, None)
     Signal = property(get_Signal, None)
-    SessionInterrupted = event()
-    SignalDetected = event()
-    SystemStateChanged = event()
+    SessionInterrupted = event(add_SessionInterrupted, remove_SessionInterrupted)
+    SignalDetected = event(add_SignalDetected, remove_SignalDetected)
+    SystemStateChanged = event(add_SystemStateChanged, remove_SystemStateChanged)
 class ConversationalAgentSessionInterruptedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionInterruptedEventArgs
@@ -503,7 +503,7 @@ class IActivationSignalDetectionConfiguration(ComPtr):
     TrainingDataFormat = property(get_TrainingDataFormat, None)
     TrainingStepsCompleted = property(get_TrainingStepsCompleted, None)
     TrainingStepsRemaining = property(get_TrainingStepsRemaining, None)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class IActivationSignalDetectionConfiguration2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfiguration2'
@@ -697,9 +697,9 @@ class IConversationalAgentSession(ComPtr):
     IsUserAuthenticated = property(get_IsUserAuthenticated, None)
     IsVoiceActivationAvailable = property(get_IsVoiceActivationAvailable, None)
     Signal = property(get_Signal, None)
-    SessionInterrupted = event()
-    SignalDetected = event()
-    SystemStateChanged = event()
+    SessionInterrupted = event(add_SessionInterrupted, remove_SessionInterrupted)
+    SignalDetected = event(add_SignalDetected, remove_SignalDetected)
+    SystemStateChanged = event(add_SystemStateChanged, remove_SystemStateChanged)
 class IConversationalAgentSession2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession2'

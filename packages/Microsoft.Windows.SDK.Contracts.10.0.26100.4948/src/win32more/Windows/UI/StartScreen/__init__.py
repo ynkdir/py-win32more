@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -177,7 +177,7 @@ class ISecondaryTile2(ComPtr):
     PhoneticName = property(get_PhoneticName, put_PhoneticName)
     RoamingEnabled = property(get_RoamingEnabled, put_RoamingEnabled)
     VisualElements = property(get_VisualElements, None)
-    VisualElementsRequested = event()
+    VisualElementsRequested = event(add_VisualElementsRequested, remove_VisualElementsRequested)
 class ISecondaryTileFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.StartScreen.ISecondaryTileFactory'
@@ -559,7 +559,7 @@ class SecondaryTile(ComPtr):
     TileOptions = property(get_TileOptions, put_TileOptions)
     VisualElements = property(get_VisualElements, None)
     WideLogo = property(get_WideLogo, put_WideLogo)
-    VisualElementsRequested = event()
+    VisualElementsRequested = event(add_VisualElementsRequested, remove_VisualElementsRequested)
 class SecondaryTileVisualElements(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.StartScreen.ISecondaryTileVisualElements

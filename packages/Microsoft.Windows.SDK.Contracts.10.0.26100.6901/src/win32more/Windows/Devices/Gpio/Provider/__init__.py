@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Gpio.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -57,7 +57,7 @@ class IGpioPinProvider(ComPtr):
     DebounceTimeout = property(get_DebounceTimeout, put_DebounceTimeout)
     PinNumber = property(get_PinNumber, None)
     SharingMode = property(get_SharingMode, None)
-    ValueChanged = event()
+    ValueChanged = event(add_ValueChanged, remove_ValueChanged)
 class IGpioPinProviderValueChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgs'

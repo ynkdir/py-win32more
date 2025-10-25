@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.Midi
 import win32more.Windows.Foundation
@@ -51,7 +51,7 @@ class IMidiInPort(ComPtr):
     @winrt_commethod(8)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-    MessageReceived = event()
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class IMidiInPortStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Midi.IMidiInPortStatics'
@@ -381,7 +381,7 @@ class MidiInPort(ComPtr):
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.Midi.IMidiInPortStatics) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-    MessageReceived = event()
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class MidiMessageReceivedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessageReceivedEventArgs

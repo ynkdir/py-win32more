@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.System.Power
 class _BackgroundEnergyManager_Meta_(ComPtr.__class__):
@@ -39,6 +39,8 @@ class BackgroundEnergyManager(ComPtr, metaclass=_BackgroundEnergyManager_Meta_):
     _BackgroundEnergyManager_Meta_.RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     _BackgroundEnergyManager_Meta_.RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
     _BackgroundEnergyManager_Meta_.TerminationUsageLevel = property(get_TerminationUsageLevel, None)
+    _BackgroundEnergyManager_Meta_.RecentEnergyUsageIncreased = event(add_RecentEnergyUsageIncreased, remove_RecentEnergyUsageIncreased)
+    _BackgroundEnergyManager_Meta_.RecentEnergyUsageReturnedToLow = event(add_RecentEnergyUsageReturnedToLow, remove_RecentEnergyUsageReturnedToLow)
 class BatteryStatus(Enum, Int32):
     NotPresent = 0
     Discharging = 1
@@ -79,6 +81,8 @@ class ForegroundEnergyManager(ComPtr, metaclass=_ForegroundEnergyManager_Meta_):
     _ForegroundEnergyManager_Meta_.NearMaxAcceptableUsageLevel = property(get_NearMaxAcceptableUsageLevel, None)
     _ForegroundEnergyManager_Meta_.RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     _ForegroundEnergyManager_Meta_.RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
+    _ForegroundEnergyManager_Meta_.RecentEnergyUsageIncreased = event(add_RecentEnergyUsageIncreased, remove_RecentEnergyUsageIncreased)
+    _ForegroundEnergyManager_Meta_.RecentEnergyUsageReturnedToLow = event(add_RecentEnergyUsageReturnedToLow, remove_RecentEnergyUsageReturnedToLow)
 class IBackgroundEnergyManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Power.IBackgroundEnergyManagerStatics'
@@ -115,8 +119,8 @@ class IBackgroundEnergyManagerStatics(ComPtr):
     RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
     TerminationUsageLevel = property(get_TerminationUsageLevel, None)
-    RecentEnergyUsageIncreased = event()
-    RecentEnergyUsageReturnedToLow = event()
+    RecentEnergyUsageIncreased = event(add_RecentEnergyUsageIncreased, remove_RecentEnergyUsageIncreased)
+    RecentEnergyUsageReturnedToLow = event(add_RecentEnergyUsageReturnedToLow, remove_RecentEnergyUsageReturnedToLow)
 class IForegroundEnergyManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Power.IForegroundEnergyManagerStatics'
@@ -147,8 +151,8 @@ class IForegroundEnergyManagerStatics(ComPtr):
     NearMaxAcceptableUsageLevel = property(get_NearMaxAcceptableUsageLevel, None)
     RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
-    RecentEnergyUsageIncreased = event()
-    RecentEnergyUsageReturnedToLow = event()
+    RecentEnergyUsageIncreased = event(add_RecentEnergyUsageIncreased, remove_RecentEnergyUsageIncreased)
+    RecentEnergyUsageReturnedToLow = event(add_RecentEnergyUsageReturnedToLow, remove_RecentEnergyUsageReturnedToLow)
 class IPowerManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Power.IPowerManagerStatics'
@@ -188,11 +192,11 @@ class IPowerManagerStatics(ComPtr):
     PowerSupplyStatus = property(get_PowerSupplyStatus, None)
     RemainingChargePercent = property(get_RemainingChargePercent, None)
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
-    EnergySaverStatusChanged = event()
-    BatteryStatusChanged = event()
-    PowerSupplyStatusChanged = event()
-    RemainingChargePercentChanged = event()
-    RemainingDischargeTimeChanged = event()
+    BatteryStatusChanged = event(add_BatteryStatusChanged, remove_BatteryStatusChanged)
+    EnergySaverStatusChanged = event(add_EnergySaverStatusChanged, remove_EnergySaverStatusChanged)
+    PowerSupplyStatusChanged = event(add_PowerSupplyStatusChanged, remove_PowerSupplyStatusChanged)
+    RemainingChargePercentChanged = event(add_RemainingChargePercentChanged, remove_RemainingChargePercentChanged)
+    RemainingDischargeTimeChanged = event(add_RemainingDischargeTimeChanged, remove_RemainingDischargeTimeChanged)
 class _PowerManager_Meta_(ComPtr.__class__):
     pass
 class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
@@ -233,6 +237,11 @@ class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     _PowerManager_Meta_.PowerSupplyStatus = property(get_PowerSupplyStatus, None)
     _PowerManager_Meta_.RemainingChargePercent = property(get_RemainingChargePercent, None)
     _PowerManager_Meta_.RemainingDischargeTime = property(get_RemainingDischargeTime, None)
+    _PowerManager_Meta_.BatteryStatusChanged = event(add_BatteryStatusChanged, remove_BatteryStatusChanged)
+    _PowerManager_Meta_.EnergySaverStatusChanged = event(add_EnergySaverStatusChanged, remove_EnergySaverStatusChanged)
+    _PowerManager_Meta_.PowerSupplyStatusChanged = event(add_PowerSupplyStatusChanged, remove_PowerSupplyStatusChanged)
+    _PowerManager_Meta_.RemainingChargePercentChanged = event(add_RemainingChargePercentChanged, remove_RemainingChargePercentChanged)
+    _PowerManager_Meta_.RemainingDischargeTimeChanged = event(add_RemainingDischargeTimeChanged, remove_RemainingDischargeTimeChanged)
 class PowerSupplyStatus(Enum, Int32):
     NotPresent = 0
     Inadequate = 1

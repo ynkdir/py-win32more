@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Notifications
@@ -24,7 +24,7 @@ class IUserNotificationListener(ComPtr):
     def ClearNotifications(self) -> Void: ...
     @winrt_commethod(13)
     def RemoveNotification(self, notificationId: UInt32) -> Void: ...
-    NotificationChanged = event()
+    NotificationChanged = event(add_NotificationChanged, remove_NotificationChanged)
 class IUserNotificationListenerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Notifications.Management.IUserNotificationListenerStatics'
@@ -57,7 +57,7 @@ class UserNotificationListener(ComPtr, metaclass=_UserNotificationListener_Meta_
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.UI.Notifications.Management.IUserNotificationListenerStatics) -> win32more.Windows.UI.Notifications.Management.UserNotificationListener: ...
     _UserNotificationListener_Meta_.Current = property(get_Current, None)
-    NotificationChanged = event()
+    NotificationChanged = event(add_NotificationChanged, remove_NotificationChanged)
 class UserNotificationListenerAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Composition.SystemBackdrops
@@ -82,9 +82,9 @@ class DesktopAcrylicController(ComPtr):
     State = property(get_State, None)
     TintColor = property(get_TintColor, put_TintColor)
     TintOpacity = property(get_TintOpacity, put_TintOpacity)
-    StateChanged = event()
-    Closed = event()
-    FrameworkClosed = event()
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class DesktopAcrylicKind(Enum, Int32):
     Default = 0
     Base = 1
@@ -228,7 +228,7 @@ class ISystemBackdropControllerWithTargets(ComPtr):
     @winrt_commethod(12)
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     State = property(get_State, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class MicaController(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -304,9 +304,9 @@ class MicaController(ComPtr):
     State = property(get_State, None)
     TintColor = property(get_TintColor, put_TintColor)
     TintOpacity = property(get_TintOpacity, put_TintOpacity)
-    Closed = event()
-    FrameworkClosed = event()
-    StateChanged = event()
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class MicaKind(Enum, Int32):
     Base = 0
     BaseAlt = 1

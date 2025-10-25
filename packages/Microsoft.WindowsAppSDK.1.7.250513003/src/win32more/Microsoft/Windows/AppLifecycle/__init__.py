@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.Windows.AppLifecycle
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
@@ -60,7 +60,7 @@ class AppInstance(ComPtr):
     IsCurrent = property(get_IsCurrent, None)
     Key = property(get_Key, None)
     ProcessId = property(get_ProcessId, None)
-    Activated = event()
+    Activated = event(add_Activated, remove_Activated)
 AppLifecycleContract: UInt32 = 131072
 class ExtendedActivationKind(Enum, Int32):
     Launch = 0
@@ -158,7 +158,7 @@ class IAppInstance(ComPtr):
     IsCurrent = property(get_IsCurrent, None)
     Key = property(get_Key, None)
     ProcessId = property(get_ProcessId, None)
-    Activated = event()
+    Activated = event(add_Activated, remove_Activated)
 class IAppInstanceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppLifecycle.IAppInstanceStatics'

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Media.Capture
 import win32more.Windows.Media.Capture.Core
@@ -37,8 +37,8 @@ class IVariablePhotoSequenceCapture(ComPtr):
     def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Capture.Core.VariablePhotoSequenceCapture, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PhotoCaptured = event()
-    Stopped = event()
+    PhotoCaptured = event(add_PhotoCaptured, remove_PhotoCaptured)
+    Stopped = event(add_Stopped, remove_Stopped)
 class IVariablePhotoSequenceCapture2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Capture.Core.IVariablePhotoSequenceCapture2'
@@ -81,8 +81,8 @@ class VariablePhotoSequenceCapture(ComPtr):
     def remove_Stopped(self: win32more.Windows.Media.Capture.Core.IVariablePhotoSequenceCapture, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def UpdateSettingsAsync(self: win32more.Windows.Media.Capture.Core.IVariablePhotoSequenceCapture2) -> win32more.Windows.Foundation.IAsyncAction: ...
-    PhotoCaptured = event()
-    Stopped = event()
+    PhotoCaptured = event(add_PhotoCaptured, remove_PhotoCaptured)
+    Stopped = event(add_Stopped, remove_Stopped)
 
 
 make_ready(__name__)

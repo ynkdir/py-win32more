@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Devices.Geolocation.Geofencing
 import win32more.Windows.Foundation
@@ -78,8 +78,8 @@ class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     Status = property(get_Status, None)
     _GeofenceMonitor_Meta_.Current = property(get_Current, None)
-    GeofenceStateChanged = event()
-    StatusChanged = event()
+    GeofenceStateChanged = event(add_GeofenceStateChanged, remove_GeofenceStateChanged)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class GeofenceMonitorStatus(Enum, Int32):
     Ready = 0
     Initializing = 1
@@ -171,8 +171,8 @@ class IGeofenceMonitor(ComPtr):
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     Status = property(get_Status, None)
-    GeofenceStateChanged = event()
-    StatusChanged = event()
+    GeofenceStateChanged = event(add_GeofenceStateChanged, remove_GeofenceStateChanged)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IGeofenceMonitorStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.IGeofenceMonitorStatics'

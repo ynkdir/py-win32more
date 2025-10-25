@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.UserDataTasks
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -171,7 +171,7 @@ class IUserDataTaskListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class IUserDataTaskManager(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.IUserDataTaskManager'
@@ -488,7 +488,7 @@ class UserDataTaskListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class UserDataTaskListSyncStatus(Enum, Int32):
     Idle = 0
     Syncing = 1
