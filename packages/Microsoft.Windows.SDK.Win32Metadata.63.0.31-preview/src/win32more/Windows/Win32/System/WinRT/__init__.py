@@ -1,5 +1,6 @@
 from __future__ import annotations
 from win32more._prelude import *
+import win32more.Windows.System
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.Marshal
