@@ -290,7 +290,7 @@ class Com:
 
     def emit(self) -> str:
         writer = StringIO()
-        if self._has_classproperty():
+        if self._has_classproperty() or self._has_classevent():
             writer.write(f"class {self._metaclass_name()}(ComPtr.__class__):\n")
             writer.write("    pass\n")
         writer.write(f"class {self._td.generic_name}({self._basetype()}):\n")
@@ -310,6 +310,7 @@ class Com:
         writer.write(self._properties())
         writer.write(self._class_properties())
         writer.write(self._events())
+        writer.write(self._class_events())
         return writer.getvalue()
 
     def _metaclass_name(self) -> str:
@@ -320,7 +321,7 @@ class Com:
         if self._td.is_generic:
             generic_parameters = self._formatter.generic_parameters(self._td)
             base = f"Generic[{generic_parameters}], {base}"
-        if self._has_classproperty():
+        if self._has_classproperty() or self._has_classevent():
             base = f"{base}, metaclass={self._metaclass_name()}"
         return base
 
@@ -415,6 +416,10 @@ class Com:
     def _has_classproperty(self) -> bool:
         return any(not pd.signature.header.is_instance for pd in self._td.properties)
 
+    def _has_classevent(self) -> bool:
+        methods = {md.name: md for md in self._td.methods}
+        return any("Static" in methods[ed.accessors.adder].attributes for ed in self._td.events)
+
     def _constructor(self) -> str:
         writer = StringIO()
         methods = list(self._enumerate_composable_method()) + list(self._enumerate_activatable_method())
@@ -481,9 +486,19 @@ class Com:
         methods = {md.name: md for md in self._td.methods}
         for ed in sorted(self._td.events, key=lambda ed: ed.name):
             if "Static" in methods[ed.accessors.adder].attributes:
-                # TODO: static event
                 continue
-            writer.write(f"    {ed.name} = event()\n")
+            writer.write(f"    {ed.name} = event({ed.accessors.adder}, {ed.accessors.remover})\n")
+        return writer.getvalue()
+
+    def _class_events(self) -> str:
+        writer = StringIO()
+        methods = {md.name: md for md in self._td.methods}
+        for ed in sorted(self._td.events, key=lambda ed: ed.name):
+            if "Static" not in methods[ed.accessors.adder].attributes:
+                continue
+            writer.write(
+                f"    {self._metaclass_name()}.{ed.name} = event({ed.accessors.adder}, {ed.accessors.remover})\n"
+            )
         return writer.getvalue()
 
     def _enumerate_composable_method(self) -> Iterable[Method]:

@@ -70,25 +70,23 @@ logger = logging.getLogger(__name__)
 
 
 class event:
-    def __init__(self):
-        self._name = None
-
-    def __set_name__(self, owner, name):
-        self._name = name
+    def __init__(self, adder, remover):
+        self._adder = adder
+        self._remover = remover
 
     def __get__(self, instance, owner=None):
         if instance is None:
             return self
-        return event_setter(instance, self._name)
+        return event_setter(instance, self._adder)
 
 
 class event_setter:
-    def __init__(self, instance, name):
+    def __init__(self, instance, adder):
         self._instance = instance
-        self._name = name
+        self._adder = adder
 
     def __iadd__(self, callback):
-        getattr(self._instance, f"add_{self._name}")(callback)
+        self._adder(self._instance, callback)
 
 
 def winrt_easycast(obj, type_):
