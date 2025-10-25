@@ -27,9 +27,9 @@ class HttpDiagnosticProvider(ComPtr):
     def remove_RequestResponseCompleted(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProvider, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def CreateFromProcessDiagnosticInfo(cls: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderStatics, processDiagnosticInfo: win32more.Windows.System.Diagnostics.ProcessDiagnosticInfo) -> win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticProvider: ...
-    RequestSent = event()
-    ResponseReceived = event()
-    RequestResponseCompleted = event()
+    RequestResponseCompleted = event(add_RequestResponseCompleted, remove_RequestResponseCompleted)
+    RequestSent = event(add_RequestSent, remove_RequestSent)
+    ResponseReceived = event(add_ResponseReceived, remove_ResponseReceived)
 class HttpDiagnosticProviderRequestResponseCompletedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseCompletedEventArgs
@@ -172,9 +172,9 @@ class IHttpDiagnosticProvider(ComPtr):
     def add_RequestResponseCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticProvider, win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_RequestResponseCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    RequestSent = event()
-    ResponseReceived = event()
-    RequestResponseCompleted = event()
+    RequestResponseCompleted = event(add_RequestResponseCompleted, remove_RequestResponseCompleted)
+    RequestSent = event(add_RequestSent, remove_RequestSent)
+    ResponseReceived = event(add_ResponseReceived, remove_ResponseReceived)
 class IHttpDiagnosticProviderRequestResponseCompletedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseCompletedEventArgs'

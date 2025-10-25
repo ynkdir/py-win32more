@@ -24,7 +24,7 @@ class ISysStorageProviderEventSource(ComPtr):
     def add_EventReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.Implementation.FileExplorer.ISysStorageProviderEventSource, win32more.Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_EventReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    EventReceived = event()
+    EventReceived = event(add_EventReceived, remove_EventReceived)
 class ISysStorageProviderHandlerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Implementation.FileExplorer.ISysStorageProviderHandlerFactory'

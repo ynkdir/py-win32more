@@ -70,8 +70,8 @@ class AppServiceConnection(ComPtr):
     AppServiceName = property(get_AppServiceName, put_AppServiceName)
     PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
     User = property(get_User, put_User)
-    RequestReceived = event()
-    ServiceClosed = event()
+    RequestReceived = event(add_RequestReceived, remove_RequestReceived)
+    ServiceClosed = event(add_ServiceClosed, remove_ServiceClosed)
 class AppServiceConnectionStatus(Enum, Int32):
     Success = 0
     AppNotInstalled = 1
@@ -191,8 +191,8 @@ class IAppServiceConnection(ComPtr):
     def remove_ServiceClosed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AppServiceName = property(get_AppServiceName, put_AppServiceName)
     PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
-    RequestReceived = event()
-    ServiceClosed = event()
+    RequestReceived = event(add_RequestReceived, remove_RequestReceived)
+    ServiceClosed = event(add_ServiceClosed, remove_ServiceClosed)
 class IAppServiceConnection2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceConnection2'

@@ -30,7 +30,7 @@ class CompositorController(ComPtr):
     @winrt_mixinmethod
     def Commit(self: win32more.Microsoft.UI.Composition.Core.ICompositorController) -> Void: ...
     Compositor = property(get_Compositor, None)
-    CommitNeeded = event()
+    CommitNeeded = event(add_CommitNeeded, remove_CommitNeeded)
 class ICompositorController(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Core.ICompositorController'
@@ -46,7 +46,7 @@ class ICompositorController(ComPtr):
     @winrt_commethod(10)
     def remove_CommitNeeded(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Compositor = property(get_Compositor, None)
-    CommitNeeded = event()
+    CommitNeeded = event(add_CommitNeeded, remove_CommitNeeded)
 
 
 make_ready(__name__)

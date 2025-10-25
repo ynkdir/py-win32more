@@ -20,7 +20,7 @@ class ITwoPanelHingedDevicePosturePreview(ComPtr):
     def add_PostureChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.Preview.TwoPanelHingedDevicePosturePreview, win32more.Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_PostureChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PostureChanged = event()
+    PostureChanged = event(add_PostureChanged, remove_PostureChanged)
 class ITwoPanelHingedDevicePosturePreviewReading(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading'
@@ -68,7 +68,7 @@ class TwoPanelHingedDevicePosturePreview(ComPtr):
     def remove_PostureChanged(self: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreview, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetDefaultAsync(cls: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.System.Preview.TwoPanelHingedDevicePosturePreview]: ...
-    PostureChanged = event()
+    PostureChanged = event(add_PostureChanged, remove_PostureChanged)
 class TwoPanelHingedDevicePosturePreviewReading(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading

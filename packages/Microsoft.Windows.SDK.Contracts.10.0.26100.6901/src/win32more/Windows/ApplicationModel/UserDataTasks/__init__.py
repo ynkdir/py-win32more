@@ -171,7 +171,7 @@ class IUserDataTaskListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class IUserDataTaskManager(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.IUserDataTaskManager'
@@ -488,7 +488,7 @@ class UserDataTaskListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class UserDataTaskListSyncStatus(Enum, Int32):
     Idle = 0
     Syncing = 1

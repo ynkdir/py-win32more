@@ -107,7 +107,7 @@ class ISystemUpdateManagerStatics(ComPtr):
     UserActiveHoursEnd = property(get_UserActiveHoursEnd, None)
     UserActiveHoursMax = property(get_UserActiveHoursMax, None)
     UserActiveHoursStart = property(get_UserActiveHoursStart, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class SystemUpdateAttentionRequiredReason(Enum, Int32):
     None_ = 0
     NetworkRequired = 1
@@ -229,6 +229,7 @@ class SystemUpdateManager(ComPtr, metaclass=_SystemUpdateManager_Meta_):
     _SystemUpdateManager_Meta_.UserActiveHoursEnd = property(get_UserActiveHoursEnd, None)
     _SystemUpdateManager_Meta_.UserActiveHoursMax = property(get_UserActiveHoursMax, None)
     _SystemUpdateManager_Meta_.UserActiveHoursStart = property(get_UserActiveHoursStart, None)
+    _SystemUpdateManager_Meta_.StateChanged = event(add_StateChanged, remove_StateChanged)
 class SystemUpdateManagerState(Enum, Int32):
     Idle = 0
     Detecting = 1

@@ -116,7 +116,7 @@ class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
     def get_Default(cls: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManagerStatics) -> win32more.Microsoft.Windows.AppNotifications.AppNotificationManager: ...
     Setting = property(get_Setting, None)
     _AppNotificationManager_Meta_.Default = property(get_Default, None)
-    NotificationInvoked = event()
+    NotificationInvoked = event(add_NotificationInvoked, remove_NotificationInvoked)
 class AppNotificationPriority(Enum, Int32):
     Default = 0
     High = 1
@@ -273,7 +273,7 @@ class IAppNotificationManager(ComPtr):
     @winrt_commethod(20)
     def GetAllAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.Windows.AppNotifications.AppNotification]]: ...
     Setting = property(get_Setting, None)
-    NotificationInvoked = event()
+    NotificationInvoked = event(add_NotificationInvoked, remove_NotificationInvoked)
 class IAppNotificationManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.IAppNotificationManager2'

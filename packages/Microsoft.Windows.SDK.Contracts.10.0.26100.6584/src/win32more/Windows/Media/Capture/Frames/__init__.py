@@ -182,7 +182,7 @@ class IMediaFrameReader(ComPtr):
     def StartAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Capture.Frames.MediaFrameReaderStartStatus]: ...
     @winrt_commethod(10)
     def StopAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class IMediaFrameReader2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Capture.Frames.IMediaFrameReader2'
@@ -252,7 +252,7 @@ class IMediaFrameSource(ComPtr):
     CurrentFormat = property(get_CurrentFormat, None)
     Info = property(get_Info, None)
     SupportedFormats = property(get_SupportedFormats, None)
-    FormatChanged = event()
+    FormatChanged = event(add_FormatChanged, remove_FormatChanged)
 class IMediaFrameSourceController(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Capture.Frames.IMediaFrameSourceController'
@@ -379,7 +379,7 @@ class IMultiSourceMediaFrameReader(ComPtr):
     def StartAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Capture.Frames.MultiSourceMediaFrameReaderStartStatus]: ...
     @winrt_commethod(10)
     def StopAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class IMultiSourceMediaFrameReader2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Capture.Frames.IMultiSourceMediaFrameReader2'
@@ -500,7 +500,7 @@ class MediaFrameReader(ComPtr):
     @winrt_mixinmethod
     def get_AcquisitionMode(self: win32more.Windows.Media.Capture.Frames.IMediaFrameReader2) -> win32more.Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode: ...
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class MediaFrameReaderAcquisitionMode(Enum, Int32):
     Realtime = 0
     Buffered = 1
@@ -568,7 +568,7 @@ class MediaFrameSource(ComPtr):
     CurrentFormat = property(get_CurrentFormat, None)
     Info = property(get_Info, None)
     SupportedFormats = property(get_SupportedFormats, None)
-    FormatChanged = event()
+    FormatChanged = event(add_FormatChanged, remove_FormatChanged)
 class MediaFrameSourceController(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceController
@@ -700,7 +700,7 @@ class MultiSourceMediaFrameReader(ComPtr):
     @winrt_mixinmethod
     def get_AcquisitionMode(self: win32more.Windows.Media.Capture.Frames.IMultiSourceMediaFrameReader2) -> win32more.Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode: ...
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class MultiSourceMediaFrameReaderStartStatus(Enum, Int32):
     Success = 0
     NotSupported = 1

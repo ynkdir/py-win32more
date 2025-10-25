@@ -862,7 +862,7 @@ class ContactList(ComPtr):
     SyncConstraints = property(get_SyncConstraints, None)
     SyncManager = property(get_SyncManager, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
-    ContactChanged = event()
+    ContactChanged = event(add_ContactChanged, remove_ContactChanged)
 class ContactListLimitedWriteOperations(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactListLimitedWriteOperations
@@ -1049,7 +1049,7 @@ class ContactListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class ContactListSyncStatus(Enum, Int32):
     Idle = 0
     Syncing = 1
@@ -1232,8 +1232,8 @@ class ContactPanel(ComPtr):
     @winrt_mixinmethod
     def remove_Closing(self: win32more.Windows.ApplicationModel.Contacts.IContactPanel, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HeaderColor = property(get_HeaderColor, put_HeaderColor)
-    LaunchFullAppRequested = event()
-    Closing = event()
+    Closing = event(add_Closing, remove_Closing)
+    LaunchFullAppRequested = event(add_LaunchFullAppRequested, remove_LaunchFullAppRequested)
 class ContactPanelClosingEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactPanelClosingEventArgs
@@ -1492,7 +1492,7 @@ class ContactStore(ComPtr):
     def GetChangeTracker(self: win32more.Windows.ApplicationModel.Contacts.IContactStore3, identity: WinRT_String) -> win32more.Windows.ApplicationModel.Contacts.ContactChangeTracker: ...
     AggregateContactManager = property(get_AggregateContactManager, None)
     ChangeTracker = property(get_ChangeTracker, None)
-    ContactChanged = event()
+    ContactChanged = event(add_ContactChanged, remove_ContactChanged)
 class ContactStoreAccessType(Enum, Int32):
     AppContactsReadWrite = 0
     AllContactsReadOnly = 1
@@ -2180,7 +2180,7 @@ class IContactList(ComPtr):
     SupportsServerSearch = property(get_SupportsServerSearch, None)
     SyncManager = property(get_SyncManager, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
-    ContactChanged = event()
+    ContactChanged = event(add_ContactChanged, remove_ContactChanged)
 class IContactList2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.IContactList2'
@@ -2373,7 +2373,7 @@ class IContactListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, None)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, None)
     Status = property(get_Status, None)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class IContactListSyncManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.IContactListSyncManager2'
@@ -2596,8 +2596,8 @@ class IContactPanel(ComPtr):
     @winrt_commethod(12)
     def remove_Closing(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HeaderColor = property(get_HeaderColor, put_HeaderColor)
-    LaunchFullAppRequested = event()
-    Closing = event()
+    Closing = event(add_Closing, remove_Closing)
+    LaunchFullAppRequested = event(add_LaunchFullAppRequested, remove_LaunchFullAppRequested)
 class IContactPanelClosingEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.IContactPanelClosingEventArgs'
@@ -2803,7 +2803,7 @@ class IContactStore2(ComPtr):
     def CreateContactListInAccountAsync(self, displayName: WinRT_String, userDataAccountId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Contacts.ContactList]: ...
     AggregateContactManager = property(get_AggregateContactManager, None)
     ChangeTracker = property(get_ChangeTracker, None)
-    ContactChanged = event()
+    ContactChanged = event(add_ContactChanged, remove_ContactChanged)
 class IContactStore3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.IContactStore3'

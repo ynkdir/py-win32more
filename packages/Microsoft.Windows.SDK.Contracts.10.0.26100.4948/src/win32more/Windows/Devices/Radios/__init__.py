@@ -22,7 +22,7 @@ class IRadio(ComPtr):
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
     State = property(get_State, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class IRadioStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Radios.IRadioStatics'
@@ -62,7 +62,7 @@ class Radio(ComPtr):
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
     State = property(get_State, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class RadioAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1

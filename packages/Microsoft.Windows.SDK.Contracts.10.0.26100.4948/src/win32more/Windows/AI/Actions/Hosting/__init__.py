@@ -23,7 +23,7 @@ class ActionCatalog(ComPtr):
     def GetActionsForCurrentApp(self: win32more.Windows.AI.Actions.Hosting.IActionCatalog3) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionDefinition]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class ActionDefinition(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -131,7 +131,7 @@ class IActionCatalog(ComPtr):
     def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.Hosting.ActionCatalog, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IActionCatalog2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionCatalog2'

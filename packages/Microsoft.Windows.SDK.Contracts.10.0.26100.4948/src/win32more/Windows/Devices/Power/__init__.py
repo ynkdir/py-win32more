@@ -26,7 +26,7 @@ class Battery(ComPtr, metaclass=_Battery_Meta_):
     def GetDeviceSelector(cls: win32more.Windows.Devices.Power.IBatteryStatics) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
     _Battery_Meta_.AggregateBattery = property(get_AggregateBattery, None)
-    ReportUpdated = event()
+    ReportUpdated = event(add_ReportUpdated, remove_ReportUpdated)
 class BatteryReport(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Power.IBatteryReport
@@ -59,7 +59,7 @@ class IBattery(ComPtr):
     @winrt_commethod(9)
     def remove_ReportUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
-    ReportUpdated = event()
+    ReportUpdated = event(add_ReportUpdated, remove_ReportUpdated)
 class IBatteryReport(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Power.IBatteryReport'
@@ -123,7 +123,7 @@ class IPowerGridForecastStatics(ComPtr):
     def add_ForecastUpdated(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_ForecastUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ForecastUpdated = event()
+    ForecastUpdated = event(add_ForecastUpdated, remove_ForecastUpdated)
 PowerGridApiContract: UInt32 = 65536
 class PowerGridData(ComPtr):
     extends: IInspectable
@@ -135,7 +135,9 @@ class PowerGridData(ComPtr):
     def get_IsLowUserExperienceImpact(self: win32more.Windows.Devices.Power.IPowerGridData) -> Boolean: ...
     IsLowUserExperienceImpact = property(get_IsLowUserExperienceImpact, None)
     Severity = property(get_Severity, None)
-class PowerGridForecast(ComPtr):
+class _PowerGridForecast_Meta_(ComPtr.__class__):
+    pass
+class PowerGridForecast(ComPtr, metaclass=_PowerGridForecast_Meta_):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Power.IPowerGridForecast
     _classid_ = 'Windows.Devices.Power.PowerGridForecast'
@@ -154,6 +156,7 @@ class PowerGridForecast(ComPtr):
     BlockDuration = property(get_BlockDuration, None)
     Forecast = property(get_Forecast, None)
     StartTime = property(get_StartTime, None)
+    _PowerGridForecast_Meta_.ForecastUpdated = event(add_ForecastUpdated, remove_ForecastUpdated)
 
 
 make_ready(__name__)

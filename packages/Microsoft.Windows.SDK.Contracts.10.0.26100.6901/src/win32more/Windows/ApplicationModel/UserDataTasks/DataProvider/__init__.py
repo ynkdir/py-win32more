@@ -29,11 +29,11 @@ class IUserDataTaskDataProviderConnection(ComPtr):
     def remove_DeleteTaskRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
     def Start(self) -> Void: ...
-    CreateOrUpdateTaskRequested = event()
-    SyncRequested = event()
-    SkipOccurrenceRequested = event()
-    CompleteTaskRequested = event()
-    DeleteTaskRequested = event()
+    CompleteTaskRequested = event(add_CompleteTaskRequested, remove_CompleteTaskRequested)
+    CreateOrUpdateTaskRequested = event(add_CreateOrUpdateTaskRequested, remove_CreateOrUpdateTaskRequested)
+    DeleteTaskRequested = event(add_DeleteTaskRequested, remove_DeleteTaskRequested)
+    SkipOccurrenceRequested = event(add_SkipOccurrenceRequested, remove_SkipOccurrenceRequested)
+    SyncRequested = event(add_SyncRequested, remove_SyncRequested)
 class IUserDataTaskDataProviderTriggerDetails(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderTriggerDetails'
@@ -179,11 +179,11 @@ class UserDataTaskDataProviderConnection(ComPtr):
     def remove_DeleteTaskRequested(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderConnection, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Start(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderConnection) -> Void: ...
-    CreateOrUpdateTaskRequested = event()
-    SyncRequested = event()
-    SkipOccurrenceRequested = event()
-    CompleteTaskRequested = event()
-    DeleteTaskRequested = event()
+    CompleteTaskRequested = event(add_CompleteTaskRequested, remove_CompleteTaskRequested)
+    CreateOrUpdateTaskRequested = event(add_CreateOrUpdateTaskRequested, remove_CreateOrUpdateTaskRequested)
+    DeleteTaskRequested = event(add_DeleteTaskRequested, remove_DeleteTaskRequested)
+    SkipOccurrenceRequested = event(add_SkipOccurrenceRequested, remove_SkipOccurrenceRequested)
+    SyncRequested = event(add_SyncRequested, remove_SyncRequested)
 class UserDataTaskDataProviderTriggerDetails(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderTriggerDetails

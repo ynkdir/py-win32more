@@ -30,7 +30,7 @@ class IXboxLiveDeviceAddress(ComPtr):
     IsLocal = property(get_IsLocal, None)
     IsValid = property(get_IsValid, None)
     NetworkAccessKind = property(get_NetworkAccessKind, None)
-    SnapshotChanged = event()
+    SnapshotChanged = event(add_SnapshotChanged, remove_SnapshotChanged)
 class IXboxLiveDeviceAddressStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics'
@@ -81,7 +81,7 @@ class IXboxLiveEndpointPair(ComPtr):
     RemotePort = property(get_RemotePort, None)
     State = property(get_State, None)
     Template = property(get_Template, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class IXboxLiveEndpointPairCreationResult(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveEndpointPairCreationResult'
@@ -153,7 +153,7 @@ class IXboxLiveEndpointPairTemplate(ComPtr):
     InitiatorBoundPortRangeUpper = property(get_InitiatorBoundPortRangeUpper, None)
     Name = property(get_Name, None)
     SocketKind = property(get_SocketKind, None)
-    InboundEndpointPairCreated = event()
+    InboundEndpointPairCreated = event(add_InboundEndpointPairCreated, remove_InboundEndpointPairCreated)
 class IXboxLiveEndpointPairTemplateStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplateStatics'
@@ -312,7 +312,7 @@ class XboxLiveDeviceAddress(ComPtr, metaclass=_XboxLiveDeviceAddress_Meta_):
     IsValid = property(get_IsValid, None)
     NetworkAccessKind = property(get_NetworkAccessKind, None)
     _XboxLiveDeviceAddress_Meta_.MaxSnapshotBytesSize = property(get_MaxSnapshotBytesSize, None)
-    SnapshotChanged = event()
+    SnapshotChanged = event(add_SnapshotChanged, remove_SnapshotChanged)
 class XboxLiveEndpointPair(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPair
@@ -352,7 +352,7 @@ class XboxLiveEndpointPair(ComPtr):
     RemotePort = property(get_RemotePort, None)
     State = property(get_State, None)
     Template = property(get_Template, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class XboxLiveEndpointPairCreationBehaviors(Enum, UInt32):
     None_ = 0
     ReevaluatePath = 1
@@ -444,7 +444,7 @@ class XboxLiveEndpointPairTemplate(ComPtr, metaclass=_XboxLiveEndpointPairTempla
     Name = property(get_Name, None)
     SocketKind = property(get_SocketKind, None)
     _XboxLiveEndpointPairTemplate_Meta_.Templates = property(get_Templates, None)
-    InboundEndpointPairCreated = event()
+    InboundEndpointPairCreated = event(add_InboundEndpointPairCreated, remove_InboundEndpointPairCreated)
 class XboxLiveInboundEndpointPairCreatedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.XboxLive.IXboxLiveInboundEndpointPairCreatedEventArgs

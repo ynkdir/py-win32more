@@ -14,7 +14,7 @@ class ILockApplicationHost(ComPtr):
     def add_Unlocking(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.LockScreen.LockApplicationHost, win32more.Windows.ApplicationModel.LockScreen.LockScreenUnlockingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Unlocking(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Unlocking = event()
+    Unlocking = event(add_Unlocking, remove_Unlocking)
 class ILockApplicationHostStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.LockScreen.ILockApplicationHostStatics'
@@ -71,10 +71,10 @@ class ILockScreenInfo(ComPtr):
     Badges = property(get_Badges, None)
     DetailText = property(get_DetailText, None)
     LockScreenImage = property(get_LockScreenImage, None)
-    LockScreenImageChanged = event()
-    BadgesChanged = event()
-    DetailTextChanged = event()
-    AlarmIconChanged = event()
+    AlarmIconChanged = event(add_AlarmIconChanged, remove_AlarmIconChanged)
+    BadgesChanged = event(add_BadgesChanged, remove_BadgesChanged)
+    DetailTextChanged = event(add_DetailTextChanged, remove_DetailTextChanged)
+    LockScreenImageChanged = event(add_LockScreenImageChanged, remove_LockScreenImageChanged)
 class ILockScreenUnlockingDeferral(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.LockScreen.ILockScreenUnlockingDeferral'
@@ -102,7 +102,7 @@ class LockApplicationHost(ComPtr):
     def remove_Unlocking(self: win32more.Windows.ApplicationModel.LockScreen.ILockApplicationHost, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.ApplicationModel.LockScreen.ILockApplicationHostStatics) -> win32more.Windows.ApplicationModel.LockScreen.LockApplicationHost: ...
-    Unlocking = event()
+    Unlocking = event(add_Unlocking, remove_Unlocking)
 class LockScreenBadge(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.LockScreen.ILockScreenBadge
@@ -153,10 +153,10 @@ class LockScreenInfo(ComPtr):
     Badges = property(get_Badges, None)
     DetailText = property(get_DetailText, None)
     LockScreenImage = property(get_LockScreenImage, None)
-    LockScreenImageChanged = event()
-    BadgesChanged = event()
-    DetailTextChanged = event()
-    AlarmIconChanged = event()
+    AlarmIconChanged = event(add_AlarmIconChanged, remove_AlarmIconChanged)
+    BadgesChanged = event(add_BadgesChanged, remove_BadgesChanged)
+    DetailTextChanged = event(add_DetailTextChanged, remove_DetailTextChanged)
+    LockScreenImageChanged = event(add_LockScreenImageChanged, remove_LockScreenImageChanged)
 class LockScreenUnlockingDeferral(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.LockScreen.ILockScreenUnlockingDeferral

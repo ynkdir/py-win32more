@@ -68,7 +68,7 @@ class BarcodeScannerFrameReader(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Connection = property(get_Connection, None)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class BarcodeScannerFrameReaderFrameArrivedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerFrameReaderFrameArrivedEventArgs
@@ -199,14 +199,14 @@ class BarcodeScannerProviderConnection(ComPtr):
     SupportedSymbologies = property(get_SupportedSymbologies, None)
     Version = property(get_Version, put_Version)
     VideoDeviceId = property(get_VideoDeviceId, None)
-    EnableScannerRequested = event()
-    DisableScannerRequested = event()
-    SetActiveSymbologiesRequested = event()
-    StartSoftwareTriggerRequested = event()
-    StopSoftwareTriggerRequested = event()
-    GetBarcodeSymbologyAttributesRequested = event()
-    SetBarcodeSymbologyAttributesRequested = event()
-    HideVideoPreviewRequested = event()
+    DisableScannerRequested = event(add_DisableScannerRequested, remove_DisableScannerRequested)
+    EnableScannerRequested = event(add_EnableScannerRequested, remove_EnableScannerRequested)
+    GetBarcodeSymbologyAttributesRequested = event(add_GetBarcodeSymbologyAttributesRequested, remove_GetBarcodeSymbologyAttributesRequested)
+    HideVideoPreviewRequested = event(add_HideVideoPreviewRequested, remove_HideVideoPreviewRequested)
+    SetActiveSymbologiesRequested = event(add_SetActiveSymbologiesRequested, remove_SetActiveSymbologiesRequested)
+    SetBarcodeSymbologyAttributesRequested = event(add_SetBarcodeSymbologyAttributesRequested, remove_SetBarcodeSymbologyAttributesRequested)
+    StartSoftwareTriggerRequested = event(add_StartSoftwareTriggerRequested, remove_StartSoftwareTriggerRequested)
+    StopSoftwareTriggerRequested = event(add_StopSoftwareTriggerRequested, remove_StopSoftwareTriggerRequested)
 class BarcodeScannerProviderTriggerDetails(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerProviderTriggerDetails
@@ -426,7 +426,7 @@ class IBarcodeScannerFrameReader(ComPtr):
     @winrt_commethod(11)
     def remove_FrameArrived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Connection = property(get_Connection, None)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class IBarcodeScannerFrameReaderFrameArrivedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.Provider.IBarcodeScannerFrameReaderFrameArrivedEventArgs'
@@ -556,14 +556,14 @@ class IBarcodeScannerProviderConnection(ComPtr):
     SupportedSymbologies = property(get_SupportedSymbologies, None)
     Version = property(get_Version, put_Version)
     VideoDeviceId = property(get_VideoDeviceId, None)
-    EnableScannerRequested = event()
-    DisableScannerRequested = event()
-    SetActiveSymbologiesRequested = event()
-    StartSoftwareTriggerRequested = event()
-    StopSoftwareTriggerRequested = event()
-    GetBarcodeSymbologyAttributesRequested = event()
-    SetBarcodeSymbologyAttributesRequested = event()
-    HideVideoPreviewRequested = event()
+    DisableScannerRequested = event(add_DisableScannerRequested, remove_DisableScannerRequested)
+    EnableScannerRequested = event(add_EnableScannerRequested, remove_EnableScannerRequested)
+    GetBarcodeSymbologyAttributesRequested = event(add_GetBarcodeSymbologyAttributesRequested, remove_GetBarcodeSymbologyAttributesRequested)
+    HideVideoPreviewRequested = event(add_HideVideoPreviewRequested, remove_HideVideoPreviewRequested)
+    SetActiveSymbologiesRequested = event(add_SetActiveSymbologiesRequested, remove_SetActiveSymbologiesRequested)
+    SetBarcodeSymbologyAttributesRequested = event(add_SetBarcodeSymbologyAttributesRequested, remove_SetBarcodeSymbologyAttributesRequested)
+    StartSoftwareTriggerRequested = event(add_StartSoftwareTriggerRequested, remove_StartSoftwareTriggerRequested)
+    StopSoftwareTriggerRequested = event(add_StopSoftwareTriggerRequested, remove_StopSoftwareTriggerRequested)
 class IBarcodeScannerProviderConnection2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.Provider.IBarcodeScannerProviderConnection2'

@@ -209,18 +209,18 @@ class IMediaControl(ComPtr):
     IsPlaying = property(get_IsPlaying, put_IsPlaying)
     SoundLevel = property(get_SoundLevel, None)
     TrackName = property(get_TrackName, put_TrackName)
-    SoundLevelChanged = event()
-    PlayPressed = event()
-    PausePressed = event()
-    StopPressed = event()
-    PlayPauseTogglePressed = event()
-    RecordPressed = event()
-    NextTrackPressed = event()
-    PreviousTrackPressed = event()
-    FastForwardPressed = event()
-    RewindPressed = event()
-    ChannelUpPressed = event()
-    ChannelDownPressed = event()
+    ChannelDownPressed = event(add_ChannelDownPressed, remove_ChannelDownPressed)
+    ChannelUpPressed = event(add_ChannelUpPressed, remove_ChannelUpPressed)
+    FastForwardPressed = event(add_FastForwardPressed, remove_FastForwardPressed)
+    NextTrackPressed = event(add_NextTrackPressed, remove_NextTrackPressed)
+    PausePressed = event(add_PausePressed, remove_PausePressed)
+    PlayPauseTogglePressed = event(add_PlayPauseTogglePressed, remove_PlayPauseTogglePressed)
+    PlayPressed = event(add_PlayPressed, remove_PlayPressed)
+    PreviousTrackPressed = event(add_PreviousTrackPressed, remove_PreviousTrackPressed)
+    RecordPressed = event(add_RecordPressed, remove_RecordPressed)
+    RewindPressed = event(add_RewindPressed, remove_RewindPressed)
+    SoundLevelChanged = event(add_SoundLevelChanged, remove_SoundLevelChanged)
+    StopPressed = event(add_StopPressed, remove_StopPressed)
 class IMediaExtension(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.IMediaExtension'
@@ -360,8 +360,8 @@ class IMediaTimelineController(ComPtr):
     ClockRate = property(get_ClockRate, put_ClockRate)
     Position = property(get_Position, put_Position)
     State = property(get_State, None)
-    PositionChanged = event()
-    StateChanged = event()
+    PositionChanged = event(add_PositionChanged, remove_PositionChanged)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class IMediaTimelineController2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.IMediaTimelineController2'
@@ -384,8 +384,8 @@ class IMediaTimelineController2(ComPtr):
     def remove_Ended(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Duration = property(get_Duration, put_Duration)
     IsLoopingEnabled = property(get_IsLoopingEnabled, put_IsLoopingEnabled)
-    Failed = event()
-    Ended = event()
+    Ended = event(add_Ended, remove_Ended)
+    Failed = event(add_Failed, remove_Failed)
 class IMediaTimelineControllerFailedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.IMediaTimelineControllerFailedEventArgs'
@@ -537,8 +537,8 @@ class ISystemMediaTransportControls(ComPtr):
     IsStopEnabled = property(get_IsStopEnabled, put_IsStopEnabled)
     PlaybackStatus = property(get_PlaybackStatus, put_PlaybackStatus)
     SoundLevel = property(get_SoundLevel, None)
-    ButtonPressed = event()
-    PropertyChanged = event()
+    ButtonPressed = event(add_ButtonPressed, remove_ButtonPressed)
+    PropertyChanged = event(add_PropertyChanged, remove_PropertyChanged)
 class ISystemMediaTransportControls2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.ISystemMediaTransportControls2'
@@ -576,10 +576,10 @@ class ISystemMediaTransportControls2(ComPtr):
     AutoRepeatMode = property(get_AutoRepeatMode, put_AutoRepeatMode)
     PlaybackRate = property(get_PlaybackRate, put_PlaybackRate)
     ShuffleEnabled = property(get_ShuffleEnabled, put_ShuffleEnabled)
-    PlaybackPositionChangeRequested = event()
-    PlaybackRateChangeRequested = event()
-    ShuffleEnabledChangeRequested = event()
-    AutoRepeatModeChangeRequested = event()
+    AutoRepeatModeChangeRequested = event(add_AutoRepeatModeChangeRequested, remove_AutoRepeatModeChangeRequested)
+    PlaybackPositionChangeRequested = event(add_PlaybackPositionChangeRequested, remove_PlaybackPositionChangeRequested)
+    PlaybackRateChangeRequested = event(add_PlaybackRateChangeRequested, remove_PlaybackRateChangeRequested)
+    ShuffleEnabledChangeRequested = event(add_ShuffleEnabledChangeRequested, remove_ShuffleEnabledChangeRequested)
 class ISystemMediaTransportControlsButtonPressedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.ISystemMediaTransportControlsButtonPressedEventArgs'
@@ -820,6 +820,18 @@ class MediaControl(ComPtr, metaclass=_MediaControl_Meta_):
     _MediaControl_Meta_.IsPlaying = property(get_IsPlaying, put_IsPlaying)
     _MediaControl_Meta_.SoundLevel = property(get_SoundLevel, None)
     _MediaControl_Meta_.TrackName = property(get_TrackName, put_TrackName)
+    _MediaControl_Meta_.ChannelDownPressed = event(add_ChannelDownPressed, remove_ChannelDownPressed)
+    _MediaControl_Meta_.ChannelUpPressed = event(add_ChannelUpPressed, remove_ChannelUpPressed)
+    _MediaControl_Meta_.FastForwardPressed = event(add_FastForwardPressed, remove_FastForwardPressed)
+    _MediaControl_Meta_.NextTrackPressed = event(add_NextTrackPressed, remove_NextTrackPressed)
+    _MediaControl_Meta_.PausePressed = event(add_PausePressed, remove_PausePressed)
+    _MediaControl_Meta_.PlayPauseTogglePressed = event(add_PlayPauseTogglePressed, remove_PlayPauseTogglePressed)
+    _MediaControl_Meta_.PlayPressed = event(add_PlayPressed, remove_PlayPressed)
+    _MediaControl_Meta_.PreviousTrackPressed = event(add_PreviousTrackPressed, remove_PreviousTrackPressed)
+    _MediaControl_Meta_.RecordPressed = event(add_RecordPressed, remove_RecordPressed)
+    _MediaControl_Meta_.RewindPressed = event(add_RewindPressed, remove_RewindPressed)
+    _MediaControl_Meta_.SoundLevelChanged = event(add_SoundLevelChanged, remove_SoundLevelChanged)
+    _MediaControl_Meta_.StopPressed = event(add_StopPressed, remove_StopPressed)
 MediaControlContract: UInt32 = 65536
 class MediaExtensionManager(ComPtr):
     extends: IInspectable
@@ -951,10 +963,10 @@ class MediaTimelineController(ComPtr):
     IsLoopingEnabled = property(get_IsLoopingEnabled, put_IsLoopingEnabled)
     Position = property(get_Position, put_Position)
     State = property(get_State, None)
-    PositionChanged = event()
-    StateChanged = event()
-    Failed = event()
-    Ended = event()
+    Ended = event(add_Ended, remove_Ended)
+    Failed = event(add_Failed, remove_Failed)
+    PositionChanged = event(add_PositionChanged, remove_PositionChanged)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class MediaTimelineControllerFailedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.IMediaTimelineControllerFailedEventArgs
@@ -1142,12 +1154,12 @@ class SystemMediaTransportControls(ComPtr):
     PlaybackStatus = property(get_PlaybackStatus, put_PlaybackStatus)
     ShuffleEnabled = property(get_ShuffleEnabled, put_ShuffleEnabled)
     SoundLevel = property(get_SoundLevel, None)
-    ButtonPressed = event()
-    PropertyChanged = event()
-    PlaybackPositionChangeRequested = event()
-    PlaybackRateChangeRequested = event()
-    ShuffleEnabledChangeRequested = event()
-    AutoRepeatModeChangeRequested = event()
+    AutoRepeatModeChangeRequested = event(add_AutoRepeatModeChangeRequested, remove_AutoRepeatModeChangeRequested)
+    ButtonPressed = event(add_ButtonPressed, remove_ButtonPressed)
+    PlaybackPositionChangeRequested = event(add_PlaybackPositionChangeRequested, remove_PlaybackPositionChangeRequested)
+    PlaybackRateChangeRequested = event(add_PlaybackRateChangeRequested, remove_PlaybackRateChangeRequested)
+    PropertyChanged = event(add_PropertyChanged, remove_PropertyChanged)
+    ShuffleEnabledChangeRequested = event(add_ShuffleEnabledChangeRequested, remove_ShuffleEnabledChangeRequested)
 class SystemMediaTransportControlsButton(Enum, Int32):
     Play = 0
     Pause = 1

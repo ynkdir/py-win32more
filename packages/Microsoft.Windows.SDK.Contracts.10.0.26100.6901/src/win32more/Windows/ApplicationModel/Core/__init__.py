@@ -98,6 +98,13 @@ class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     _CoreApplication_Meta_.MainView = property(get_MainView, None)
     _CoreApplication_Meta_.Properties = property(get_Properties, None)
     _CoreApplication_Meta_.Views = property(get_Views, None)
+    _CoreApplication_Meta_.BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
+    _CoreApplication_Meta_.EnteredBackground = event(add_EnteredBackground, remove_EnteredBackground)
+    _CoreApplication_Meta_.Exiting = event(add_Exiting, remove_Exiting)
+    _CoreApplication_Meta_.LeavingBackground = event(add_LeavingBackground, remove_LeavingBackground)
+    _CoreApplication_Meta_.Resuming = event(add_Resuming, remove_Resuming)
+    _CoreApplication_Meta_.Suspending = event(add_Suspending, remove_Suspending)
+    _CoreApplication_Meta_.UnhandledErrorDetected = event(add_UnhandledErrorDetected, remove_UnhandledErrorDetected)
 class CoreApplicationView(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Core.ICoreApplicationView
@@ -134,8 +141,8 @@ class CoreApplicationView(ComPtr):
     IsMain = property(get_IsMain, None)
     Properties = property(get_Properties, None)
     TitleBar = property(get_TitleBar, None)
-    Activated = event()
-    HostedViewClosing = event()
+    Activated = event(add_Activated, remove_Activated)
+    HostedViewClosing = event(add_HostedViewClosing, remove_HostedViewClosing)
 class CoreApplicationViewTitleBar(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar
@@ -165,8 +172,8 @@ class CoreApplicationViewTitleBar(ComPtr):
     IsVisible = property(get_IsVisible, None)
     SystemOverlayLeftInset = property(get_SystemOverlayLeftInset, None)
     SystemOverlayRightInset = property(get_SystemOverlayRightInset, None)
-    LayoutMetricsChanged = event()
-    IsVisibleChanged = event()
+    IsVisibleChanged = event(add_IsVisibleChanged, remove_IsVisibleChanged)
+    LayoutMetricsChanged = event(add_LayoutMetricsChanged, remove_LayoutMetricsChanged)
 class HostedViewClosingEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Core.IHostedViewClosingEventArgs
@@ -226,8 +233,8 @@ class ICoreApplication(ComPtr):
     def RunWithActivationFactories(self, activationFactoryCallback: win32more.Windows.Foundation.IGetActivationFactory) -> Void: ...
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
-    Suspending = event()
-    Resuming = event()
+    Resuming = event(add_Resuming, remove_Resuming)
+    Suspending = event(add_Suspending, remove_Suspending)
 class ICoreApplication2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplication2'
@@ -246,9 +253,9 @@ class ICoreApplication2(ComPtr):
     def remove_EnteredBackground(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
     def EnablePrelaunch(self, value: Boolean) -> Void: ...
-    BackgroundActivated = event()
-    LeavingBackground = event()
-    EnteredBackground = event()
+    BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
+    EnteredBackground = event(add_EnteredBackground, remove_EnteredBackground)
+    LeavingBackground = event(add_LeavingBackground, remove_LeavingBackground)
 class ICoreApplication3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplication3'
@@ -267,7 +274,7 @@ class ICoreApplicationExit(ComPtr):
     def add_Exiting(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Exiting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Exiting = event()
+    Exiting = event(add_Exiting, remove_Exiting)
 class ICoreApplicationUnhandledError(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationUnhandledError'
@@ -276,7 +283,7 @@ class ICoreApplicationUnhandledError(ComPtr):
     def add_UnhandledErrorDetected(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.ApplicationModel.Core.UnhandledErrorDetectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_UnhandledErrorDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    UnhandledErrorDetected = event()
+    UnhandledErrorDetected = event(add_UnhandledErrorDetected, remove_UnhandledErrorDetected)
 class ICoreApplicationUseCount(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationUseCount'
@@ -302,7 +309,7 @@ class ICoreApplicationView(ComPtr):
     CoreWindow = property(get_CoreWindow, None)
     IsHosted = property(get_IsHosted, None)
     IsMain = property(get_IsMain, None)
-    Activated = event()
+    Activated = event(add_Activated, remove_Activated)
 class ICoreApplicationView2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationView2'
@@ -324,7 +331,7 @@ class ICoreApplicationView3(ComPtr):
     def remove_HostedViewClosing(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsComponent = property(get_IsComponent, None)
     TitleBar = property(get_TitleBar, None)
-    HostedViewClosing = event()
+    HostedViewClosing = event(add_HostedViewClosing, remove_HostedViewClosing)
 class ICoreApplicationView5(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationView5'
@@ -368,8 +375,8 @@ class ICoreApplicationViewTitleBar(ComPtr):
     IsVisible = property(get_IsVisible, None)
     SystemOverlayLeftInset = property(get_SystemOverlayLeftInset, None)
     SystemOverlayRightInset = property(get_SystemOverlayRightInset, None)
-    LayoutMetricsChanged = event()
-    IsVisibleChanged = event()
+    IsVisibleChanged = event(add_IsVisibleChanged, remove_IsVisibleChanged)
+    LayoutMetricsChanged = event(add_LayoutMetricsChanged, remove_LayoutMetricsChanged)
 class ICoreImmersiveApplication(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreImmersiveApplication'

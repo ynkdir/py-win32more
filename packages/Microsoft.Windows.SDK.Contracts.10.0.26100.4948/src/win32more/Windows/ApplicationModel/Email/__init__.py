@@ -497,7 +497,7 @@ class EmailMailbox(ComPtr):
     SourceDisplayName = property(get_SourceDisplayName, None)
     SyncManager = property(get_SyncManager, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
-    MailboxChanged = event()
+    MailboxChanged = event(add_MailboxChanged, remove_MailboxChanged)
 class EmailMailboxAction(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailMailboxAction
@@ -825,7 +825,7 @@ class EmailMailboxSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class EmailMailboxSyncStatus(Enum, Int32):
     Idle = 0
     Syncing = 1
@@ -1750,7 +1750,7 @@ class IEmailMailbox(ComPtr):
     SourceDisplayName = property(get_SourceDisplayName, None)
     SyncManager = property(get_SyncManager, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
-    MailboxChanged = event()
+    MailboxChanged = event(add_MailboxChanged, remove_MailboxChanged)
 class IEmailMailbox2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.IEmailMailbox2'
@@ -2071,7 +2071,7 @@ class IEmailMailboxSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, None)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, None)
     Status = property(get_Status, None)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class IEmailMailboxSyncManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.IEmailMailboxSyncManager2'

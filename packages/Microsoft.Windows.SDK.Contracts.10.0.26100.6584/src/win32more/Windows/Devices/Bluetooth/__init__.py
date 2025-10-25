@@ -173,9 +173,9 @@ class BluetoothDevice(ComPtr):
     RfcommServices = property(get_RfcommServices, None)
     SdpRecords = property(get_SdpRecords, None)
     WasSecureConnectionUsedForPairing = property(get_WasSecureConnectionUsedForPairing, None)
-    NameChanged = event()
-    SdpRecordsChanged = event()
-    ConnectionStatusChanged = event()
+    ConnectionStatusChanged = event(add_ConnectionStatusChanged, remove_ConnectionStatusChanged)
+    NameChanged = event(add_NameChanged, remove_NameChanged)
+    SdpRecordsChanged = event(add_SdpRecordsChanged, remove_SdpRecordsChanged)
 class BluetoothDeviceId(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.IBluetoothDeviceId
@@ -513,11 +513,11 @@ class BluetoothLEDevice(ComPtr):
     GattServices = property(get_GattServices, None)
     Name = property(get_Name, None)
     WasSecureConnectionUsedForPairing = property(get_WasSecureConnectionUsedForPairing, None)
-    NameChanged = event()
-    GattServicesChanged = event()
-    ConnectionStatusChanged = event()
-    ConnectionParametersChanged = event()
-    ConnectionPhyChanged = event()
+    ConnectionParametersChanged = event(add_ConnectionParametersChanged, remove_ConnectionParametersChanged)
+    ConnectionPhyChanged = event(add_ConnectionPhyChanged, remove_ConnectionPhyChanged)
+    ConnectionStatusChanged = event(add_ConnectionStatusChanged, remove_ConnectionStatusChanged)
+    GattServicesChanged = event(add_GattServicesChanged, remove_GattServicesChanged)
+    NameChanged = event(add_NameChanged, remove_NameChanged)
 class _BluetoothLEPreferredConnectionParameters_Meta_(ComPtr.__class__):
     pass
 class BluetoothLEPreferredConnectionParameters(ComPtr, metaclass=_BluetoothLEPreferredConnectionParameters_Meta_):
@@ -825,9 +825,9 @@ class IBluetoothDevice(ComPtr):
     Name = property(get_Name, None)
     RfcommServices = property(get_RfcommServices, None)
     SdpRecords = property(get_SdpRecords, None)
-    NameChanged = event()
-    SdpRecordsChanged = event()
-    ConnectionStatusChanged = event()
+    ConnectionStatusChanged = event(add_ConnectionStatusChanged, remove_ConnectionStatusChanged)
+    NameChanged = event(add_NameChanged, remove_NameChanged)
+    SdpRecordsChanged = event(add_SdpRecordsChanged, remove_SdpRecordsChanged)
 class IBluetoothDevice2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.IBluetoothDevice2'
@@ -1159,9 +1159,9 @@ class IBluetoothLEDevice(ComPtr):
     DeviceId = property(get_DeviceId, None)
     GattServices = property(get_GattServices, None)
     Name = property(get_Name, None)
-    NameChanged = event()
-    GattServicesChanged = event()
-    ConnectionStatusChanged = event()
+    ConnectionStatusChanged = event(add_ConnectionStatusChanged, remove_ConnectionStatusChanged)
+    GattServicesChanged = event(add_GattServicesChanged, remove_GattServicesChanged)
+    NameChanged = event(add_NameChanged, remove_NameChanged)
 class IBluetoothLEDevice2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.IBluetoothLEDevice2'
@@ -1224,8 +1224,8 @@ class IBluetoothLEDevice6(ComPtr):
     def add_ConnectionPhyChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.BluetoothLEDevice, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_ConnectionPhyChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ConnectionParametersChanged = event()
-    ConnectionPhyChanged = event()
+    ConnectionParametersChanged = event(add_ConnectionParametersChanged, remove_ConnectionParametersChanged)
+    ConnectionPhyChanged = event(add_ConnectionPhyChanged, remove_ConnectionPhyChanged)
 class IBluetoothLEDeviceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.IBluetoothLEDeviceStatics'

@@ -337,7 +337,7 @@ class ConnectedAnimation(ComPtr):
     def SetAnimationComponent(self: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation, component: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationComponent, animation: win32more.Microsoft.UI.Composition.ICompositionAnimationBase) -> Void: ...
     Configuration = property(get_Configuration, put_Configuration)
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class ConnectedAnimationComponent(Enum, Int32):
     OffsetX = 0
     OffsetY = 1
@@ -1379,7 +1379,7 @@ class IConnectedAnimation(ComPtr):
     def SetAnimationComponent(self, component: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationComponent, animation: win32more.Microsoft.UI.Composition.ICompositionAnimationBase) -> Void: ...
     Configuration = property(get_Configuration, put_Configuration)
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class IConnectedAnimationConfiguration(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationConfiguration'
@@ -2816,7 +2816,7 @@ class ITimeline(ComPtr):
     FillBehavior = property(get_FillBehavior, put_FillBehavior)
     RepeatBehavior = property(get_RepeatBehavior, put_RepeatBehavior)
     SpeedRatio = property(get_SpeedRatio, put_SpeedRatio)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class ITimelineFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ITimelineFactory'
@@ -4075,7 +4075,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     _Timeline_Meta_.FillBehaviorProperty = property(get_FillBehaviorProperty, None)
     _Timeline_Meta_.RepeatBehaviorProperty = property(get_RepeatBehaviorProperty, None)
     _Timeline_Meta_.SpeedRatioProperty = property(get_SpeedRatioProperty, None)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class TimelineCollection(ComPtr):
     extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.Timeline]]

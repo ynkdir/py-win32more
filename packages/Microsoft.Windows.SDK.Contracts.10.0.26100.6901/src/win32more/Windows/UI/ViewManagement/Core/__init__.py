@@ -20,8 +20,8 @@ class CoreFrameworkInputView(ComPtr):
     def GetForUIContext(cls: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewStatics, context: win32more.Windows.UI.UIContext) -> win32more.Windows.UI.ViewManagement.Core.CoreFrameworkInputView: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewStatics) -> win32more.Windows.UI.ViewManagement.Core.CoreFrameworkInputView: ...
-    PrimaryViewAnimationStarting = event()
-    OcclusionsChanged = event()
+    OcclusionsChanged = event(add_OcclusionsChanged, remove_OcclusionsChanged)
+    PrimaryViewAnimationStarting = event(add_PrimaryViewAnimationStarting, remove_PrimaryViewAnimationStarting)
 class CoreFrameworkInputViewAnimationStartingEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewAnimationStartingEventArgs
@@ -97,13 +97,13 @@ class CoreInputView(ComPtr):
     def GetForUIContext(cls: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewStatics2, context: win32more.Windows.UI.UIContext) -> win32more.Windows.UI.ViewManagement.Core.CoreInputView: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewStatics) -> win32more.Windows.UI.ViewManagement.Core.CoreInputView: ...
-    OcclusionsChanged = event()
-    XYFocusTransferringFromPrimaryView = event()
-    XYFocusTransferredToPrimaryView = event()
-    PrimaryViewShowing = event()
-    PrimaryViewHiding = event()
-    SupportedKindsChanged = event()
-    PrimaryViewAnimationStarting = event()
+    OcclusionsChanged = event(add_OcclusionsChanged, remove_OcclusionsChanged)
+    PrimaryViewAnimationStarting = event(add_PrimaryViewAnimationStarting, remove_PrimaryViewAnimationStarting)
+    PrimaryViewHiding = event(add_PrimaryViewHiding, remove_PrimaryViewHiding)
+    PrimaryViewShowing = event(add_PrimaryViewShowing, remove_PrimaryViewShowing)
+    SupportedKindsChanged = event(add_SupportedKindsChanged, remove_SupportedKindsChanged)
+    XYFocusTransferredToPrimaryView = event(add_XYFocusTransferredToPrimaryView, remove_XYFocusTransferredToPrimaryView)
+    XYFocusTransferringFromPrimaryView = event(add_XYFocusTransferringFromPrimaryView, remove_XYFocusTransferringFromPrimaryView)
 class CoreInputViewAnimationStartingEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewAnimationStartingEventArgs
@@ -203,8 +203,8 @@ class ICoreFrameworkInputView(ComPtr):
     def add_OcclusionsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreFrameworkInputView, win32more.Windows.UI.ViewManagement.Core.CoreFrameworkInputViewOcclusionsChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_OcclusionsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PrimaryViewAnimationStarting = event()
-    OcclusionsChanged = event()
+    OcclusionsChanged = event(add_OcclusionsChanged, remove_OcclusionsChanged)
+    PrimaryViewAnimationStarting = event(add_PrimaryViewAnimationStarting, remove_PrimaryViewAnimationStarting)
 class ICoreFrameworkInputViewAnimationStartingEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewAnimationStartingEventArgs'
@@ -250,7 +250,7 @@ class ICoreInputView(ComPtr):
     def TryShowPrimaryView(self) -> Boolean: ...
     @winrt_commethod(10)
     def TryHidePrimaryView(self) -> Boolean: ...
-    OcclusionsChanged = event()
+    OcclusionsChanged = event(add_OcclusionsChanged, remove_OcclusionsChanged)
 class ICoreInputView2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreInputView2'
@@ -265,8 +265,8 @@ class ICoreInputView2(ComPtr):
     def remove_XYFocusTransferredToPrimaryView(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
     def TryTransferXYFocusToPrimaryView(self, origin: win32more.Windows.Foundation.Rect, direction: win32more.Windows.UI.ViewManagement.Core.CoreInputViewXYFocusTransferDirection) -> Boolean: ...
-    XYFocusTransferringFromPrimaryView = event()
-    XYFocusTransferredToPrimaryView = event()
+    XYFocusTransferredToPrimaryView = event(add_XYFocusTransferredToPrimaryView, remove_XYFocusTransferredToPrimaryView)
+    XYFocusTransferringFromPrimaryView = event(add_XYFocusTransferringFromPrimaryView, remove_XYFocusTransferringFromPrimaryView)
 class ICoreInputView3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreInputView3'
@@ -289,8 +289,8 @@ class ICoreInputView4(ComPtr):
     def add_PrimaryViewHiding(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.UI.ViewManagement.Core.CoreInputViewHidingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_PrimaryViewHiding(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PrimaryViewShowing = event()
-    PrimaryViewHiding = event()
+    PrimaryViewHiding = event(add_PrimaryViewHiding, remove_PrimaryViewHiding)
+    PrimaryViewShowing = event(add_PrimaryViewShowing, remove_PrimaryViewShowing)
 class ICoreInputView5(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreInputView5'
@@ -305,8 +305,8 @@ class ICoreInputView5(ComPtr):
     def add_PrimaryViewAnimationStarting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.Core.CoreInputView, win32more.Windows.UI.ViewManagement.Core.CoreInputViewAnimationStartingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_PrimaryViewAnimationStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    SupportedKindsChanged = event()
-    PrimaryViewAnimationStarting = event()
+    PrimaryViewAnimationStarting = event(add_PrimaryViewAnimationStarting, remove_PrimaryViewAnimationStarting)
+    SupportedKindsChanged = event(add_SupportedKindsChanged, remove_SupportedKindsChanged)
 class ICoreInputViewAnimationStartingEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreInputViewAnimationStartingEventArgs'

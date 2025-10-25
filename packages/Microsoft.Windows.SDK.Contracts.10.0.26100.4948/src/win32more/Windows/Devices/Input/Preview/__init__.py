@@ -63,10 +63,10 @@ class GazeDeviceWatcherPreview(ComPtr):
     def Start(self: win32more.Windows.Devices.Input.Preview.IGazeDeviceWatcherPreview) -> Void: ...
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Devices.Input.Preview.IGazeDeviceWatcherPreview) -> Void: ...
-    Added = event()
-    Removed = event()
-    Updated = event()
-    EnumerationCompleted = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Updated = event(add_Updated, remove_Updated)
 class GazeDeviceWatcherRemovedPreviewEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Input.Preview.IGazeDeviceWatcherRemovedPreviewEventArgs
@@ -125,9 +125,9 @@ class GazeInputSourcePreview(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.Devices.Input.Preview.IGazeInputSourcePreviewStatics) -> win32more.Windows.Devices.Input.Preview.GazeInputSourcePreview: ...
     @winrt_classmethod
     def CreateWatcher(cls: win32more.Windows.Devices.Input.Preview.IGazeInputSourcePreviewStatics) -> win32more.Windows.Devices.Input.Preview.GazeDeviceWatcherPreview: ...
-    GazeMoved = event()
-    GazeEntered = event()
-    GazeExited = event()
+    GazeEntered = event(add_GazeEntered, remove_GazeEntered)
+    GazeExited = event(add_GazeExited, remove_GazeExited)
+    GazeMoved = event(add_GazeMoved, remove_GazeMoved)
 class GazeMovedPreviewEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Input.Preview.IGazeMovedPreviewEventArgs
@@ -214,10 +214,10 @@ class IGazeDeviceWatcherPreview(ComPtr):
     def Start(self) -> Void: ...
     @winrt_commethod(15)
     def Stop(self) -> Void: ...
-    Added = event()
-    Removed = event()
-    Updated = event()
-    EnumerationCompleted = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Updated = event(add_Updated, remove_Updated)
 class IGazeDeviceWatcherRemovedPreviewEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Input.Preview.IGazeDeviceWatcherRemovedPreviewEventArgs'
@@ -272,9 +272,9 @@ class IGazeInputSourcePreview(ComPtr):
     def add_GazeExited(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.Preview.GazeInputSourcePreview, win32more.Windows.Devices.Input.Preview.GazeExitedPreviewEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_GazeExited(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    GazeMoved = event()
-    GazeEntered = event()
-    GazeExited = event()
+    GazeEntered = event(add_GazeEntered, remove_GazeEntered)
+    GazeExited = event(add_GazeExited, remove_GazeExited)
+    GazeMoved = event(add_GazeMoved, remove_GazeMoved)
 class IGazeInputSourcePreviewStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Input.Preview.IGazeInputSourcePreviewStatics'

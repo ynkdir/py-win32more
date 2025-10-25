@@ -38,7 +38,7 @@ class ISystemNavigationManagerPreview(ComPtr):
     def add_CloseRequested(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.UI.Core.Preview.SystemNavigationCloseRequestedPreviewEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_CloseRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    CloseRequested = event()
+    CloseRequested = event(add_CloseRequested, remove_CloseRequested)
 class ISystemNavigationManagerPreviewStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Core.Preview.ISystemNavigationManagerPreviewStatics'
@@ -66,7 +66,7 @@ class SystemNavigationManagerPreview(ComPtr):
     def remove_CloseRequested(self: win32more.Windows.UI.Core.Preview.ISystemNavigationManagerPreview, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Core.Preview.ISystemNavigationManagerPreviewStatics) -> win32more.Windows.UI.Core.Preview.SystemNavigationManagerPreview: ...
-    CloseRequested = event()
+    CloseRequested = event(add_CloseRequested, remove_CloseRequested)
 
 
 make_ready(__name__)

@@ -112,11 +112,11 @@ class CanvasAnimatedControl(ComPtr):
     Size = property(get_Size, None)
     TargetElapsedTime = property(get_TargetElapsedTime, put_TargetElapsedTime)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    Update = event()
-    Draw = event()
-    GameLoopStarting = event()
-    GameLoopStopped = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    Draw = event(add_Draw, remove_Draw)
+    GameLoopStarting = event(add_GameLoopStarting, remove_GameLoopStarting)
+    GameLoopStopped = event(add_GameLoopStopped, remove_GameLoopStopped)
+    Update = event(add_Update, remove_Update)
 class CanvasAnimatedDrawEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedDrawEventArgs
@@ -218,8 +218,8 @@ class CanvasControl(ComPtr):
     ReadyToDraw = property(get_ReadyToDraw, None)
     Size = property(get_Size, None)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    Draw = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    Draw = event(add_Draw, remove_Draw)
 class CanvasDrawEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasDrawEventArgs
@@ -390,8 +390,8 @@ class CanvasVirtualControl(ComPtr):
     ReadyToDraw = property(get_ReadyToDraw, None)
     Size = property(get_Size, None)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    RegionsInvalidated = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    RegionsInvalidated = event(add_RegionsInvalidated, remove_RegionsInvalidated)
 class CanvasVirtualImageSource(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSource
@@ -463,7 +463,7 @@ class CanvasVirtualImageSource(ComPtr):
     Size = property(get_Size, None)
     SizeInPixels = property(get_SizeInPixels, None)
     Source = property(get_Source, None)
-    RegionsInvalidated = event()
+    RegionsInvalidated = event(add_RegionsInvalidated, remove_RegionsInvalidated)
 class ICanvasAnimatedControl(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl'
@@ -547,11 +547,11 @@ class ICanvasAnimatedControl(ComPtr):
     Size = property(get_Size, None)
     TargetElapsedTime = property(get_TargetElapsedTime, put_TargetElapsedTime)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    Update = event()
-    Draw = event()
-    GameLoopStarting = event()
-    GameLoopStopped = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    Draw = event(add_Draw, remove_Draw)
+    GameLoopStarting = event(add_GameLoopStarting, remove_GameLoopStarting)
+    GameLoopStopped = event(add_GameLoopStopped, remove_GameLoopStopped)
+    Update = event(add_Update, remove_Update)
 class ICanvasAnimatedDrawEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedDrawEventArgs'
@@ -628,8 +628,8 @@ class ICanvasControl(ComPtr):
     ReadyToDraw = property(get_ReadyToDraw, None)
     Size = property(get_Size, None)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    Draw = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    Draw = event(add_Draw, remove_Draw)
 class ICanvasDrawEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasDrawEventArgs'
@@ -750,8 +750,8 @@ class ICanvasVirtualControl(ComPtr):
     ReadyToDraw = property(get_ReadyToDraw, None)
     Size = property(get_Size, None)
     UseSharedDevice = property(get_UseSharedDevice, put_UseSharedDevice)
-    CreateResources = event()
-    RegionsInvalidated = event()
+    CreateResources = event(add_CreateResources, remove_CreateResources)
+    RegionsInvalidated = event(add_RegionsInvalidated, remove_RegionsInvalidated)
 class ICanvasVirtualImageSource(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSource'
@@ -792,7 +792,7 @@ class ICanvasVirtualImageSource(ComPtr):
     Size = property(get_Size, None)
     SizeInPixels = property(get_SizeInPixels, None)
     Source = property(get_Source, None)
-    RegionsInvalidated = event()
+    RegionsInvalidated = event(add_RegionsInvalidated, remove_RegionsInvalidated)
 class ICanvasVirtualImageSourceFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSourceFactory'

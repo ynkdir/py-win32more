@@ -105,11 +105,11 @@ class AdaptiveMediaSource(ComPtr):
     IsLive = property(get_IsLive, None)
     MaxSeekableWindowSize = property(get_MaxSeekableWindowSize, None)
     MinLiveOffset = property(get_MinLiveOffset, None)
-    DownloadBitrateChanged = event()
-    PlaybackBitrateChanged = event()
-    DownloadRequested = event()
-    DownloadCompleted = event()
-    DownloadFailed = event()
+    DownloadBitrateChanged = event(add_DownloadBitrateChanged, remove_DownloadBitrateChanged)
+    DownloadCompleted = event(add_DownloadCompleted, remove_DownloadCompleted)
+    DownloadFailed = event(add_DownloadFailed, remove_DownloadFailed)
+    DownloadRequested = event(add_DownloadRequested, remove_DownloadRequested)
+    PlaybackBitrateChanged = event(add_PlaybackBitrateChanged, remove_PlaybackBitrateChanged)
 class AdaptiveMediaSourceAdvancedSettings(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceAdvancedSettings
@@ -224,7 +224,7 @@ class AdaptiveMediaSourceDiagnostics(ComPtr):
     def add_DiagnosticAvailable(self: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDiagnostics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnostics, win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DiagnosticAvailable(self: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDiagnostics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DiagnosticAvailable = event()
+    DiagnosticAvailable = event(add_DiagnosticAvailable, remove_DiagnosticAvailable)
 class AdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDownloadBitrateChangedEventArgs
@@ -498,11 +498,11 @@ class IAdaptiveMediaSource(ComPtr):
     InboundBitsPerSecondWindow = property(get_InboundBitsPerSecondWindow, put_InboundBitsPerSecondWindow)
     InitialBitrate = property(get_InitialBitrate, put_InitialBitrate)
     IsLive = property(get_IsLive, None)
-    DownloadBitrateChanged = event()
-    PlaybackBitrateChanged = event()
-    DownloadRequested = event()
-    DownloadCompleted = event()
-    DownloadFailed = event()
+    DownloadBitrateChanged = event(add_DownloadBitrateChanged, remove_DownloadBitrateChanged)
+    DownloadCompleted = event(add_DownloadCompleted, remove_DownloadCompleted)
+    DownloadFailed = event(add_DownloadFailed, remove_DownloadFailed)
+    DownloadRequested = event(add_DownloadRequested, remove_DownloadRequested)
+    PlaybackBitrateChanged = event(add_PlaybackBitrateChanged, remove_PlaybackBitrateChanged)
 class IAdaptiveMediaSource2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Streaming.Adaptive.IAdaptiveMediaSource2'
@@ -638,7 +638,7 @@ class IAdaptiveMediaSourceDiagnostics(ComPtr):
     def add_DiagnosticAvailable(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnostics, win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_DiagnosticAvailable(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DiagnosticAvailable = event()
+    DiagnosticAvailable = event(add_DiagnosticAvailable, remove_DiagnosticAvailable)
 class IAdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDownloadBitrateChangedEventArgs'

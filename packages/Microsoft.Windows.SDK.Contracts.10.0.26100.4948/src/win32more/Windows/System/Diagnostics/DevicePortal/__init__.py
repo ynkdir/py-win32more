@@ -30,8 +30,8 @@ class DevicePortalConnection(ComPtr):
     def GetServerStreamWebSocketForRequest2(self: win32more.Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnection, request: win32more.Windows.Web.Http.HttpRequestMessage, protocol: WinRT_String, outboundBufferSizeInBytes: UInt32, noDelay: Boolean) -> win32more.Windows.Networking.Sockets.ServerStreamWebSocket: ...
     @winrt_classmethod
     def GetForAppServiceConnection(cls: win32more.Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionStatics, appServiceConnection: win32more.Windows.ApplicationModel.AppService.AppServiceConnection) -> win32more.Windows.System.Diagnostics.DevicePortal.DevicePortalConnection: ...
-    Closed = event()
-    RequestReceived = event()
+    Closed = event(add_Closed, remove_Closed)
+    RequestReceived = event(add_RequestReceived, remove_RequestReceived)
 class DevicePortalConnectionClosedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionClosedEventArgs
@@ -76,8 +76,8 @@ class IDevicePortalConnection(ComPtr):
     def add_RequestReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.Diagnostics.DevicePortal.DevicePortalConnection, win32more.Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_RequestReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Closed = event()
-    RequestReceived = event()
+    Closed = event(add_Closed, remove_Closed)
+    RequestReceived = event(add_RequestReceived, remove_RequestReceived)
 class IDevicePortalConnectionClosedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionClosedEventArgs'

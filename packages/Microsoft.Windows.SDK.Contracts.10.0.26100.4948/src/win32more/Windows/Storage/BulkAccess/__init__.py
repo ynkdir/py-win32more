@@ -123,8 +123,8 @@ class FileInformation(ComPtr):
     Provider = property(get_Provider, None)
     Thumbnail = property(get_Thumbnail, None)
     VideoProperties = property(get_VideoProperties, None)
-    ThumbnailUpdated = event()
-    PropertiesUpdated = event()
+    PropertiesUpdated = event(add_PropertiesUpdated, remove_PropertiesUpdated)
+    ThumbnailUpdated = event(add_ThumbnailUpdated, remove_ThumbnailUpdated)
 class FileInformationFactory(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Storage.BulkAccess.IFileInformationFactory
@@ -303,8 +303,8 @@ class FolderInformation(ComPtr):
     Provider = property(get_Provider, None)
     Thumbnail = property(get_Thumbnail, None)
     VideoProperties = property(get_VideoProperties, None)
-    ThumbnailUpdated = event()
-    PropertiesUpdated = event()
+    PropertiesUpdated = event(add_PropertiesUpdated, remove_PropertiesUpdated)
+    ThumbnailUpdated = event(add_ThumbnailUpdated, remove_ThumbnailUpdated)
 class IFileInformationFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Storage.BulkAccess.IFileInformationFactory'
@@ -369,8 +369,8 @@ class IStorageItemInformation(ComPtr):
     MusicProperties = property(get_MusicProperties, None)
     Thumbnail = property(get_Thumbnail, None)
     VideoProperties = property(get_VideoProperties, None)
-    ThumbnailUpdated = event()
-    PropertiesUpdated = event()
+    PropertiesUpdated = event(add_PropertiesUpdated, remove_PropertiesUpdated)
+    ThumbnailUpdated = event(add_ThumbnailUpdated, remove_ThumbnailUpdated)
 
 
 make_ready(__name__)

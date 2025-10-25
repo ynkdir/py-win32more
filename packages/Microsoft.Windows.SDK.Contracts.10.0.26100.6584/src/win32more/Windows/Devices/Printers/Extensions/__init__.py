@@ -21,7 +21,7 @@ class IPrint3DWorkflow(ComPtr):
     def remove_PrintRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceID = property(get_DeviceID, None)
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
-    PrintRequested = event()
+    PrintRequested = event(add_PrintRequested, remove_PrintRequested)
 class IPrint3DWorkflow2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrint3DWorkflow2'
@@ -30,7 +30,7 @@ class IPrint3DWorkflow2(ComPtr):
     def add_PrinterChanged(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Printers.Extensions.Print3DWorkflow, win32more.Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrinterChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PrinterChanged = event()
+    PrinterChanged = event(add_PrinterChanged, remove_PrinterChanged)
 class IPrint3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrintRequestedEventArgs'
@@ -80,7 +80,7 @@ class IPrintTaskConfiguration(ComPtr):
     @winrt_commethod(8)
     def remove_SaveRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PrinterExtensionContext = property(get_PrinterExtensionContext, None)
-    SaveRequested = event()
+    SaveRequested = event(add_SaveRequested, remove_SaveRequested)
 class IPrintTaskConfigurationSaveRequest(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest'
@@ -129,8 +129,8 @@ class Print3DWorkflow(ComPtr):
     def remove_PrinterChanged(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflow2, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceID = property(get_DeviceID, None)
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
-    PrintRequested = event()
-    PrinterChanged = event()
+    PrintRequested = event(add_PrintRequested, remove_PrintRequested)
+    PrinterChanged = event(add_PrinterChanged, remove_PrinterChanged)
 class Print3DWorkflowDetail(Enum, Int32):
     Unknown = 0
     ModelExceedsPrintBed = 1
@@ -193,7 +193,7 @@ class PrintTaskConfiguration(ComPtr):
     @winrt_mixinmethod
     def remove_SaveRequested(self: win32more.Windows.Devices.Printers.Extensions.IPrintTaskConfiguration, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PrinterExtensionContext = property(get_PrinterExtensionContext, None)
-    SaveRequested = event()
+    SaveRequested = event(add_SaveRequested, remove_SaveRequested)
 class PrintTaskConfigurationSaveRequest(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest

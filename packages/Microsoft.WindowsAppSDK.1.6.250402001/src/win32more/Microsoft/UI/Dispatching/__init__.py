@@ -56,10 +56,10 @@ class DispatcherQueue(ComPtr):
     @winrt_classmethod
     def GetForCurrentThread(cls: win32more.Microsoft.UI.Dispatching.IDispatcherQueueStatics) -> win32more.Microsoft.UI.Dispatching.DispatcherQueue: ...
     HasThreadAccess = property(get_HasThreadAccess, None)
-    ShutdownCompleted = event()
-    ShutdownStarting = event()
-    FrameworkShutdownStarting = event()
-    FrameworkShutdownCompleted = event()
+    FrameworkShutdownCompleted = event(add_FrameworkShutdownCompleted, remove_FrameworkShutdownCompleted)
+    FrameworkShutdownStarting = event(add_FrameworkShutdownStarting, remove_FrameworkShutdownStarting)
+    ShutdownCompleted = event(add_ShutdownCompleted, remove_ShutdownCompleted)
+    ShutdownStarting = event(add_ShutdownStarting, remove_ShutdownStarting)
 class DispatcherQueueController(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Dispatching.IDispatcherQueueController
@@ -115,7 +115,7 @@ class DispatcherQueueTimer(ComPtr):
     Interval = property(get_Interval, put_Interval)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
     IsRunning = property(get_IsRunning, None)
-    Tick = event()
+    Tick = event(add_Tick, remove_Tick)
 class DispatcherRunOptions(Enum, UInt32):
     None_ = 0
     ContinueOnQuit = 1
@@ -144,8 +144,8 @@ class IDispatcherQueue(ComPtr):
     def add_ShutdownCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Dispatching.DispatcherQueue, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_ShutdownCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ShutdownStarting = event()
-    ShutdownCompleted = event()
+    ShutdownCompleted = event(add_ShutdownCompleted, remove_ShutdownCompleted)
+    ShutdownStarting = event(add_ShutdownStarting, remove_ShutdownStarting)
 class IDispatcherQueue2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Dispatching.IDispatcherQueue2'
@@ -173,8 +173,8 @@ class IDispatcherQueue3(ComPtr):
     def add_FrameworkShutdownCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Dispatching.DispatcherQueue, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_FrameworkShutdownCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    FrameworkShutdownStarting = event()
-    FrameworkShutdownCompleted = event()
+    FrameworkShutdownCompleted = event(add_FrameworkShutdownCompleted, remove_FrameworkShutdownCompleted)
+    FrameworkShutdownStarting = event(add_FrameworkShutdownStarting, remove_FrameworkShutdownStarting)
 class IDispatcherQueueController(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Dispatching.IDispatcherQueueController'
@@ -235,7 +235,7 @@ class IDispatcherQueueTimer(ComPtr):
     Interval = property(get_Interval, put_Interval)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
     IsRunning = property(get_IsRunning, None)
-    Tick = event()
+    Tick = event(add_Tick, remove_Tick)
 
 
 make_ready(__name__)

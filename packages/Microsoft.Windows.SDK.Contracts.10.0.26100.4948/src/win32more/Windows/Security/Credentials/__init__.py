@@ -341,7 +341,7 @@ class PasswordCredentialPropertyStore(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]: ...
     Size = property(get_Size, None)
-    MapChanged = event()
+    MapChanged = event(add_MapChanged, remove_MapChanged)
 class PasswordVault(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Security.Credentials.IPasswordVault

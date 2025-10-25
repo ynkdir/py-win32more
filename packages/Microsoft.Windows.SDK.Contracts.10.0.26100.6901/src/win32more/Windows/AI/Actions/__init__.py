@@ -177,7 +177,7 @@ class ActionInvocationHelpDetails(ComPtr):
     HelpUriDescription = property(get_HelpUriDescription, put_HelpUriDescription)
     Kind = property(get_Kind, put_Kind)
     Title = property(get_Title, put_Title)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class ActionInvocationHelpKind(Enum, Int32):
     None_ = 0
     Error = 1
@@ -482,7 +482,7 @@ class IActionInvocationHelpDetails2(ComPtr):
     def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.ActionInvocationHelpDetails, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IActionRuntime(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionRuntime'
@@ -720,7 +720,7 @@ class IStreamingTextActionEntity(ComPtr):
     def remove_TextChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsComplete = property(get_IsComplete, None)
     TextFormat = property(get_TextFormat, None)
-    TextChanged = event()
+    TextChanged = event(add_TextChanged, remove_TextChanged)
 class IStreamingTextActionEntityTextChangedArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs'
@@ -867,7 +867,7 @@ class StreamingTextActionEntity(ComPtr):
     def remove_TextChanged(self: win32more.Windows.AI.Actions.IStreamingTextActionEntity, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsComplete = property(get_IsComplete, None)
     TextFormat = property(get_TextFormat, None)
-    TextChanged = event()
+    TextChanged = event(add_TextChanged, remove_TextChanged)
 class StreamingTextActionEntityTextChangedArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs

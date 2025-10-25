@@ -122,7 +122,7 @@ class AudioDeviceModulesManager(ComPtr):
     def FindAllById(self: win32more.Windows.Media.Devices.IAudioDeviceModulesManager, moduleId: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
     @winrt_mixinmethod
     def FindAll(self: win32more.Windows.Media.Devices.IAudioDeviceModulesManager) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
-    ModuleNotificationReceived = event()
+    ModuleNotificationReceived = event(add_ModuleNotificationReceived, remove_ModuleNotificationReceived)
 class AudioDeviceRole(Enum, Int32):
     Default = 0
     Communications = 1
@@ -173,12 +173,12 @@ class CallControl(ComPtr):
     @winrt_classmethod
     def FromId(cls: win32more.Windows.Media.Devices.ICallControlStatics, deviceId: WinRT_String) -> win32more.Windows.Media.Devices.CallControl: ...
     HasRinger = property(get_HasRinger, None)
-    AnswerRequested = event()
-    HangUpRequested = event()
-    DialRequested = event()
-    RedialRequested = event()
-    KeypadPressed = event()
-    AudioTransferRequested = event()
+    AnswerRequested = event(add_AnswerRequested, remove_AnswerRequested)
+    AudioTransferRequested = event(add_AudioTransferRequested, remove_AudioTransferRequested)
+    DialRequested = event(add_DialRequested, remove_DialRequested)
+    HangUpRequested = event(add_HangUpRequested, remove_HangUpRequested)
+    KeypadPressed = event(add_KeypadPressed, remove_KeypadPressed)
+    RedialRequested = event(add_RedialRequested, remove_RedialRequested)
 CallControlContract: UInt32 = 65536
 class CallControlEventHandler(MulticastDelegate):
     extends: IUnknown
@@ -197,7 +197,7 @@ class CameraOcclusionInfo(ComPtr):
     def add_StateChanged(self: win32more.Windows.Media.Devices.ICameraOcclusionInfo, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Devices.CameraOcclusionInfo, win32more.Windows.Media.Devices.CameraOcclusionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StateChanged(self: win32more.Windows.Media.Devices.ICameraOcclusionInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class CameraOcclusionKind(Enum, Int32):
     Lid = 0
     CameraHardware = 1
@@ -823,7 +823,7 @@ class IAudioDeviceModulesManager(ComPtr):
     def FindAllById(self, moduleId: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
     @winrt_commethod(9)
     def FindAll(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
-    ModuleNotificationReceived = event()
+    ModuleNotificationReceived = event(add_ModuleNotificationReceived, remove_ModuleNotificationReceived)
 class IAudioDeviceModulesManagerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Devices.IAudioDeviceModulesManagerFactory'
@@ -869,12 +869,12 @@ class ICallControl(ComPtr):
     @winrt_commethod(22)
     def remove_AudioTransferRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HasRinger = property(get_HasRinger, None)
-    AnswerRequested = event()
-    HangUpRequested = event()
-    DialRequested = event()
-    RedialRequested = event()
-    KeypadPressed = event()
-    AudioTransferRequested = event()
+    AnswerRequested = event(add_AnswerRequested, remove_AnswerRequested)
+    AudioTransferRequested = event(add_AudioTransferRequested, remove_AudioTransferRequested)
+    DialRequested = event(add_DialRequested, remove_DialRequested)
+    HangUpRequested = event(add_HangUpRequested, remove_HangUpRequested)
+    KeypadPressed = event(add_KeypadPressed, remove_KeypadPressed)
+    RedialRequested = event(add_RedialRequested, remove_RedialRequested)
 class ICallControlStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Devices.ICallControlStatics'
@@ -895,7 +895,7 @@ class ICameraOcclusionInfo(ComPtr):
     def add_StateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Devices.CameraOcclusionInfo, win32more.Windows.Media.Devices.CameraOcclusionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class ICameraOcclusionState(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Devices.ICameraOcclusionState'
@@ -1427,8 +1427,8 @@ class IMediaDeviceStatics(ComPtr):
     def add_DefaultAudioRenderDeviceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_DefaultAudioRenderDeviceChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DefaultAudioCaptureDeviceChanged = event()
-    DefaultAudioRenderDeviceChanged = event()
+    DefaultAudioCaptureDeviceChanged = event(add_DefaultAudioCaptureDeviceChanged, remove_DefaultAudioCaptureDeviceChanged)
+    DefaultAudioRenderDeviceChanged = event(add_DefaultAudioRenderDeviceChanged, remove_DefaultAudioRenderDeviceChanged)
 class IModuleCommandResult(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Devices.IModuleCommandResult'
@@ -1909,7 +1909,9 @@ class MediaCaptureOptimization(Enum, Int32):
 class MediaCapturePauseBehavior(Enum, Int32):
     RetainHardwareResources = 0
     ReleaseHardwareResources = 1
-class MediaDevice(ComPtr):
+class _MediaDevice_Meta_(ComPtr.__class__):
+    pass
+class MediaDevice(ComPtr, metaclass=_MediaDevice_Meta_):
     extends: IInspectable
     _classid_ = 'Windows.Media.Devices.MediaDevice'
     @winrt_classmethod
@@ -1930,6 +1932,8 @@ class MediaDevice(ComPtr):
     def add_DefaultAudioRenderDeviceChanged(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_DefaultAudioRenderDeviceChanged(cls: win32more.Windows.Media.Devices.IMediaDeviceStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    _MediaDevice_Meta_.DefaultAudioCaptureDeviceChanged = event(add_DefaultAudioCaptureDeviceChanged, remove_DefaultAudioCaptureDeviceChanged)
+    _MediaDevice_Meta_.DefaultAudioRenderDeviceChanged = event(add_DefaultAudioRenderDeviceChanged, remove_DefaultAudioRenderDeviceChanged)
 class MediaDeviceControl(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Devices.IMediaDeviceControl

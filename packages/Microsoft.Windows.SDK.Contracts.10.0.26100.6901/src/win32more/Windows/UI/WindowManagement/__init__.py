@@ -84,9 +84,9 @@ class AppWindow(ComPtr):
     TitleBar = property(get_TitleBar, None)
     UIContext = property(get_UIContext, None)
     WindowingEnvironment = property(get_WindowingEnvironment, None)
-    Changed = event()
-    Closed = event()
-    CloseRequested = event()
+    Changed = event(add_Changed, remove_Changed)
+    CloseRequested = event(add_CloseRequested, remove_CloseRequested)
+    Closed = event(add_Closed, remove_Closed)
 class AppWindowChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IAppWindowChangedEventArgs
@@ -324,7 +324,7 @@ class DisplayRegion(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
     WorkAreaOffset = property(get_WorkAreaOffset, None)
     WorkAreaSize = property(get_WorkAreaSize, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class FullScreenPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.IFullScreenPresentationConfiguration
@@ -415,9 +415,9 @@ class IAppWindow(ComPtr):
     TitleBar = property(get_TitleBar, None)
     UIContext = property(get_UIContext, None)
     WindowingEnvironment = property(get_WindowingEnvironment, None)
-    Changed = event()
-    Closed = event()
-    CloseRequested = event()
+    Changed = event(add_Changed, remove_Changed)
+    CloseRequested = event(add_CloseRequested, remove_CloseRequested)
+    Closed = event(add_Closed, remove_Closed)
 class IAppWindowChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IAppWindowChangedEventArgs'
@@ -645,7 +645,7 @@ class IDisplayRegion(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
     WorkAreaOffset = property(get_WorkAreaOffset, None)
     WorkAreaSize = property(get_WorkAreaSize, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IFullScreenPresentationConfiguration(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IFullScreenPresentationConfiguration'
@@ -677,7 +677,7 @@ class IWindowingEnvironment(ComPtr):
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsEnabled = property(get_IsEnabled, None)
     Kind = property(get_Kind, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IWindowingEnvironmentAddedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IWindowingEnvironmentAddedEventArgs'
@@ -729,7 +729,7 @@ class WindowingEnvironment(ComPtr):
     def FindAllWithKind(cls: win32more.Windows.UI.WindowManagement.IWindowingEnvironmentStatics, kind: win32more.Windows.UI.WindowManagement.WindowingEnvironmentKind) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.WindowManagement.WindowingEnvironment]: ...
     IsEnabled = property(get_IsEnabled, None)
     Kind = property(get_Kind, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class WindowingEnvironmentAddedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IWindowingEnvironmentAddedEventArgs

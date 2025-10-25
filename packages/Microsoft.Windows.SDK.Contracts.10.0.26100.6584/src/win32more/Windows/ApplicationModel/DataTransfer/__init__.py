@@ -7,7 +7,9 @@ import win32more.Windows.Security.EnterpriseData
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
-class Clipboard(ComPtr):
+class _Clipboard_Meta_(ComPtr.__class__):
+    pass
+class Clipboard(ComPtr, metaclass=_Clipboard_Meta_):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.Clipboard'
     @winrt_classmethod
@@ -48,6 +50,10 @@ class Clipboard(ComPtr):
     def add_ContentChanged(cls: win32more.Windows.ApplicationModel.DataTransfer.IClipboardStatics, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ContentChanged(cls: win32more.Windows.ApplicationModel.DataTransfer.IClipboardStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    _Clipboard_Meta_.ContentChanged = event(add_ContentChanged, remove_ContentChanged)
+    _Clipboard_Meta_.HistoryChanged = event(add_HistoryChanged, remove_HistoryChanged)
+    _Clipboard_Meta_.HistoryEnabledChanged = event(add_HistoryEnabledChanged, remove_HistoryEnabledChanged)
+    _Clipboard_Meta_.RoamingEnabledChanged = event(add_RoamingEnabledChanged, remove_RoamingEnabledChanged)
 class ClipboardContentOptions(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IClipboardContentOptions
@@ -172,10 +178,10 @@ class DataPackage(ComPtr):
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, put_RequestedOperation)
     ResourceMap = property(get_ResourceMap, None)
-    OperationCompleted = event()
-    Destroyed = event()
-    ShareCompleted = event()
-    ShareCanceled = event()
+    Destroyed = event(add_Destroyed, remove_Destroyed)
+    OperationCompleted = event(add_OperationCompleted, remove_OperationCompleted)
+    ShareCanceled = event(add_ShareCanceled, remove_ShareCanceled)
+    ShareCompleted = event(add_ShareCompleted, remove_ShareCompleted)
 class DataPackageOperation(Enum, UInt32):
     None_ = 0
     Copy = 1
@@ -449,9 +455,9 @@ class DataTransferManager(ComPtr):
     def ShowShareUI(cls: win32more.Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics) -> win32more.Windows.ApplicationModel.DataTransfer.DataTransferManager: ...
-    DataRequested = event()
-    TargetApplicationChosen = event()
-    ShareProvidersRequested = event()
+    DataRequested = event(add_DataRequested, remove_DataRequested)
+    ShareProvidersRequested = event(add_ShareProvidersRequested, remove_ShareProvidersRequested)
+    TargetApplicationChosen = event(add_TargetApplicationChosen, remove_TargetApplicationChosen)
 class HtmlFormatHelper(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.HtmlFormatHelper'
@@ -522,7 +528,7 @@ class IClipboardStatics(ComPtr):
     def add_ContentChanged(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_ContentChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ContentChanged = event()
+    ContentChanged = event(add_ContentChanged, remove_ContentChanged)
 class IClipboardStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IClipboardStatics2'
@@ -553,9 +559,9 @@ class IClipboardStatics2(ComPtr):
     def add_HistoryEnabledChanged(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(18)
     def remove_HistoryEnabledChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    HistoryChanged = event()
-    RoamingEnabledChanged = event()
-    HistoryEnabledChanged = event()
+    HistoryChanged = event(add_HistoryChanged, remove_HistoryChanged)
+    HistoryEnabledChanged = event(add_HistoryEnabledChanged, remove_HistoryEnabledChanged)
+    RoamingEnabledChanged = event(add_RoamingEnabledChanged, remove_RoamingEnabledChanged)
 class IDataPackage(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackage'
@@ -599,8 +605,8 @@ class IDataPackage(ComPtr):
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, put_RequestedOperation)
     ResourceMap = property(get_ResourceMap, None)
-    OperationCompleted = event()
-    Destroyed = event()
+    Destroyed = event(add_Destroyed, remove_Destroyed)
+    OperationCompleted = event(add_OperationCompleted, remove_OperationCompleted)
 class IDataPackage2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackage2'
@@ -617,7 +623,7 @@ class IDataPackage3(ComPtr):
     def add_ShareCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.DataTransfer.DataPackage, win32more.Windows.ApplicationModel.DataTransfer.ShareCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ShareCompleted = event()
+    ShareCompleted = event(add_ShareCompleted, remove_ShareCompleted)
 class IDataPackage4(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackage4'
@@ -626,7 +632,7 @@ class IDataPackage4(ComPtr):
     def add_ShareCanceled(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.DataTransfer.DataPackage, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareCanceled(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ShareCanceled = event()
+    ShareCanceled = event(add_ShareCanceled, remove_ShareCanceled)
 class IDataPackagePropertySet(ComPtr):
     extends: IInspectable
     implements: Tuple[MappingProtocol[WinRT_String, IInspectable]]
@@ -889,8 +895,8 @@ class IDataTransferManager(ComPtr):
     def add_TargetApplicationChosen(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.DataTransfer.DataTransferManager, win32more.Windows.ApplicationModel.DataTransfer.TargetApplicationChosenEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_TargetApplicationChosen(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DataRequested = event()
-    TargetApplicationChosen = event()
+    DataRequested = event(add_DataRequested, remove_DataRequested)
+    TargetApplicationChosen = event(add_TargetApplicationChosen, remove_TargetApplicationChosen)
 class IDataTransferManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataTransferManager2'
@@ -899,7 +905,7 @@ class IDataTransferManager2(ComPtr):
     def add_ShareProvidersRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.DataTransfer.DataTransferManager, win32more.Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareProvidersRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ShareProvidersRequested = event()
+    ShareProvidersRequested = event(add_ShareProvidersRequested, remove_ShareProvidersRequested)
 class IDataTransferManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics'

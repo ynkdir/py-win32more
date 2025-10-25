@@ -649,11 +649,11 @@ class IPackageCatalog(ComPtr):
     def add_PackageStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.PackageCatalog, win32more.Windows.ApplicationModel.PackageStatusChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_PackageStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PackageStaging = event()
-    PackageInstalling = event()
-    PackageUpdating = event()
-    PackageUninstalling = event()
-    PackageStatusChanged = event()
+    PackageInstalling = event(add_PackageInstalling, remove_PackageInstalling)
+    PackageStaging = event(add_PackageStaging, remove_PackageStaging)
+    PackageStatusChanged = event(add_PackageStatusChanged, remove_PackageStatusChanged)
+    PackageUninstalling = event(add_PackageUninstalling, remove_PackageUninstalling)
+    PackageUpdating = event(add_PackageUpdating, remove_PackageUpdating)
 class IPackageCatalog2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageCatalog2'
@@ -664,7 +664,7 @@ class IPackageCatalog2(ComPtr):
     def remove_PackageContentGroupStaging(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def AddOptionalPackageAsync(self, optionalPackageFamilyName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.PackageCatalogAddOptionalPackageResult]: ...
-    PackageContentGroupStaging = event()
+    PackageContentGroupStaging = event(add_PackageContentGroupStaging, remove_PackageContentGroupStaging)
 class IPackageCatalog3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageCatalog3'
@@ -1221,12 +1221,12 @@ class PackageCatalog(ComPtr):
     def OpenForCurrentPackage(cls: win32more.Windows.ApplicationModel.IPackageCatalogStatics) -> win32more.Windows.ApplicationModel.PackageCatalog: ...
     @winrt_classmethod
     def OpenForCurrentUser(cls: win32more.Windows.ApplicationModel.IPackageCatalogStatics) -> win32more.Windows.ApplicationModel.PackageCatalog: ...
-    PackageStaging = event()
-    PackageInstalling = event()
-    PackageUpdating = event()
-    PackageUninstalling = event()
-    PackageStatusChanged = event()
-    PackageContentGroupStaging = event()
+    PackageContentGroupStaging = event(add_PackageContentGroupStaging, remove_PackageContentGroupStaging)
+    PackageInstalling = event(add_PackageInstalling, remove_PackageInstalling)
+    PackageStaging = event(add_PackageStaging, remove_PackageStaging)
+    PackageStatusChanged = event(add_PackageStatusChanged, remove_PackageStatusChanged)
+    PackageUninstalling = event(add_PackageUninstalling, remove_PackageUninstalling)
+    PackageUpdating = event(add_PackageUpdating, remove_PackageUpdating)
 class PackageCatalogAddOptionalPackageResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageCatalogAddOptionalPackageResult

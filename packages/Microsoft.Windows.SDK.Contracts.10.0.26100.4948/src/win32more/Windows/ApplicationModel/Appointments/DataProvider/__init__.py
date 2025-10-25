@@ -232,12 +232,12 @@ class AppointmentDataProviderConnection(ComPtr):
     def remove_UpdateMeetingResponseRequested(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderConnection, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Start(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderConnection) -> Void: ...
-    SyncRequested = event()
-    CreateOrUpdateAppointmentRequested = event()
-    CancelMeetingRequested = event()
-    ForwardMeetingRequested = event()
-    ProposeNewTimeForMeetingRequested = event()
-    UpdateMeetingResponseRequested = event()
+    CancelMeetingRequested = event(add_CancelMeetingRequested, remove_CancelMeetingRequested)
+    CreateOrUpdateAppointmentRequested = event(add_CreateOrUpdateAppointmentRequested, remove_CreateOrUpdateAppointmentRequested)
+    ForwardMeetingRequested = event(add_ForwardMeetingRequested, remove_ForwardMeetingRequested)
+    ProposeNewTimeForMeetingRequested = event(add_ProposeNewTimeForMeetingRequested, remove_ProposeNewTimeForMeetingRequested)
+    SyncRequested = event(add_SyncRequested, remove_SyncRequested)
+    UpdateMeetingResponseRequested = event(add_UpdateMeetingResponseRequested, remove_UpdateMeetingResponseRequested)
 class AppointmentDataProviderTriggerDetails(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderTriggerDetails
@@ -473,12 +473,12 @@ class IAppointmentDataProviderConnection(ComPtr):
     def remove_UpdateMeetingResponseRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
     def Start(self) -> Void: ...
-    SyncRequested = event()
-    CreateOrUpdateAppointmentRequested = event()
-    CancelMeetingRequested = event()
-    ForwardMeetingRequested = event()
-    ProposeNewTimeForMeetingRequested = event()
-    UpdateMeetingResponseRequested = event()
+    CancelMeetingRequested = event(add_CancelMeetingRequested, remove_CancelMeetingRequested)
+    CreateOrUpdateAppointmentRequested = event(add_CreateOrUpdateAppointmentRequested, remove_CreateOrUpdateAppointmentRequested)
+    ForwardMeetingRequested = event(add_ForwardMeetingRequested, remove_ForwardMeetingRequested)
+    ProposeNewTimeForMeetingRequested = event(add_ProposeNewTimeForMeetingRequested, remove_ProposeNewTimeForMeetingRequested)
+    SyncRequested = event(add_SyncRequested, remove_SyncRequested)
+    UpdateMeetingResponseRequested = event(add_UpdateMeetingResponseRequested, remove_UpdateMeetingResponseRequested)
 class IAppointmentDataProviderTriggerDetails(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderTriggerDetails'

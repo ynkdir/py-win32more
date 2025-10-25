@@ -401,9 +401,9 @@ class IProtectionPolicyManagerStatics(ComPtr):
     def CheckAccess(self, sourceIdentity: WinRT_String, targetIdentity: WinRT_String) -> win32more.Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult: ...
     @winrt_commethod(20)
     def RequestAccessAsync(self, sourceIdentity: WinRT_String, targetIdentity: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult]: ...
-    ProtectedAccessSuspending = event()
-    ProtectedAccessResumed = event()
-    ProtectedContentRevoked = event()
+    ProtectedAccessResumed = event(add_ProtectedAccessResumed, remove_ProtectedAccessResumed)
+    ProtectedAccessSuspending = event(add_ProtectedAccessSuspending, remove_ProtectedAccessSuspending)
+    ProtectedContentRevoked = event(add_ProtectedContentRevoked, remove_ProtectedContentRevoked)
 class IProtectionPolicyManagerStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2'
@@ -427,7 +427,7 @@ class IProtectionPolicyManagerStatics2(ComPtr):
     @winrt_commethod(14)
     def get_IsProtectionEnabled(self) -> Boolean: ...
     IsProtectionEnabled = property(get_IsProtectionEnabled, None)
-    PolicyChanged = event()
+    PolicyChanged = event(add_PolicyChanged, remove_PolicyChanged)
 class IProtectionPolicyManagerStatics3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics3'
@@ -685,6 +685,10 @@ class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     ShowEnterpriseIndicator = property(get_ShowEnterpriseIndicator, put_ShowEnterpriseIndicator)
     _ProtectionPolicyManager_Meta_.IsProtectionEnabled = property(get_IsProtectionEnabled, None)
     _ProtectionPolicyManager_Meta_.PrimaryManagedIdentity = property(get_PrimaryManagedIdentity, None)
+    _ProtectionPolicyManager_Meta_.PolicyChanged = event(add_PolicyChanged, remove_PolicyChanged)
+    _ProtectionPolicyManager_Meta_.ProtectedAccessResumed = event(add_ProtectedAccessResumed, remove_ProtectedAccessResumed)
+    _ProtectionPolicyManager_Meta_.ProtectedAccessSuspending = event(add_ProtectedAccessSuspending, remove_ProtectedAccessSuspending)
+    _ProtectionPolicyManager_Meta_.ProtectedContentRevoked = event(add_ProtectedContentRevoked, remove_ProtectedContentRevoked)
 class ProtectionPolicyRequestAccessBehavior(Enum, Int32):
     Decrypt = 0
     TreatOverridePolicyAsBlock = 1

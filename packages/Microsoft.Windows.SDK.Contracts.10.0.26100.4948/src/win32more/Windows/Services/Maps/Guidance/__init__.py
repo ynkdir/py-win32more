@@ -251,14 +251,14 @@ class GuidanceNavigator(ComPtr, metaclass=_GuidanceNavigator_Meta_):
     AudioNotifications = property(get_AudioNotifications, put_AudioNotifications)
     IsGuidanceAudioMuted = property(get_IsGuidanceAudioMuted, put_IsGuidanceAudioMuted)
     _GuidanceNavigator_Meta_.UseAppProvidedVoice = property(get_UseAppProvidedVoice, None)
-    GuidanceUpdated = event()
-    DestinationReached = event()
-    Rerouting = event()
-    Rerouted = event()
-    RerouteFailed = event()
-    UserLocationLost = event()
-    UserLocationRestored = event()
-    AudioNotificationRequested = event()
+    AudioNotificationRequested = event(add_AudioNotificationRequested, remove_AudioNotificationRequested)
+    DestinationReached = event(add_DestinationReached, remove_DestinationReached)
+    GuidanceUpdated = event(add_GuidanceUpdated, remove_GuidanceUpdated)
+    RerouteFailed = event(add_RerouteFailed, remove_RerouteFailed)
+    Rerouted = event(add_Rerouted, remove_Rerouted)
+    Rerouting = event(add_Rerouting, remove_Rerouting)
+    UserLocationLost = event(add_UserLocationLost, remove_UserLocationLost)
+    UserLocationRestored = event(add_UserLocationRestored, remove_UserLocationRestored)
 class GuidanceReroutedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Services.Maps.Guidance.IGuidanceReroutedEventArgs
@@ -560,13 +560,13 @@ class IGuidanceNavigator(ComPtr):
     def UpdateUserLocationWithPositionOverride(self, userLocation: win32more.Windows.Devices.Geolocation.Geocoordinate, positionOverride: win32more.Windows.Devices.Geolocation.BasicGeoposition) -> Void: ...
     AudioMeasurementSystem = property(get_AudioMeasurementSystem, put_AudioMeasurementSystem)
     AudioNotifications = property(get_AudioNotifications, put_AudioNotifications)
-    GuidanceUpdated = event()
-    DestinationReached = event()
-    Rerouting = event()
-    Rerouted = event()
-    RerouteFailed = event()
-    UserLocationLost = event()
-    UserLocationRestored = event()
+    DestinationReached = event(add_DestinationReached, remove_DestinationReached)
+    GuidanceUpdated = event(add_GuidanceUpdated, remove_GuidanceUpdated)
+    RerouteFailed = event(add_RerouteFailed, remove_RerouteFailed)
+    Rerouted = event(add_Rerouted, remove_Rerouted)
+    Rerouting = event(add_Rerouting, remove_Rerouting)
+    UserLocationLost = event(add_UserLocationLost, remove_UserLocationLost)
+    UserLocationRestored = event(add_UserLocationRestored, remove_UserLocationRestored)
 class IGuidanceNavigator2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceNavigator2'
@@ -580,7 +580,7 @@ class IGuidanceNavigator2(ComPtr):
     @winrt_commethod(9)
     def put_IsGuidanceAudioMuted(self, value: Boolean) -> Void: ...
     IsGuidanceAudioMuted = property(get_IsGuidanceAudioMuted, put_IsGuidanceAudioMuted)
-    AudioNotificationRequested = event()
+    AudioNotificationRequested = event(add_AudioNotificationRequested, remove_AudioNotificationRequested)
 class IGuidanceNavigatorStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.Maps.Guidance.IGuidanceNavigatorStatics'

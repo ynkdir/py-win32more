@@ -483,7 +483,7 @@ class IStreamingTextActionEntity(ComPtr):
     def remove_TextChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsComplete = property(get_IsComplete, None)
     TextFormat = property(get_TextFormat, None)
-    TextChanged = event()
+    TextChanged = event(add_TextChanged, remove_TextChanged)
 class IStreamingTextActionEntityTextChangedArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs'
@@ -604,7 +604,7 @@ class StreamingTextActionEntity(ComPtr):
     def remove_TextChanged(self: win32more.Windows.AI.Actions.IStreamingTextActionEntity, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsComplete = property(get_IsComplete, None)
     TextFormat = property(get_TextFormat, None)
-    TextChanged = event()
+    TextChanged = event(add_TextChanged, remove_TextChanged)
 class StreamingTextActionEntityTextChangedArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs

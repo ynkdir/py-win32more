@@ -48,7 +48,7 @@ class HdmiDisplayInformation(ComPtr):
     def remove_DisplayModesChanged(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformationStatics) -> win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation: ...
-    DisplayModesChanged = event()
+    DisplayModesChanged = event(add_DisplayModesChanged, remove_DisplayModesChanged)
 class HdmiDisplayMode(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Display.Core.IHdmiDisplayMode
@@ -113,7 +113,7 @@ class IHdmiDisplayInformation(ComPtr):
     def add_DisplayModesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_DisplayModesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DisplayModesChanged = event()
+    DisplayModesChanged = event(add_DisplayModesChanged, remove_DisplayModesChanged)
 class IHdmiDisplayInformationStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayInformationStatics'

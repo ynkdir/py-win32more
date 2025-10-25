@@ -38,8 +38,8 @@ class IPowerThermalChannelDataConsumer(ComPtr):
     @winrt_commethod(14)
     def remove_BackEndStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BackEndStatus = property(get_BackEndStatus, None)
-    ChannelDataReceived = event()
-    BackEndStatusChanged = event()
+    BackEndStatusChanged = event(add_BackEndStatusChanged, remove_BackEndStatusChanged)
+    ChannelDataReceived = event(add_ChannelDataReceived, remove_ChannelDataReceived)
 class IPowerThermalChannelDataConsumerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Power.Thermal.IPowerThermalChannelDataConsumerFactory'
@@ -69,7 +69,7 @@ class IPowerThermalChannelDataProducer(ComPtr):
     @winrt_commethod(14)
     def remove_BackEndStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BackEndStatus = property(get_BackEndStatus, None)
-    BackEndStatusChanged = event()
+    BackEndStatusChanged = event(add_BackEndStatusChanged, remove_BackEndStatusChanged)
 class IPowerThermalChannelDataProducerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Power.Thermal.IPowerThermalChannelDataProducerFactory'
@@ -155,8 +155,8 @@ class PowerThermalChannelDataConsumer(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     BackEndStatus = property(get_BackEndStatus, None)
-    ChannelDataReceived = event()
-    BackEndStatusChanged = event()
+    BackEndStatusChanged = event(add_BackEndStatusChanged, remove_BackEndStatusChanged)
+    ChannelDataReceived = event(add_ChannelDataReceived, remove_ChannelDataReceived)
 class PowerThermalChannelDataProducer(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -192,7 +192,7 @@ class PowerThermalChannelDataProducer(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     BackEndStatus = property(get_BackEndStatus, None)
-    BackEndStatusChanged = event()
+    BackEndStatusChanged = event(add_BackEndStatusChanged, remove_BackEndStatusChanged)
 class PowerThermalChannelDataReceivedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.Power.Thermal.IPowerThermalChannelDataReceivedEventArgs

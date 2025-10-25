@@ -68,8 +68,8 @@ class IPrintSupportExtensionSession(ComPtr):
     @winrt_commethod(11)
     def Start(self) -> Void: ...
     Printer = property(get_Printer, None)
-    PrintTicketValidationRequested = event()
-    PrintDeviceCapabilitiesChanged = event()
+    PrintDeviceCapabilitiesChanged = event(add_PrintDeviceCapabilitiesChanged, remove_PrintDeviceCapabilitiesChanged)
+    PrintTicketValidationRequested = event(add_PrintTicketValidationRequested, remove_PrintTicketValidationRequested)
 class IPrintSupportExtensionSession2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession2'
@@ -78,7 +78,7 @@ class IPrintSupportExtensionSession2(ComPtr):
     def add_PrinterSelected(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession, win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrinterSelected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PrinterSelected = event()
+    PrinterSelected = event(add_PrinterSelected, remove_PrinterSelected)
 class IPrintSupportExtensionSession3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession3'
@@ -87,7 +87,7 @@ class IPrintSupportExtensionSession3(ComPtr):
     def add_CommunicationErrorDetected(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession, win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportCommunicationErrorDetectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_CommunicationErrorDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    CommunicationErrorDetected = event()
+    CommunicationErrorDetected = event(add_CommunicationErrorDetected, remove_CommunicationErrorDetected)
 class IPrintSupportExtensionTriggerDetails(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionTriggerDetails'
@@ -398,10 +398,10 @@ class PrintSupportExtensionSession(ComPtr):
     @winrt_mixinmethod
     def remove_CommunicationErrorDetected(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Printer = property(get_Printer, None)
-    PrintTicketValidationRequested = event()
-    PrintDeviceCapabilitiesChanged = event()
-    PrinterSelected = event()
-    CommunicationErrorDetected = event()
+    CommunicationErrorDetected = event(add_CommunicationErrorDetected, remove_CommunicationErrorDetected)
+    PrintDeviceCapabilitiesChanged = event(add_PrintDeviceCapabilitiesChanged, remove_PrintDeviceCapabilitiesChanged)
+    PrintTicketValidationRequested = event(add_PrintTicketValidationRequested, remove_PrintTicketValidationRequested)
+    PrinterSelected = event(add_PrinterSelected, remove_PrinterSelected)
 class PrintSupportExtensionTriggerDetails(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionTriggerDetails

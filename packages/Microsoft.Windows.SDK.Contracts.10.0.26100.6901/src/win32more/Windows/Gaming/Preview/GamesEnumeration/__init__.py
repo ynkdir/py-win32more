@@ -5,7 +5,9 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.Preview.GamesEnumeration
 import win32more.Windows.Storage
-class GameList(ComPtr):
+class _GameList_Meta_(ComPtr.__class__):
+    pass
+class GameList(ComPtr, metaclass=_GameList_Meta_):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameList'
     @winrt_classmethod
@@ -28,6 +30,9 @@ class GameList(ComPtr):
     def add_GameUpdated(cls: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListStatics, handler: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListChangedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_GameUpdated(cls: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    _GameList_Meta_.GameAdded = event(add_GameAdded, remove_GameAdded)
+    _GameList_Meta_.GameRemoved = event(add_GameRemoved, remove_GameRemoved)
+    _GameList_Meta_.GameUpdated = event(add_GameUpdated, remove_GameUpdated)
 class GameListCategory(Enum, Int32):
     Candidate = 0
     ConfirmedBySystem = 1
@@ -207,9 +212,9 @@ class IGameListStatics(ComPtr):
     def add_GameUpdated(self, handler: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListChangedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_GameUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    GameAdded = event()
-    GameRemoved = event()
-    GameUpdated = event()
+    GameAdded = event(add_GameAdded, remove_GameAdded)
+    GameRemoved = event(add_GameRemoved, remove_GameRemoved)
+    GameUpdated = event(add_GameUpdated, remove_GameUpdated)
 class IGameListStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListStatics2'

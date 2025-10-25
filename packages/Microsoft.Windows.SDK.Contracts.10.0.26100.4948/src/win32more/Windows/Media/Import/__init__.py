@@ -142,8 +142,8 @@ class IPhotoImportFindItemsResult(ComPtr):
     TotalSizeInBytes = property(get_TotalSizeInBytes, None)
     VideosCount = property(get_VideosCount, None)
     VideosSizeInBytes = property(get_VideosSizeInBytes, None)
-    SelectionChanged = event()
-    ItemImported = event()
+    ItemImported = event(add_ItemImported, remove_ItemImported)
+    SelectionChanged = event(add_SelectionChanged, remove_SelectionChanged)
 class IPhotoImportFindItemsResult2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Import.IPhotoImportFindItemsResult2'
@@ -612,8 +612,8 @@ class PhotoImportFindItemsResult(ComPtr):
     TotalSizeInBytes = property(get_TotalSizeInBytes, None)
     VideosCount = property(get_VideosCount, None)
     VideosSizeInBytes = property(get_VideosSizeInBytes, None)
-    SelectionChanged = event()
-    ItemImported = event()
+    ItemImported = event(add_ItemImported, remove_ItemImported)
+    SelectionChanged = event(add_SelectionChanged, remove_SelectionChanged)
 class PhotoImportImportItemsResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Import.IPhotoImportImportItemsResult

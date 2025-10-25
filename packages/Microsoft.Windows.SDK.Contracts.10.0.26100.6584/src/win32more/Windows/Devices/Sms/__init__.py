@@ -273,8 +273,8 @@ class ISmsDevice(ComPtr):
     CellularClass = property(get_CellularClass, None)
     DeviceStatus = property(get_DeviceStatus, None)
     MessageStore = property(get_MessageStore, None)
-    SmsMessageReceived = event()
-    SmsDeviceStatusChanged = event()
+    SmsDeviceStatusChanged = event(add_SmsDeviceStatusChanged, remove_SmsDeviceStatusChanged)
+    SmsMessageReceived = event(add_SmsMessageReceived, remove_SmsMessageReceived)
 class ISmsDevice2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Sms.ISmsDevice2'
@@ -307,7 +307,7 @@ class ISmsDevice2(ComPtr):
     DeviceStatus = property(get_DeviceStatus, None)
     ParentDeviceId = property(get_ParentDeviceId, None)
     SmscAddress = property(get_SmscAddress, put_SmscAddress)
-    DeviceStatusChanged = event()
+    DeviceStatusChanged = event(add_DeviceStatusChanged, remove_DeviceStatusChanged)
 class ISmsDevice2Statics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Sms.ISmsDevice2Statics'
@@ -499,7 +499,7 @@ class ISmsMessageRegistration(ComPtr):
     @winrt_commethod(9)
     def remove_MessageReceived(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Id = property(get_Id, None)
-    MessageReceived = event()
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class ISmsMessageRegistrationStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Sms.ISmsMessageRegistrationStatics'
@@ -957,8 +957,8 @@ class SmsDevice(ComPtr):
     CellularClass = property(get_CellularClass, None)
     DeviceStatus = property(get_DeviceStatus, None)
     MessageStore = property(get_MessageStore, None)
-    SmsMessageReceived = event()
-    SmsDeviceStatusChanged = event()
+    SmsDeviceStatusChanged = event(add_SmsDeviceStatusChanged, remove_SmsDeviceStatusChanged)
+    SmsMessageReceived = event(add_SmsMessageReceived, remove_SmsMessageReceived)
 class SmsDevice2(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsDevice2
@@ -999,7 +999,7 @@ class SmsDevice2(ComPtr):
     DeviceStatus = property(get_DeviceStatus, None)
     ParentDeviceId = property(get_ParentDeviceId, None)
     SmscAddress = property(get_SmscAddress, put_SmscAddress)
-    DeviceStatusChanged = event()
+    DeviceStatusChanged = event(add_DeviceStatusChanged, remove_DeviceStatusChanged)
 class SmsDeviceMessageStore(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsDeviceMessageStore
@@ -1207,7 +1207,7 @@ class SmsMessageRegistration(ComPtr, metaclass=_SmsMessageRegistration_Meta_):
     def Register(cls: win32more.Windows.Devices.Sms.ISmsMessageRegistrationStatics, id: WinRT_String, filterRules: win32more.Windows.Devices.Sms.SmsFilterRules) -> win32more.Windows.Devices.Sms.SmsMessageRegistration: ...
     Id = property(get_Id, None)
     _SmsMessageRegistration_Meta_.AllRegistrations = property(get_AllRegistrations, None)
-    MessageReceived = event()
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class SmsMessageType(Enum, Int32):
     Binary = 0
     Text = 1

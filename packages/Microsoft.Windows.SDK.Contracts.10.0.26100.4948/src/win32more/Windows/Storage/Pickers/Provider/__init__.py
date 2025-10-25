@@ -43,8 +43,8 @@ class FileOpenPickerUI(ComPtr):
     SelectionMode = property(get_SelectionMode, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
-    FileRemoved = event()
-    Closing = event()
+    Closing = event(add_Closing, remove_Closing)
+    FileRemoved = event(add_FileRemoved, remove_FileRemoved)
 class FileRemovedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Storage.Pickers.Provider.IFileRemovedEventArgs
@@ -80,8 +80,8 @@ class FileSavePickerUI(ComPtr):
     FileName = property(get_FileName, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
-    FileNameChanged = event()
-    TargetFileRequested = event()
+    FileNameChanged = event(add_FileNameChanged, remove_FileNameChanged)
+    TargetFileRequested = event(add_TargetFileRequested, remove_TargetFileRequested)
 class FileSelectionMode(Enum, Int32):
     Single = 0
     Multiple = 1
@@ -119,8 +119,8 @@ class IFileOpenPickerUI(ComPtr):
     SelectionMode = property(get_SelectionMode, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
-    FileRemoved = event()
-    Closing = event()
+    Closing = event(add_Closing, remove_Closing)
+    FileRemoved = event(add_FileRemoved, remove_FileRemoved)
 class IFileRemovedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Storage.Pickers.Provider.IFileRemovedEventArgs'
@@ -156,8 +156,8 @@ class IFileSavePickerUI(ComPtr):
     FileName = property(get_FileName, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
-    FileNameChanged = event()
-    TargetFileRequested = event()
+    FileNameChanged = event(add_FileNameChanged, remove_FileNameChanged)
+    TargetFileRequested = event(add_TargetFileRequested, remove_TargetFileRequested)
 class IPickerClosingDeferral(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Storage.Pickers.Provider.IPickerClosingDeferral'

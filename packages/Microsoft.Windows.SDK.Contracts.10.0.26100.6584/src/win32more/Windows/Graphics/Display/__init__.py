@@ -85,9 +85,9 @@ class BrightnessOverride(ComPtr):
     BrightnessLevel = property(get_BrightnessLevel, None)
     IsOverrideActive = property(get_IsOverrideActive, None)
     IsSupported = property(get_IsSupported, None)
-    IsSupportedChanged = event()
-    IsOverrideActiveChanged = event()
-    BrightnessLevelChanged = event()
+    BrightnessLevelChanged = event(add_BrightnessLevelChanged, remove_BrightnessLevelChanged)
+    IsOverrideActiveChanged = event(add_IsOverrideActiveChanged, remove_IsOverrideActiveChanged)
+    IsSupportedChanged = event(add_IsSupportedChanged, remove_IsSupportedChanged)
 class BrightnessOverrideSettings(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Display.IBrightnessOverrideSettings
@@ -167,9 +167,9 @@ class DisplayEnhancementOverride(ComPtr):
     CanOverride = property(get_CanOverride, None)
     ColorOverrideSettings = property(get_ColorOverrideSettings, put_ColorOverrideSettings)
     IsOverrideActive = property(get_IsOverrideActive, None)
-    CanOverrideChanged = event()
-    IsOverrideActiveChanged = event()
-    DisplayEnhancementOverrideCapabilitiesChanged = event()
+    CanOverrideChanged = event(add_CanOverrideChanged, remove_CanOverrideChanged)
+    DisplayEnhancementOverrideCapabilitiesChanged = event(add_DisplayEnhancementOverrideCapabilitiesChanged, remove_DisplayEnhancementOverrideCapabilitiesChanged)
+    IsOverrideActiveChanged = event(add_IsOverrideActiveChanged, remove_IsOverrideActiveChanged)
 class DisplayEnhancementOverrideCapabilities(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilities
@@ -263,11 +263,12 @@ class DisplayInformation(ComPtr, metaclass=_DisplayInformation_Meta_):
     ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
     StereoEnabled = property(get_StereoEnabled, None)
     _DisplayInformation_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
-    OrientationChanged = event()
-    DpiChanged = event()
-    StereoEnabledChanged = event()
-    ColorProfileChanged = event()
-    AdvancedColorInfoChanged = event()
+    AdvancedColorInfoChanged = event(add_AdvancedColorInfoChanged, remove_AdvancedColorInfoChanged)
+    ColorProfileChanged = event(add_ColorProfileChanged, remove_ColorProfileChanged)
+    DpiChanged = event(add_DpiChanged, remove_DpiChanged)
+    OrientationChanged = event(add_OrientationChanged, remove_OrientationChanged)
+    StereoEnabledChanged = event(add_StereoEnabledChanged, remove_StereoEnabledChanged)
+    _DisplayInformation_Meta_.DisplayContentsInvalidated = event(add_DisplayContentsInvalidated, remove_DisplayContentsInvalidated)
 class DisplayOrientations(Enum, UInt32):
     None_ = 0
     Landscape = 1
@@ -321,6 +322,11 @@ class DisplayProperties(ComPtr, metaclass=_DisplayProperties_Meta_):
     _DisplayProperties_Meta_.NativeOrientation = property(get_NativeOrientation, None)
     _DisplayProperties_Meta_.ResolutionScale = property(get_ResolutionScale, None)
     _DisplayProperties_Meta_.StereoEnabled = property(get_StereoEnabled, None)
+    _DisplayProperties_Meta_.ColorProfileChanged = event(add_ColorProfileChanged, remove_ColorProfileChanged)
+    _DisplayProperties_Meta_.DisplayContentsInvalidated = event(add_DisplayContentsInvalidated, remove_DisplayContentsInvalidated)
+    _DisplayProperties_Meta_.LogicalDpiChanged = event(add_LogicalDpiChanged, remove_LogicalDpiChanged)
+    _DisplayProperties_Meta_.OrientationChanged = event(add_OrientationChanged, remove_OrientationChanged)
+    _DisplayProperties_Meta_.StereoEnabledChanged = event(add_StereoEnabledChanged, remove_StereoEnabledChanged)
 class DisplayPropertiesEventHandler(MulticastDelegate):
     extends: IUnknown
     _iid_ = Guid('{dbdd8b01-f1a1-46d1-9ee3-543bcc995980}')
@@ -405,9 +411,9 @@ class IBrightnessOverride(ComPtr):
     BrightnessLevel = property(get_BrightnessLevel, None)
     IsOverrideActive = property(get_IsOverrideActive, None)
     IsSupported = property(get_IsSupported, None)
-    IsSupportedChanged = event()
-    IsOverrideActiveChanged = event()
-    BrightnessLevelChanged = event()
+    BrightnessLevelChanged = event(add_BrightnessLevelChanged, remove_BrightnessLevelChanged)
+    IsOverrideActiveChanged = event(add_IsOverrideActiveChanged, remove_IsOverrideActiveChanged)
+    IsSupportedChanged = event(add_IsSupportedChanged, remove_IsSupportedChanged)
 class IBrightnessOverrideSettings(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.IBrightnessOverrideSettings'
@@ -489,9 +495,9 @@ class IDisplayEnhancementOverride(ComPtr):
     CanOverride = property(get_CanOverride, None)
     ColorOverrideSettings = property(get_ColorOverrideSettings, put_ColorOverrideSettings)
     IsOverrideActive = property(get_IsOverrideActive, None)
-    CanOverrideChanged = event()
-    IsOverrideActiveChanged = event()
-    DisplayEnhancementOverrideCapabilitiesChanged = event()
+    CanOverrideChanged = event(add_CanOverrideChanged, remove_CanOverrideChanged)
+    DisplayEnhancementOverrideCapabilitiesChanged = event(add_DisplayEnhancementOverrideCapabilitiesChanged, remove_DisplayEnhancementOverrideCapabilitiesChanged)
+    IsOverrideActiveChanged = event(add_IsOverrideActiveChanged, remove_IsOverrideActiveChanged)
 class IDisplayEnhancementOverrideCapabilities(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilities'
@@ -560,10 +566,10 @@ class IDisplayInformation(ComPtr):
     RawDpiY = property(get_RawDpiY, None)
     ResolutionScale = property(get_ResolutionScale, None)
     StereoEnabled = property(get_StereoEnabled, None)
-    OrientationChanged = event()
-    DpiChanged = event()
-    StereoEnabledChanged = event()
-    ColorProfileChanged = event()
+    ColorProfileChanged = event(add_ColorProfileChanged, remove_ColorProfileChanged)
+    DpiChanged = event(add_DpiChanged, remove_DpiChanged)
+    OrientationChanged = event(add_OrientationChanged, remove_OrientationChanged)
+    StereoEnabledChanged = event(add_StereoEnabledChanged, remove_StereoEnabledChanged)
 class IDisplayInformation2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayInformation2'
@@ -598,7 +604,7 @@ class IDisplayInformation5(ComPtr):
     def add_AdvancedColorInfoChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_AdvancedColorInfoChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    AdvancedColorInfoChanged = event()
+    AdvancedColorInfoChanged = event(add_AdvancedColorInfoChanged, remove_AdvancedColorInfoChanged)
 class IDisplayInformationStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayInformationStatics'
@@ -614,7 +620,7 @@ class IDisplayInformationStatics(ComPtr):
     @winrt_commethod(10)
     def remove_DisplayContentsInvalidated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
-    DisplayContentsInvalidated = event()
+    DisplayContentsInvalidated = event(add_DisplayContentsInvalidated, remove_DisplayContentsInvalidated)
 class IDisplayPropertiesStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayPropertiesStatics'
@@ -661,11 +667,11 @@ class IDisplayPropertiesStatics(ComPtr):
     NativeOrientation = property(get_NativeOrientation, None)
     ResolutionScale = property(get_ResolutionScale, None)
     StereoEnabled = property(get_StereoEnabled, None)
-    OrientationChanged = event()
-    LogicalDpiChanged = event()
-    StereoEnabledChanged = event()
-    ColorProfileChanged = event()
-    DisplayContentsInvalidated = event()
+    ColorProfileChanged = event(add_ColorProfileChanged, remove_ColorProfileChanged)
+    DisplayContentsInvalidated = event(add_DisplayContentsInvalidated, remove_DisplayContentsInvalidated)
+    LogicalDpiChanged = event(add_LogicalDpiChanged, remove_LogicalDpiChanged)
+    OrientationChanged = event(add_OrientationChanged, remove_OrientationChanged)
+    StereoEnabledChanged = event(add_StereoEnabledChanged, remove_StereoEnabledChanged)
 class IDisplayServices(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayServices'

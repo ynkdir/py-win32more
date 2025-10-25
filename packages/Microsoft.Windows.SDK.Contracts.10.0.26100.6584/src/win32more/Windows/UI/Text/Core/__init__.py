@@ -111,16 +111,16 @@ class CoreTextEditContext(ComPtr):
     InputScope = property(get_InputScope, put_InputScope)
     IsReadOnly = property(get_IsReadOnly, put_IsReadOnly)
     Name = property(get_Name, put_Name)
-    TextRequested = event()
-    SelectionRequested = event()
-    LayoutRequested = event()
-    TextUpdating = event()
-    SelectionUpdating = event()
-    FormatUpdating = event()
-    CompositionStarted = event()
-    CompositionCompleted = event()
-    FocusRemoved = event()
-    NotifyFocusLeaveCompleted = event()
+    CompositionCompleted = event(add_CompositionCompleted, remove_CompositionCompleted)
+    CompositionStarted = event(add_CompositionStarted, remove_CompositionStarted)
+    FocusRemoved = event(add_FocusRemoved, remove_FocusRemoved)
+    FormatUpdating = event(add_FormatUpdating, remove_FormatUpdating)
+    LayoutRequested = event(add_LayoutRequested, remove_LayoutRequested)
+    NotifyFocusLeaveCompleted = event(add_NotifyFocusLeaveCompleted, remove_NotifyFocusLeaveCompleted)
+    SelectionRequested = event(add_SelectionRequested, remove_SelectionRequested)
+    SelectionUpdating = event(add_SelectionUpdating, remove_SelectionUpdating)
+    TextRequested = event(add_TextRequested, remove_TextRequested)
+    TextUpdating = event(add_TextUpdating, remove_TextUpdating)
 class CoreTextFormatUpdatingEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs
@@ -339,7 +339,7 @@ class CoreTextServicesManager(ComPtr):
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Text.Core.ICoreTextServicesManagerStatics) -> win32more.Windows.UI.Text.Core.CoreTextServicesManager: ...
     InputLanguage = property(get_InputLanguage, None)
-    InputLanguageChanged = event()
+    InputLanguageChanged = event(add_InputLanguageChanged, remove_InputLanguageChanged)
 class CoreTextTextRequest(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextTextRequest
@@ -494,15 +494,15 @@ class ICoreTextEditContext(ComPtr):
     InputScope = property(get_InputScope, put_InputScope)
     IsReadOnly = property(get_IsReadOnly, put_IsReadOnly)
     Name = property(get_Name, put_Name)
-    TextRequested = event()
-    SelectionRequested = event()
-    LayoutRequested = event()
-    TextUpdating = event()
-    SelectionUpdating = event()
-    FormatUpdating = event()
-    CompositionStarted = event()
-    CompositionCompleted = event()
-    FocusRemoved = event()
+    CompositionCompleted = event(add_CompositionCompleted, remove_CompositionCompleted)
+    CompositionStarted = event(add_CompositionStarted, remove_CompositionStarted)
+    FocusRemoved = event(add_FocusRemoved, remove_FocusRemoved)
+    FormatUpdating = event(add_FormatUpdating, remove_FormatUpdating)
+    LayoutRequested = event(add_LayoutRequested, remove_LayoutRequested)
+    SelectionRequested = event(add_SelectionRequested, remove_SelectionRequested)
+    SelectionUpdating = event(add_SelectionUpdating, remove_SelectionUpdating)
+    TextRequested = event(add_TextRequested, remove_TextRequested)
+    TextUpdating = event(add_TextUpdating, remove_TextUpdating)
 class ICoreTextEditContext2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextEditContext2'
@@ -511,7 +511,7 @@ class ICoreTextEditContext2(ComPtr):
     def add_NotifyFocusLeaveCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_NotifyFocusLeaveCompleted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    NotifyFocusLeaveCompleted = event()
+    NotifyFocusLeaveCompleted = event(add_NotifyFocusLeaveCompleted, remove_NotifyFocusLeaveCompleted)
 class ICoreTextFormatUpdatingEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs'
@@ -638,7 +638,7 @@ class ICoreTextServicesManager(ComPtr):
     @winrt_commethod(9)
     def CreateEditContext(self) -> win32more.Windows.UI.Text.Core.CoreTextEditContext: ...
     InputLanguage = property(get_InputLanguage, None)
-    InputLanguageChanged = event()
+    InputLanguageChanged = event(add_InputLanguageChanged, remove_InputLanguageChanged)
 class ICoreTextServicesManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextServicesManagerStatics'

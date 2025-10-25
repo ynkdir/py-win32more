@@ -40,7 +40,7 @@ class IWiFiDirectService(ComPtr):
     ServiceError = property(get_ServiceError, None)
     SessionInfo = property(get_SessionInfo, put_SessionInfo)
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
-    SessionDeferred = event()
+    SessionDeferred = event(add_SessionDeferred, remove_SessionDeferred)
 class IWiFiDirectServiceAdvertiser(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAdvertiser'
@@ -110,9 +110,9 @@ class IWiFiDirectServiceAdvertiser(ComPtr):
     ServiceName = property(get_ServiceName, None)
     ServiceNamePrefixes = property(get_ServiceNamePrefixes, None)
     ServiceStatus = property(get_ServiceStatus, put_ServiceStatus)
-    SessionRequested = event()
-    AutoAcceptSessionConnected = event()
-    AdvertisementStatusChanged = event()
+    AdvertisementStatusChanged = event(add_AdvertisementStatusChanged, remove_AdvertisementStatusChanged)
+    AutoAcceptSessionConnected = event(add_AutoAcceptSessionConnected, remove_AutoAcceptSessionConnected)
+    SessionRequested = event(add_SessionRequested, remove_SessionRequested)
 class IWiFiDirectServiceAdvertiserFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAdvertiserFactory'
@@ -189,8 +189,8 @@ class IWiFiDirectServiceSession(ComPtr):
     SessionAddress = property(get_SessionAddress, None)
     SessionId = property(get_SessionId, None)
     Status = property(get_Status, None)
-    SessionStatusChanged = event()
-    RemotePortAdded = event()
+    RemotePortAdded = event(add_RemotePortAdded, remove_RemotePortAdded)
+    SessionStatusChanged = event(add_SessionStatusChanged, remove_SessionStatusChanged)
 class IWiFiDirectServiceSessionDeferredEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionDeferredEventArgs'
@@ -267,7 +267,7 @@ class WiFiDirectService(ComPtr):
     ServiceError = property(get_ServiceError, None)
     SessionInfo = property(get_SessionInfo, put_SessionInfo)
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
-    SessionDeferred = event()
+    SessionDeferred = event(add_SessionDeferred, remove_SessionDeferred)
 class WiFiDirectServiceAdvertisementStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -351,9 +351,9 @@ class WiFiDirectServiceAdvertiser(ComPtr):
     ServiceName = property(get_ServiceName, None)
     ServiceNamePrefixes = property(get_ServiceNamePrefixes, None)
     ServiceStatus = property(get_ServiceStatus, put_ServiceStatus)
-    SessionRequested = event()
-    AutoAcceptSessionConnected = event()
-    AdvertisementStatusChanged = event()
+    AdvertisementStatusChanged = event(add_AdvertisementStatusChanged, remove_AdvertisementStatusChanged)
+    AutoAcceptSessionConnected = event(add_AutoAcceptSessionConnected, remove_AutoAcceptSessionConnected)
+    SessionRequested = event(add_SessionRequested, remove_SessionRequested)
 class WiFiDirectServiceAutoAcceptSessionConnectedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs
@@ -439,8 +439,8 @@ class WiFiDirectServiceSession(ComPtr):
     SessionAddress = property(get_SessionAddress, None)
     SessionId = property(get_SessionId, None)
     Status = property(get_Status, None)
-    SessionStatusChanged = event()
-    RemotePortAdded = event()
+    RemotePortAdded = event(add_RemotePortAdded, remove_RemotePortAdded)
+    SessionStatusChanged = event(add_SessionStatusChanged, remove_SessionStatusChanged)
 class WiFiDirectServiceSessionDeferredEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionDeferredEventArgs

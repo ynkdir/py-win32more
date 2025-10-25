@@ -114,8 +114,8 @@ class ISerialDevice(ComPtr):
     UsbProductId = property(get_UsbProductId, None)
     UsbVendorId = property(get_UsbVendorId, None)
     WriteTimeout = property(get_WriteTimeout, put_WriteTimeout)
-    ErrorReceived = event()
-    PinChanged = event()
+    ErrorReceived = event(add_ErrorReceived, remove_ErrorReceived)
+    PinChanged = event(add_PinChanged, remove_PinChanged)
 class ISerialDeviceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.SerialCommunication.ISerialDeviceStatics'
@@ -235,8 +235,8 @@ class SerialDevice(ComPtr):
     UsbProductId = property(get_UsbProductId, None)
     UsbVendorId = property(get_UsbVendorId, None)
     WriteTimeout = property(get_WriteTimeout, put_WriteTimeout)
-    ErrorReceived = event()
-    PinChanged = event()
+    ErrorReceived = event(add_ErrorReceived, remove_ErrorReceived)
+    PinChanged = event(add_PinChanged, remove_PinChanged)
 class SerialError(Enum, Int32):
     Frame = 0
     BufferOverrun = 1

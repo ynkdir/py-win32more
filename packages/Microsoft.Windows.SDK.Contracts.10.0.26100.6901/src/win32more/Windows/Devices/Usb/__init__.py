@@ -402,7 +402,7 @@ class IUsbInterruptInPipe(ComPtr):
     @winrt_commethod(9)
     def remove_DataReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     EndpointDescriptor = property(get_EndpointDescriptor, None)
-    DataReceived = event()
+    DataReceived = event(add_DataReceived, remove_DataReceived)
 class IUsbInterruptOutEndpointDescriptor(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Usb.IUsbInterruptOutEndpointDescriptor'
@@ -886,7 +886,7 @@ class UsbInterruptInPipe(ComPtr):
     @winrt_mixinmethod
     def remove_DataReceived(self: win32more.Windows.Devices.Usb.IUsbInterruptInPipe, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     EndpointDescriptor = property(get_EndpointDescriptor, None)
-    DataReceived = event()
+    DataReceived = event(add_DataReceived, remove_DataReceived)
 class UsbInterruptOutEndpointDescriptor(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbInterruptOutEndpointDescriptor

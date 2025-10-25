@@ -339,8 +339,8 @@ class IPrintTaskOptionDetails(ComPtr):
     @winrt_commethod(12)
     def remove_BeginValidation(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Options = property(get_Options, None)
-    OptionChanged = event()
-    BeginValidation = event()
+    BeginValidation = event(add_BeginValidation, remove_BeginValidation)
+    OptionChanged = event(add_OptionChanged, remove_OptionChanged)
 class IPrintTaskOptionDetails2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails2'
@@ -1045,8 +1045,8 @@ class PrintTaskOptionDetails(ComPtr):
     def GetFromPrintTaskOptions(cls: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetailsStatic, printTaskOptions: win32more.Windows.Graphics.Printing.PrintTaskOptions) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails: ...
     DisplayedOptions = property(get_DisplayedOptions, None)
     Options = property(get_Options, None)
-    OptionChanged = event()
-    BeginValidation = event()
+    BeginValidation = event(add_BeginValidation, remove_BeginValidation)
+    OptionChanged = event(add_OptionChanged, remove_OptionChanged)
 
 
 make_ready(__name__)

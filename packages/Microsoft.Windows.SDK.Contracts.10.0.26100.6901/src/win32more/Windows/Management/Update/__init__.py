@@ -394,7 +394,7 @@ class IWindowsSoftwareUpdateProviderStatus(ComPtr):
     def SetActionProgress(self, current: UInt64, total: UInt64) -> win32more.Windows.Management.Update.WindowsSoftwareUpdateResult: ...
     @winrt_commethod(10)
     def SetActionResult(self, actionResult: win32more.Windows.Management.Update.WindowsSoftwareUpdateProviderActionResult) -> win32more.Windows.Management.Update.WindowsSoftwareUpdateResult: ...
-    CancelRequested = event()
+    CancelRequested = event(add_CancelRequested, remove_CancelRequested)
 class IWindowsSoftwareUpdateProviderStatusFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsSoftwareUpdateProviderStatusFactory'
@@ -753,12 +753,12 @@ class IWindowsUpdateManager(ComPtr):
     IsScanning = property(get_IsScanning, None)
     IsWorking = property(get_IsWorking, None)
     LastSuccessfulScanTimestamp = property(get_LastSuccessfulScanTimestamp, None)
-    ScanningStateChanged = event()
-    WorkingStateChanged = event()
-    ProgressChanged = event()
-    AttentionRequiredReasonChanged = event()
-    ActionCompleted = event()
-    ScanCompleted = event()
+    ActionCompleted = event(add_ActionCompleted, remove_ActionCompleted)
+    AttentionRequiredReasonChanged = event(add_AttentionRequiredReasonChanged, remove_AttentionRequiredReasonChanged)
+    ProgressChanged = event(add_ProgressChanged, remove_ProgressChanged)
+    ScanCompleted = event(add_ScanCompleted, remove_ScanCompleted)
+    ScanningStateChanged = event(add_ScanningStateChanged, remove_ScanningStateChanged)
+    WorkingStateChanged = event(add_WorkingStateChanged, remove_WorkingStateChanged)
 class IWindowsUpdateManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateManager2'
@@ -1342,7 +1342,7 @@ class WindowsSoftwareUpdateProviderStatus(ComPtr):
     def SetActionProgress(self: win32more.Windows.Management.Update.IWindowsSoftwareUpdateProviderStatus, current: UInt64, total: UInt64) -> win32more.Windows.Management.Update.WindowsSoftwareUpdateResult: ...
     @winrt_mixinmethod
     def SetActionResult(self: win32more.Windows.Management.Update.IWindowsSoftwareUpdateProviderStatus, actionResult: win32more.Windows.Management.Update.WindowsSoftwareUpdateProviderActionResult) -> win32more.Windows.Management.Update.WindowsSoftwareUpdateResult: ...
-    CancelRequested = event()
+    CancelRequested = event(add_CancelRequested, remove_CancelRequested)
 class WindowsSoftwareUpdateProviderTrustState(Enum, Int32):
     SignedTrusted = 0
     SignedUntrusted = 1
@@ -1798,12 +1798,12 @@ class WindowsUpdateManager(ComPtr):
     IsWorking = property(get_IsWorking, None)
     LastSuccessfulScanTimestamp = property(get_LastSuccessfulScanTimestamp, None)
     ProviderIds = property(get_ProviderIds, None)
-    ScanningStateChanged = event()
-    WorkingStateChanged = event()
-    ProgressChanged = event()
-    AttentionRequiredReasonChanged = event()
-    ActionCompleted = event()
-    ScanCompleted = event()
+    ActionCompleted = event(add_ActionCompleted, remove_ActionCompleted)
+    AttentionRequiredReasonChanged = event(add_AttentionRequiredReasonChanged, remove_AttentionRequiredReasonChanged)
+    ProgressChanged = event(add_ProgressChanged, remove_ProgressChanged)
+    ScanCompleted = event(add_ScanCompleted, remove_ScanCompleted)
+    ScanningStateChanged = event(add_ScanningStateChanged, remove_ScanningStateChanged)
+    WorkingStateChanged = event(add_WorkingStateChanged, remove_WorkingStateChanged)
 class WindowsUpdateManagerScanOptions(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateManagerScanOptions

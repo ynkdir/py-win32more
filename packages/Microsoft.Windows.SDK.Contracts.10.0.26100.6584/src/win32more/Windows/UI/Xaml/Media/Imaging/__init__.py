@@ -105,9 +105,9 @@ class BitmapImage(ComPtr, metaclass=_BitmapImage_Meta_):
     _BitmapImage_Meta_.IsAnimatedBitmapProperty = property(get_IsAnimatedBitmapProperty, None)
     _BitmapImage_Meta_.IsPlayingProperty = property(get_IsPlayingProperty, None)
     _BitmapImage_Meta_.UriSourceProperty = property(get_UriSourceProperty, None)
-    DownloadProgress = event()
-    ImageOpened = event()
-    ImageFailed = event()
+    DownloadProgress = event(add_DownloadProgress, remove_DownloadProgress)
+    ImageFailed = event(add_ImageFailed, remove_ImageFailed)
+    ImageOpened = event(add_ImageOpened, remove_ImageOpened)
 class _BitmapSource_Meta_(ComPtr.__class__):
     pass
 class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
@@ -192,9 +192,9 @@ class IBitmapImage(ComPtr):
     DecodePixelHeight = property(get_DecodePixelHeight, put_DecodePixelHeight)
     DecodePixelWidth = property(get_DecodePixelWidth, put_DecodePixelWidth)
     UriSource = property(get_UriSource, put_UriSource)
-    DownloadProgress = event()
-    ImageOpened = event()
-    ImageFailed = event()
+    DownloadProgress = event(add_DownloadProgress, remove_DownloadProgress)
+    ImageFailed = event(add_ImageFailed, remove_ImageFailed)
+    ImageOpened = event(add_ImageOpened, remove_ImageOpened)
 class IBitmapImage2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.IBitmapImage2'
@@ -377,8 +377,8 @@ class ISvgImageSource(ComPtr):
     RasterizePixelHeight = property(get_RasterizePixelHeight, put_RasterizePixelHeight)
     RasterizePixelWidth = property(get_RasterizePixelWidth, put_RasterizePixelWidth)
     UriSource = property(get_UriSource, put_UriSource)
-    Opened = event()
-    OpenFailed = event()
+    OpenFailed = event(add_OpenFailed, remove_OpenFailed)
+    Opened = event(add_Opened, remove_Opened)
 class ISvgImageSourceFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory'
@@ -575,8 +575,8 @@ class SvgImageSource(ComPtr, metaclass=_SvgImageSource_Meta_):
     _SvgImageSource_Meta_.RasterizePixelHeightProperty = property(get_RasterizePixelHeightProperty, None)
     _SvgImageSource_Meta_.RasterizePixelWidthProperty = property(get_RasterizePixelWidthProperty, None)
     _SvgImageSource_Meta_.UriSourceProperty = property(get_UriSourceProperty, None)
-    Opened = event()
-    OpenFailed = event()
+    OpenFailed = event(add_OpenFailed, remove_OpenFailed)
+    Opened = event(add_Opened, remove_Opened)
 class SvgImageSourceFailedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs

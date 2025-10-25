@@ -251,8 +251,8 @@ class Geolocator(ComPtr, metaclass=_Geolocator_Meta_):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     _Geolocator_Meta_.DefaultGeoposition = property(get_DefaultGeoposition, put_DefaultGeoposition)
     _Geolocator_Meta_.IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended, None)
-    PositionChanged = event()
-    StatusChanged = event()
+    PositionChanged = event(add_PositionChanged, remove_PositionChanged)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class Geopath(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeopath
@@ -376,7 +376,7 @@ class GeovisitMonitor(ComPtr):
     @winrt_classmethod
     def GetLastReportAsync(cls: win32more.Windows.Devices.Geolocation.IGeovisitMonitorStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Geolocation.Geovisit]: ...
     MonitoringScope = property(get_MonitoringScope, None)
-    VisitStateChanged = event()
+    VisitStateChanged = event(add_VisitStateChanged, remove_VisitStateChanged)
 class GeovisitStateChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeovisitStateChangedEventArgs
@@ -584,8 +584,8 @@ class IGeolocator(ComPtr):
     LocationStatus = property(get_LocationStatus, None)
     MovementThreshold = property(get_MovementThreshold, put_MovementThreshold)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
-    PositionChanged = event()
-    StatusChanged = event()
+    PositionChanged = event(add_PositionChanged, remove_PositionChanged)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IGeolocator2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeolocator2'
@@ -715,7 +715,7 @@ class IGeovisitMonitor(ComPtr):
     @winrt_commethod(10)
     def remove_VisitStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MonitoringScope = property(get_MonitoringScope, None)
-    VisitStateChanged = event()
+    VisitStateChanged = event(add_VisitStateChanged, remove_VisitStateChanged)
 class IGeovisitMonitorStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeovisitMonitorStatics'

@@ -36,7 +36,7 @@ class CustomSensor(ComPtr):
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
-    ReadingChanged = event()
+    ReadingChanged = event(add_ReadingChanged, remove_ReadingChanged)
 class CustomSensorReading(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Sensors.Custom.ICustomSensorReading
@@ -78,7 +78,7 @@ class ICustomSensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
-    ReadingChanged = event()
+    ReadingChanged = event(add_ReadingChanged, remove_ReadingChanged)
 class ICustomSensor2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Sensors.Custom.ICustomSensor2'

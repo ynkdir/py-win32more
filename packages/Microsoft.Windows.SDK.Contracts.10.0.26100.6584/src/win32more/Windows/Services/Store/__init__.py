@@ -178,7 +178,7 @@ class IStoreContext(ComPtr):
     @winrt_commethod(26)
     def RequestDownloadAndInstallStorePackagesAsync(self, storeIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Services.Store.StorePackageUpdateResult, win32more.Windows.Services.Store.StorePackageUpdateStatus]: ...
     User = property(get_User, None)
-    OfflineLicensesChanged = event()
+    OfflineLicensesChanged = event(add_OfflineLicensesChanged, remove_OfflineLicensesChanged)
 class IStoreContext2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.Store.IStoreContext2'
@@ -308,7 +308,7 @@ class IStorePackageLicense(ComPtr):
     def ReleaseLicense(self) -> Void: ...
     IsValid = property(get_IsValid, None)
     Package = property(get_Package, None)
-    LicenseLost = event()
+    LicenseLost = event(add_LicenseLost, remove_LicenseLost)
 class IStorePackageUpdate(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.Store.IStorePackageUpdate'
@@ -521,8 +521,8 @@ class IStoreQueueItem(ComPtr):
     InstallKind = property(get_InstallKind, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
     ProductId = property(get_ProductId, None)
-    Completed = event()
-    StatusChanged = event()
+    Completed = event(add_Completed, remove_Completed)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IStoreQueueItem2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.Store.IStoreQueueItem2'
@@ -928,7 +928,7 @@ class StoreContext(ComPtr):
     def GetForUser(cls: win32more.Windows.Services.Store.IStoreContextStatics, user: win32more.Windows.System.User) -> win32more.Windows.Services.Store.StoreContext: ...
     CanSilentlyDownloadStorePackageUpdates = property(get_CanSilentlyDownloadStorePackageUpdates, None)
     User = property(get_User, None)
-    OfflineLicensesChanged = event()
+    OfflineLicensesChanged = event(add_OfflineLicensesChanged, remove_OfflineLicensesChanged)
 StoreContract: UInt32 = 262144
 class StoreDurationUnit(Enum, Int32):
     Minute = 0
@@ -1012,7 +1012,7 @@ class StorePackageLicense(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     IsValid = property(get_IsValid, None)
     Package = property(get_Package, None)
-    LicenseLost = event()
+    LicenseLost = event(add_LicenseLost, remove_LicenseLost)
 class StorePackageUpdate(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Services.Store.IStorePackageUpdate
@@ -1262,8 +1262,8 @@ class StoreQueueItem(ComPtr):
     InstallKind = property(get_InstallKind, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
     ProductId = property(get_ProductId, None)
-    Completed = event()
-    StatusChanged = event()
+    Completed = event(add_Completed, remove_Completed)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class StoreQueueItemCompletedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreQueueItemCompletedEventArgs

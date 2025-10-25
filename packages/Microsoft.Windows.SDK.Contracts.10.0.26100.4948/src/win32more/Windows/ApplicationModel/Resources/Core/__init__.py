@@ -470,7 +470,7 @@ class ResourceQualifierObservableMap(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]: ...
     Size = property(get_Size, None)
-    MapChanged = event()
+    MapChanged = event(add_MapChanged, remove_MapChanged)
 class ResourceQualifierPersistence(Enum, Int32):
     None_ = 0
     LocalMachine = 1

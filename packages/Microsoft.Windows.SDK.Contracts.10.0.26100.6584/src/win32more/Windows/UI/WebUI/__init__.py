@@ -227,10 +227,10 @@ class IWebUIActivationStatics(ComPtr):
     def add_Navigated(self, handler: win32more.Windows.UI.WebUI.NavigatedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_Navigated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Activated = event()
-    Suspending = event()
-    Resuming = event()
-    Navigated = event()
+    Activated = event(add_Activated, remove_Activated)
+    Navigated = event(add_Navigated, remove_Navigated)
+    Resuming = event(add_Resuming, remove_Resuming)
+    Suspending = event(add_Suspending, remove_Suspending)
 class IWebUIActivationStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WebUI.IWebUIActivationStatics2'
@@ -245,8 +245,8 @@ class IWebUIActivationStatics2(ComPtr):
     def remove_EnteredBackground(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
     def EnablePrelaunch(self, value: Boolean) -> Void: ...
-    LeavingBackground = event()
-    EnteredBackground = event()
+    EnteredBackground = event(add_EnteredBackground, remove_EnteredBackground)
+    LeavingBackground = event(add_LeavingBackground, remove_LeavingBackground)
 class IWebUIActivationStatics3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WebUI.IWebUIActivationStatics3'
@@ -267,8 +267,8 @@ class IWebUIActivationStatics4(ComPtr):
     def add_BackgroundActivated(self, handler: win32more.Windows.UI.WebUI.BackgroundActivatedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_BackgroundActivated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    NewWebUIViewCreated = event()
-    BackgroundActivated = event()
+    BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
+    NewWebUIViewCreated = event(add_NewWebUIViewCreated, remove_NewWebUIViewCreated)
 class IWebUIBackgroundTaskInstance(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WebUI.IWebUIBackgroundTaskInstance'
@@ -324,8 +324,8 @@ class IWebUIView(ComPtr):
     def put_IgnoreApplicationContentUriRulesNavigationRestrictions(self, value: Boolean) -> Void: ...
     ApplicationViewId = property(get_ApplicationViewId, None)
     IgnoreApplicationContentUriRulesNavigationRestrictions = property(get_IgnoreApplicationContentUriRulesNavigationRestrictions, put_IgnoreApplicationContentUriRulesNavigationRestrictions)
-    Closed = event()
-    Activated = event()
+    Activated = event(add_Activated, remove_Activated)
+    Closed = event(add_Closed, remove_Closed)
 class IWebUIViewStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WebUI.IWebUIViewStatics'
@@ -402,7 +402,9 @@ class SuspendingOperation(ComPtr):
     @winrt_mixinmethod
     def get_Deadline(self: win32more.Windows.ApplicationModel.ISuspendingOperation) -> win32more.Windows.Foundation.DateTime: ...
     Deadline = property(get_Deadline, None)
-class WebUIApplication(ComPtr):
+class _WebUIApplication_Meta_(ComPtr.__class__):
+    pass
+class WebUIApplication(ComPtr, metaclass=_WebUIApplication_Meta_):
     extends: IInspectable
     _classid_ = 'Windows.UI.WebUI.WebUIApplication'
     @winrt_classmethod
@@ -443,6 +445,14 @@ class WebUIApplication(ComPtr):
     def add_Navigated(cls: win32more.Windows.UI.WebUI.IWebUIActivationStatics, handler: win32more.Windows.UI.WebUI.NavigatedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_Navigated(cls: win32more.Windows.UI.WebUI.IWebUIActivationStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    _WebUIApplication_Meta_.Activated = event(add_Activated, remove_Activated)
+    _WebUIApplication_Meta_.BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
+    _WebUIApplication_Meta_.EnteredBackground = event(add_EnteredBackground, remove_EnteredBackground)
+    _WebUIApplication_Meta_.LeavingBackground = event(add_LeavingBackground, remove_LeavingBackground)
+    _WebUIApplication_Meta_.Navigated = event(add_Navigated, remove_Navigated)
+    _WebUIApplication_Meta_.NewWebUIViewCreated = event(add_NewWebUIViewCreated, remove_NewWebUIViewCreated)
+    _WebUIApplication_Meta_.Resuming = event(add_Resuming, remove_Resuming)
+    _WebUIApplication_Meta_.Suspending = event(add_Suspending, remove_Suspending)
 class WebUIAppointmentsProviderAddAppointmentActivatedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IAppointmentsProviderAddAppointmentActivatedEventArgs
@@ -617,7 +627,7 @@ class WebUIBackgroundTaskInstanceRuntimeClass(ComPtr):
     SuspendedCount = property(get_SuspendedCount, None)
     Task = property(get_Task, None)
     TriggerDetails = property(get_TriggerDetails, None)
-    Canceled = event()
+    Canceled = event(add_Canceled, remove_Canceled)
 class WebUIBarcodeScannerPreviewActivatedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IBarcodeScannerPreviewActivatedEventArgs
@@ -1676,25 +1686,25 @@ class WebUIView(ComPtr):
     IgnoreApplicationContentUriRulesNavigationRestrictions = property(get_IgnoreApplicationContentUriRulesNavigationRestrictions, put_IgnoreApplicationContentUriRulesNavigationRestrictions)
     Settings = property(get_Settings, None)
     Source = property(get_Source, put_Source)
-    Closed = event()
-    Activated = event()
-    NavigationStarting = event()
-    ContentLoading = event()
-    DOMContentLoaded = event()
-    NavigationCompleted = event()
-    FrameNavigationStarting = event()
-    FrameContentLoading = event()
-    FrameDOMContentLoaded = event()
-    FrameNavigationCompleted = event()
-    ScriptNotify = event()
-    LongRunningScriptDetected = event()
-    UnsafeContentWarningDisplaying = event()
-    UnviewableContentIdentified = event()
-    PermissionRequested = event()
-    UnsupportedUriSchemeIdentified = event()
-    NewWindowRequested = event()
-    ContainsFullScreenElementChanged = event()
-    WebResourceRequested = event()
+    Activated = event(add_Activated, remove_Activated)
+    Closed = event(add_Closed, remove_Closed)
+    ContainsFullScreenElementChanged = event(add_ContainsFullScreenElementChanged, remove_ContainsFullScreenElementChanged)
+    ContentLoading = event(add_ContentLoading, remove_ContentLoading)
+    DOMContentLoaded = event(add_DOMContentLoaded, remove_DOMContentLoaded)
+    FrameContentLoading = event(add_FrameContentLoading, remove_FrameContentLoading)
+    FrameDOMContentLoaded = event(add_FrameDOMContentLoaded, remove_FrameDOMContentLoaded)
+    FrameNavigationCompleted = event(add_FrameNavigationCompleted, remove_FrameNavigationCompleted)
+    FrameNavigationStarting = event(add_FrameNavigationStarting, remove_FrameNavigationStarting)
+    LongRunningScriptDetected = event(add_LongRunningScriptDetected, remove_LongRunningScriptDetected)
+    NavigationCompleted = event(add_NavigationCompleted, remove_NavigationCompleted)
+    NavigationStarting = event(add_NavigationStarting, remove_NavigationStarting)
+    NewWindowRequested = event(add_NewWindowRequested, remove_NewWindowRequested)
+    PermissionRequested = event(add_PermissionRequested, remove_PermissionRequested)
+    ScriptNotify = event(add_ScriptNotify, remove_ScriptNotify)
+    UnsafeContentWarningDisplaying = event(add_UnsafeContentWarningDisplaying, remove_UnsafeContentWarningDisplaying)
+    UnsupportedUriSchemeIdentified = event(add_UnsupportedUriSchemeIdentified, remove_UnsupportedUriSchemeIdentified)
+    UnviewableContentIdentified = event(add_UnviewableContentIdentified, remove_UnviewableContentIdentified)
+    WebResourceRequested = event(add_WebResourceRequested, remove_WebResourceRequested)
 class WebUIVoiceCommandActivatedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IVoiceCommandActivatedEventArgs

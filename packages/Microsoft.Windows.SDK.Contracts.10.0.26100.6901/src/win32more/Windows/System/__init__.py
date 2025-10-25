@@ -73,10 +73,10 @@ class AppDiagnosticInfoWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.System.IAppDiagnosticInfoWatcher) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
 class AppDiagnosticInfoWatcherEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.IAppDiagnosticInfoWatcherEventArgs
@@ -213,11 +213,11 @@ class AppResourceGroupInfoWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.System.IAppResourceGroupInfoWatcher) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    EnumerationCompleted = event()
-    Stopped = event()
-    ExecutionStateChanged = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    ExecutionStateChanged = event(add_ExecutionStateChanged, remove_ExecutionStateChanged)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
 class AppResourceGroupInfoWatcherEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.IAppResourceGroupInfoWatcherEventArgs
@@ -378,8 +378,8 @@ class DispatcherQueue(ComPtr):
     @winrt_classmethod
     def GetForCurrentThread(cls: win32more.Windows.System.IDispatcherQueueStatics) -> win32more.Windows.System.DispatcherQueue: ...
     HasThreadAccess = property(get_HasThreadAccess, None)
-    ShutdownStarting = event()
-    ShutdownCompleted = event()
+    ShutdownCompleted = event(add_ShutdownCompleted, remove_ShutdownCompleted)
+    ShutdownStarting = event(add_ShutdownStarting, remove_ShutdownStarting)
 class DispatcherQueueController(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.IDispatcherQueueController
@@ -431,7 +431,7 @@ class DispatcherQueueTimer(ComPtr):
     Interval = property(get_Interval, put_Interval)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
     IsRunning = property(get_IsRunning, None)
-    Tick = event()
+    Tick = event(add_Tick, remove_Tick)
 class FolderLauncherOptions(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.IFolderLauncherOptions
@@ -531,10 +531,10 @@ class IAppDiagnosticInfoWatcher(ComPtr):
     @winrt_commethod(16)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
 class IAppDiagnosticInfoWatcherEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.IAppDiagnosticInfoWatcherEventArgs'
@@ -657,11 +657,11 @@ class IAppResourceGroupInfoWatcher(ComPtr):
     @winrt_commethod(18)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    EnumerationCompleted = event()
-    Stopped = event()
-    ExecutionStateChanged = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    ExecutionStateChanged = event(add_ExecutionStateChanged, remove_ExecutionStateChanged)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
 class IAppResourceGroupInfoWatcherEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.IAppResourceGroupInfoWatcherEventArgs'
@@ -813,8 +813,8 @@ class IDispatcherQueue(ComPtr):
     def add_ShutdownCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueue, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_ShutdownCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ShutdownStarting = event()
-    ShutdownCompleted = event()
+    ShutdownCompleted = event(add_ShutdownCompleted, remove_ShutdownCompleted)
+    ShutdownStarting = event(add_ShutdownStarting, remove_ShutdownStarting)
 class IDispatcherQueue2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.IDispatcherQueue2'
@@ -874,7 +874,7 @@ class IDispatcherQueueTimer(ComPtr):
     Interval = property(get_Interval, put_Interval)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
     IsRunning = property(get_IsRunning, None)
-    Tick = event()
+    Tick = event(add_Tick, remove_Tick)
 class IFolderLauncherOptions(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.IFolderLauncherOptions'
@@ -1128,9 +1128,9 @@ class IMemoryManagerStatics(ComPtr):
     AppMemoryUsage = property(get_AppMemoryUsage, None)
     AppMemoryUsageLevel = property(get_AppMemoryUsageLevel, None)
     AppMemoryUsageLimit = property(get_AppMemoryUsageLimit, None)
-    AppMemoryUsageIncreased = event()
-    AppMemoryUsageDecreased = event()
-    AppMemoryUsageLimitChanging = event()
+    AppMemoryUsageDecreased = event(add_AppMemoryUsageDecreased, remove_AppMemoryUsageDecreased)
+    AppMemoryUsageIncreased = event(add_AppMemoryUsageIncreased, remove_AppMemoryUsageIncreased)
+    AppMemoryUsageLimitChanging = event(add_AppMemoryUsageLimitChanging, remove_AppMemoryUsageLimitChanging)
 class IMemoryManagerStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.IMemoryManagerStatics2'
@@ -1351,7 +1351,7 @@ class IUserDeviceAssociationStatics(ComPtr):
     def add_UserDeviceAssociationChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.System.UserDeviceAssociationChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_UserDeviceAssociationChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    UserDeviceAssociationChanged = event()
+    UserDeviceAssociationChanged = event(add_UserDeviceAssociationChanged, remove_UserDeviceAssociationChanged)
 class IUserPicker(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.IUserPicker'
@@ -1433,13 +1433,13 @@ class IUserWatcher(ComPtr):
     @winrt_commethod(22)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    Updated = event()
-    AuthenticationStatusChanged = event()
-    AuthenticationStatusChanging = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    AuthenticationStatusChanged = event(add_AuthenticationStatusChanged, remove_AuthenticationStatusChanged)
+    AuthenticationStatusChanging = event(add_AuthenticationStatusChanging, remove_AuthenticationStatusChanging)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class _KnownUserProperties_Meta_(ComPtr.__class__):
     pass
 class KnownUserProperties(ComPtr, metaclass=_KnownUserProperties_Meta_):
@@ -1689,6 +1689,9 @@ class MemoryManager(ComPtr, metaclass=_MemoryManager_Meta_):
     _MemoryManager_Meta_.AppMemoryUsageLevel = property(get_AppMemoryUsageLevel, None)
     _MemoryManager_Meta_.AppMemoryUsageLimit = property(get_AppMemoryUsageLimit, None)
     _MemoryManager_Meta_.ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit, None)
+    _MemoryManager_Meta_.AppMemoryUsageDecreased = event(add_AppMemoryUsageDecreased, remove_AppMemoryUsageDecreased)
+    _MemoryManager_Meta_.AppMemoryUsageIncreased = event(add_AppMemoryUsageIncreased, remove_AppMemoryUsageIncreased)
+    _MemoryManager_Meta_.AppMemoryUsageLimitChanging = event(add_AppMemoryUsageLimitChanging, remove_AppMemoryUsageLimitChanging)
 class PowerState(Enum, Int32):
     ConnectedStandby = 0
     SleepS3 = 1
@@ -1915,7 +1918,9 @@ class UserChangedEventArgs(ComPtr):
     def get_ChangedPropertyKinds(self: win32more.Windows.System.IUserChangedEventArgs2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.UserWatcherUpdateKind]: ...
     ChangedPropertyKinds = property(get_ChangedPropertyKinds, None)
     User = property(get_User, None)
-class UserDeviceAssociation(ComPtr):
+class _UserDeviceAssociation_Meta_(ComPtr.__class__):
+    pass
+class UserDeviceAssociation(ComPtr, metaclass=_UserDeviceAssociation_Meta_):
     extends: IInspectable
     _classid_ = 'Windows.System.UserDeviceAssociation'
     @winrt_classmethod
@@ -1924,6 +1929,7 @@ class UserDeviceAssociation(ComPtr):
     def add_UserDeviceAssociationChanged(cls: win32more.Windows.System.IUserDeviceAssociationStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.System.UserDeviceAssociationChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_UserDeviceAssociationChanged(cls: win32more.Windows.System.IUserDeviceAssociationStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    _UserDeviceAssociation_Meta_.UserDeviceAssociationChanged = event(add_UserDeviceAssociationChanged, remove_UserDeviceAssociationChanged)
 class UserDeviceAssociationChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.IUserDeviceAssociationChangedEventArgs
@@ -2014,13 +2020,13 @@ class UserWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.System.IUserWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    Updated = event()
-    AuthenticationStatusChanged = event()
-    AuthenticationStatusChanging = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    AuthenticationStatusChanged = event(add_AuthenticationStatusChanged, remove_AuthenticationStatusChanged)
+    AuthenticationStatusChanging = event(add_AuthenticationStatusChanging, remove_AuthenticationStatusChanging)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class UserWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1

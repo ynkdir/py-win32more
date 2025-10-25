@@ -132,7 +132,7 @@ class HidDevice(ComPtr):
     UsagePage = property(get_UsagePage, None)
     VendorId = property(get_VendorId, None)
     Version = property(get_Version, None)
-    InputReportReceived = event()
+    InputReportReceived = event(add_InputReportReceived, remove_InputReportReceived)
 class HidFeatureReport(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.HumanInterfaceDevice.IHidFeatureReport
@@ -403,7 +403,7 @@ class IHidDevice(ComPtr):
     UsagePage = property(get_UsagePage, None)
     VendorId = property(get_VendorId, None)
     Version = property(get_Version, None)
-    InputReportReceived = event()
+    InputReportReceived = event(add_InputReportReceived, remove_InputReportReceived)
 class IHidDeviceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics'

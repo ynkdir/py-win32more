@@ -41,7 +41,7 @@ class DesignerAppManager(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     AppUserModelId = property(get_AppUserModelId, None)
-    DesignerAppExited = event()
+    DesignerAppExited = event(add_DesignerAppExited, remove_DesignerAppExited)
 class DesignerAppView(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -100,8 +100,8 @@ class DesktopWindowXamlSource(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Content = property(get_Content, put_Content)
     HasFocus = property(get_HasFocus, None)
-    TakeFocusRequested = event()
-    GotFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    TakeFocusRequested = event(add_TakeFocusRequested, remove_TakeFocusRequested)
 class DesktopWindowXamlSourceGotFocusEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs
@@ -163,7 +163,7 @@ class IDesignerAppManager(ComPtr):
     @winrt_commethod(10)
     def LoadObjectIntoAppAsync(self, dllName: WinRT_String, classId: Guid, initializationData: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
     AppUserModelId = property(get_AppUserModelId, None)
-    DesignerAppExited = event()
+    DesignerAppExited = event(add_DesignerAppExited, remove_DesignerAppExited)
 class IDesignerAppManagerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Hosting.IDesignerAppManagerFactory'
@@ -210,8 +210,8 @@ class IDesktopWindowXamlSource(ComPtr):
     def NavigateFocus(self, request: win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest) -> win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult: ...
     Content = property(get_Content, put_Content)
     HasFocus = property(get_HasFocus, None)
-    TakeFocusRequested = event()
-    GotFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    TakeFocusRequested = event(add_TakeFocusRequested, remove_TakeFocusRequested)
 class IDesktopWindowXamlSourceFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory'

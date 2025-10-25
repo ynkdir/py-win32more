@@ -39,7 +39,7 @@ class IUserDataProtectionManager(ComPtr):
     def add_DataAvailabilityStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Security.DataProtection.UserDataProtectionManager, win32more.Windows.Security.DataProtection.UserDataAvailabilityStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_DataAvailabilityStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DataAvailabilityStateChanged = event()
+    DataAvailabilityStateChanged = event(add_DataAvailabilityStateChanged, remove_DataAvailabilityStateChanged)
 class IUserDataProtectionManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Security.DataProtection.IUserDataProtectionManagerStatics'
@@ -100,7 +100,7 @@ class UserDataProtectionManager(ComPtr):
     def TryGetDefault(cls: win32more.Windows.Security.DataProtection.IUserDataProtectionManagerStatics) -> win32more.Windows.Security.DataProtection.UserDataProtectionManager: ...
     @winrt_classmethod
     def TryGetForUser(cls: win32more.Windows.Security.DataProtection.IUserDataProtectionManagerStatics, user: win32more.Windows.System.User) -> win32more.Windows.Security.DataProtection.UserDataProtectionManager: ...
-    DataAvailabilityStateChanged = event()
+    DataAvailabilityStateChanged = event(add_DataAvailabilityStateChanged, remove_DataAvailabilityStateChanged)
 class UserDataStorageItemProtectionInfo(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Security.DataProtection.IUserDataStorageItemProtectionInfo

@@ -75,13 +75,13 @@ class CoreInkIndependentInputSource(ComPtr):
     def Create(cls: win32more.Windows.UI.Input.Inking.Core.ICoreInkIndependentInputSourceStatics, inkPresenter: win32more.Windows.UI.Input.Inking.InkPresenter) -> win32more.Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource: ...
     InkPresenter = property(get_InkPresenter, None)
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
-    PointerEntering = event()
-    PointerHovering = event()
-    PointerExiting = event()
-    PointerPressing = event()
-    PointerMoving = event()
-    PointerReleasing = event()
-    PointerLost = event()
+    PointerEntering = event(add_PointerEntering, remove_PointerEntering)
+    PointerExiting = event(add_PointerExiting, remove_PointerExiting)
+    PointerHovering = event(add_PointerHovering, remove_PointerHovering)
+    PointerLost = event(add_PointerLost, remove_PointerLost)
+    PointerMoving = event(add_PointerMoving, remove_PointerMoving)
+    PointerPressing = event(add_PointerPressing, remove_PointerPressing)
+    PointerReleasing = event(add_PointerReleasing, remove_PointerReleasing)
 class CoreInkPresenterHost(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Core.ICoreInkPresenterHost
@@ -151,11 +151,11 @@ class CoreWetStrokeUpdateSource(ComPtr):
     @winrt_classmethod
     def Create(cls: win32more.Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateSourceStatics, inkPresenter: win32more.Windows.UI.Input.Inking.InkPresenter) -> win32more.Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource: ...
     InkPresenter = property(get_InkPresenter, None)
-    WetStrokeStarting = event()
-    WetStrokeContinuing = event()
-    WetStrokeStopping = event()
-    WetStrokeCompleted = event()
-    WetStrokeCanceled = event()
+    WetStrokeCanceled = event(add_WetStrokeCanceled, remove_WetStrokeCanceled)
+    WetStrokeCompleted = event(add_WetStrokeCompleted, remove_WetStrokeCompleted)
+    WetStrokeContinuing = event(add_WetStrokeContinuing, remove_WetStrokeContinuing)
+    WetStrokeStarting = event(add_WetStrokeStarting, remove_WetStrokeStarting)
+    WetStrokeStopping = event(add_WetStrokeStopping, remove_WetStrokeStopping)
 class ICoreIncrementalInkStroke(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Core.ICoreIncrementalInkStroke'
@@ -214,13 +214,13 @@ class ICoreInkIndependentInputSource(ComPtr):
     @winrt_commethod(20)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    PointerEntering = event()
-    PointerHovering = event()
-    PointerExiting = event()
-    PointerPressing = event()
-    PointerMoving = event()
-    PointerReleasing = event()
-    PointerLost = event()
+    PointerEntering = event(add_PointerEntering, remove_PointerEntering)
+    PointerExiting = event(add_PointerExiting, remove_PointerExiting)
+    PointerHovering = event(add_PointerHovering, remove_PointerHovering)
+    PointerLost = event(add_PointerLost, remove_PointerLost)
+    PointerMoving = event(add_PointerMoving, remove_PointerMoving)
+    PointerPressing = event(add_PointerPressing, remove_PointerPressing)
+    PointerReleasing = event(add_PointerReleasing, remove_PointerReleasing)
 class ICoreInkIndependentInputSource2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Core.ICoreInkIndependentInputSource2'
@@ -290,11 +290,11 @@ class ICoreWetStrokeUpdateSource(ComPtr):
     @winrt_commethod(16)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    WetStrokeStarting = event()
-    WetStrokeContinuing = event()
-    WetStrokeStopping = event()
-    WetStrokeCompleted = event()
-    WetStrokeCanceled = event()
+    WetStrokeCanceled = event(add_WetStrokeCanceled, remove_WetStrokeCanceled)
+    WetStrokeCompleted = event(add_WetStrokeCompleted, remove_WetStrokeCompleted)
+    WetStrokeContinuing = event(add_WetStrokeContinuing, remove_WetStrokeContinuing)
+    WetStrokeStarting = event(add_WetStrokeStarting, remove_WetStrokeStarting)
+    WetStrokeStopping = event(add_WetStrokeStopping, remove_WetStrokeStopping)
 class ICoreWetStrokeUpdateSourceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateSourceStatics'

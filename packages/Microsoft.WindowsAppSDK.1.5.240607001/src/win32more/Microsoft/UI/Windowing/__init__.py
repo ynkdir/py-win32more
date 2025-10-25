@@ -106,9 +106,9 @@ class AppWindow(ComPtr):
     Size = property(get_Size, None)
     Title = property(get_Title, put_Title)
     TitleBar = property(get_TitleBar, None)
-    Closing = event()
-    Changed = event()
-    Destroying = event()
+    Changed = event(add_Changed, remove_Changed)
+    Closing = event(add_Closing, remove_Closing)
+    Destroying = event(add_Destroying, remove_Destroying)
 class AppWindowChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowChangedEventArgs
@@ -335,11 +335,11 @@ class DisplayAreaWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    EnumerationCompleted = event()
-    Removed = event()
-    Stopped = event()
-    Updated = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class DisplayAreaWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -424,9 +424,9 @@ class IAppWindow(ComPtr):
     Size = property(get_Size, None)
     Title = property(get_Title, put_Title)
     TitleBar = property(get_TitleBar, None)
-    Changed = event()
-    Closing = event()
-    Destroying = event()
+    Changed = event(add_Changed, remove_Changed)
+    Closing = event(add_Closing, remove_Closing)
+    Destroying = event(add_Destroying, remove_Destroying)
 class IAppWindow2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindow2'
@@ -710,11 +710,11 @@ class IDisplayAreaWatcher(ComPtr):
     @winrt_commethod(18)
     def remove_Updated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    EnumerationCompleted = event()
-    Removed = event()
-    Stopped = event()
-    Updated = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class IFullScreenPresenter(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IFullScreenPresenter'

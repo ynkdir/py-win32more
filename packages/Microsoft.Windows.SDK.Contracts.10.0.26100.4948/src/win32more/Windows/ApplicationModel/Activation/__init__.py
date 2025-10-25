@@ -1148,7 +1148,7 @@ class ISplashScreen(ComPtr):
     @winrt_commethod(8)
     def remove_Dismissed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageLocation = property(get_ImageLocation, None)
-    Dismissed = event()
+    Dismissed = event(add_Dismissed, remove_Dismissed)
 class IStartupTaskActivatedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IStartupTaskActivatedEventArgs'
@@ -1527,7 +1527,7 @@ class SplashScreen(ComPtr):
     @winrt_mixinmethod
     def remove_Dismissed(self: win32more.Windows.ApplicationModel.Activation.ISplashScreen, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageLocation = property(get_ImageLocation, None)
-    Dismissed = event()
+    Dismissed = event(add_Dismissed, remove_Dismissed)
 class StartupTaskActivatedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IStartupTaskActivatedEventArgs

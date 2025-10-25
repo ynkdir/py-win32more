@@ -59,9 +59,9 @@ class IWebAccountMonitor(ComPtr):
     def add_DefaultSignInAccountChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Security.Authentication.Web.Core.WebAccountMonitor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_DefaultSignInAccountChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Updated = event()
-    Removed = event()
-    DefaultSignInAccountChanged = event()
+    DefaultSignInAccountChanged = event(add_DefaultSignInAccountChanged, remove_DefaultSignInAccountChanged)
+    Removed = event(add_Removed, remove_Removed)
+    Updated = event(add_Updated, remove_Updated)
 class IWebAccountMonitor2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAccountMonitor2'
@@ -70,7 +70,7 @@ class IWebAccountMonitor2(ComPtr):
     def add_AccountPictureUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Security.Authentication.Web.Core.WebAccountMonitor, win32more.Windows.Security.Authentication.Web.Core.WebAccountEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AccountPictureUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    AccountPictureUpdated = event()
+    AccountPictureUpdated = event(add_AccountPictureUpdated, remove_AccountPictureUpdated)
 class IWebAuthenticationAddAccountResponse(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponse'
@@ -312,10 +312,10 @@ class WebAccountMonitor(ComPtr):
     def add_AccountPictureUpdated(self: win32more.Windows.Security.Authentication.Web.Core.IWebAccountMonitor2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Security.Authentication.Web.Core.WebAccountMonitor, win32more.Windows.Security.Authentication.Web.Core.WebAccountEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AccountPictureUpdated(self: win32more.Windows.Security.Authentication.Web.Core.IWebAccountMonitor2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Updated = event()
-    Removed = event()
-    DefaultSignInAccountChanged = event()
-    AccountPictureUpdated = event()
+    AccountPictureUpdated = event(add_AccountPictureUpdated, remove_AccountPictureUpdated)
+    DefaultSignInAccountChanged = event(add_DefaultSignInAccountChanged, remove_DefaultSignInAccountChanged)
+    Removed = event(add_Removed, remove_Removed)
+    Updated = event(add_Updated, remove_Updated)
 class WebAuthenticationAddAccountResponse(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponse

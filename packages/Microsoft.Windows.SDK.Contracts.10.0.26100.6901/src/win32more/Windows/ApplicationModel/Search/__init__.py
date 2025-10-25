@@ -86,11 +86,11 @@ class ISearchPane(ComPtr):
     SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
     Visible = property(get_Visible, None)
-    VisibilityChanged = event()
-    QueryChanged = event()
-    SuggestionsRequested = event()
-    QuerySubmitted = event()
-    ResultSuggestionChosen = event()
+    QueryChanged = event(add_QueryChanged, remove_QueryChanged)
+    QuerySubmitted = event(add_QuerySubmitted, remove_QuerySubmitted)
+    ResultSuggestionChosen = event(add_ResultSuggestionChosen, remove_ResultSuggestionChosen)
+    SuggestionsRequested = event(add_SuggestionsRequested, remove_SuggestionsRequested)
+    VisibilityChanged = event(add_VisibilityChanged, remove_VisibilityChanged)
 class ISearchPaneQueryChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs'
@@ -332,11 +332,11 @@ class SearchPane(ComPtr):
     SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
     Visible = property(get_Visible, None)
-    VisibilityChanged = event()
-    QueryChanged = event()
-    SuggestionsRequested = event()
-    QuerySubmitted = event()
-    ResultSuggestionChosen = event()
+    QueryChanged = event(add_QueryChanged, remove_QueryChanged)
+    QuerySubmitted = event(add_QuerySubmitted, remove_QuerySubmitted)
+    ResultSuggestionChosen = event(add_ResultSuggestionChosen, remove_ResultSuggestionChosen)
+    SuggestionsRequested = event(add_SuggestionsRequested, remove_SuggestionsRequested)
+    VisibilityChanged = event(add_VisibilityChanged, remove_VisibilityChanged)
 class SearchPaneQueryChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs

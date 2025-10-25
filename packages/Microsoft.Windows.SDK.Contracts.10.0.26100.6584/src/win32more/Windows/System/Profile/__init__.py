@@ -217,7 +217,7 @@ class IPlatformDiagnosticsAndUsageDataSettingsStatics(ComPtr):
     @winrt_commethod(9)
     def CanCollectDiagnostics(self, level: win32more.Windows.System.Profile.PlatformDataCollectionLevel) -> Boolean: ...
     CollectionLevel = property(get_CollectionLevel, None)
-    CollectionLevelChanged = event()
+    CollectionLevelChanged = event(add_CollectionLevelChanged, remove_CollectionLevelChanged)
 class IRetailInfoStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Profile.IRetailInfoStatics'
@@ -253,7 +253,7 @@ class ISmartAppControlPolicyStatics(ComPtr):
     @winrt_commethod(8)
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsEnabled = property(get_IsEnabled, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class ISystemIdentificationInfo(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Profile.ISystemIdentificationInfo'
@@ -283,7 +283,7 @@ class ISystemSetupInfoStatics(ComPtr):
     @winrt_commethod(8)
     def remove_OutOfBoxExperienceStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     OutOfBoxExperienceState = property(get_OutOfBoxExperienceState, None)
-    OutOfBoxExperienceStateChanged = event()
+    OutOfBoxExperienceStateChanged = event(add_OutOfBoxExperienceStateChanged, remove_OutOfBoxExperienceStateChanged)
 class IUnsupportedAppRequirement(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Profile.IUnsupportedAppRequirement'
@@ -314,7 +314,7 @@ class IWindowsIntegrityPolicyStatics(ComPtr):
     IsDisableSupported = property(get_IsDisableSupported, None)
     IsEnabled = property(get_IsEnabled, None)
     IsEnabledForTrial = property(get_IsEnabledForTrial, None)
-    PolicyChanged = event()
+    PolicyChanged = event(add_PolicyChanged, remove_PolicyChanged)
 class _KnownRetailInfoProperties_Meta_(ComPtr.__class__):
     pass
 class KnownRetailInfoProperties(ComPtr, metaclass=_KnownRetailInfoProperties_Meta_):
@@ -418,6 +418,7 @@ class PlatformDiagnosticsAndUsageDataSettings(ComPtr, metaclass=_PlatformDiagnos
     @winrt_classmethod
     def CanCollectDiagnostics(cls: win32more.Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics, level: win32more.Windows.System.Profile.PlatformDataCollectionLevel) -> Boolean: ...
     _PlatformDiagnosticsAndUsageDataSettings_Meta_.CollectionLevel = property(get_CollectionLevel, None)
+    _PlatformDiagnosticsAndUsageDataSettings_Meta_.CollectionLevelChanged = event(add_CollectionLevelChanged, remove_CollectionLevelChanged)
 ProfileHardwareTokenContract: UInt32 = 65536
 ProfileRetailInfoContract: UInt32 = 65536
 ProfileSharedModeContract: UInt32 = 131072
@@ -455,6 +456,7 @@ class SmartAppControlPolicy(ComPtr, metaclass=_SmartAppControlPolicy_Meta_):
     @winrt_classmethod
     def remove_Changed(cls: win32more.Windows.System.Profile.ISmartAppControlPolicyStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _SmartAppControlPolicy_Meta_.IsEnabled = property(get_IsEnabled, None)
+    _SmartAppControlPolicy_Meta_.Changed = event(add_Changed, remove_Changed)
 class SystemIdentification(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Profile.SystemIdentification'
@@ -493,6 +495,7 @@ class SystemSetupInfo(ComPtr, metaclass=_SystemSetupInfo_Meta_):
     @winrt_classmethod
     def remove_OutOfBoxExperienceStateChanged(cls: win32more.Windows.System.Profile.ISystemSetupInfoStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _SystemSetupInfo_Meta_.OutOfBoxExperienceState = property(get_OutOfBoxExperienceState, None)
+    _SystemSetupInfo_Meta_.OutOfBoxExperienceStateChanged = event(add_OutOfBoxExperienceStateChanged, remove_OutOfBoxExperienceStateChanged)
 class UnsupportedAppRequirement(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.Profile.IUnsupportedAppRequirement
@@ -527,6 +530,7 @@ class WindowsIntegrityPolicy(ComPtr, metaclass=_WindowsIntegrityPolicy_Meta_):
     _WindowsIntegrityPolicy_Meta_.IsDisableSupported = property(get_IsDisableSupported, None)
     _WindowsIntegrityPolicy_Meta_.IsEnabled = property(get_IsEnabled, None)
     _WindowsIntegrityPolicy_Meta_.IsEnabledForTrial = property(get_IsEnabledForTrial, None)
+    _WindowsIntegrityPolicy_Meta_.PolicyChanged = event(add_PolicyChanged, remove_PolicyChanged)
 
 
 make_ready(__name__)

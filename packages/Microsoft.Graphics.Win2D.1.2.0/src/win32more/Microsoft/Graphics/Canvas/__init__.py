@@ -291,7 +291,7 @@ class CanvasDevice(ComPtr, metaclass=_CanvasDevice_Meta_):
     MaximumBitmapSizeInPixels = property(get_MaximumBitmapSizeInPixels, None)
     MaximumCacheSize = property(get_MaximumCacheSize, put_MaximumCacheSize)
     _CanvasDevice_Meta_.DebugLevel = property(get_DebugLevel, put_DebugLevel)
-    DeviceLost = event()
+    DeviceLost = event(add_DeviceLost, remove_DeviceLost)
 class CanvasDpiRounding(Enum, Int32):
     Floor = 0
     Round = 1
@@ -1141,7 +1141,7 @@ class ICanvasDevice(ComPtr):
     LowPriority = property(get_LowPriority, put_LowPriority)
     MaximumBitmapSizeInPixels = property(get_MaximumBitmapSizeInPixels, None)
     MaximumCacheSize = property(get_MaximumCacheSize, put_MaximumCacheSize)
-    DeviceLost = event()
+    DeviceLost = event(add_DeviceLost, remove_DeviceLost)
 class ICanvasDeviceFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.ICanvasDeviceFactory'

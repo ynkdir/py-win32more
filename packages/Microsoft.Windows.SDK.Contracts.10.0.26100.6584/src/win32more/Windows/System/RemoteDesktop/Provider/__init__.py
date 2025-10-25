@@ -45,8 +45,8 @@ class IRemoteDesktopConnectionRemoteInfo(ComPtr):
     def add_PerformLocalActionRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo, win32more.Windows.System.RemoteDesktop.Provider.PerformLocalActionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_PerformLocalActionRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    SwitchToLocalSessionRequested = event()
-    PerformLocalActionRequested = event()
+    PerformLocalActionRequested = event(add_PerformLocalActionRequested, remove_PerformLocalActionRequested)
+    SwitchToLocalSessionRequested = event(add_SwitchToLocalSessionRequested, remove_SwitchToLocalSessionRequested)
 class IRemoteDesktopConnectionRemoteInfoStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics'
@@ -120,8 +120,8 @@ class RemoteDesktopConnectionRemoteInfo(ComPtr):
     def IsSwitchSupported(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics) -> Boolean: ...
     @winrt_classmethod
     def GetForLaunchUri(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics, launchUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo: ...
-    SwitchToLocalSessionRequested = event()
-    PerformLocalActionRequested = event()
+    PerformLocalActionRequested = event(add_PerformLocalActionRequested, remove_PerformLocalActionRequested)
+    SwitchToLocalSessionRequested = event(add_SwitchToLocalSessionRequested, remove_SwitchToLocalSessionRequested)
 class RemoteDesktopConnectionStatus(Enum, Int32):
     Connecting = 0
     Connected = 1

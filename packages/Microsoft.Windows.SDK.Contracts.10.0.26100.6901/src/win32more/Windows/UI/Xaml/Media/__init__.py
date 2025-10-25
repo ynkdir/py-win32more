@@ -398,7 +398,9 @@ class CompositeTransform(ComPtr, metaclass=_CompositeTransform_Meta_):
     _CompositeTransform_Meta_.SkewYProperty = property(get_SkewYProperty, None)
     _CompositeTransform_Meta_.TranslateXProperty = property(get_TranslateXProperty, None)
     _CompositeTransform_Meta_.TranslateYProperty = property(get_TranslateYProperty, None)
-class CompositionTarget(ComPtr):
+class _CompositionTarget_Meta_(ComPtr.__class__):
+    pass
+class CompositionTarget(ComPtr, metaclass=_CompositionTarget_Meta_):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Media.ICompositionTarget
     _classid_ = 'Windows.UI.Xaml.Media.CompositionTarget'
@@ -414,6 +416,9 @@ class CompositionTarget(ComPtr):
     def add_SurfaceContentsLost(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_SurfaceContentsLost(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    _CompositionTarget_Meta_.Rendered = event(add_Rendered, remove_Rendered)
+    _CompositionTarget_Meta_.Rendering = event(add_Rendering, remove_Rendering)
+    _CompositionTarget_Meta_.SurfaceContentsLost = event(add_SurfaceContentsLost, remove_SurfaceContentsLost)
 class DoubleCollection(ComPtr):
     extends: IInspectable
     implements: Tuple[SequenceProtocol[Double]]
@@ -1077,8 +1082,8 @@ class ICompositionTargetStatics(ComPtr):
     def add_SurfaceContentsLost(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_SurfaceContentsLost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Rendering = event()
-    SurfaceContentsLost = event()
+    Rendering = event(add_Rendering, remove_Rendering)
+    SurfaceContentsLost = event(add_SurfaceContentsLost, remove_SurfaceContentsLost)
 class ICompositionTargetStatics3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.ICompositionTargetStatics3'
@@ -1087,7 +1092,7 @@ class ICompositionTargetStatics3(ComPtr):
     def add_Rendered(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.UI.Xaml.Media.RenderedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Rendered(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Rendered = event()
+    Rendered = event(add_Rendered, remove_Rendered)
 class IEllipseGeometry(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IEllipseGeometry'
@@ -1310,8 +1315,8 @@ class IImageBrush(ComPtr):
     @winrt_commethod(11)
     def remove_ImageOpened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
-    ImageFailed = event()
-    ImageOpened = event()
+    ImageFailed = event(add_ImageFailed, remove_ImageFailed)
+    ImageOpened = event(add_ImageOpened, remove_ImageOpened)
 class IImageBrushStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IImageBrushStatics'
@@ -1421,7 +1426,7 @@ class ILoadedImageSurface(ComPtr):
     DecodedPhysicalSize = property(get_DecodedPhysicalSize, None)
     DecodedSize = property(get_DecodedSize, None)
     NaturalSize = property(get_NaturalSize, None)
-    LoadCompleted = event()
+    LoadCompleted = event(add_LoadCompleted, remove_LoadCompleted)
 class ILoadedImageSurfaceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.ILoadedImageSurfaceStatics'
@@ -2300,8 +2305,8 @@ class ImageBrush(ComPtr, metaclass=_ImageBrush_Meta_):
     def get_ImageSourceProperty(cls: win32more.Windows.UI.Xaml.Media.IImageBrushStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
     _ImageBrush_Meta_.ImageSourceProperty = property(get_ImageSourceProperty, None)
-    ImageFailed = event()
-    ImageOpened = event()
+    ImageFailed = event(add_ImageFailed, remove_ImageFailed)
+    ImageOpened = event(add_ImageOpened, remove_ImageOpened)
 class ImageSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Media.IImageSource
@@ -2435,7 +2440,7 @@ class LoadedImageSurface(ComPtr):
     DecodedPhysicalSize = property(get_DecodedPhysicalSize, None)
     DecodedSize = property(get_DecodedSize, None)
     NaturalSize = property(get_NaturalSize, None)
-    LoadCompleted = event()
+    LoadCompleted = event(add_LoadCompleted, remove_LoadCompleted)
 class Matrix(Structure):
     M11: Double
     M12: Double

@@ -32,7 +32,7 @@ class ILampArrayBitmapEffect(ComPtr):
     StartDelay = property(get_StartDelay, put_StartDelay)
     SuggestedBitmapSize = property(get_SuggestedBitmapSize, None)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
-    BitmapRequested = event()
+    BitmapRequested = event(add_BitmapRequested, remove_BitmapRequested)
 class ILampArrayBitmapEffectFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory'
@@ -146,7 +146,7 @@ class ILampArrayCustomEffect(ComPtr):
     def remove_UpdateRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Duration = property(get_Duration, put_Duration)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
-    UpdateRequested = event()
+    UpdateRequested = event(add_UpdateRequested, remove_UpdateRequested)
 class ILampArrayCustomEffectFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayCustomEffectFactory'
@@ -286,7 +286,7 @@ class LampArrayBitmapEffect(ComPtr):
     SuggestedBitmapSize = property(get_SuggestedBitmapSize, None)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     ZIndex = property(get_ZIndex, put_ZIndex)
-    BitmapRequested = event()
+    BitmapRequested = event(add_BitmapRequested, remove_BitmapRequested)
 class LampArrayBitmapRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapRequestedEventArgs
@@ -424,7 +424,7 @@ class LampArrayCustomEffect(ComPtr):
     Duration = property(get_Duration, put_Duration)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     ZIndex = property(get_ZIndex, put_ZIndex)
-    UpdateRequested = event()
+    UpdateRequested = event(add_UpdateRequested, remove_UpdateRequested)
 class LampArrayEffectCompletionBehavior(Enum, Int32):
     ClearState = 0
     KeepState = 1

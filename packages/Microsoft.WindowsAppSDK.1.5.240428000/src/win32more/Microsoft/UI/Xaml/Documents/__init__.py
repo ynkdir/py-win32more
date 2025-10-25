@@ -341,9 +341,9 @@ class Hyperlink(ComPtr, metaclass=_Hyperlink_Meta_):
     _Hyperlink_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty, None)
     _Hyperlink_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
     _Hyperlink_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty, None)
-    Click = event()
-    GotFocus = event()
-    LostFocus = event()
+    Click = event(add_Click, remove_Click)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class HyperlinkClickEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Documents.IHyperlinkClickEventArgs
@@ -580,9 +580,9 @@ class IHyperlink(ComPtr):
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     XYFocusUp = property(get_XYFocusUp, put_XYFocusUp)
     XYFocusUpNavigationStrategy = property(get_XYFocusUpNavigationStrategy, put_XYFocusUpNavigationStrategy)
-    Click = event()
-    GotFocus = event()
-    LostFocus = event()
+    Click = event(add_Click, remove_Click)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class IHyperlinkClickEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Documents.IHyperlinkClickEventArgs'
@@ -843,9 +843,9 @@ class ITextElement(ComPtr):
     Name = property(get_Name, None)
     TextDecorations = property(get_TextDecorations, put_TextDecorations)
     XamlRoot = property(get_XamlRoot, put_XamlRoot)
-    AccessKeyDisplayRequested = event()
-    AccessKeyDisplayDismissed = event()
-    AccessKeyInvoked = event()
+    AccessKeyDisplayDismissed = event(add_AccessKeyDisplayDismissed, remove_AccessKeyDisplayDismissed)
+    AccessKeyDisplayRequested = event(add_AccessKeyDisplayRequested, remove_AccessKeyDisplayRequested)
+    AccessKeyInvoked = event(add_AccessKeyInvoked, remove_AccessKeyInvoked)
 class ITextElementFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Documents.ITextElementFactory'
@@ -1638,9 +1638,9 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     _TextElement_Meta_.KeyTipVerticalOffsetProperty = property(get_KeyTipVerticalOffsetProperty, None)
     _TextElement_Meta_.LanguageProperty = property(get_LanguageProperty, None)
     _TextElement_Meta_.TextDecorationsProperty = property(get_TextDecorationsProperty, None)
-    AccessKeyDisplayRequested = event()
-    AccessKeyDisplayDismissed = event()
-    AccessKeyInvoked = event()
+    AccessKeyDisplayDismissed = event(add_AccessKeyDisplayDismissed, remove_AccessKeyDisplayDismissed)
+    AccessKeyDisplayRequested = event(add_AccessKeyDisplayRequested, remove_AccessKeyDisplayRequested)
+    AccessKeyInvoked = event(add_AccessKeyInvoked, remove_AccessKeyInvoked)
 class _TextHighlighter_Meta_(ComPtr.__class__):
     pass
 class TextHighlighter(ComPtr, metaclass=_TextHighlighter_Meta_):

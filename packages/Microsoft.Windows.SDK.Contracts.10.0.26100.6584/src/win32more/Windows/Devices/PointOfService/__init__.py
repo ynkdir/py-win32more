@@ -48,7 +48,7 @@ class BarcodeScanner(ComPtr):
     Capabilities = property(get_Capabilities, None)
     DeviceId = property(get_DeviceId, None)
     VideoDeviceId = property(get_VideoDeviceId, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class BarcodeScannerCapabilities(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IBarcodeScannerCapabilities
@@ -507,7 +507,7 @@ class CashDrawer(ComPtr):
     DrawerEventSource = property(get_DrawerEventSource, None)
     IsDrawerOpen = property(get_IsDrawerOpen, None)
     Status = property(get_Status, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class CashDrawerCapabilities(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ICashDrawerCapabilities
@@ -560,7 +560,7 @@ class CashDrawerCloseAlarm(ComPtr):
     BeepDelay = property(get_BeepDelay, put_BeepDelay)
     BeepDuration = property(get_BeepDuration, put_BeepDuration)
     BeepFrequency = property(get_BeepFrequency, put_BeepFrequency)
-    AlarmTimeoutExpired = event()
+    AlarmTimeoutExpired = event(add_AlarmTimeoutExpired, remove_AlarmTimeoutExpired)
 class CashDrawerClosedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ICashDrawerEventSourceEventArgs
@@ -580,8 +580,8 @@ class CashDrawerEventSource(ComPtr):
     def add_DrawerOpened(self: win32more.Windows.Devices.PointOfService.ICashDrawerEventSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.CashDrawerEventSource, win32more.Windows.Devices.PointOfService.CashDrawerOpenedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DrawerOpened(self: win32more.Windows.Devices.PointOfService.ICashDrawerEventSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DrawerClosed = event()
-    DrawerOpened = event()
+    DrawerClosed = event(add_DrawerClosed, remove_DrawerClosed)
+    DrawerOpened = event(add_DrawerOpened, remove_DrawerOpened)
 class CashDrawerOpenedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ICashDrawerEventSourceEventArgs
@@ -694,13 +694,13 @@ class ClaimedBarcodeScanner(ComPtr):
     IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
     IsEnabled = property(get_IsEnabled, None)
     IsVideoPreviewShownOnEnable = property(get_IsVideoPreviewShownOnEnable, put_IsVideoPreviewShownOnEnable)
-    DataReceived = event()
-    TriggerPressed = event()
-    TriggerReleased = event()
-    ReleaseDeviceRequested = event()
-    ImagePreviewReceived = event()
-    ErrorOccurred = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    DataReceived = event(add_DataReceived, remove_DataReceived)
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    ImagePreviewReceived = event(add_ImagePreviewReceived, remove_ImagePreviewReceived)
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
+    TriggerPressed = event(add_TriggerPressed, remove_TriggerPressed)
+    TriggerReleased = event(add_TriggerReleased, remove_TriggerReleased)
 class ClaimedBarcodeScannerClosedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedBarcodeScannerClosedEventArgs
@@ -744,8 +744,8 @@ class ClaimedCashDrawer(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsDrawerOpen = property(get_IsDrawerOpen, None)
     IsEnabled = property(get_IsEnabled, None)
-    ReleaseDeviceRequested = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
 class ClaimedCashDrawerClosedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedCashDrawerClosedEventArgs
@@ -892,9 +892,9 @@ class ClaimedLineDisplay(ComPtr):
     PhysicalDeviceName = property(get_PhysicalDeviceName, None)
     SupportedCharacterSets = property(get_SupportedCharacterSets, None)
     SupportedScreenSizesInCharacters = property(get_SupportedScreenSizesInCharacters, None)
-    ReleaseDeviceRequested = event()
-    StatusUpdated = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class ClaimedLineDisplayClosedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedLineDisplayClosedEventArgs
@@ -984,12 +984,12 @@ class ClaimedMagneticStripeReader(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
     IsTransmitSentinelsEnabled = property(get_IsTransmitSentinelsEnabled, put_IsTransmitSentinelsEnabled)
     TracksToRead = property(get_TracksToRead, put_TracksToRead)
-    BankCardDataReceived = event()
-    AamvaCardDataReceived = event()
-    VendorSpecificDataReceived = event()
-    ReleaseDeviceRequested = event()
-    ErrorOccurred = event()
-    Closed = event()
+    AamvaCardDataReceived = event(add_AamvaCardDataReceived, remove_AamvaCardDataReceived)
+    BankCardDataReceived = event(add_BankCardDataReceived, remove_BankCardDataReceived)
+    Closed = event(add_Closed, remove_Closed)
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
+    VendorSpecificDataReceived = event(add_VendorSpecificDataReceived, remove_VendorSpecificDataReceived)
 class ClaimedMagneticStripeReaderClosedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedMagneticStripeReaderClosedEventArgs
@@ -1052,8 +1052,8 @@ class ClaimedPosPrinter(ComPtr):
     MapMode = property(get_MapMode, put_MapMode)
     Receipt = property(get_Receipt, None)
     Slip = property(get_Slip, None)
-    ReleaseDeviceRequested = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
 class ClaimedPosPrinterClosedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedPosPrinterClosedEventArgs
@@ -1246,7 +1246,7 @@ class IBarcodeScanner(ComPtr):
     def remove_StatusUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Capabilities = property(get_Capabilities, None)
     DeviceId = property(get_DeviceId, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class IBarcodeScanner2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IBarcodeScanner2'
@@ -1715,7 +1715,7 @@ class ICashDrawer(ComPtr):
     DrawerEventSource = property(get_DrawerEventSource, None)
     IsDrawerOpen = property(get_IsDrawerOpen, None)
     Status = property(get_Status, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class ICashDrawerCapabilities(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICashDrawerCapabilities'
@@ -1768,7 +1768,7 @@ class ICashDrawerCloseAlarm(ComPtr):
     BeepDelay = property(get_BeepDelay, put_BeepDelay)
     BeepDuration = property(get_BeepDuration, put_BeepDuration)
     BeepFrequency = property(get_BeepFrequency, put_BeepFrequency)
-    AlarmTimeoutExpired = event()
+    AlarmTimeoutExpired = event(add_AlarmTimeoutExpired, remove_AlarmTimeoutExpired)
 class ICashDrawerEventSource(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICashDrawerEventSource'
@@ -1781,8 +1781,8 @@ class ICashDrawerEventSource(ComPtr):
     def add_DrawerOpened(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.CashDrawerEventSource, win32more.Windows.Devices.PointOfService.CashDrawerOpenedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_DrawerOpened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DrawerClosed = event()
-    DrawerOpened = event()
+    DrawerClosed = event(add_DrawerClosed, remove_DrawerClosed)
+    DrawerOpened = event(add_DrawerOpened, remove_DrawerOpened)
 class ICashDrawerEventSourceEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICashDrawerEventSourceEventArgs'
@@ -1881,12 +1881,12 @@ class IClaimedBarcodeScanner(ComPtr):
     IsDecodeDataEnabled = property(get_IsDecodeDataEnabled, put_IsDecodeDataEnabled)
     IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
     IsEnabled = property(get_IsEnabled, None)
-    DataReceived = event()
-    TriggerPressed = event()
-    TriggerReleased = event()
-    ReleaseDeviceRequested = event()
-    ImagePreviewReceived = event()
-    ErrorOccurred = event()
+    DataReceived = event(add_DataReceived, remove_DataReceived)
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    ImagePreviewReceived = event(add_ImagePreviewReceived, remove_ImagePreviewReceived)
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
+    TriggerPressed = event(add_TriggerPressed, remove_TriggerPressed)
+    TriggerReleased = event(add_TriggerReleased, remove_TriggerReleased)
 class IClaimedBarcodeScanner1(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedBarcodeScanner1'
@@ -1924,7 +1924,7 @@ class IClaimedBarcodeScanner4(ComPtr):
     def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedBarcodeScanner, win32more.Windows.Devices.PointOfService.ClaimedBarcodeScannerClosedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IClaimedBarcodeScannerClosedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedBarcodeScannerClosedEventArgs'
@@ -1961,7 +1961,7 @@ class IClaimedCashDrawer(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsDrawerOpen = property(get_IsDrawerOpen, None)
     IsEnabled = property(get_IsEnabled, None)
-    ReleaseDeviceRequested = event()
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
 class IClaimedCashDrawer2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedCashDrawer2'
@@ -1970,7 +1970,7 @@ class IClaimedCashDrawer2(ComPtr):
     def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedCashDrawer, win32more.Windows.Devices.PointOfService.ClaimedCashDrawerClosedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IClaimedCashDrawerClosedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedCashDrawerClosedEventArgs'
@@ -2015,7 +2015,7 @@ class IClaimedLineDisplay(ComPtr):
     DeviceServiceVersion = property(get_DeviceServiceVersion, None)
     PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
     PhysicalDeviceName = property(get_PhysicalDeviceName, None)
-    ReleaseDeviceRequested = event()
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
 class IClaimedLineDisplay2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedLineDisplay2'
@@ -2058,7 +2058,7 @@ class IClaimedLineDisplay2(ComPtr):
     MaxBitmapSizeInPixels = property(get_MaxBitmapSizeInPixels, None)
     SupportedCharacterSets = property(get_SupportedCharacterSets, None)
     SupportedScreenSizesInCharacters = property(get_SupportedScreenSizesInCharacters, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class IClaimedLineDisplay3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedLineDisplay3'
@@ -2067,7 +2067,7 @@ class IClaimedLineDisplay3(ComPtr):
     def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedLineDisplay, win32more.Windows.Devices.PointOfService.ClaimedLineDisplayClosedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IClaimedLineDisplayClosedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedLineDisplayClosedEventArgs'
@@ -2160,11 +2160,11 @@ class IClaimedMagneticStripeReader(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
     IsTransmitSentinelsEnabled = property(get_IsTransmitSentinelsEnabled, put_IsTransmitSentinelsEnabled)
     TracksToRead = property(get_TracksToRead, put_TracksToRead)
-    BankCardDataReceived = event()
-    AamvaCardDataReceived = event()
-    VendorSpecificDataReceived = event()
-    ReleaseDeviceRequested = event()
-    ErrorOccurred = event()
+    AamvaCardDataReceived = event(add_AamvaCardDataReceived, remove_AamvaCardDataReceived)
+    BankCardDataReceived = event(add_BankCardDataReceived, remove_BankCardDataReceived)
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
+    VendorSpecificDataReceived = event(add_VendorSpecificDataReceived, remove_VendorSpecificDataReceived)
 class IClaimedMagneticStripeReader2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedMagneticStripeReader2'
@@ -2173,7 +2173,7 @@ class IClaimedMagneticStripeReader2(ComPtr):
     def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedMagneticStripeReader, win32more.Windows.Devices.PointOfService.ClaimedMagneticStripeReaderClosedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IClaimedMagneticStripeReaderClosedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedMagneticStripeReaderClosedEventArgs'
@@ -2229,7 +2229,7 @@ class IClaimedPosPrinter(ComPtr):
     MapMode = property(get_MapMode, put_MapMode)
     Receipt = property(get_Receipt, None)
     Slip = property(get_Slip, None)
-    ReleaseDeviceRequested = event()
+    ReleaseDeviceRequested = event(add_ReleaseDeviceRequested, remove_ReleaseDeviceRequested)
 class IClaimedPosPrinter2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedPosPrinter2'
@@ -2238,7 +2238,7 @@ class IClaimedPosPrinter2(ComPtr):
     def add_Closed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedPosPrinter, win32more.Windows.Devices.PointOfService.ClaimedPosPrinterClosedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IClaimedPosPrinterClosedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedPosPrinterClosedEventArgs'
@@ -2808,7 +2808,7 @@ class IMagneticStripeReader(ComPtr):
     DeviceAuthenticationProtocol = property(get_DeviceAuthenticationProtocol, None)
     DeviceId = property(get_DeviceId, None)
     SupportedCardTypes = property(get_SupportedCardTypes, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class IMagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderAamvaCardDataReceivedEventArgs'
@@ -2959,13 +2959,13 @@ class IMagneticStripeReaderEncryptionAlgorithmsStatics(ComPtr):
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics'
     _iid_ = Guid('{53b57350-c3db-4754-9c00-41392374a109}')
     @winrt_commethod(6)
-    def get_None_(self) -> UInt32: ...
+    def get_None(self) -> UInt32: ...
     @winrt_commethod(7)
     def get_TripleDesDukpt(self) -> UInt32: ...
     @winrt_commethod(8)
     def get_ExtendedBase(self) -> UInt32: ...
     ExtendedBase = property(get_ExtendedBase, None)
-    None_ = property(get_None_, None)
+    None_ = property(get_None, None)
     TripleDesDukpt = property(get_TripleDesDukpt, None)
 class IMagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     extends: IInspectable
@@ -3095,7 +3095,7 @@ class IPosPrinter(ComPtr):
     Status = property(get_Status, None)
     SupportedCharacterSets = property(get_SupportedCharacterSets, None)
     SupportedTypeFaces = property(get_SupportedTypeFaces, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class IPosPrinter2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IPosPrinter2'
@@ -3907,7 +3907,7 @@ class MagneticStripeReader(ComPtr):
     DeviceAuthenticationProtocol = property(get_DeviceAuthenticationProtocol, None)
     DeviceId = property(get_DeviceId, None)
     SupportedCardTypes = property(get_SupportedCardTypes, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class MagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderAamvaCardDataReceivedEventArgs
@@ -4067,13 +4067,13 @@ class MagneticStripeReaderEncryptionAlgorithms(ComPtr, metaclass=_MagneticStripe
     extends: IInspectable
     _classid_ = 'Windows.Devices.PointOfService.MagneticStripeReaderEncryptionAlgorithms'
     @winrt_classmethod
-    def get_None_(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
+    def get_None(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
     @winrt_classmethod
     def get_TripleDesDukpt(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
     @winrt_classmethod
     def get_ExtendedBase(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
     _MagneticStripeReaderEncryptionAlgorithms_Meta_.ExtendedBase = property(get_ExtendedBase, None)
-    _MagneticStripeReaderEncryptionAlgorithms_Meta_.None_ = property(get_None_, None)
+    _MagneticStripeReaderEncryptionAlgorithms_Meta_.None_ = property(get_None, None)
     _MagneticStripeReaderEncryptionAlgorithms_Meta_.TripleDesDukpt = property(get_TripleDesDukpt, None)
 class MagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     extends: IInspectable
@@ -4228,7 +4228,7 @@ class PosPrinter(ComPtr):
     SupportedBarcodeSymbologies = property(get_SupportedBarcodeSymbologies, None)
     SupportedCharacterSets = property(get_SupportedCharacterSets, None)
     SupportedTypeFaces = property(get_SupportedTypeFaces, None)
-    StatusUpdated = event()
+    StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class PosPrinterAlignment(Enum, Int32):
     Left = 0
     Center = 1

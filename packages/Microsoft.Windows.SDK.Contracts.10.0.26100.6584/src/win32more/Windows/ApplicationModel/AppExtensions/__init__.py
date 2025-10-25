@@ -69,11 +69,11 @@ class AppExtensionCatalog(ComPtr):
     def FindAll(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppExtensions.AppExtension]: ...
     @winrt_classmethod
     def Open(cls: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionCatalogStatics, appExtensionName: WinRT_String) -> win32more.Windows.ApplicationModel.AppExtensions.AppExtensionCatalog: ...
-    PackageInstalled = event()
-    PackageUpdating = event()
-    PackageUpdated = event()
-    PackageUninstalling = event()
-    PackageStatusChanged = event()
+    PackageInstalled = event(add_PackageInstalled, remove_PackageInstalled)
+    PackageStatusChanged = event(add_PackageStatusChanged, remove_PackageStatusChanged)
+    PackageUninstalling = event(add_PackageUninstalling, remove_PackageUninstalling)
+    PackageUpdated = event(add_PackageUpdated, remove_PackageUpdated)
+    PackageUpdating = event(add_PackageUpdating, remove_PackageUpdating)
 class AppExtensionPackageInstalledEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionPackageInstalledEventArgs
@@ -198,11 +198,11 @@ class IAppExtensionCatalog(ComPtr):
     def add_PackageStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.AppExtensions.AppExtensionCatalog, win32more.Windows.ApplicationModel.AppExtensions.AppExtensionPackageStatusChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_PackageStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PackageInstalled = event()
-    PackageUpdating = event()
-    PackageUpdated = event()
-    PackageUninstalling = event()
-    PackageStatusChanged = event()
+    PackageInstalled = event(add_PackageInstalled, remove_PackageInstalled)
+    PackageStatusChanged = event(add_PackageStatusChanged, remove_PackageStatusChanged)
+    PackageUninstalling = event(add_PackageUninstalling, remove_PackageUninstalling)
+    PackageUpdated = event(add_PackageUpdated, remove_PackageUpdated)
+    PackageUpdating = event(add_PackageUpdating, remove_PackageUpdating)
 class IAppExtensionCatalog2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog2'

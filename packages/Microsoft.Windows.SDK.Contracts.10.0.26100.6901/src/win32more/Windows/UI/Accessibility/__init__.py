@@ -23,7 +23,7 @@ class IScreenReaderService(ComPtr):
     @winrt_commethod(8)
     def remove_ScreenReaderPositionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CurrentScreenReaderPosition = property(get_CurrentScreenReaderPosition, None)
-    ScreenReaderPositionChanged = event()
+    ScreenReaderPositionChanged = event(add_ScreenReaderPositionChanged, remove_ScreenReaderPositionChanged)
 class ScreenReaderPositionChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Accessibility.IScreenReaderPositionChangedEventArgs
@@ -54,7 +54,7 @@ class ScreenReaderService(ComPtr):
     @winrt_mixinmethod
     def remove_ScreenReaderPositionChanged(self: win32more.Windows.UI.Accessibility.IScreenReaderService, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CurrentScreenReaderPosition = property(get_CurrentScreenReaderPosition, None)
-    ScreenReaderPositionChanged = event()
+    ScreenReaderPositionChanged = event(add_ScreenReaderPositionChanged, remove_ScreenReaderPositionChanged)
 
 
 make_ready(__name__)

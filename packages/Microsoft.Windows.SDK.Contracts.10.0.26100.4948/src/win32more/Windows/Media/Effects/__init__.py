@@ -30,7 +30,7 @@ class AudioCaptureEffectsManager(ComPtr):
     def remove_AudioCaptureEffectsChanged(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def GetAudioCaptureEffects(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Effects.AudioEffect]: ...
-    AudioCaptureEffectsChanged = event()
+    AudioCaptureEffectsChanged = event(add_AudioCaptureEffectsChanged, remove_AudioCaptureEffectsChanged)
 class AudioEffect(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioEffect
@@ -125,7 +125,7 @@ class AudioRenderEffectsManager(ComPtr):
     def ShowSettingsUI(self: win32more.Windows.Media.Effects.IAudioRenderEffectsManager2) -> Void: ...
     EffectsProviderSettingsLabel = property(get_EffectsProviderSettingsLabel, None)
     EffectsProviderThumbnail = property(get_EffectsProviderThumbnail, None)
-    AudioRenderEffectsChanged = event()
+    AudioRenderEffectsChanged = event(add_AudioRenderEffectsChanged, remove_AudioRenderEffectsChanged)
 class CompositeVideoFrameContext(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.ICompositeVideoFrameContext
@@ -157,7 +157,7 @@ class IAudioCaptureEffectsManager(ComPtr):
     def remove_AudioCaptureEffectsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def GetAudioCaptureEffects(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Effects.AudioEffect]: ...
-    AudioCaptureEffectsChanged = event()
+    AudioCaptureEffectsChanged = event(add_AudioCaptureEffectsChanged, remove_AudioCaptureEffectsChanged)
 class IAudioEffect(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioEffect'
@@ -220,7 +220,7 @@ class IAudioRenderEffectsManager(ComPtr):
     def remove_AudioRenderEffectsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def GetAudioRenderEffects(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Effects.AudioEffect]: ...
-    AudioRenderEffectsChanged = event()
+    AudioRenderEffectsChanged = event(add_AudioRenderEffectsChanged, remove_AudioRenderEffectsChanged)
 class IAudioRenderEffectsManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioRenderEffectsManager2'

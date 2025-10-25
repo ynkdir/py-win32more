@@ -79,8 +79,8 @@ class AppInstallItem(ComPtr):
     PinToStartAfterInstall = property(get_PinToStartAfterInstall, put_PinToStartAfterInstall)
     PinToTaskbarAfterInstall = property(get_PinToTaskbarAfterInstall, put_PinToTaskbarAfterInstall)
     ProductId = property(get_ProductId, None)
-    Completed = event()
-    StatusChanged = event()
+    Completed = event(add_Completed, remove_Completed)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class AppInstallManager(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManager
@@ -195,8 +195,8 @@ class AppInstallManager(ComPtr):
     AppInstallItemsWithGroupSupport = property(get_AppInstallItemsWithGroupSupport, None)
     AutoUpdateSetting = property(get_AutoUpdateSetting, put_AutoUpdateSetting)
     CanInstallForAllUsers = property(get_CanInstallForAllUsers, None)
-    ItemCompleted = event()
-    ItemStatusChanged = event()
+    ItemCompleted = event(add_ItemCompleted, remove_ItemCompleted)
+    ItemStatusChanged = event(add_ItemStatusChanged, remove_ItemStatusChanged)
 class AppInstallManagerItemEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManagerItemEventArgs
@@ -433,8 +433,8 @@ class IAppInstallItem(ComPtr):
     IsUserInitiated = property(get_IsUserInitiated, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
     ProductId = property(get_ProductId, None)
-    Completed = event()
-    StatusChanged = event()
+    Completed = event(add_Completed, remove_Completed)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IAppInstallItem2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem2'
@@ -538,8 +538,8 @@ class IAppInstallManager(ComPtr):
     AcquisitionIdentity = property(get_AcquisitionIdentity, put_AcquisitionIdentity)
     AppInstallItems = property(get_AppInstallItems, None)
     AutoUpdateSetting = property(get_AutoUpdateSetting, put_AutoUpdateSetting)
-    ItemCompleted = event()
-    ItemStatusChanged = event()
+    ItemCompleted = event(add_ItemCompleted, remove_ItemCompleted)
+    ItemStatusChanged = event(add_ItemStatusChanged, remove_ItemStatusChanged)
 class IAppInstallManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManager2'

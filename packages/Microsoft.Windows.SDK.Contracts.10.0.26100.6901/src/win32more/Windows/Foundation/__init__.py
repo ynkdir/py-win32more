@@ -221,7 +221,7 @@ class IMemoryBufferReference(ComPtr):
     @winrt_commethod(8)
     def remove_Closed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Capacity = property(get_Capacity, None)
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IPropertyValue(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Foundation.IPropertyValue'

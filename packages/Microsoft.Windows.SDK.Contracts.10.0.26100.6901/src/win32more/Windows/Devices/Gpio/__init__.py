@@ -157,7 +157,7 @@ class GpioPin(ComPtr):
     DebounceTimeout = property(get_DebounceTimeout, put_DebounceTimeout)
     PinNumber = property(get_PinNumber, None)
     SharingMode = property(get_SharingMode, None)
-    ValueChanged = event()
+    ValueChanged = event(add_ValueChanged, remove_ValueChanged)
 class GpioPinDriveMode(Enum, Int32):
     Input = 0
     Output = 1
@@ -314,7 +314,7 @@ class IGpioPin(ComPtr):
     DebounceTimeout = property(get_DebounceTimeout, put_DebounceTimeout)
     PinNumber = property(get_PinNumber, None)
     SharingMode = property(get_SharingMode, None)
-    ValueChanged = event()
+    ValueChanged = event(add_ValueChanged, remove_ValueChanged)
 class IGpioPinValueChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Gpio.IGpioPinValueChangedEventArgs'

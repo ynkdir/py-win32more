@@ -123,8 +123,8 @@ class Application(ComPtr, metaclass=_Application_Meta_):
     RequestedTheme = property(get_RequestedTheme, put_RequestedTheme)
     Resources = property(get_Resources, put_Resources)
     _Application_Meta_.Current = property(get_Current, None)
-    UnhandledException = event()
-    ResourceManagerRequested = event()
+    ResourceManagerRequested = event(add_ResourceManagerRequested, remove_ResourceManagerRequested)
+    UnhandledException = event(add_UnhandledException, remove_UnhandledException)
 class ApplicationHighContrastAdjustment(Enum, UInt32):
     None_ = 0
     Auto = 4294967295
@@ -572,8 +572,8 @@ class DebugSettings(ComPtr):
     IsXamlResourceReferenceTracingEnabled = property(get_IsXamlResourceReferenceTracingEnabled, put_IsXamlResourceReferenceTracingEnabled)
     LayoutCycleDebugBreakLevel = property(get_LayoutCycleDebugBreakLevel, put_LayoutCycleDebugBreakLevel)
     LayoutCycleTracingLevel = property(get_LayoutCycleTracingLevel, put_LayoutCycleTracingLevel)
-    BindingFailed = event()
-    XamlResourceReferenceFailed = event()
+    BindingFailed = event(add_BindingFailed, remove_BindingFailed)
+    XamlResourceReferenceFailed = event(add_XamlResourceReferenceFailed, remove_XamlResourceReferenceFailed)
 class DependencyObject(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IDependencyObject
@@ -652,7 +652,7 @@ class DependencyObjectCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Microsoft.UI.Xaml.DependencyObject]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Microsoft.UI.Xaml.DependencyObject]: ...
     Size = property(get_Size, None)
-    VectorChanged = event()
+    VectorChanged = event(add_VectorChanged, remove_VectorChanged)
 class _DependencyProperty_Meta_(ComPtr.__class__):
     pass
 class DependencyProperty(ComPtr, metaclass=_DependencyProperty_Meta_):
@@ -723,7 +723,7 @@ class DispatcherTimer(ComPtr):
     def Stop(self: win32more.Microsoft.UI.Xaml.IDispatcherTimer) -> Void: ...
     Interval = property(get_Interval, put_Interval)
     IsEnabled = property(get_IsEnabled, None)
-    Tick = event()
+    Tick = event(add_Tick, remove_Tick)
 class DragEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.IDragEventArgs
@@ -1372,14 +1372,14 @@ class FrameworkElement(ComPtr, metaclass=_FrameworkElement_Meta_):
     _FrameworkElement_Meta_.TagProperty = property(get_TagProperty, None)
     _FrameworkElement_Meta_.VerticalAlignmentProperty = property(get_VerticalAlignmentProperty, None)
     _FrameworkElement_Meta_.WidthProperty = property(get_WidthProperty, None)
-    Loaded = event()
-    Unloaded = event()
-    DataContextChanged = event()
-    SizeChanged = event()
-    LayoutUpdated = event()
-    Loading = event()
-    ActualThemeChanged = event()
-    EffectiveViewportChanged = event()
+    ActualThemeChanged = event(add_ActualThemeChanged, remove_ActualThemeChanged)
+    DataContextChanged = event(add_DataContextChanged, remove_DataContextChanged)
+    EffectiveViewportChanged = event(add_EffectiveViewportChanged, remove_EffectiveViewportChanged)
+    LayoutUpdated = event(add_LayoutUpdated, remove_LayoutUpdated)
+    Loaded = event(add_Loaded, remove_Loaded)
+    Loading = event(add_Loading, remove_Loading)
+    SizeChanged = event(add_SizeChanged, remove_SizeChanged)
+    Unloaded = event(add_Unloaded, remove_Unloaded)
 class FrameworkTemplate(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IFrameworkTemplate
@@ -1527,7 +1527,7 @@ class IApplication(ComPtr):
     HighContrastAdjustment = property(get_HighContrastAdjustment, put_HighContrastAdjustment)
     RequestedTheme = property(get_RequestedTheme, put_RequestedTheme)
     Resources = property(get_Resources, put_Resources)
-    UnhandledException = event()
+    UnhandledException = event(add_UnhandledException, remove_UnhandledException)
 class IApplication2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IApplication2'
@@ -1536,7 +1536,7 @@ class IApplication2(ComPtr):
     def add_ResourceManagerRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Microsoft.UI.Xaml.ResourceManagerRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ResourceManagerRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ResourceManagerRequested = event()
+    ResourceManagerRequested = event(add_ResourceManagerRequested, remove_ResourceManagerRequested)
 class IApplication3(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IApplication3'
@@ -1918,7 +1918,7 @@ class IDebugSettings(ComPtr):
     FailFastOnErrors = property(get_FailFastOnErrors, put_FailFastOnErrors)
     IsBindingTracingEnabled = property(get_IsBindingTracingEnabled, put_IsBindingTracingEnabled)
     IsTextPerformanceVisualizationEnabled = property(get_IsTextPerformanceVisualizationEnabled, put_IsTextPerformanceVisualizationEnabled)
-    BindingFailed = event()
+    BindingFailed = event(add_BindingFailed, remove_BindingFailed)
 class IDebugSettings2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IDebugSettings2'
@@ -1932,7 +1932,7 @@ class IDebugSettings2(ComPtr):
     @winrt_commethod(9)
     def remove_XamlResourceReferenceFailed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsXamlResourceReferenceTracingEnabled = property(get_IsXamlResourceReferenceTracingEnabled, put_IsXamlResourceReferenceTracingEnabled)
-    XamlResourceReferenceFailed = event()
+    XamlResourceReferenceFailed = event(add_XamlResourceReferenceFailed, remove_XamlResourceReferenceFailed)
 class IDebugSettings3(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IDebugSettings3'
@@ -2033,7 +2033,7 @@ class IDispatcherTimer(ComPtr):
     def Stop(self) -> Void: ...
     Interval = property(get_Interval, put_Interval)
     IsEnabled = property(get_IsEnabled, None)
-    Tick = event()
+    Tick = event(add_Tick, remove_Tick)
 class IDispatcherTimerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IDispatcherTimerFactory'
@@ -2481,14 +2481,14 @@ class IFrameworkElement(ComPtr):
     Triggers = property(get_Triggers, None)
     VerticalAlignment = property(get_VerticalAlignment, put_VerticalAlignment)
     Width = property(get_Width, put_Width)
-    Loaded = event()
-    Unloaded = event()
-    DataContextChanged = event()
-    SizeChanged = event()
-    LayoutUpdated = event()
-    Loading = event()
-    ActualThemeChanged = event()
-    EffectiveViewportChanged = event()
+    ActualThemeChanged = event(add_ActualThemeChanged, remove_ActualThemeChanged)
+    DataContextChanged = event(add_DataContextChanged, remove_DataContextChanged)
+    EffectiveViewportChanged = event(add_EffectiveViewportChanged, remove_EffectiveViewportChanged)
+    LayoutUpdated = event(add_LayoutUpdated, remove_LayoutUpdated)
+    Loaded = event(add_Loaded, remove_Loaded)
+    Loading = event(add_Loading, remove_Loading)
+    SizeChanged = event(add_SizeChanged, remove_SizeChanged)
+    Unloaded = event(add_Unloaded, remove_Unloaded)
 class IFrameworkElementFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IFrameworkElementFactory'
@@ -3501,46 +3501,46 @@ class IUIElement(ComPtr):
     XYFocusUp = property(get_XYFocusUp, put_XYFocusUp)
     XYFocusUpNavigationStrategy = property(get_XYFocusUpNavigationStrategy, put_XYFocusUpNavigationStrategy)
     XamlRoot = property(get_XamlRoot, put_XamlRoot)
-    KeyUp = event()
-    KeyDown = event()
-    GotFocus = event()
-    LostFocus = event()
-    DragStarting = event()
-    DropCompleted = event()
-    CharacterReceived = event()
-    DragEnter = event()
-    DragLeave = event()
-    DragOver = event()
-    Drop = event()
-    PointerPressed = event()
-    PointerMoved = event()
-    PointerReleased = event()
-    PointerEntered = event()
-    PointerExited = event()
-    PointerCaptureLost = event()
-    PointerCanceled = event()
-    PointerWheelChanged = event()
-    Tapped = event()
-    DoubleTapped = event()
-    Holding = event()
-    ContextRequested = event()
-    ContextCanceled = event()
-    RightTapped = event()
-    ManipulationStarting = event()
-    ManipulationInertiaStarting = event()
-    ManipulationStarted = event()
-    ManipulationDelta = event()
-    ManipulationCompleted = event()
-    AccessKeyDisplayRequested = event()
-    AccessKeyDisplayDismissed = event()
-    AccessKeyInvoked = event()
-    ProcessKeyboardAccelerators = event()
-    GettingFocus = event()
-    LosingFocus = event()
-    NoFocusCandidateFound = event()
-    PreviewKeyDown = event()
-    PreviewKeyUp = event()
-    BringIntoViewRequested = event()
+    AccessKeyDisplayDismissed = event(add_AccessKeyDisplayDismissed, remove_AccessKeyDisplayDismissed)
+    AccessKeyDisplayRequested = event(add_AccessKeyDisplayRequested, remove_AccessKeyDisplayRequested)
+    AccessKeyInvoked = event(add_AccessKeyInvoked, remove_AccessKeyInvoked)
+    BringIntoViewRequested = event(add_BringIntoViewRequested, remove_BringIntoViewRequested)
+    CharacterReceived = event(add_CharacterReceived, remove_CharacterReceived)
+    ContextCanceled = event(add_ContextCanceled, remove_ContextCanceled)
+    ContextRequested = event(add_ContextRequested, remove_ContextRequested)
+    DoubleTapped = event(add_DoubleTapped, remove_DoubleTapped)
+    DragEnter = event(add_DragEnter, remove_DragEnter)
+    DragLeave = event(add_DragLeave, remove_DragLeave)
+    DragOver = event(add_DragOver, remove_DragOver)
+    DragStarting = event(add_DragStarting, remove_DragStarting)
+    Drop = event(add_Drop, remove_Drop)
+    DropCompleted = event(add_DropCompleted, remove_DropCompleted)
+    GettingFocus = event(add_GettingFocus, remove_GettingFocus)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    Holding = event(add_Holding, remove_Holding)
+    KeyDown = event(add_KeyDown, remove_KeyDown)
+    KeyUp = event(add_KeyUp, remove_KeyUp)
+    LosingFocus = event(add_LosingFocus, remove_LosingFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
+    ManipulationCompleted = event(add_ManipulationCompleted, remove_ManipulationCompleted)
+    ManipulationDelta = event(add_ManipulationDelta, remove_ManipulationDelta)
+    ManipulationInertiaStarting = event(add_ManipulationInertiaStarting, remove_ManipulationInertiaStarting)
+    ManipulationStarted = event(add_ManipulationStarted, remove_ManipulationStarted)
+    ManipulationStarting = event(add_ManipulationStarting, remove_ManipulationStarting)
+    NoFocusCandidateFound = event(add_NoFocusCandidateFound, remove_NoFocusCandidateFound)
+    PointerCanceled = event(add_PointerCanceled, remove_PointerCanceled)
+    PointerCaptureLost = event(add_PointerCaptureLost, remove_PointerCaptureLost)
+    PointerEntered = event(add_PointerEntered, remove_PointerEntered)
+    PointerExited = event(add_PointerExited, remove_PointerExited)
+    PointerMoved = event(add_PointerMoved, remove_PointerMoved)
+    PointerPressed = event(add_PointerPressed, remove_PointerPressed)
+    PointerReleased = event(add_PointerReleased, remove_PointerReleased)
+    PointerWheelChanged = event(add_PointerWheelChanged, remove_PointerWheelChanged)
+    PreviewKeyDown = event(add_PreviewKeyDown, remove_PreviewKeyDown)
+    PreviewKeyUp = event(add_PreviewKeyUp, remove_PreviewKeyUp)
+    ProcessKeyboardAccelerators = event(add_ProcessKeyboardAccelerators, remove_ProcessKeyboardAccelerators)
+    RightTapped = event(add_RightTapped, remove_RightTapped)
+    Tapped = event(add_Tapped, remove_Tapped)
 class IUIElementFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IUIElementFactory'
@@ -3924,8 +3924,8 @@ class IVisualStateGroup(ComPtr):
     Name = property(get_Name, None)
     States = property(get_States, None)
     Transitions = property(get_Transitions, None)
-    CurrentStateChanged = event()
-    CurrentStateChanging = event()
+    CurrentStateChanged = event(add_CurrentStateChanged, remove_CurrentStateChanged)
+    CurrentStateChanging = event(add_CurrentStateChanging, remove_CurrentStateChanging)
 class IVisualStateManager(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IVisualStateManager'
@@ -4059,10 +4059,10 @@ class IWindow(ComPtr):
     ExtendsContentIntoTitleBar = property(get_ExtendsContentIntoTitleBar, put_ExtendsContentIntoTitleBar)
     Title = property(get_Title, put_Title)
     Visible = property(get_Visible, None)
-    Activated = event()
-    Closed = event()
-    SizeChanged = event()
-    VisibilityChanged = event()
+    Activated = event(add_Activated, remove_Activated)
+    Closed = event(add_Closed, remove_Closed)
+    SizeChanged = event(add_SizeChanged, remove_SizeChanged)
+    VisibilityChanged = event(add_VisibilityChanged, remove_VisibilityChanged)
 class IWindow2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IWindow2'
@@ -4160,7 +4160,7 @@ class IXamlRoot(ComPtr):
     IsHostVisible = property(get_IsHostVisible, None)
     RasterizationScale = property(get_RasterizationScale, None)
     Size = property(get_Size, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IXamlRoot2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IXamlRoot2'
@@ -5533,46 +5533,46 @@ class UIElement(ComPtr, metaclass=_UIElement_Meta_):
     _UIElement_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty, None)
     _UIElement_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
     _UIElement_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty, None)
-    KeyUp = event()
-    KeyDown = event()
-    GotFocus = event()
-    LostFocus = event()
-    DragStarting = event()
-    DropCompleted = event()
-    CharacterReceived = event()
-    DragEnter = event()
-    DragLeave = event()
-    DragOver = event()
-    Drop = event()
-    PointerPressed = event()
-    PointerMoved = event()
-    PointerReleased = event()
-    PointerEntered = event()
-    PointerExited = event()
-    PointerCaptureLost = event()
-    PointerCanceled = event()
-    PointerWheelChanged = event()
-    Tapped = event()
-    DoubleTapped = event()
-    Holding = event()
-    ContextRequested = event()
-    ContextCanceled = event()
-    RightTapped = event()
-    ManipulationStarting = event()
-    ManipulationInertiaStarting = event()
-    ManipulationStarted = event()
-    ManipulationDelta = event()
-    ManipulationCompleted = event()
-    AccessKeyDisplayRequested = event()
-    AccessKeyDisplayDismissed = event()
-    AccessKeyInvoked = event()
-    ProcessKeyboardAccelerators = event()
-    GettingFocus = event()
-    LosingFocus = event()
-    NoFocusCandidateFound = event()
-    PreviewKeyDown = event()
-    PreviewKeyUp = event()
-    BringIntoViewRequested = event()
+    AccessKeyDisplayDismissed = event(add_AccessKeyDisplayDismissed, remove_AccessKeyDisplayDismissed)
+    AccessKeyDisplayRequested = event(add_AccessKeyDisplayRequested, remove_AccessKeyDisplayRequested)
+    AccessKeyInvoked = event(add_AccessKeyInvoked, remove_AccessKeyInvoked)
+    BringIntoViewRequested = event(add_BringIntoViewRequested, remove_BringIntoViewRequested)
+    CharacterReceived = event(add_CharacterReceived, remove_CharacterReceived)
+    ContextCanceled = event(add_ContextCanceled, remove_ContextCanceled)
+    ContextRequested = event(add_ContextRequested, remove_ContextRequested)
+    DoubleTapped = event(add_DoubleTapped, remove_DoubleTapped)
+    DragEnter = event(add_DragEnter, remove_DragEnter)
+    DragLeave = event(add_DragLeave, remove_DragLeave)
+    DragOver = event(add_DragOver, remove_DragOver)
+    DragStarting = event(add_DragStarting, remove_DragStarting)
+    Drop = event(add_Drop, remove_Drop)
+    DropCompleted = event(add_DropCompleted, remove_DropCompleted)
+    GettingFocus = event(add_GettingFocus, remove_GettingFocus)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    Holding = event(add_Holding, remove_Holding)
+    KeyDown = event(add_KeyDown, remove_KeyDown)
+    KeyUp = event(add_KeyUp, remove_KeyUp)
+    LosingFocus = event(add_LosingFocus, remove_LosingFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
+    ManipulationCompleted = event(add_ManipulationCompleted, remove_ManipulationCompleted)
+    ManipulationDelta = event(add_ManipulationDelta, remove_ManipulationDelta)
+    ManipulationInertiaStarting = event(add_ManipulationInertiaStarting, remove_ManipulationInertiaStarting)
+    ManipulationStarted = event(add_ManipulationStarted, remove_ManipulationStarted)
+    ManipulationStarting = event(add_ManipulationStarting, remove_ManipulationStarting)
+    NoFocusCandidateFound = event(add_NoFocusCandidateFound, remove_NoFocusCandidateFound)
+    PointerCanceled = event(add_PointerCanceled, remove_PointerCanceled)
+    PointerCaptureLost = event(add_PointerCaptureLost, remove_PointerCaptureLost)
+    PointerEntered = event(add_PointerEntered, remove_PointerEntered)
+    PointerExited = event(add_PointerExited, remove_PointerExited)
+    PointerMoved = event(add_PointerMoved, remove_PointerMoved)
+    PointerPressed = event(add_PointerPressed, remove_PointerPressed)
+    PointerReleased = event(add_PointerReleased, remove_PointerReleased)
+    PointerWheelChanged = event(add_PointerWheelChanged, remove_PointerWheelChanged)
+    PreviewKeyDown = event(add_PreviewKeyDown, remove_PreviewKeyDown)
+    PreviewKeyUp = event(add_PreviewKeyUp, remove_PreviewKeyUp)
+    ProcessKeyboardAccelerators = event(add_ProcessKeyboardAccelerators, remove_ProcessKeyboardAccelerators)
+    RightTapped = event(add_RightTapped, remove_RightTapped)
+    Tapped = event(add_Tapped, remove_Tapped)
 class UIElementWeakCollection(ComPtr):
     extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.UIElement]]
@@ -5762,8 +5762,8 @@ class VisualStateGroup(ComPtr):
     Name = property(get_Name, None)
     States = property(get_States, None)
     Transitions = property(get_Transitions, None)
-    CurrentStateChanged = event()
-    CurrentStateChanging = event()
+    CurrentStateChanged = event(add_CurrentStateChanged, remove_CurrentStateChanged)
+    CurrentStateChanging = event(add_CurrentStateChanging, remove_CurrentStateChanging)
 class _VisualStateManager_Meta_(ComPtr.__class__):
     pass
 class VisualStateManager(ComPtr, metaclass=_VisualStateManager_Meta_):
@@ -5916,10 +5916,10 @@ class Window(ComPtr, metaclass=_Window_Meta_):
     Title = property(get_Title, put_Title)
     Visible = property(get_Visible, None)
     _Window_Meta_.Current = property(get_Current, None)
-    Activated = event()
-    Closed = event()
-    SizeChanged = event()
-    VisibilityChanged = event()
+    Activated = event(add_Activated, remove_Activated)
+    Closed = event(add_Closed, remove_Closed)
+    SizeChanged = event(add_SizeChanged, remove_SizeChanged)
+    VisibilityChanged = event(add_VisibilityChanged, remove_VisibilityChanged)
 class WindowActivatedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IWindowActivatedEventArgs
@@ -6000,7 +6000,7 @@ class XamlRoot(ComPtr):
     IsHostVisible = property(get_IsHostVisible, None)
     RasterizationScale = property(get_RasterizationScale, None)
     Size = property(get_Size, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class XamlRootChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IXamlRootChangedEventArgs

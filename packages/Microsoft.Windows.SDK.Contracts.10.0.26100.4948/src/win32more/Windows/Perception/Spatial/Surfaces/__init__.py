@@ -112,7 +112,7 @@ class ISpatialSurfaceObserver(ComPtr):
     def add_ObservedSurfacesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ObservedSurfacesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ObservedSurfacesChanged = event()
+    ObservedSurfacesChanged = event(add_ObservedSurfacesChanged, remove_ObservedSurfacesChanged)
 class ISpatialSurfaceObserverStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics'
@@ -250,7 +250,7 @@ class SpatialSurfaceObserver(ComPtr):
     def IsSupported(cls: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics2) -> Boolean: ...
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
-    ObservedSurfacesChanged = event()
+    ObservedSurfacesChanged = event(add_ObservedSurfacesChanged, remove_ObservedSurfacesChanged)
 
 
 make_ready(__name__)

@@ -35,7 +35,7 @@ class AppCapability(ComPtr):
     CapabilityName = property(get_CapabilityName, None)
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
     User = property(get_User, None)
-    AccessChanged = event()
+    AccessChanged = event(add_AccessChanged, remove_AccessChanged)
 class AppCapabilityAccessChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityAccessChangedEventArgs
@@ -64,7 +64,7 @@ class IAppCapability(ComPtr):
     def remove_AccessChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CapabilityName = property(get_CapabilityName, None)
     User = property(get_User, None)
-    AccessChanged = event()
+    AccessChanged = event(add_AccessChanged, remove_AccessChanged)
 class IAppCapability2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapability2'

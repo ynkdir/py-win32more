@@ -337,7 +337,7 @@ class ConnectedAnimation(ComPtr):
     def put_Configuration(self: win32more.Windows.UI.Xaml.Media.Animation.IConnectedAnimation3, value: win32more.Windows.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration) -> Void: ...
     Configuration = property(get_Configuration, put_Configuration)
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class ConnectedAnimationComponent(Enum, Int32):
     OffsetX = 0
     OffsetY = 1
@@ -1365,7 +1365,7 @@ class IConnectedAnimation(ComPtr):
     def TryStart(self, destination: win32more.Windows.UI.Xaml.UIElement) -> Boolean: ...
     @winrt_commethod(9)
     def Cancel(self) -> Void: ...
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class IConnectedAnimation2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IConnectedAnimation2'
@@ -2836,7 +2836,7 @@ class ITimeline(ComPtr):
     FillBehavior = property(get_FillBehavior, put_FillBehavior)
     RepeatBehavior = property(get_RepeatBehavior, put_RepeatBehavior)
     SpeedRatio = property(get_SpeedRatio, put_SpeedRatio)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class ITimelineFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.ITimelineFactory'
@@ -4095,7 +4095,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     _Timeline_Meta_.FillBehaviorProperty = property(get_FillBehaviorProperty, None)
     _Timeline_Meta_.RepeatBehaviorProperty = property(get_RepeatBehaviorProperty, None)
     _Timeline_Meta_.SpeedRatioProperty = property(get_SpeedRatioProperty, None)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class TimelineCollection(ComPtr):
     extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.UI.Xaml.Media.Animation.Timeline]]

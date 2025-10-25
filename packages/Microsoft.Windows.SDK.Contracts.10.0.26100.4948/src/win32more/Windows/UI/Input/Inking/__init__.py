@@ -254,8 +254,8 @@ class IInkPresenter(ComPtr):
     StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
     StrokeInput = property(get_StrokeInput, None)
     UnprocessedInput = property(get_UnprocessedInput, None)
-    StrokesCollected = event()
-    StrokesErased = event()
+    StrokesCollected = event(add_StrokesCollected, remove_StrokesCollected)
+    StrokesErased = event(add_StrokesErased, remove_StrokesErased)
 class IInkPresenter2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkPresenter2'
@@ -563,10 +563,10 @@ class IInkStrokeInput(ComPtr):
     @winrt_commethod(14)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    StrokeStarted = event()
-    StrokeContinued = event()
-    StrokeEnded = event()
-    StrokeCanceled = event()
+    StrokeCanceled = event(add_StrokeCanceled, remove_StrokeCanceled)
+    StrokeContinued = event(add_StrokeContinued, remove_StrokeContinued)
+    StrokeEnded = event(add_StrokeEnded, remove_StrokeEnded)
+    StrokeStarted = event(add_StrokeStarted, remove_StrokeStarted)
 class IInkStrokeRenderingSegment(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkStrokeRenderingSegment'
@@ -649,13 +649,13 @@ class IInkUnprocessedInput(ComPtr):
     @winrt_commethod(20)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    PointerEntered = event()
-    PointerHovered = event()
-    PointerExited = event()
-    PointerPressed = event()
-    PointerMoved = event()
-    PointerReleased = event()
-    PointerLost = event()
+    PointerEntered = event(add_PointerEntered, remove_PointerEntered)
+    PointerExited = event(add_PointerExited, remove_PointerExited)
+    PointerHovered = event(add_PointerHovered, remove_PointerHovered)
+    PointerLost = event(add_PointerLost, remove_PointerLost)
+    PointerMoved = event(add_PointerMoved, remove_PointerMoved)
+    PointerPressed = event(add_PointerPressed, remove_PointerPressed)
+    PointerReleased = event(add_PointerReleased, remove_PointerReleased)
 class IPenAndInkSettings(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IPenAndInkSettings'
@@ -983,8 +983,8 @@ class InkPresenter(ComPtr):
     StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
     StrokeInput = property(get_StrokeInput, None)
     UnprocessedInput = property(get_UnprocessedInput, None)
-    StrokesCollected = event()
-    StrokesErased = event()
+    StrokesCollected = event(add_StrokesCollected, remove_StrokesCollected)
+    StrokesErased = event(add_StrokesErased, remove_StrokesErased)
 class InkPresenterPredefinedConfiguration(Enum, Int32):
     SimpleSinglePointer = 0
     SimpleMultiplePointer = 1
@@ -1309,10 +1309,10 @@ class InkStrokeInput(ComPtr):
     @winrt_mixinmethod
     def get_InkPresenter(self: win32more.Windows.UI.Input.Inking.IInkStrokeInput) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    StrokeStarted = event()
-    StrokeContinued = event()
-    StrokeEnded = event()
-    StrokeCanceled = event()
+    StrokeCanceled = event(add_StrokeCanceled, remove_StrokeCanceled)
+    StrokeContinued = event(add_StrokeContinued, remove_StrokeContinued)
+    StrokeEnded = event(add_StrokeEnded, remove_StrokeEnded)
+    StrokeStarted = event(add_StrokeStarted, remove_StrokeStarted)
 class InkStrokeRenderingSegment(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeRenderingSegment
@@ -1395,13 +1395,13 @@ class InkUnprocessedInput(ComPtr):
     @winrt_mixinmethod
     def get_InkPresenter(self: win32more.Windows.UI.Input.Inking.IInkUnprocessedInput) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    PointerEntered = event()
-    PointerHovered = event()
-    PointerExited = event()
-    PointerPressed = event()
-    PointerMoved = event()
-    PointerReleased = event()
-    PointerLost = event()
+    PointerEntered = event(add_PointerEntered, remove_PointerEntered)
+    PointerExited = event(add_PointerExited, remove_PointerExited)
+    PointerHovered = event(add_PointerHovered, remove_PointerHovered)
+    PointerLost = event(add_PointerLost, remove_PointerLost)
+    PointerMoved = event(add_PointerMoved, remove_PointerMoved)
+    PointerPressed = event(add_PointerPressed, remove_PointerPressed)
+    PointerReleased = event(add_PointerReleased, remove_PointerReleased)
 class PenAndInkSettings(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IPenAndInkSettings

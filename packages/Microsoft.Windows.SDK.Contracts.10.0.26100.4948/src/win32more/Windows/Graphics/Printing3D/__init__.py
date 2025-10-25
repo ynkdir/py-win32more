@@ -14,7 +14,7 @@ class IPrint3DManager(ComPtr):
     def add_TaskRequested(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing3D.Print3DManager, win32more.Windows.Graphics.Printing3D.Print3DTaskRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_TaskRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    TaskRequested = event()
+    TaskRequested = event(add_TaskRequested, remove_TaskRequested)
 class IPrint3DManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrint3DManagerStatics'
@@ -42,9 +42,9 @@ class IPrint3DTask(ComPtr):
     @winrt_commethod(12)
     def remove_SourceChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Source = property(get_Source, None)
-    Submitting = event()
-    Completed = event()
-    SourceChanged = event()
+    Completed = event(add_Completed, remove_Completed)
+    SourceChanged = event(add_SourceChanged, remove_SourceChanged)
+    Submitting = event(add_Submitting, remove_Submitting)
 class IPrint3DTaskCompletedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrint3DTaskCompletedEventArgs'
@@ -562,7 +562,7 @@ class Print3DManager(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.Graphics.Printing3D.IPrint3DManagerStatics) -> win32more.Windows.Graphics.Printing3D.Print3DManager: ...
     @winrt_classmethod
     def ShowPrintUIAsync(cls: win32more.Windows.Graphics.Printing3D.IPrint3DManagerStatics) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    TaskRequested = event()
+    TaskRequested = event(add_TaskRequested, remove_TaskRequested)
 class Print3DTask(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrint3DTask
@@ -582,9 +582,9 @@ class Print3DTask(ComPtr):
     @winrt_mixinmethod
     def remove_SourceChanged(self: win32more.Windows.Graphics.Printing3D.IPrint3DTask, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Source = property(get_Source, None)
-    Submitting = event()
-    Completed = event()
-    SourceChanged = event()
+    Completed = event(add_Completed, remove_Completed)
+    SourceChanged = event(add_SourceChanged, remove_SourceChanged)
+    Submitting = event(add_Submitting, remove_Submitting)
 class Print3DTaskCompletedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrint3DTaskCompletedEventArgs

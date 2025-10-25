@@ -61,7 +61,7 @@ class HdcpSession(ComPtr):
     def remove_ProtectionChanged(self: win32more.Windows.Media.Protection.IHdcpSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    ProtectionChanged = event()
+    ProtectionChanged = event(add_ProtectionChanged, remove_ProtectionChanged)
 class HdcpSetProtectionResult(Enum, Int32):
     Success = 0
     TimedOut = 1
@@ -98,7 +98,7 @@ class IHdcpSession(ComPtr):
     def add_ProtectionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.HdcpSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ProtectionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ProtectionChanged = event()
+    ProtectionChanged = event(add_ProtectionChanged, remove_ProtectionChanged)
 class IMediaProtectionManager(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Protection.IMediaProtectionManager'
@@ -118,9 +118,9 @@ class IMediaProtectionManager(ComPtr):
     @winrt_commethod(12)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-    ServiceRequested = event()
-    RebootNeeded = event()
-    ComponentLoadFailed = event()
+    ComponentLoadFailed = event(add_ComponentLoadFailed, remove_ComponentLoadFailed)
+    RebootNeeded = event(add_RebootNeeded, remove_RebootNeeded)
+    ServiceRequested = event(add_ServiceRequested, remove_ServiceRequested)
 class IMediaProtectionPMPServer(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Protection.IMediaProtectionPMPServer'
@@ -227,9 +227,9 @@ class MediaProtectionManager(ComPtr):
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Media.Protection.IMediaProtectionManager) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-    ServiceRequested = event()
-    RebootNeeded = event()
-    ComponentLoadFailed = event()
+    ComponentLoadFailed = event(add_ComponentLoadFailed, remove_ComponentLoadFailed)
+    RebootNeeded = event(add_RebootNeeded, remove_RebootNeeded)
+    ServiceRequested = event(add_ServiceRequested, remove_ServiceRequested)
 class MediaProtectionPMPServer(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Protection.IMediaProtectionPMPServer

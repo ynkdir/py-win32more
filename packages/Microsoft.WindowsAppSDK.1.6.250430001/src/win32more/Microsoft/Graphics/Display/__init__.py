@@ -86,10 +86,10 @@ class DisplayInformation(ComPtr):
     def CreateForDisplayId(cls: win32more.Microsoft.Graphics.Display.IDisplayInformationStatics, displayId: win32more.Microsoft.UI.DisplayId) -> win32more.Microsoft.Graphics.Display.DisplayInformation: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
     IsStereoEnabled = property(get_IsStereoEnabled, None)
-    IsStereoEnabledChanged = event()
-    ColorProfileChanged = event()
-    AdvancedColorInfoChanged = event()
-    Destroyed = event()
+    AdvancedColorInfoChanged = event(add_AdvancedColorInfoChanged, remove_AdvancedColorInfoChanged)
+    ColorProfileChanged = event(add_ColorProfileChanged, remove_ColorProfileChanged)
+    Destroyed = event(add_Destroyed, remove_Destroyed)
+    IsStereoEnabledChanged = event(add_IsStereoEnabledChanged, remove_IsStereoEnabledChanged)
 class IDisplayAdvancedColorInfo(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Display.IDisplayAdvancedColorInfo'
@@ -157,10 +157,10 @@ class IDisplayInformation(ComPtr):
     def remove_Destroyed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
     IsStereoEnabled = property(get_IsStereoEnabled, None)
-    IsStereoEnabledChanged = event()
-    ColorProfileChanged = event()
-    AdvancedColorInfoChanged = event()
-    Destroyed = event()
+    AdvancedColorInfoChanged = event(add_AdvancedColorInfoChanged, remove_AdvancedColorInfoChanged)
+    ColorProfileChanged = event(add_ColorProfileChanged, remove_ColorProfileChanged)
+    Destroyed = event(add_Destroyed, remove_Destroyed)
+    IsStereoEnabledChanged = event(add_IsStereoEnabledChanged, remove_IsStereoEnabledChanged)
 class IDisplayInformationStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Display.IDisplayInformationStatics'

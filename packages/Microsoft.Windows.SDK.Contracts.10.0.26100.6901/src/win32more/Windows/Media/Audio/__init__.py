@@ -130,7 +130,7 @@ class AudioEffectsPackConfiguration(ComPtr):
     DeviceId = property(get_DeviceId, None)
     EffectsPackId = property(get_EffectsPackId, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class AudioEffectsPackStatus(Enum, Int32):
     NotEnabled = 0
     Enabled = 1
@@ -215,7 +215,7 @@ class AudioFileInputNode(ComPtr):
     Position = property(get_Position, None)
     SourceFile = property(get_SourceFile, None)
     StartTime = property(get_StartTime, put_StartTime)
-    FileCompleted = event()
+    FileCompleted = event(add_FileCompleted, remove_FileCompleted)
 class AudioFileNodeCreationStatus(Enum, Int32):
     Success = 0
     FileNotFound = 1
@@ -335,8 +335,8 @@ class AudioFrameInputNode(ComPtr):
     OutgoingGain = property(get_OutgoingGain, put_OutgoingGain)
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     QueuedSampleCount = property(get_QueuedSampleCount, None)
-    AudioFrameCompleted = event()
-    QuantumStarted = event()
+    AudioFrameCompleted = event(add_AudioFrameCompleted, remove_AudioFrameCompleted)
+    QuantumStarted = event(add_QuantumStarted, remove_QuantumStarted)
 class AudioFrameOutputNode(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -457,9 +457,9 @@ class AudioGraph(ComPtr):
     PrimaryRenderDevice = property(get_PrimaryRenderDevice, None)
     RenderDeviceAudioProcessing = property(get_RenderDeviceAudioProcessing, None)
     SamplesPerQuantum = property(get_SamplesPerQuantum, None)
-    QuantumStarted = event()
-    QuantumProcessed = event()
-    UnrecoverableErrorOccurred = event()
+    QuantumProcessed = event(add_QuantumProcessed, remove_QuantumProcessed)
+    QuantumStarted = event(add_QuantumStarted, remove_QuantumStarted)
+    UnrecoverableErrorOccurred = event(add_UnrecoverableErrorOccurred, remove_UnrecoverableErrorOccurred)
 class AudioGraphBatchUpdater(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -733,7 +733,7 @@ class AudioPlaybackConnection(ComPtr):
     def TryCreateFromId(cls: win32more.Windows.Media.Audio.IAudioPlaybackConnectionStatics, id: WinRT_String) -> win32more.Windows.Media.Audio.AudioPlaybackConnection: ...
     DeviceId = property(get_DeviceId, None)
     State = property(get_State, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class AudioPlaybackConnectionOpenResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioPlaybackConnectionOpenResult
@@ -779,7 +779,7 @@ class AudioStateMonitor(ComPtr):
     @winrt_classmethod
     def CreateForCaptureMonitoringWithCategoryAndDeviceId(cls: win32more.Windows.Media.Audio.IAudioStateMonitorStatics, category: win32more.Windows.Media.Capture.MediaCategory, deviceId: WinRT_String) -> win32more.Windows.Media.Audio.AudioStateMonitor: ...
     SoundLevel = property(get_SoundLevel, None)
-    SoundLevelChanged = event()
+    SoundLevelChanged = event(add_SoundLevelChanged, remove_SoundLevelChanged)
 class AudioSubmixNode(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -1018,7 +1018,7 @@ class IAudioEffectsPackConfiguration(ComPtr):
     DeviceId = property(get_DeviceId, None)
     EffectsPackId = property(get_EffectsPackId, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IAudioEffectsPackConfigurationStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioEffectsPackConfigurationStatics'
@@ -1067,7 +1067,7 @@ class IAudioFileInputNode(ComPtr):
     Position = property(get_Position, None)
     SourceFile = property(get_SourceFile, None)
     StartTime = property(get_StartTime, put_StartTime)
-    FileCompleted = event()
+    FileCompleted = event(add_FileCompleted, remove_FileCompleted)
 class IAudioFileOutputNode(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -1113,8 +1113,8 @@ class IAudioFrameInputNode(ComPtr):
     def remove_QuantumStarted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     QueuedSampleCount = property(get_QueuedSampleCount, None)
-    AudioFrameCompleted = event()
-    QuantumStarted = event()
+    AudioFrameCompleted = event(add_AudioFrameCompleted, remove_AudioFrameCompleted)
+    QuantumStarted = event(add_QuantumStarted, remove_QuantumStarted)
 class IAudioFrameOutputNode(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -1189,9 +1189,9 @@ class IAudioGraph(ComPtr):
     PrimaryRenderDevice = property(get_PrimaryRenderDevice, None)
     RenderDeviceAudioProcessing = property(get_RenderDeviceAudioProcessing, None)
     SamplesPerQuantum = property(get_SamplesPerQuantum, None)
-    QuantumStarted = event()
-    QuantumProcessed = event()
-    UnrecoverableErrorOccurred = event()
+    QuantumProcessed = event(add_QuantumProcessed, remove_QuantumProcessed)
+    QuantumStarted = event(add_QuantumStarted, remove_QuantumStarted)
+    UnrecoverableErrorOccurred = event(add_UnrecoverableErrorOccurred, remove_UnrecoverableErrorOccurred)
 class IAudioGraph2(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -1521,7 +1521,7 @@ class IAudioPlaybackConnection(ComPtr):
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
     State = property(get_State, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class IAudioPlaybackConnectionOpenResult(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioPlaybackConnectionOpenResult'
@@ -1551,7 +1551,7 @@ class IAudioStateMonitor(ComPtr):
     @winrt_commethod(8)
     def get_SoundLevel(self) -> win32more.Windows.Media.SoundLevel: ...
     SoundLevel = property(get_SoundLevel, None)
-    SoundLevelChanged = event()
+    SoundLevelChanged = event(add_SoundLevelChanged, remove_SoundLevelChanged)
 class IAudioStateMonitorStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioStateMonitorStatics'
@@ -1798,7 +1798,7 @@ class IMediaSourceAudioInputNode(ComPtr):
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     Position = property(get_Position, None)
     StartTime = property(get_StartTime, put_StartTime)
-    MediaSourceCompleted = event()
+    MediaSourceCompleted = event(add_MediaSourceCompleted, remove_MediaSourceCompleted)
 class IReverbEffectDefinition(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Audio.IReverbEffectDefinition'
@@ -1955,7 +1955,7 @@ class ISpatialAudioDeviceConfiguration(ComPtr):
     DefaultSpatialAudioFormat = property(get_DefaultSpatialAudioFormat, None)
     DeviceId = property(get_DeviceId, None)
     IsSpatialAudioSupported = property(get_IsSpatialAudioSupported, None)
-    ConfigurationChanged = event()
+    ConfigurationChanged = event(add_ConfigurationChanged, remove_ConfigurationChanged)
 class ISpatialAudioDeviceConfigurationStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Audio.ISpatialAudioDeviceConfigurationStatics'
@@ -2119,7 +2119,7 @@ class MediaSourceAudioInputNode(ComPtr):
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     Position = property(get_Position, None)
     StartTime = property(get_StartTime, put_StartTime)
-    MediaSourceCompleted = event()
+    MediaSourceCompleted = event(add_MediaSourceCompleted, remove_MediaSourceCompleted)
 class MediaSourceAudioInputNodeCreationStatus(Enum, Int32):
     Success = 0
     FormatNotSupported = 1
@@ -2306,7 +2306,7 @@ class SpatialAudioDeviceConfiguration(ComPtr):
     DefaultSpatialAudioFormat = property(get_DefaultSpatialAudioFormat, None)
     DeviceId = property(get_DeviceId, None)
     IsSpatialAudioSupported = property(get_IsSpatialAudioSupported, None)
-    ConfigurationChanged = event()
+    ConfigurationChanged = event(add_ConfigurationChanged, remove_ConfigurationChanged)
 class SpatialAudioFormatConfiguration(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Audio.ISpatialAudioFormatConfiguration

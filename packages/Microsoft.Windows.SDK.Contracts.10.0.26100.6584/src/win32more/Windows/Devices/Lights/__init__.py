@@ -36,7 +36,7 @@ class ILamp(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsColorSettable = property(get_IsColorSettable, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class ILampArray(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArray'
@@ -116,7 +116,7 @@ class ILampArray2(ComPtr):
     @winrt_commethod(8)
     def remove_AvailabilityChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsAvailable = property(get_IsAvailable, None)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class ILampArrayStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArrayStatics'
@@ -213,7 +213,7 @@ class Lamp(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsColorSettable = property(get_IsColorSettable, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class LampArray(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampArray
@@ -293,7 +293,7 @@ class LampArray(ComPtr):
     LampCount = property(get_LampCount, None)
     MinUpdateInterval = property(get_MinUpdateInterval, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class LampArrayKind(Enum, Int32):
     Undefined = 0
     Keyboard = 1

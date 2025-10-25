@@ -146,7 +146,7 @@ class DatagramSocket(ComPtr):
     Control = property(get_Control, None)
     Information = property(get_Information, None)
     OutputStream = property(get_OutputStream, None)
-    MessageReceived = event()
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class DatagramSocketControl(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IDatagramSocketControl
@@ -309,7 +309,7 @@ class IDatagramSocket(ComPtr):
     Control = property(get_Control, None)
     Information = property(get_Information, None)
     OutputStream = property(get_OutputStream, None)
-    MessageReceived = event()
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class IDatagramSocket2(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -426,7 +426,7 @@ class IMessageWebSocket(ComPtr):
     def remove_MessageReceived(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Control = property(get_Control, None)
     Information = property(get_Information, None)
-    MessageReceived = event()
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class IMessageWebSocket2(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -436,7 +436,7 @@ class IMessageWebSocket2(ComPtr):
     def add_ServerCustomValidationRequested(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Sockets.MessageWebSocket, win32more.Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ServerCustomValidationRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ServerCustomValidationRequested = event()
+    ServerCustomValidationRequested = event(add_ServerCustomValidationRequested, remove_ServerCustomValidationRequested)
 class IMessageWebSocket3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Sockets.IMessageWebSocket3'
@@ -523,8 +523,8 @@ class IServerMessageWebSocket(ComPtr):
     Control = property(get_Control, None)
     Information = property(get_Information, None)
     OutputStream = property(get_OutputStream, None)
-    MessageReceived = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class IServerMessageWebSocketControl(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Sockets.IServerMessageWebSocketControl'
@@ -567,7 +567,7 @@ class IServerStreamWebSocket(ComPtr):
     Information = property(get_Information, None)
     InputStream = property(get_InputStream, None)
     OutputStream = property(get_OutputStream, None)
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IServerStreamWebSocketInformation(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Sockets.IServerStreamWebSocketInformation'
@@ -820,7 +820,7 @@ class IStreamSocketListener(ComPtr):
     def remove_ConnectionReceived(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Control = property(get_Control, None)
     Information = property(get_Information, None)
-    ConnectionReceived = event()
+    ConnectionReceived = event(add_ConnectionReceived, remove_ConnectionReceived)
 class IStreamSocketListener2(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -922,7 +922,7 @@ class IStreamWebSocket2(ComPtr):
     def add_ServerCustomValidationRequested(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Sockets.StreamWebSocket, win32more.Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ServerCustomValidationRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ServerCustomValidationRequested = event()
+    ServerCustomValidationRequested = event(add_ServerCustomValidationRequested, remove_ServerCustomValidationRequested)
 class IStreamWebSocketControl(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Sockets.IStreamWebSocketControl'
@@ -967,7 +967,7 @@ class IWebSocket(ComPtr):
     @winrt_commethod(11)
     def CloseWithStatus(self, code: UInt16, reason: WinRT_String) -> Void: ...
     OutputStream = property(get_OutputStream, None)
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class IWebSocketClosedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Sockets.IWebSocketClosedEventArgs'
@@ -1109,9 +1109,9 @@ class MessageWebSocket(ComPtr):
     Control = property(get_Control, None)
     Information = property(get_Information, None)
     OutputStream = property(get_OutputStream, None)
-    MessageReceived = event()
-    Closed = event()
-    ServerCustomValidationRequested = event()
+    Closed = event(add_Closed, remove_Closed)
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
+    ServerCustomValidationRequested = event(add_ServerCustomValidationRequested, remove_ServerCustomValidationRequested)
 class MessageWebSocketControl(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IMessageWebSocketControl
@@ -1238,8 +1238,8 @@ class ServerMessageWebSocket(ComPtr):
     Control = property(get_Control, None)
     Information = property(get_Information, None)
     OutputStream = property(get_OutputStream, None)
-    MessageReceived = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class ServerMessageWebSocketControl(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IServerMessageWebSocketControl
@@ -1284,7 +1284,7 @@ class ServerStreamWebSocket(ComPtr):
     Information = property(get_Information, None)
     InputStream = property(get_InputStream, None)
     OutputStream = property(get_OutputStream, None)
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
 class ServerStreamWebSocketInformation(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IServerStreamWebSocketInformation
@@ -1620,7 +1620,7 @@ class StreamSocketListener(ComPtr):
     def TransferOwnershipWithContext(self: win32more.Windows.Networking.Sockets.IStreamSocketListener3, socketId: WinRT_String, data: win32more.Windows.Networking.Sockets.SocketActivityContext) -> Void: ...
     Control = property(get_Control, None)
     Information = property(get_Information, None)
-    ConnectionReceived = event()
+    ConnectionReceived = event(add_ConnectionReceived, remove_ConnectionReceived)
 class StreamSocketListenerConnectionReceivedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamSocketListenerConnectionReceivedEventArgs
@@ -1706,8 +1706,8 @@ class StreamWebSocket(ComPtr):
     Information = property(get_Information, None)
     InputStream = property(get_InputStream, None)
     OutputStream = property(get_OutputStream, None)
-    Closed = event()
-    ServerCustomValidationRequested = event()
+    Closed = event(add_Closed, remove_Closed)
+    ServerCustomValidationRequested = event(add_ServerCustomValidationRequested, remove_ServerCustomValidationRequested)
 class StreamWebSocketControl(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamWebSocketControl

@@ -48,7 +48,7 @@ class FocusSessionManager(ComPtr, metaclass=_FocusSessionManager_Meta_):
     def get_IsSupported(cls: win32more.Windows.UI.Shell.IFocusSessionManagerStatics) -> Boolean: ...
     IsFocusActive = property(get_IsFocusActive, None)
     _FocusSessionManager_Meta_.IsSupported = property(get_IsSupported, None)
-    IsFocusActiveChanged = event()
+    IsFocusActiveChanged = event(add_IsFocusActiveChanged, remove_IsFocusActiveChanged)
 class IAdaptiveCard(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IAdaptiveCard'
@@ -89,7 +89,7 @@ class IFocusSessionManager(ComPtr):
     @winrt_commethod(12)
     def remove_IsFocusActiveChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsFocusActive = property(get_IsFocusActive, None)
-    IsFocusActiveChanged = event()
+    IsFocusActiveChanged = event(add_IsFocusActiveChanged, remove_IsFocusActiveChanged)
 class IFocusSessionManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IFocusSessionManagerStatics'
@@ -139,8 +139,8 @@ class IShareWindowCommandSource(ComPtr):
     def add_CommandInvoked(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.ShareWindowCommandSource, win32more.Windows.UI.Shell.ShareWindowCommandEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_CommandInvoked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    CommandRequested = event()
-    CommandInvoked = event()
+    CommandInvoked = event(add_CommandInvoked, remove_CommandInvoked)
+    CommandRequested = event(add_CommandRequested, remove_CommandRequested)
 class IShareWindowCommandSourceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IShareWindowCommandSourceStatics'
@@ -282,10 +282,10 @@ class IWindowTabManager(ComPtr):
     @winrt_commethod(15)
     def remove_TabThumbnailRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Tabs = property(get_Tabs, None)
-    TabSwitchRequested = event()
-    TabCloseRequested = event()
-    TabTearOutRequested = event()
-    TabThumbnailRequested = event()
+    TabCloseRequested = event(add_TabCloseRequested, remove_TabCloseRequested)
+    TabSwitchRequested = event(add_TabSwitchRequested, remove_TabSwitchRequested)
+    TabTearOutRequested = event(add_TabTearOutRequested, remove_TabTearOutRequested)
+    TabThumbnailRequested = event(add_TabThumbnailRequested, remove_TabThumbnailRequested)
 class IWindowTabManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabManagerStatics'
@@ -403,8 +403,8 @@ class ShareWindowCommandSource(ComPtr):
     def remove_CommandInvoked(self: win32more.Windows.UI.Shell.IShareWindowCommandSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Shell.IShareWindowCommandSourceStatics) -> win32more.Windows.UI.Shell.ShareWindowCommandSource: ...
-    CommandRequested = event()
-    CommandInvoked = event()
+    CommandInvoked = event(add_CommandInvoked, remove_CommandInvoked)
+    CommandRequested = event(add_CommandRequested, remove_CommandRequested)
 class TaskbarManager(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.ITaskbarManager
@@ -576,10 +576,10 @@ class WindowTabManager(ComPtr):
     @winrt_classmethod
     def IsTabTearOutSupported(cls: win32more.Windows.UI.Shell.IWindowTabManagerStatics) -> Boolean: ...
     Tabs = property(get_Tabs, None)
-    TabSwitchRequested = event()
-    TabCloseRequested = event()
-    TabTearOutRequested = event()
-    TabThumbnailRequested = event()
+    TabCloseRequested = event(add_TabCloseRequested, remove_TabCloseRequested)
+    TabSwitchRequested = event(add_TabSwitchRequested, remove_TabSwitchRequested)
+    TabTearOutRequested = event(add_TabTearOutRequested, remove_TabTearOutRequested)
+    TabThumbnailRequested = event(add_TabThumbnailRequested, remove_TabThumbnailRequested)
 WindowTabManagerContract: UInt32 = 65536
 class WindowTabSwitchRequestedEventArgs(ComPtr):
     extends: IInspectable

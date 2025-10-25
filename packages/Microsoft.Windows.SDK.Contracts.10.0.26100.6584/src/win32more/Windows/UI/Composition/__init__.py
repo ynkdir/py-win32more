@@ -287,7 +287,7 @@ class CompositionCapabilities(ComPtr):
     def remove_Changed(self: win32more.Windows.UI.Composition.ICompositionCapabilities, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Composition.ICompositionCapabilitiesStatics) -> win32more.Windows.UI.Composition.CompositionCapabilities: ...
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class CompositionClip(ComPtr):
     extends: win32more.Windows.UI.Composition.CompositionObject
     default_interface: win32more.Windows.UI.Composition.ICompositionClip
@@ -402,7 +402,7 @@ class CompositionCommitBatch(ComPtr):
     def remove_Completed(self: win32more.Windows.UI.Composition.ICompositionCommitBatch, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsActive = property(get_IsActive, None)
     IsEnded = property(get_IsEnded, None)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class CompositionCompositeMode(Enum, Int32):
     Inherit = 0
     SourceOver = 1
@@ -647,7 +647,7 @@ class CompositionGraphicsDevice(ComPtr):
     def Trim(self: win32more.Windows.UI.Composition.ICompositionGraphicsDevice3) -> Void: ...
     @winrt_mixinmethod
     def CaptureAsync(self: win32more.Windows.UI.Composition.ICompositionGraphicsDevice4, captureVisual: win32more.Windows.UI.Composition.Visual, size: win32more.Windows.Graphics.SizeInt32, pixelFormat: win32more.Windows.Graphics.DirectX.DirectXPixelFormat, alphaMode: win32more.Windows.Graphics.DirectX.DirectXAlphaMode, sdrBoost: Single) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Composition.ICompositionSurface]: ...
-    RenderingDeviceReplaced = event()
+    RenderingDeviceReplaced = event(add_RenderingDeviceReplaced, remove_RenderingDeviceReplaced)
 class CompositionLight(ComPtr):
     extends: win32more.Windows.UI.Composition.CompositionObject
     default_interface: win32more.Windows.UI.Composition.ICompositionLight
@@ -1065,7 +1065,7 @@ class CompositionScopedBatch(ComPtr):
     def remove_Completed(self: win32more.Windows.UI.Composition.ICompositionScopedBatch, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsActive = property(get_IsActive, None)
     IsEnded = property(get_IsEnded, None)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class CompositionShadow(ComPtr):
     extends: win32more.Windows.UI.Composition.CompositionObject
     default_interface: win32more.Windows.UI.Composition.ICompositionShadow
@@ -1976,7 +1976,7 @@ class ICompositionCapabilities(ComPtr):
     def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Composition.CompositionCapabilities, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class ICompositionCapabilitiesStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Composition.ICompositionCapabilitiesStatics'
@@ -2071,7 +2071,7 @@ class ICompositionCommitBatch(ComPtr):
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsActive = property(get_IsActive, None)
     IsEnded = property(get_IsEnded, None)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class ICompositionContainerShape(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Composition.ICompositionContainerShape'
@@ -2306,7 +2306,7 @@ class ICompositionGraphicsDevice(ComPtr):
     def add_RenderingDeviceReplaced(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Composition.CompositionGraphicsDevice, win32more.Windows.UI.Composition.RenderingDeviceReplacedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_RenderingDeviceReplaced(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    RenderingDeviceReplaced = event()
+    RenderingDeviceReplaced = event(add_RenderingDeviceReplaced, remove_RenderingDeviceReplaced)
 class ICompositionGraphicsDevice2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Composition.ICompositionGraphicsDevice2'
@@ -2771,7 +2771,7 @@ class ICompositionScopedBatch(ComPtr):
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsActive = property(get_IsActive, None)
     IsEnded = property(get_IsEnded, None)
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
 class ICompositionShadow(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Composition.ICompositionShadow'

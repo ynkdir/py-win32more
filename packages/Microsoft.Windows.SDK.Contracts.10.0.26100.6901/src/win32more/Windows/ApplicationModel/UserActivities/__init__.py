@@ -159,7 +159,7 @@ class IUserActivityRequestManager(ComPtr):
     def add_UserActivityRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.UserActivities.UserActivityRequestManager, win32more.Windows.ApplicationModel.UserActivities.UserActivityRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_UserActivityRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    UserActivityRequested = event()
+    UserActivityRequested = event(add_UserActivityRequested, remove_UserActivityRequested)
 class IUserActivityRequestManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserActivities.IUserActivityRequestManagerStatics'
@@ -385,7 +385,7 @@ class UserActivityRequestManager(ComPtr):
     def remove_UserActivityRequested(self: win32more.Windows.ApplicationModel.UserActivities.IUserActivityRequestManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.ApplicationModel.UserActivities.IUserActivityRequestManagerStatics) -> win32more.Windows.ApplicationModel.UserActivities.UserActivityRequestManager: ...
-    UserActivityRequested = event()
+    UserActivityRequested = event(add_UserActivityRequested, remove_UserActivityRequested)
 class UserActivityRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserActivities.IUserActivityRequestedEventArgs

@@ -64,9 +64,9 @@ class GlobalSystemMediaTransportControlsSession(ComPtr):
     @winrt_mixinmethod
     def remove_MediaPropertiesChanged(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SourceAppUserModelId = property(get_SourceAppUserModelId, None)
-    TimelinePropertiesChanged = event()
-    PlaybackInfoChanged = event()
-    MediaPropertiesChanged = event()
+    MediaPropertiesChanged = event(add_MediaPropertiesChanged, remove_MediaPropertiesChanged)
+    PlaybackInfoChanged = event(add_PlaybackInfoChanged, remove_PlaybackInfoChanged)
+    TimelinePropertiesChanged = event(add_TimelinePropertiesChanged, remove_TimelinePropertiesChanged)
 class GlobalSystemMediaTransportControlsSessionManager(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManager
@@ -85,8 +85,8 @@ class GlobalSystemMediaTransportControlsSessionManager(ComPtr):
     def remove_SessionsChanged(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def RequestAsync(cls: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManagerStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager]: ...
-    CurrentSessionChanged = event()
-    SessionsChanged = event()
+    CurrentSessionChanged = event(add_CurrentSessionChanged, remove_CurrentSessionChanged)
+    SessionsChanged = event(add_SessionsChanged, remove_SessionsChanged)
 class GlobalSystemMediaTransportControlsSessionMediaProperties(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionMediaProperties
@@ -280,9 +280,9 @@ class IGlobalSystemMediaTransportControlsSession(ComPtr):
     @winrt_commethod(30)
     def remove_MediaPropertiesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SourceAppUserModelId = property(get_SourceAppUserModelId, None)
-    TimelinePropertiesChanged = event()
-    PlaybackInfoChanged = event()
-    MediaPropertiesChanged = event()
+    MediaPropertiesChanged = event(add_MediaPropertiesChanged, remove_MediaPropertiesChanged)
+    PlaybackInfoChanged = event(add_PlaybackInfoChanged, remove_PlaybackInfoChanged)
+    TimelinePropertiesChanged = event(add_TimelinePropertiesChanged, remove_TimelinePropertiesChanged)
 class IGlobalSystemMediaTransportControlsSessionManager(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManager'
@@ -299,8 +299,8 @@ class IGlobalSystemMediaTransportControlsSessionManager(ComPtr):
     def add_SessionsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager, win32more.Windows.Media.Control.SessionsChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SessionsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    CurrentSessionChanged = event()
-    SessionsChanged = event()
+    CurrentSessionChanged = event(add_CurrentSessionChanged, remove_CurrentSessionChanged)
+    SessionsChanged = event(add_SessionsChanged, remove_SessionsChanged)
 class IGlobalSystemMediaTransportControlsSessionManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManagerStatics'

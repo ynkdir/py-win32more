@@ -104,7 +104,7 @@ class IResourceManager(ComPtr):
     @winrt_commethod(9)
     def remove_ResourceNotFound(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MainResourceMap = property(get_MainResourceMap, None)
-    ResourceNotFound = event()
+    ResourceNotFound = event(add_ResourceNotFound, remove_ResourceNotFound)
 class IResourceManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceManager2'
@@ -281,7 +281,7 @@ class ResourceManager(ComPtr):
     @winrt_mixinmethod
     def remove_ResourceNotFound(self: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MainResourceMap = property(get_MainResourceMap, None)
-    ResourceNotFound = event()
+    ResourceNotFound = event(add_ResourceNotFound, remove_ResourceNotFound)
 class ResourceMap(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceMap

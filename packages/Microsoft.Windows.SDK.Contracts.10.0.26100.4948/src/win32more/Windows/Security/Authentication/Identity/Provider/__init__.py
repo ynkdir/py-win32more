@@ -68,7 +68,7 @@ class ISecondaryAuthenticationFactorAuthenticationStatics(ComPtr):
     def remove_AuthenticationStageChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
     def GetAuthenticationStageInfoAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo]: ...
-    AuthenticationStageChanged = event()
+    AuthenticationStageChanged = event(add_AuthenticationStageChanged, remove_AuthenticationStageChanged)
 class ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics'
@@ -139,7 +139,9 @@ class ISecondaryAuthenticationFactorRegistrationStatics(ComPtr):
     def UnregisterDeviceAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def UpdateDeviceConfigurationDataAsync(self, deviceId: WinRT_String, deviceConfigurationData: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
-class SecondaryAuthenticationFactorAuthentication(ComPtr):
+class _SecondaryAuthenticationFactorAuthentication_Meta_(ComPtr.__class__):
+    pass
+class SecondaryAuthenticationFactorAuthentication(ComPtr, metaclass=_SecondaryAuthenticationFactorAuthentication_Meta_):
     extends: IInspectable
     default_interface: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthentication
     _classid_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication'
@@ -169,6 +171,7 @@ class SecondaryAuthenticationFactorAuthentication(ComPtr):
     DeviceNonce = property(get_DeviceNonce, None)
     ServiceAuthenticationHmac = property(get_ServiceAuthenticationHmac, None)
     SessionNonce = property(get_SessionNonce, None)
+    _SecondaryAuthenticationFactorAuthentication_Meta_.AuthenticationStageChanged = event(add_AuthenticationStageChanged, remove_AuthenticationStageChanged)
 class SecondaryAuthenticationFactorAuthenticationMessage(Enum, Int32):
     Invalid = 0
     SwipeUpWelcome = 1

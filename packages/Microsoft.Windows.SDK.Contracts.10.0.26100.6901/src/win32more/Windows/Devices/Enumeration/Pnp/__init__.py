@@ -77,11 +77,11 @@ class IPnpObjectWatcher(ComPtr):
     @winrt_commethod(18)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Updated = event()
-    Removed = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class PnpObject(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Enumeration.Pnp.IPnpObject
@@ -178,11 +178,11 @@ class PnpObjectWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Updated = event()
-    Removed = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 
 
 make_ready(__name__)

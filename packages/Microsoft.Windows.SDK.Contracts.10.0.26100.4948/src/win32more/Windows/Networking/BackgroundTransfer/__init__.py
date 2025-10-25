@@ -403,7 +403,7 @@ class DownloadOperation(ComPtr):
     RequestedUri = property(get_RequestedUri, put_RequestedUri)
     ResultFile = property(get_ResultFile, None)
     TransferGroup = property(get_TransferGroup, None)
-    RangesDownloaded = event()
+    RangesDownloaded = event(add_RangesDownloaded, remove_RangesDownloaded)
 class IBackgroundDownloader(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.BackgroundTransfer.IBackgroundDownloader'
@@ -763,7 +763,7 @@ class IDownloadOperation3(ComPtr):
     IsRandomAccessRequired = property(get_IsRandomAccessRequired, put_IsRandomAccessRequired)
     RecoverableWebErrorStatuses = property(get_RecoverableWebErrorStatuses, None)
     RequestedUri = property(None, put_RequestedUri)
-    RangesDownloaded = event()
+    RangesDownloaded = event(add_RangesDownloaded, remove_RangesDownloaded)
 class IDownloadOperation4(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.BackgroundTransfer.IDownloadOperation4'

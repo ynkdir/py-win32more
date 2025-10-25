@@ -673,7 +673,7 @@ class INetworkInformationStatics(ComPtr):
     def add_NetworkStatusChanged(self, networkStatusHandler: win32more.Windows.Networking.Connectivity.NetworkStatusChangedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_NetworkStatusChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    NetworkStatusChanged = event()
+    NetworkStatusChanged = event(add_NetworkStatusChanged, remove_NetworkStatusChanged)
 class INetworkInformationStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Connectivity.INetworkInformationStatics2'
@@ -909,7 +909,9 @@ class NetworkEncryptionType(Enum, Int32):
     Ihv = 9
     Gcmp = 10
     Gcmp256 = 11
-class NetworkInformation(ComPtr):
+class _NetworkInformation_Meta_(ComPtr.__class__):
+    pass
+class NetworkInformation(ComPtr, metaclass=_NetworkInformation_Meta_):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Connectivity.NetworkInformation'
     @winrt_classmethod
@@ -930,6 +932,7 @@ class NetworkInformation(ComPtr):
     def add_NetworkStatusChanged(cls: win32more.Windows.Networking.Connectivity.INetworkInformationStatics, networkStatusHandler: win32more.Windows.Networking.Connectivity.NetworkStatusChangedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_NetworkStatusChanged(cls: win32more.Windows.Networking.Connectivity.INetworkInformationStatics, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    _NetworkInformation_Meta_.NetworkStatusChanged = event(add_NetworkStatusChanged, remove_NetworkStatusChanged)
 class NetworkItem(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.INetworkItem

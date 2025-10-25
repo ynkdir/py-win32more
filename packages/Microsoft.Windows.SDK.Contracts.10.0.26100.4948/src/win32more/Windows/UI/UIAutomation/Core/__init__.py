@@ -163,8 +163,8 @@ class IRemoteAutomationClientSession(ComPtr):
     @winrt_commethod(13)
     def remove_Disconnected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SessionId = property(get_SessionId, None)
-    ConnectionRequested = event()
-    Disconnected = event()
+    ConnectionRequested = event(add_ConnectionRequested, remove_ConnectionRequested)
+    Disconnected = event(add_Disconnected, remove_Disconnected)
 class IRemoteAutomationClientSessionFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationClientSessionFactory'
@@ -239,8 +239,8 @@ class RemoteAutomationClientSession(ComPtr):
     @winrt_mixinmethod
     def remove_Disconnected(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SessionId = property(get_SessionId, None)
-    ConnectionRequested = event()
-    Disconnected = event()
+    ConnectionRequested = event(add_ConnectionRequested, remove_ConnectionRequested)
+    Disconnected = event(add_Disconnected, remove_Disconnected)
 class RemoteAutomationConnectionRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs

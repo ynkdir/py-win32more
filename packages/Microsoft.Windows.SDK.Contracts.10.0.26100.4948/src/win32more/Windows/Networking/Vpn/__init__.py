@@ -70,7 +70,7 @@ class IVpnChannel(ComPtr):
     Id = property(get_Id, None)
     PlugInContext = property(get_PlugInContext, put_PlugInContext)
     SystemHealth = property(get_SystemHealth, None)
-    ActivityChange = event()
+    ActivityChange = event(add_ActivityChange, remove_ActivityChange)
 class IVpnChannel2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnChannel2'
@@ -99,7 +99,7 @@ class IVpnChannel2(ComPtr):
     def TerminateConnection(self, message: WinRT_String) -> Void: ...
     @winrt_commethod(17)
     def StartWithTrafficFilter(self, assignedClientIpv4List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], assignedClientIpv6List: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.HostName], vpnInterfaceId: win32more.Windows.Networking.Vpn.VpnInterfaceId, assignedRoutes: win32more.Windows.Networking.Vpn.VpnRouteAssignment, assignedNamespace: win32more.Windows.Networking.Vpn.VpnDomainNameAssignment, mtuSize: UInt32, maxFrameSize: UInt32, reserved: Boolean, mainOuterTunnelTransport: IInspectable, optionalOuterTunnelTransport: IInspectable, assignedTrafficFilters: win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment) -> Void: ...
-    ActivityStateChange = event()
+    ActivityStateChange = event(add_ActivityStateChange, remove_ActivityStateChange)
 class IVpnChannel4(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnChannel4'
@@ -914,8 +914,8 @@ class VpnChannel(ComPtr):
     Id = property(get_Id, None)
     PlugInContext = property(get_PlugInContext, put_PlugInContext)
     SystemHealth = property(get_SystemHealth, None)
-    ActivityChange = event()
-    ActivityStateChange = event()
+    ActivityChange = event(add_ActivityChange, remove_ActivityChange)
+    ActivityStateChange = event(add_ActivityStateChange, remove_ActivityStateChange)
 class VpnChannelActivityEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnChannelActivityEventArgs

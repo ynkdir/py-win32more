@@ -343,8 +343,8 @@ class BackgroundTaskRegistration(ComPtr, metaclass=_BackgroundTaskRegistration_M
     Trigger = property(get_Trigger, None)
     _BackgroundTaskRegistration_Meta_.AllTaskGroups = property(get_AllTaskGroups, None)
     _BackgroundTaskRegistration_Meta_.AllTasks = property(get_AllTasks, None)
-    Progress = event()
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
+    Progress = event(add_Progress, remove_Progress)
 class BackgroundTaskRegistrationGroup(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroup
@@ -375,7 +375,7 @@ class BackgroundTaskRegistrationGroup(ComPtr):
     AllTasks = property(get_AllTasks, None)
     Id = property(get_Id, None)
     Name = property(get_Name, None)
-    BackgroundActivated = event()
+    BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
 class BackgroundTaskThrottleCounter(Enum, Int32):
     All = 0
     Cpu = 1
@@ -1055,7 +1055,7 @@ class IBackgroundTaskInstance(ComPtr):
     SuspendedCount = property(get_SuspendedCount, None)
     Task = property(get_Task, None)
     TriggerDetails = property(get_TriggerDetails, None)
-    Canceled = event()
+    Canceled = event(add_Canceled, remove_Canceled)
 class IBackgroundTaskInstance2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskInstance2'
@@ -1099,8 +1099,8 @@ class IBackgroundTaskRegistration(ComPtr):
     def Unregister(self, cancelTask: Boolean) -> Void: ...
     Name = property(get_Name, None)
     TaskId = property(get_TaskId, None)
-    Progress = event()
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
+    Progress = event(add_Progress, remove_Progress)
 class IBackgroundTaskRegistration2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskRegistration2'
@@ -1142,7 +1142,7 @@ class IBackgroundTaskRegistrationGroup(ComPtr):
     AllTasks = property(get_AllTasks, None)
     Id = property(get_Id, None)
     Name = property(get_Name, None)
-    BackgroundActivated = event()
+    BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
 class IBackgroundTaskRegistrationGroupFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroupFactory'

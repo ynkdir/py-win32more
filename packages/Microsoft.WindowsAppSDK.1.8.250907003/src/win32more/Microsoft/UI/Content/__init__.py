@@ -86,12 +86,12 @@ class ChildSiteLink(ComPtr):
     ProcessesKeyboardInput = property(get_ProcessesKeyboardInput, put_ProcessesKeyboardInput)
     ProcessesPointerInput = property(get_ProcessesPointerInput, put_ProcessesPointerInput)
     SiteView = property(get_SiteView, None)
-    Closed = event()
-    FrameworkClosed = event()
-    PreviousSiblingAutomationProviderRequested = event()
-    FragmentRootAutomationProviderRequested = event()
-    NextSiblingAutomationProviderRequested = event()
-    ParentAutomationProviderRequested = event()
+    Closed = event(add_Closed, remove_Closed)
+    FragmentRootAutomationProviderRequested = event(add_FragmentRootAutomationProviderRequested, remove_FragmentRootAutomationProviderRequested)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
+    NextSiblingAutomationProviderRequested = event(add_NextSiblingAutomationProviderRequested, remove_NextSiblingAutomationProviderRequested)
+    ParentAutomationProviderRequested = event(add_ParentAutomationProviderRequested, remove_ParentAutomationProviderRequested)
+    PreviousSiblingAutomationProviderRequested = event(add_PreviousSiblingAutomationProviderRequested, remove_PreviousSiblingAutomationProviderRequested)
 class ContentAutomationOptions(Enum, Int32):
     None_ = 0
     FrameworkBased = 1
@@ -286,10 +286,10 @@ class ContentIsland(ComPtr):
     ProcessesPointerInput = property(get_ProcessesPointerInput, None)
     RasterizationScale = property(get_RasterizationScale, None)
     SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
-    Closed = event()
-    AutomationProviderRequested = event()
-    StateChanged = event()
-    FrameworkClosed = event()
+    AutomationProviderRequested = event(add_AutomationProviderRequested, remove_AutomationProviderRequested)
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class ContentIslandAutomationProviderRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs
@@ -325,8 +325,8 @@ class ContentIslandEnvironment(ComPtr):
     AppWindowId = property(get_AppWindowId, None)
     DisplayId = property(get_DisplayId, None)
     DisplayScale = property(get_DisplayScale, None)
-    SettingChanged = event()
-    StateChanged = event()
+    SettingChanged = event(add_SettingChanged, remove_SettingChanged)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class ContentIslandStateChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentIslandStateChangedEventArgs
@@ -458,9 +458,9 @@ class ContentSite(ComPtr):
     RequestedSize = property(get_RequestedSize, None)
     ShouldApplyRasterizationScale = property(get_ShouldApplyRasterizationScale, put_ShouldApplyRasterizationScale)
     View = property(get_View, None)
-    RequestedStateChanged = event()
-    Closed = event()
-    FrameworkClosed = event()
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
+    RequestedStateChanged = event(add_RequestedStateChanged, remove_RequestedStateChanged)
 class ContentSiteAutomationProviderRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs
@@ -635,8 +635,8 @@ class DesktopAttachedSiteBridge(ComPtr):
     ProcessesPointerInput = property(get_ProcessesPointerInput, put_ProcessesPointerInput)
     SiteView = property(get_SiteView, None)
     WindowId = property(get_WindowId, None)
-    Closed = event()
-    FrameworkClosed = event()
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
 class DesktopChildSiteBridge(ComPtr):
     extends: win32more.Microsoft.UI.Content.DesktopSiteBridge
     default_interface: win32more.Microsoft.UI.Content.IDesktopChildSiteBridge
@@ -743,12 +743,12 @@ class DesktopPopupSiteBridge(ComPtr):
     Parent = property(get_Parent, None)
     SiteView = property(get_SiteView, None)
     WindowId = property(get_WindowId, None)
-    NextSiblingAutomationProviderRequested = event()
-    ParentAutomationProviderRequested = event()
-    PreviousSiblingAutomationProviderRequested = event()
-    Closed = event()
-    FrameworkClosed = event()
-    FragmentRootAutomationProviderRequested = event()
+    Closed = event(add_Closed, remove_Closed)
+    FragmentRootAutomationProviderRequested = event(add_FragmentRootAutomationProviderRequested, remove_FragmentRootAutomationProviderRequested)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
+    NextSiblingAutomationProviderRequested = event(add_NextSiblingAutomationProviderRequested, remove_NextSiblingAutomationProviderRequested)
+    ParentAutomationProviderRequested = event(add_ParentAutomationProviderRequested, remove_ParentAutomationProviderRequested)
+    PreviousSiblingAutomationProviderRequested = event(add_PreviousSiblingAutomationProviderRequested, remove_PreviousSiblingAutomationProviderRequested)
 class DesktopSiteBridge(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -809,8 +809,8 @@ class DesktopSiteBridge(ComPtr):
     LayoutDirectionOverride = property(get_LayoutDirectionOverride, put_LayoutDirectionOverride)
     OverrideScale = property(get_OverrideScale, put_OverrideScale)
     WindowId = property(get_WindowId, None)
-    Closed = event()
-    FrameworkClosed = event()
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
 class IChildSiteLink(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IChildSiteLink'
@@ -970,8 +970,8 @@ class IContentIsland(ComPtr):
     IsSiteVisible = property(get_IsSiteVisible, None)
     LayoutDirection = property(get_LayoutDirection, None)
     RasterizationScale = property(get_RasterizationScale, None)
-    AutomationProviderRequested = event()
-    StateChanged = event()
+    AutomationProviderRequested = event(add_AutomationProviderRequested, remove_AutomationProviderRequested)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class IContentIsland2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIsland2'
@@ -1045,8 +1045,8 @@ class IContentIslandEnvironment(ComPtr):
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AppWindowId = property(get_AppWindowId, None)
     DisplayId = property(get_DisplayId, None)
-    SettingChanged = event()
-    StateChanged = event()
+    SettingChanged = event(add_SettingChanged, remove_SettingChanged)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class IContentIslandEnvironment2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandEnvironment2'
@@ -1186,7 +1186,7 @@ class IContentSite(ComPtr):
     RequestedSize = property(get_RequestedSize, None)
     ShouldApplyRasterizationScale = property(get_ShouldApplyRasterizationScale, put_ShouldApplyRasterizationScale)
     View = property(get_View, None)
-    RequestedStateChanged = event()
+    RequestedStateChanged = event(add_RequestedStateChanged, remove_RequestedStateChanged)
 class IContentSite2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSite2'
@@ -1237,10 +1237,10 @@ class IContentSiteAutomation(ComPtr):
     def remove_PreviousSiblingAutomationProviderRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutomationOption = property(get_AutomationOption, put_AutomationOption)
     AutomationProvider = property(get_AutomationProvider, None)
-    FragmentRootAutomationProviderRequested = event()
-    NextSiblingAutomationProviderRequested = event()
-    ParentAutomationProviderRequested = event()
-    PreviousSiblingAutomationProviderRequested = event()
+    FragmentRootAutomationProviderRequested = event(add_FragmentRootAutomationProviderRequested, remove_FragmentRootAutomationProviderRequested)
+    NextSiblingAutomationProviderRequested = event(add_NextSiblingAutomationProviderRequested, remove_NextSiblingAutomationProviderRequested)
+    ParentAutomationProviderRequested = event(add_ParentAutomationProviderRequested, remove_ParentAutomationProviderRequested)
+    PreviousSiblingAutomationProviderRequested = event(add_PreviousSiblingAutomationProviderRequested, remove_PreviousSiblingAutomationProviderRequested)
 class IContentSiteAutomationProviderRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs'

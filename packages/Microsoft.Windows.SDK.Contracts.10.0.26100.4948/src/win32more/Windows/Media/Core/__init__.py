@@ -110,7 +110,7 @@ class AudioTrack(ComPtr):
     PlaybackItem = property(get_PlaybackItem, None)
     SupportInfo = property(get_SupportInfo, None)
     TrackKind = property(get_TrackKind, None)
-    OpenFailed = event()
+    OpenFailed = event(add_OpenFailed, remove_OpenFailed)
 class AudioTrackOpenFailedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IAudioTrackOpenFailedEventArgs
@@ -428,7 +428,7 @@ class FaceDetectionEffect(ComPtr):
     def SetProperties(self: win32more.Windows.Media.IMediaExtension, configuration: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
     DesiredDetectionInterval = property(get_DesiredDetectionInterval, put_DesiredDetectionInterval)
     Enabled = property(get_Enabled, put_Enabled)
-    FaceDetected = event()
+    FaceDetected = event(add_FaceDetected, remove_FaceDetected)
 class FaceDetectionEffectDefinition(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
@@ -572,7 +572,7 @@ class IAudioTrack(ComPtr):
     Name = property(get_Name, None)
     PlaybackItem = property(get_PlaybackItem, None)
     SupportInfo = property(get_SupportInfo, None)
-    OpenFailed = event()
+    OpenFailed = event(add_OpenFailed, remove_OpenFailed)
 class IAudioTrackOpenFailedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IAudioTrackOpenFailedEventArgs'
@@ -828,7 +828,7 @@ class IFaceDetectionEffect(ComPtr):
     def remove_FaceDetected(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DesiredDetectionInterval = property(get_DesiredDetectionInterval, put_DesiredDetectionInterval)
     Enabled = property(get_Enabled, put_Enabled)
-    FaceDetected = event()
+    FaceDetected = event(add_FaceDetected, remove_FaceDetected)
 class IFaceDetectionEffectDefinition(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IFaceDetectionEffectDefinition'
@@ -936,7 +936,7 @@ class IMediaBinder(ComPtr):
     def get_Source(self) -> win32more.Windows.Media.Core.MediaSource: ...
     Source = property(get_Source, None)
     Token = property(get_Token, put_Token)
-    Binding = event()
+    Binding = event(add_Binding, remove_Binding)
 class IMediaBindingEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMediaBindingEventArgs'
@@ -956,7 +956,7 @@ class IMediaBindingEventArgs(ComPtr):
     @winrt_commethod(12)
     def SetStreamReference(self, stream: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, contentType: WinRT_String) -> Void: ...
     MediaBinder = property(get_MediaBinder, None)
-    Canceled = event()
+    Canceled = event(add_Canceled, remove_Canceled)
 class IMediaBindingEventArgs2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMediaBindingEventArgs2'
@@ -1025,7 +1025,7 @@ class IMediaSource2(ComPtr):
     ExternalTimedMetadataTracks = property(get_ExternalTimedMetadataTracks, None)
     ExternalTimedTextSources = property(get_ExternalTimedTextSources, None)
     IsOpen = property(get_IsOpen, None)
-    OpenOperationCompleted = event()
+    OpenOperationCompleted = event(add_OpenOperationCompleted, remove_OpenOperationCompleted)
 class IMediaSource3(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -1040,7 +1040,7 @@ class IMediaSource3(ComPtr):
     @winrt_commethod(9)
     def Reset(self) -> Void: ...
     State = property(get_State, None)
-    StateChanged = event()
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class IMediaSource4(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -1077,7 +1077,7 @@ class IMediaSourceAppServiceConnection(ComPtr):
     def remove_InitializeMediaStreamSourceRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def Start(self) -> Void: ...
-    InitializeMediaStreamSourceRequested = event()
+    InitializeMediaStreamSourceRequested = event(add_InitializeMediaStreamSourceRequested, remove_InitializeMediaStreamSourceRequested)
 class IMediaSourceAppServiceConnectionFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMediaSourceAppServiceConnectionFactory'
@@ -1212,7 +1212,7 @@ class IMediaStreamSample(ComPtr):
     KeyFrame = property(get_KeyFrame, put_KeyFrame)
     Protection = property(get_Protection, None)
     Timestamp = property(get_Timestamp, None)
-    Processed = event()
+    Processed = event(add_Processed, remove_Processed)
 class IMediaStreamSample2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMediaStreamSample2'
@@ -1313,11 +1313,11 @@ class IMediaStreamSource(ComPtr):
     MusicProperties = property(get_MusicProperties, None)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     VideoProperties = property(get_VideoProperties, None)
-    Closed = event()
-    Starting = event()
-    Paused = event()
-    SampleRequested = event()
-    SwitchStreamsRequested = event()
+    Closed = event(add_Closed, remove_Closed)
+    Paused = event(add_Paused, remove_Paused)
+    SampleRequested = event(add_SampleRequested, remove_SampleRequested)
+    Starting = event(add_Starting, remove_Starting)
+    SwitchStreamsRequested = event(add_SwitchStreamsRequested, remove_SwitchStreamsRequested)
 class IMediaStreamSource2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMediaStreamSource2'
@@ -1326,7 +1326,7 @@ class IMediaStreamSource2(ComPtr):
     def add_SampleRendered(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.MediaStreamSource, win32more.Windows.Media.Core.MediaStreamSourceSampleRenderedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_SampleRendered(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    SampleRendered = event()
+    SampleRendered = event(add_SampleRendered, remove_SampleRendered)
 class IMediaStreamSource3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMediaStreamSource3'
@@ -1530,11 +1530,11 @@ class IMseSourceBuffer(ComPtr):
     IsUpdating = property(get_IsUpdating, None)
     Mode = property(get_Mode, put_Mode)
     TimestampOffset = property(get_TimestampOffset, put_TimestampOffset)
-    UpdateStarting = event()
-    Updated = event()
-    UpdateEnded = event()
-    ErrorOccurred = event()
-    Aborted = event()
+    Aborted = event(add_Aborted, remove_Aborted)
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    UpdateEnded = event(add_UpdateEnded, remove_UpdateEnded)
+    UpdateStarting = event(add_UpdateStarting, remove_UpdateStarting)
+    Updated = event(add_Updated, remove_Updated)
 class IMseSourceBufferList(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMseSourceBufferList'
@@ -1550,8 +1550,8 @@ class IMseSourceBufferList(ComPtr):
     @winrt_commethod(10)
     def get_Buffers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.MseSourceBuffer]: ...
     Buffers = property(get_Buffers, None)
-    SourceBufferAdded = event()
-    SourceBufferRemoved = event()
+    SourceBufferAdded = event(add_SourceBufferAdded, remove_SourceBufferAdded)
+    SourceBufferRemoved = event(add_SourceBufferRemoved, remove_SourceBufferRemoved)
 class IMseStreamSource(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMseStreamSource'
@@ -1588,9 +1588,9 @@ class IMseStreamSource(ComPtr):
     Duration = property(get_Duration, put_Duration)
     ReadyState = property(get_ReadyState, None)
     SourceBuffers = property(get_SourceBuffers, None)
-    Opened = event()
-    Ended = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    Ended = event(add_Ended, remove_Ended)
+    Opened = event(add_Opened, remove_Opened)
 class IMseStreamSource2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IMseStreamSource2'
@@ -1622,7 +1622,7 @@ class ISceneAnalysisEffect(ComPtr):
     def remove_SceneAnalyzed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DesiredAnalysisInterval = property(get_DesiredAnalysisInterval, put_DesiredAnalysisInterval)
     HighDynamicRangeAnalyzer = property(get_HighDynamicRangeAnalyzer, None)
-    SceneAnalyzed = event()
+    SceneAnalyzed = event(add_SceneAnalyzed, remove_SceneAnalyzed)
 class ISceneAnalysisEffectFrame(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -1662,7 +1662,7 @@ class ISingleSelectMediaTrackList(ComPtr):
     @winrt_commethod(9)
     def get_SelectedIndex(self) -> Int32: ...
     SelectedIndex = property(get_SelectedIndex, put_SelectedIndex)
-    SelectedIndexChanged = event()
+    SelectedIndexChanged = event(add_SelectedIndexChanged, remove_SelectedIndexChanged)
 class ISpeechCue(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.ISpeechCue'
@@ -1729,9 +1729,9 @@ class ITimedMetadataTrack(ComPtr):
     Cues = property(get_Cues, None)
     DispatchType = property(get_DispatchType, None)
     TimedMetadataKind = property(get_TimedMetadataKind, None)
-    CueEntered = event()
-    CueExited = event()
-    TrackFailed = event()
+    CueEntered = event(add_CueEntered, remove_CueEntered)
+    CueExited = event(add_CueExited, remove_CueExited)
+    TrackFailed = event(add_TrackFailed, remove_TrackFailed)
 class ITimedMetadataTrack2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.ITimedMetadataTrack2'
@@ -1916,7 +1916,7 @@ class ITimedTextSource(ComPtr):
     def add_Resolved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.TimedTextSource, win32more.Windows.Media.Core.TimedTextSourceResolveResultEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Resolved(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Resolved = event()
+    Resolved = event(add_Resolved, remove_Resolved)
 class ITimedTextSourceResolveResultEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.ITimedTextSourceResolveResultEventArgs'
@@ -2093,7 +2093,7 @@ class IVideoStabilizationEffect(ComPtr):
     @winrt_commethod(10)
     def GetRecommendedStreamConfiguration(self, controller: win32more.Windows.Media.Devices.VideoDeviceController, desiredProperties: win32more.Windows.Media.MediaProperties.VideoEncodingProperties) -> win32more.Windows.Media.Capture.VideoStreamConfiguration: ...
     Enabled = property(get_Enabled, put_Enabled)
-    EnabledChanged = event()
+    EnabledChanged = event(add_EnabledChanged, remove_EnabledChanged)
 class IVideoStabilizationEffectEnabledChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IVideoStabilizationEffectEnabledChangedEventArgs'
@@ -2139,7 +2139,7 @@ class IVideoTrack(ComPtr):
     Name = property(get_Name, None)
     PlaybackItem = property(get_PlaybackItem, None)
     SupportInfo = property(get_SupportInfo, None)
-    OpenFailed = event()
+    OpenFailed = event(add_OpenFailed, remove_OpenFailed)
 class IVideoTrackOpenFailedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Core.IVideoTrackOpenFailedEventArgs'
@@ -2260,7 +2260,7 @@ class MediaBinder(ComPtr):
     def get_Source(self: win32more.Windows.Media.Core.IMediaBinder) -> win32more.Windows.Media.Core.MediaSource: ...
     Source = property(get_Source, None)
     Token = property(get_Token, put_Token)
-    Binding = event()
+    Binding = event(add_Binding, remove_Binding)
 class MediaBindingEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaBindingEventArgs
@@ -2286,7 +2286,7 @@ class MediaBindingEventArgs(ComPtr):
     @winrt_mixinmethod
     def SetDownloadOperation(self: win32more.Windows.Media.Core.IMediaBindingEventArgs3, downloadOperation: win32more.Windows.Networking.BackgroundTransfer.DownloadOperation) -> Void: ...
     MediaBinder = property(get_MediaBinder, None)
-    Canceled = event()
+    Canceled = event(add_Canceled, remove_Canceled)
 class MediaCueEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaCueEventArgs
@@ -2373,8 +2373,8 @@ class MediaSource(ComPtr):
     MseStreamSource = property(get_MseStreamSource, None)
     State = property(get_State, None)
     Uri = property(get_Uri, None)
-    OpenOperationCompleted = event()
-    StateChanged = event()
+    OpenOperationCompleted = event(add_OpenOperationCompleted, remove_OpenOperationCompleted)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class MediaSourceAppServiceConnection(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaSourceAppServiceConnection
@@ -2394,7 +2394,7 @@ class MediaSourceAppServiceConnection(ComPtr):
     def remove_InitializeMediaStreamSourceRequested(self: win32more.Windows.Media.Core.IMediaSourceAppServiceConnection, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Start(self: win32more.Windows.Media.Core.IMediaSourceAppServiceConnection) -> Void: ...
-    InitializeMediaStreamSourceRequested = event()
+    InitializeMediaStreamSourceRequested = event(add_InitializeMediaStreamSourceRequested, remove_InitializeMediaStreamSourceRequested)
 class MediaSourceError(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaSourceError
@@ -2477,7 +2477,7 @@ class MediaStreamSample(ComPtr):
     KeyFrame = property(get_KeyFrame, put_KeyFrame)
     Protection = property(get_Protection, None)
     Timestamp = property(get_Timestamp, None)
-    Processed = event()
+    Processed = event(add_Processed, remove_Processed)
 class MediaStreamSamplePropertySet(ComPtr):
     extends: IInspectable
     implements: Tuple[MappingProtocol[Guid, IInspectable]]
@@ -2606,12 +2606,12 @@ class MediaStreamSource(ComPtr):
     MusicProperties = property(get_MusicProperties, None)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     VideoProperties = property(get_VideoProperties, None)
-    Closed = event()
-    Starting = event()
-    Paused = event()
-    SampleRequested = event()
-    SwitchStreamsRequested = event()
-    SampleRendered = event()
+    Closed = event(add_Closed, remove_Closed)
+    Paused = event(add_Paused, remove_Paused)
+    SampleRendered = event(add_SampleRendered, remove_SampleRendered)
+    SampleRequested = event(add_SampleRequested, remove_SampleRequested)
+    Starting = event(add_Starting, remove_Starting)
+    SwitchStreamsRequested = event(add_SwitchStreamsRequested, remove_SwitchStreamsRequested)
 class MediaStreamSourceClosedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaStreamSourceClosedEventArgs
@@ -2804,11 +2804,11 @@ class MseSourceBuffer(ComPtr):
     IsUpdating = property(get_IsUpdating, None)
     Mode = property(get_Mode, put_Mode)
     TimestampOffset = property(get_TimestampOffset, put_TimestampOffset)
-    UpdateStarting = event()
-    Updated = event()
-    UpdateEnded = event()
-    ErrorOccurred = event()
-    Aborted = event()
+    Aborted = event(add_Aborted, remove_Aborted)
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    UpdateEnded = event(add_UpdateEnded, remove_UpdateEnded)
+    UpdateStarting = event(add_UpdateStarting, remove_UpdateStarting)
+    Updated = event(add_Updated, remove_Updated)
 class MseSourceBufferList(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IMseSourceBufferList
@@ -2824,8 +2824,8 @@ class MseSourceBufferList(ComPtr):
     @winrt_mixinmethod
     def get_Buffers(self: win32more.Windows.Media.Core.IMseSourceBufferList) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.MseSourceBuffer]: ...
     Buffers = property(get_Buffers, None)
-    SourceBufferAdded = event()
-    SourceBufferRemoved = event()
+    SourceBufferAdded = event(add_SourceBufferAdded, remove_SourceBufferAdded)
+    SourceBufferRemoved = event(add_SourceBufferRemoved, remove_SourceBufferRemoved)
 class MseStreamSource(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IMseStreamSource
@@ -2878,9 +2878,9 @@ class MseStreamSource(ComPtr):
     LiveSeekableRange = property(get_LiveSeekableRange, put_LiveSeekableRange)
     ReadyState = property(get_ReadyState, None)
     SourceBuffers = property(get_SourceBuffers, None)
-    Opened = event()
-    Ended = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    Ended = event(add_Ended, remove_Ended)
+    Opened = event(add_Opened, remove_Opened)
 class MseTimeRange(Structure):
     Start: win32more.Windows.Foundation.TimeSpan
     End: win32more.Windows.Foundation.TimeSpan
@@ -2902,7 +2902,7 @@ class SceneAnalysisEffect(ComPtr):
     def SetProperties(self: win32more.Windows.Media.IMediaExtension, configuration: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
     DesiredAnalysisInterval = property(get_DesiredAnalysisInterval, put_DesiredAnalysisInterval)
     HighDynamicRangeAnalyzer = property(get_HighDynamicRangeAnalyzer, None)
-    SceneAnalyzed = event()
+    SceneAnalyzed = event(add_SceneAnalyzed, remove_SceneAnalyzed)
 class SceneAnalysisEffectDefinition(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
@@ -3127,9 +3127,9 @@ class TimedMetadataTrack(ComPtr):
     PlaybackItem = property(get_PlaybackItem, None)
     TimedMetadataKind = property(get_TimedMetadataKind, None)
     TrackKind = property(get_TrackKind, None)
-    CueEntered = event()
-    CueExited = event()
-    TrackFailed = event()
+    CueEntered = event(add_CueEntered, remove_CueEntered)
+    CueExited = event(add_CueExited, remove_CueExited)
+    TrackFailed = event(add_TrackFailed, remove_TrackFailed)
 class TimedMetadataTrackError(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedMetadataTrackError
@@ -3419,7 +3419,7 @@ class TimedTextSource(ComPtr):
     def CreateFromStreamWithLanguage(cls: win32more.Windows.Media.Core.ITimedTextSourceStatics, stream: win32more.Windows.Storage.Streams.IRandomAccessStream, defaultLanguage: WinRT_String) -> win32more.Windows.Media.Core.TimedTextSource: ...
     @winrt_classmethod
     def CreateFromUriWithLanguage(cls: win32more.Windows.Media.Core.ITimedTextSourceStatics, uri: win32more.Windows.Foundation.Uri, defaultLanguage: WinRT_String) -> win32more.Windows.Media.Core.TimedTextSource: ...
-    Resolved = event()
+    Resolved = event(add_Resolved, remove_Resolved)
 class TimedTextSourceResolveResultEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextSourceResolveResultEventArgs
@@ -3601,7 +3601,7 @@ class VideoStabilizationEffect(ComPtr):
     @winrt_mixinmethod
     def SetProperties(self: win32more.Windows.Media.IMediaExtension, configuration: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
     Enabled = property(get_Enabled, put_Enabled)
-    EnabledChanged = event()
+    EnabledChanged = event(add_EnabledChanged, remove_EnabledChanged)
 class VideoStabilizationEffectDefinition(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
@@ -3701,7 +3701,7 @@ class VideoTrack(ComPtr):
     PlaybackItem = property(get_PlaybackItem, None)
     SupportInfo = property(get_SupportInfo, None)
     TrackKind = property(get_TrackKind, None)
-    OpenFailed = event()
+    OpenFailed = event(add_OpenFailed, remove_OpenFailed)
 class VideoTrackOpenFailedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Core.IVideoTrackOpenFailedEventArgs

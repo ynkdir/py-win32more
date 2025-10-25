@@ -56,9 +56,9 @@ class INotesWindowManagerPreview(ComPtr):
     @winrt_commethod(20)
     def remove_NoteVisibilityChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsScreenLocked = property(get_IsScreenLocked, None)
-    SystemLockStateChanged = event()
-    NotePlacementChanged = event()
-    NoteVisibilityChanged = event()
+    NotePlacementChanged = event(add_NotePlacementChanged, remove_NotePlacementChanged)
+    NoteVisibilityChanged = event(add_NoteVisibilityChanged, remove_NoteVisibilityChanged)
+    SystemLockStateChanged = event(add_SystemLockStateChanged, remove_SystemLockStateChanged)
 class INotesWindowManagerPreview2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview2'
@@ -148,9 +148,9 @@ class NotesWindowManagerPreview(ComPtr):
     @winrt_classmethod
     def GetForCurrentApp(cls: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewStatics) -> win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview: ...
     IsScreenLocked = property(get_IsScreenLocked, None)
-    SystemLockStateChanged = event()
-    NotePlacementChanged = event()
-    NoteVisibilityChanged = event()
+    NotePlacementChanged = event(add_NotePlacementChanged, remove_NotePlacementChanged)
+    NoteVisibilityChanged = event(add_NoteVisibilityChanged, remove_NoteVisibilityChanged)
+    SystemLockStateChanged = event(add_SystemLockStateChanged, remove_SystemLockStateChanged)
 class NotesWindowManagerPreviewShowNoteOptions(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewShowNoteOptions

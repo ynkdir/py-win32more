@@ -78,8 +78,8 @@ class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     Status = property(get_Status, None)
     _GeofenceMonitor_Meta_.Current = property(get_Current, None)
-    GeofenceStateChanged = event()
-    StatusChanged = event()
+    GeofenceStateChanged = event(add_GeofenceStateChanged, remove_GeofenceStateChanged)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class GeofenceMonitorStatus(Enum, Int32):
     Ready = 0
     Initializing = 1
@@ -171,8 +171,8 @@ class IGeofenceMonitor(ComPtr):
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     Status = property(get_Status, None)
-    GeofenceStateChanged = event()
-    StatusChanged = event()
+    GeofenceStateChanged = event(add_GeofenceStateChanged, remove_GeofenceStateChanged)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IGeofenceMonitorStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.IGeofenceMonitorStatics'

@@ -17,7 +17,7 @@ class IPrintManager(ComPtr):
     def add_PrintTaskRequested(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintManager, win32more.Windows.Graphics.Printing.PrintTaskRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrintTaskRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PrintTaskRequested = event()
+    PrintTaskRequested = event(add_PrintTaskRequested, remove_PrintTaskRequested)
 class IPrintManagerStatic(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintManagerStatic'
@@ -127,10 +127,10 @@ class IPrintTask(ComPtr):
     Options = property(get_Options, None)
     Properties = property(get_Properties, None)
     Source = property(get_Source, None)
-    Previewing = event()
-    Submitting = event()
-    Progressing = event()
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
+    Previewing = event(add_Previewing, remove_Previewing)
+    Progressing = event(add_Progressing, remove_Progressing)
+    Submitting = event(add_Submitting, remove_Submitting)
 class IPrintTask2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintTask2'
@@ -433,7 +433,7 @@ class PrintManager(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.Graphics.Printing.IPrintManagerStatic) -> win32more.Windows.Graphics.Printing.PrintManager: ...
     @winrt_classmethod
     def ShowPrintUIAsync(cls: win32more.Windows.Graphics.Printing.IPrintManagerStatic) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    PrintTaskRequested = event()
+    PrintTaskRequested = event(add_PrintTaskRequested, remove_PrintTaskRequested)
 class PrintMediaSize(Enum, Int32):
     Default = 0
     NotAvailable = 1
@@ -803,10 +803,10 @@ class PrintTask(ComPtr):
     Options = property(get_Options, None)
     Properties = property(get_Properties, None)
     Source = property(get_Source, None)
-    Previewing = event()
-    Submitting = event()
-    Progressing = event()
-    Completed = event()
+    Completed = event(add_Completed, remove_Completed)
+    Previewing = event(add_Previewing, remove_Previewing)
+    Progressing = event(add_Progressing, remove_Progressing)
+    Submitting = event(add_Submitting, remove_Submitting)
 class PrintTaskCompletedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintTaskCompletedEventArgs

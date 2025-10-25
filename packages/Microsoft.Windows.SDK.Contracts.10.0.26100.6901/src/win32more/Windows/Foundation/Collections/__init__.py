@@ -91,7 +91,7 @@ class IObservableMap(Generic[K, V], ComPtr):
     def add_MapChanged(self, vhnd: win32more.Windows.Foundation.Collections.MapChangedEventHandler[K, V]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MapChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    MapChanged = event()
+    MapChanged = event(add_MapChanged, remove_MapChanged)
 class IObservableVector(Generic[T], ComPtr):
     extends: IInspectable
     implements: Tuple[SequenceProtocol[T]]
@@ -101,7 +101,7 @@ class IObservableVector(Generic[T], ComPtr):
     def add_VectorChanged(self, vhnd: win32more.Windows.Foundation.Collections.VectorChangedEventHandler[T]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_VectorChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    VectorChanged = event()
+    VectorChanged = event(add_VectorChanged, remove_VectorChanged)
 class IPropertySet(ComPtr):
     extends: IInspectable
     implements: Tuple[MappingProtocol[WinRT_String, IInspectable]]
@@ -201,7 +201,7 @@ class PropertySet(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]: ...
     Size = property(get_Size, None)
-    MapChanged = event()
+    MapChanged = event(add_MapChanged, remove_MapChanged)
 class StringMap(ComPtr):
     extends: IInspectable
     implements: Tuple[MappingProtocol[WinRT_String, WinRT_String]]
@@ -237,7 +237,7 @@ class StringMap(ComPtr):
     @winrt_mixinmethod
     def remove_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, WinRT_String], token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Size = property(get_Size, None)
-    MapChanged = event()
+    MapChanged = event(add_MapChanged, remove_MapChanged)
 class ValueSet(ComPtr):
     extends: IInspectable
     implements: Tuple[MappingProtocol[WinRT_String, IInspectable]]
@@ -273,7 +273,7 @@ class ValueSet(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]: ...
     Size = property(get_Size, None)
-    MapChanged = event()
+    MapChanged = event(add_MapChanged, remove_MapChanged)
 class VectorChangedEventHandler(Generic[T], MulticastDelegate):
     extends: IUnknown
     _piid_ = Guid('{0c051752-9fbf-4c70-aa0c-0e4c82d9a761}')

@@ -708,9 +708,9 @@ class IToastNotification(ComPtr):
     def remove_Failed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-    Dismissed = event()
-    Activated = event()
-    Failed = event()
+    Activated = event(add_Activated, remove_Activated)
+    Dismissed = event(add_Dismissed, remove_Dismissed)
+    Failed = event(add_Failed, remove_Failed)
 class IToastNotification2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Notifications.IToastNotification2'
@@ -860,7 +860,7 @@ class IToastNotificationManagerForUser3(ComPtr):
     @winrt_commethod(8)
     def remove_NotificationModeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     NotificationMode = property(get_NotificationMode, None)
-    NotificationModeChanged = event()
+    NotificationModeChanged = event(add_NotificationModeChanged, remove_NotificationModeChanged)
 class IToastNotificationManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Notifications.IToastNotificationManagerStatics'
@@ -925,7 +925,7 @@ class IToastNotifier3(ComPtr):
     def add_ScheduledToastNotificationShowing(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Notifications.ToastNotifier, win32more.Windows.UI.Notifications.ScheduledToastNotificationShowingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ScheduledToastNotificationShowing(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ScheduledToastNotificationShowing = event()
+    ScheduledToastNotificationShowing = event(add_ScheduledToastNotificationShowing, remove_ScheduledToastNotificationShowing)
 class IUserNotification(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Notifications.IUserNotification'
@@ -1693,9 +1693,9 @@ class ToastNotification(ComPtr):
     RemoteId = property(get_RemoteId, put_RemoteId)
     SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
     Tag = property(get_Tag, put_Tag)
-    Dismissed = event()
-    Activated = event()
-    Failed = event()
+    Activated = event(add_Activated, remove_Activated)
+    Dismissed = event(add_Dismissed, remove_Dismissed)
+    Failed = event(add_Failed, remove_Failed)
 class ToastNotificationActionTriggerDetail(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastNotificationActionTriggerDetail
@@ -1787,7 +1787,7 @@ class ToastNotificationManagerForUser(ComPtr):
     History = property(get_History, None)
     NotificationMode = property(get_NotificationMode, None)
     User = property(get_User, None)
-    NotificationModeChanged = event()
+    NotificationModeChanged = event(add_NotificationModeChanged, remove_NotificationModeChanged)
 class ToastNotificationMode(Enum, Int32):
     Unrestricted = 0
     PriorityOnly = 1
@@ -1820,7 +1820,7 @@ class ToastNotifier(ComPtr):
     @winrt_mixinmethod
     def remove_ScheduledToastNotificationShowing(self: win32more.Windows.UI.Notifications.IToastNotifier3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Setting = property(get_Setting, None)
-    ScheduledToastNotificationShowing = event()
+    ScheduledToastNotificationShowing = event(add_ScheduledToastNotificationShowing, remove_ScheduledToastNotificationShowing)
 class ToastTemplateType(Enum, Int32):
     ToastImageAndText01 = 0
     ToastImageAndText02 = 1

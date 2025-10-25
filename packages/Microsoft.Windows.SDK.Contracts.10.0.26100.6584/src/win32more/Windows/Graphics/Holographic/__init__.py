@@ -400,9 +400,10 @@ class HolographicSpace(ComPtr, metaclass=_HolographicSpace_Meta_):
     _HolographicSpace_Meta_.IsAvailable = property(get_IsAvailable, None)
     _HolographicSpace_Meta_.IsConfigured = property(get_IsConfigured, None)
     _HolographicSpace_Meta_.IsSupported = property(get_IsSupported, None)
-    CameraAdded = event()
-    CameraRemoved = event()
-    UserPresenceChanged = event()
+    CameraAdded = event(add_CameraAdded, remove_CameraAdded)
+    CameraRemoved = event(add_CameraRemoved, remove_CameraRemoved)
+    UserPresenceChanged = event(add_UserPresenceChanged, remove_UserPresenceChanged)
+    _HolographicSpace_Meta_.IsAvailableChanged = event(add_IsAvailableChanged, remove_IsAvailableChanged)
 class HolographicSpaceCameraAddedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicSpaceCameraAddedEventArgs
@@ -858,8 +859,8 @@ class IHolographicSpace(ComPtr):
     @winrt_commethod(12)
     def CreateNextFrame(self) -> win32more.Windows.Graphics.Holographic.HolographicFrame: ...
     PrimaryAdapterId = property(get_PrimaryAdapterId, None)
-    CameraAdded = event()
-    CameraRemoved = event()
+    CameraAdded = event(add_CameraAdded, remove_CameraAdded)
+    CameraRemoved = event(add_CameraRemoved, remove_CameraRemoved)
 class IHolographicSpace2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Holographic.IHolographicSpace2'
@@ -877,7 +878,7 @@ class IHolographicSpace2(ComPtr):
     @winrt_commethod(11)
     def CreateFramePresentationMonitor(self, maxQueuedReports: UInt32) -> win32more.Windows.Graphics.Holographic.HolographicFramePresentationMonitor: ...
     UserPresence = property(get_UserPresence, None)
-    UserPresenceChanged = event()
+    UserPresenceChanged = event(add_UserPresenceChanged, remove_UserPresenceChanged)
 class IHolographicSpace3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Holographic.IHolographicSpace3'
@@ -920,7 +921,7 @@ class IHolographicSpaceStatics2(ComPtr):
     def remove_IsAvailableChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsAvailable = property(get_IsAvailable, None)
     IsSupported = property(get_IsSupported, None)
-    IsAvailableChanged = event()
+    IsAvailableChanged = event(add_IsAvailableChanged, remove_IsAvailableChanged)
 class IHolographicSpaceStatics3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Holographic.IHolographicSpaceStatics3'

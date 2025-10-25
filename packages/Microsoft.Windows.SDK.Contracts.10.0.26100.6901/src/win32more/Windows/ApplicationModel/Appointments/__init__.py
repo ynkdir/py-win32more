@@ -313,7 +313,7 @@ class AppointmentCalendarSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class AppointmentCalendarSyncStatus(Enum, Int32):
     Idle = 0
     Syncing = 1
@@ -703,7 +703,7 @@ class AppointmentStore(ComPtr):
     @winrt_mixinmethod
     def GetChangeTracker(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentStore3, identity: WinRT_String) -> win32more.Windows.ApplicationModel.Appointments.AppointmentStoreChangeTracker: ...
     ChangeTracker = property(get_ChangeTracker, None)
-    StoreChanged = event()
+    StoreChanged = event(add_StoreChanged, remove_StoreChanged)
 class AppointmentStoreAccessType(Enum, Int32):
     AppCalendarsReadWrite = 0
     AllCalendarsReadOnly = 1
@@ -1104,7 +1104,7 @@ class IAppointmentCalendarSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, None)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, None)
     Status = property(get_Status, None)
-    SyncStatusChanged = event()
+    SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class IAppointmentCalendarSyncManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager2'
@@ -1448,7 +1448,7 @@ class IAppointmentStore2(ComPtr):
     def remove_StoreChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def CreateAppointmentCalendarInAccountAsync(self, name: WinRT_String, userDataAccountId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Appointments.AppointmentCalendar]: ...
-    StoreChanged = event()
+    StoreChanged = event(add_StoreChanged, remove_StoreChanged)
 class IAppointmentStore3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentStore3'

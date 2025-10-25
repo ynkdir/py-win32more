@@ -62,7 +62,7 @@ class IWebViewControlProcess(ComPtr):
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
     ProcessId = property(get_ProcessId, None)
-    ProcessExited = event()
+    ProcessExited = event(add_ProcessExited, remove_ProcessExited)
 class IWebViewControlProcessFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Web.UI.Interop.IWebViewControlProcessFactory'
@@ -117,8 +117,8 @@ class IWebViewControlSite(ComPtr):
     IsVisible = property(get_IsVisible, put_IsVisible)
     Process = property(get_Process, None)
     Scale = property(get_Scale, put_Scale)
-    MoveFocusRequested = event()
-    AcceleratorKeyPressed = event()
+    AcceleratorKeyPressed = event(add_AcceleratorKeyPressed, remove_AcceleratorKeyPressed)
+    MoveFocusRequested = event(add_MoveFocusRequested, remove_MoveFocusRequested)
 class IWebViewControlSite2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Web.UI.Interop.IWebViewControlSite2'
@@ -131,8 +131,8 @@ class IWebViewControlSite2(ComPtr):
     def add_LostFocus(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.Interop.WebViewControl, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_LostFocus(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    GotFocus = event()
-    LostFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class WebViewControl(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Web.UI.IWebViewControl
@@ -299,27 +299,27 @@ class WebViewControl(ComPtr):
     Scale = property(get_Scale, put_Scale)
     Settings = property(get_Settings, None)
     Source = property(get_Source, put_Source)
-    NavigationStarting = event()
-    ContentLoading = event()
-    DOMContentLoaded = event()
-    NavigationCompleted = event()
-    FrameNavigationStarting = event()
-    FrameContentLoading = event()
-    FrameDOMContentLoaded = event()
-    FrameNavigationCompleted = event()
-    ScriptNotify = event()
-    LongRunningScriptDetected = event()
-    UnsafeContentWarningDisplaying = event()
-    UnviewableContentIdentified = event()
-    PermissionRequested = event()
-    UnsupportedUriSchemeIdentified = event()
-    NewWindowRequested = event()
-    ContainsFullScreenElementChanged = event()
-    WebResourceRequested = event()
-    MoveFocusRequested = event()
-    AcceleratorKeyPressed = event()
-    GotFocus = event()
-    LostFocus = event()
+    AcceleratorKeyPressed = event(add_AcceleratorKeyPressed, remove_AcceleratorKeyPressed)
+    ContainsFullScreenElementChanged = event(add_ContainsFullScreenElementChanged, remove_ContainsFullScreenElementChanged)
+    ContentLoading = event(add_ContentLoading, remove_ContentLoading)
+    DOMContentLoaded = event(add_DOMContentLoaded, remove_DOMContentLoaded)
+    FrameContentLoading = event(add_FrameContentLoading, remove_FrameContentLoading)
+    FrameDOMContentLoaded = event(add_FrameDOMContentLoaded, remove_FrameDOMContentLoaded)
+    FrameNavigationCompleted = event(add_FrameNavigationCompleted, remove_FrameNavigationCompleted)
+    FrameNavigationStarting = event(add_FrameNavigationStarting, remove_FrameNavigationStarting)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LongRunningScriptDetected = event(add_LongRunningScriptDetected, remove_LongRunningScriptDetected)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
+    MoveFocusRequested = event(add_MoveFocusRequested, remove_MoveFocusRequested)
+    NavigationCompleted = event(add_NavigationCompleted, remove_NavigationCompleted)
+    NavigationStarting = event(add_NavigationStarting, remove_NavigationStarting)
+    NewWindowRequested = event(add_NewWindowRequested, remove_NewWindowRequested)
+    PermissionRequested = event(add_PermissionRequested, remove_PermissionRequested)
+    ScriptNotify = event(add_ScriptNotify, remove_ScriptNotify)
+    UnsafeContentWarningDisplaying = event(add_UnsafeContentWarningDisplaying, remove_UnsafeContentWarningDisplaying)
+    UnsupportedUriSchemeIdentified = event(add_UnsupportedUriSchemeIdentified, remove_UnsupportedUriSchemeIdentified)
+    UnviewableContentIdentified = event(add_UnviewableContentIdentified, remove_UnviewableContentIdentified)
+    WebResourceRequested = event(add_WebResourceRequested, remove_WebResourceRequested)
 class WebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlAcceleratorKeyPressedEventArgs
@@ -391,7 +391,7 @@ class WebViewControlProcess(ComPtr):
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
     ProcessId = property(get_ProcessId, None)
-    ProcessExited = event()
+    ProcessExited = event(add_ProcessExited, remove_ProcessExited)
 class WebViewControlProcessCapabilityState(Enum, Int32):
     Default = 0
     Disabled = 1

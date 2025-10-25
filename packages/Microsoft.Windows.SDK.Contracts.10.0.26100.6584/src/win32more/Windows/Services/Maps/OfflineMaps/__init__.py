@@ -26,7 +26,7 @@ class IOfflineMapPackage(ComPtr):
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IOfflineMapPackageQueryResult(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult'
@@ -82,7 +82,7 @@ class OfflineMapPackage(ComPtr):
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class OfflineMapPackageQueryResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult

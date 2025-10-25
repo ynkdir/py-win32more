@@ -54,7 +54,7 @@ class IWiFiDirectAdvertisementPublisher(ComPtr):
     def Stop(self) -> Void: ...
     Advertisement = property(get_Advertisement, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IWiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisherStatusChangedEventArgs'
@@ -73,7 +73,7 @@ class IWiFiDirectConnectionListener(ComPtr):
     def add_ConnectionRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionListener, win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ConnectionRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ConnectionRequested = event()
+    ConnectionRequested = event(add_ConnectionRequested, remove_ConnectionRequested)
 class IWiFiDirectConnectionParameters(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.IWiFiDirectConnectionParameters'
@@ -132,7 +132,7 @@ class IWiFiDirectDevice(ComPtr):
     def GetConnectionEndpointPairs(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.EndpointPair]: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
     DeviceId = property(get_DeviceId, None)
-    ConnectionStatusChanged = event()
+    ConnectionStatusChanged = event(add_ConnectionStatusChanged, remove_ConnectionStatusChanged)
 class IWiFiDirectDeviceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.IWiFiDirectDeviceStatics'
@@ -251,7 +251,7 @@ class WiFiDirectAdvertisementPublisher(ComPtr):
     def Stop(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisher) -> Void: ...
     Advertisement = property(get_Advertisement, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class WiFiDirectAdvertisementPublisherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -288,7 +288,7 @@ class WiFiDirectConnectionListener(ComPtr):
     def add_ConnectionRequested(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionListener, win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ConnectionRequested(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ConnectionRequested = event()
+    ConnectionRequested = event(add_ConnectionRequested, remove_ConnectionRequested)
 class WiFiDirectConnectionParameters(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionParameters
@@ -367,7 +367,7 @@ class WiFiDirectDevice(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.WiFiDirect.IWiFiDirectDeviceStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.WiFiDirect.WiFiDirectDevice]: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
     DeviceId = property(get_DeviceId, None)
-    ConnectionStatusChanged = event()
+    ConnectionStatusChanged = event(add_ConnectionStatusChanged, remove_ConnectionStatusChanged)
 class WiFiDirectDeviceSelectorType(Enum, Int32):
     DeviceInterface = 0
     AssociationEndpoint = 1

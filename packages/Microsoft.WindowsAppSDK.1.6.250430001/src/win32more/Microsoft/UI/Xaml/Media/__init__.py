@@ -370,7 +370,9 @@ class CompositeTransform(ComPtr, metaclass=_CompositeTransform_Meta_):
     _CompositeTransform_Meta_.SkewYProperty = property(get_SkewYProperty, None)
     _CompositeTransform_Meta_.TranslateXProperty = property(get_TranslateXProperty, None)
     _CompositeTransform_Meta_.TranslateYProperty = property(get_TranslateYProperty, None)
-class CompositionTarget(ComPtr):
+class _CompositionTarget_Meta_(ComPtr.__class__):
+    pass
+class CompositionTarget(ComPtr, metaclass=_CompositionTarget_Meta_):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.ICompositionTarget
     _classid_ = 'Microsoft.UI.Xaml.Media.CompositionTarget'
@@ -388,6 +390,9 @@ class CompositionTarget(ComPtr):
     def remove_SurfaceContentsLost(cls: win32more.Microsoft.UI.Xaml.Media.ICompositionTargetStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetCompositorForCurrentThread(cls: win32more.Microsoft.UI.Xaml.Media.ICompositionTargetStatics) -> win32more.Microsoft.UI.Composition.Compositor: ...
+    _CompositionTarget_Meta_.Rendered = event(add_Rendered, remove_Rendered)
+    _CompositionTarget_Meta_.Rendering = event(add_Rendering, remove_Rendering)
+    _CompositionTarget_Meta_.SurfaceContentsLost = event(add_SurfaceContentsLost, remove_SurfaceContentsLost)
 class DesktopAcrylicBackdrop(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.SystemBackdrop
     default_interface: win32more.Microsoft.UI.Xaml.Media.IDesktopAcrylicBackdrop
@@ -1062,9 +1067,9 @@ class ICompositionTargetStatics(ComPtr):
     def remove_SurfaceContentsLost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
     def GetCompositorForCurrentThread(self) -> win32more.Microsoft.UI.Composition.Compositor: ...
-    Rendering = event()
-    Rendered = event()
-    SurfaceContentsLost = event()
+    Rendered = event(add_Rendered, remove_Rendered)
+    Rendering = event(add_Rendering, remove_Rendering)
+    SurfaceContentsLost = event(add_SurfaceContentsLost, remove_SurfaceContentsLost)
 class IDesktopAcrylicBackdrop(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.IDesktopAcrylicBackdrop'
@@ -1297,8 +1302,8 @@ class IImageBrush(ComPtr):
     @winrt_commethod(11)
     def remove_ImageOpened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
-    ImageFailed = event()
-    ImageOpened = event()
+    ImageFailed = event(add_ImageFailed, remove_ImageFailed)
+    ImageOpened = event(add_ImageOpened, remove_ImageOpened)
 class IImageBrushStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.IImageBrushStatics'
@@ -1408,7 +1413,7 @@ class ILoadedImageSurface(ComPtr):
     DecodedPhysicalSize = property(get_DecodedPhysicalSize, None)
     DecodedSize = property(get_DecodedSize, None)
     NaturalSize = property(get_NaturalSize, None)
-    LoadCompleted = event()
+    LoadCompleted = event(add_LoadCompleted, remove_LoadCompleted)
 class ILoadedImageSurfaceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.ILoadedImageSurfaceStatics'
@@ -2272,8 +2277,8 @@ class ImageBrush(ComPtr, metaclass=_ImageBrush_Meta_):
     def get_ImageSourceProperty(cls: win32more.Microsoft.UI.Xaml.Media.IImageBrushStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
     _ImageBrush_Meta_.ImageSourceProperty = property(get_ImageSourceProperty, None)
-    ImageFailed = event()
-    ImageOpened = event()
+    ImageFailed = event(add_ImageFailed, remove_ImageFailed)
+    ImageOpened = event(add_ImageOpened, remove_ImageOpened)
 class ImageSource(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.IImageSource
@@ -2407,7 +2412,7 @@ class LoadedImageSurface(ComPtr):
     DecodedPhysicalSize = property(get_DecodedPhysicalSize, None)
     DecodedSize = property(get_DecodedSize, None)
     NaturalSize = property(get_NaturalSize, None)
-    LoadCompleted = event()
+    LoadCompleted = event(add_LoadCompleted, remove_LoadCompleted)
 class Matrix(Structure):
     M11: Double
     M12: Double

@@ -460,8 +460,8 @@ class IClosableNotifier(ComPtr):
     @winrt_commethod(10)
     def remove_FrameworkClosed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsClosed = property(get_IsClosed, None)
-    Closed = event()
-    FrameworkClosed = event()
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
 class IColorHelper(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.IColorHelper'

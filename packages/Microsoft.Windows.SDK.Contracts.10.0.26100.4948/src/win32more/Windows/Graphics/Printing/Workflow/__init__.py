@@ -26,8 +26,8 @@ class IPrintWorkflowBackgroundSession(ComPtr):
     @winrt_commethod(11)
     def Start(self) -> Void: ...
     Status = property(get_Status, None)
-    SetupRequested = event()
-    Submitted = event()
+    SetupRequested = event(add_SetupRequested, remove_SetupRequested)
+    Submitted = event(add_Submitted, remove_Submitted)
 class IPrintWorkflowBackgroundSetupRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowBackgroundSetupRequestedEventArgs'
@@ -77,8 +77,8 @@ class IPrintWorkflowForegroundSession(ComPtr):
     @winrt_commethod(11)
     def Start(self) -> Void: ...
     Status = property(get_Status, None)
-    SetupRequested = event()
-    XpsDataAvailable = event()
+    SetupRequested = event(add_SetupRequested, remove_SetupRequested)
+    XpsDataAvailable = event(add_XpsDataAvailable, remove_XpsDataAvailable)
 class IPrintWorkflowForegroundSetupRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSetupRequestedEventArgs'
@@ -114,8 +114,8 @@ class IPrintWorkflowJobBackgroundSession(ComPtr):
     @winrt_commethod(11)
     def Start(self) -> Void: ...
     Status = property(get_Status, None)
-    JobStarting = event()
-    PdlModificationRequested = event()
+    JobStarting = event(add_JobStarting, remove_JobStarting)
+    PdlModificationRequested = event(add_PdlModificationRequested, remove_PdlModificationRequested)
 class IPrintWorkflowJobBackgroundSession2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowJobBackgroundSession2'
@@ -124,7 +124,7 @@ class IPrintWorkflowJobBackgroundSession2(ComPtr):
     def add_JobIssueDetected(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowJobBackgroundSession, win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowJobIssueDetectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_JobIssueDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    JobIssueDetected = event()
+    JobIssueDetected = event(add_JobIssueDetected, remove_JobIssueDetected)
 class IPrintWorkflowJobIssueDetectedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowJobIssueDetectedEventArgs'
@@ -215,8 +215,8 @@ class IPrintWorkflowJobUISession(ComPtr):
     @winrt_commethod(11)
     def Start(self) -> Void: ...
     Status = property(get_Status, None)
-    PdlDataAvailable = event()
-    JobNotification = event()
+    JobNotification = event(add_JobNotification, remove_JobNotification)
+    PdlDataAvailable = event(add_PdlDataAvailable, remove_PdlDataAvailable)
 class IPrintWorkflowJobUISession2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowJobUISession2'
@@ -225,7 +225,7 @@ class IPrintWorkflowJobUISession2(ComPtr):
     def add_VirtualPrinterUIDataAvailable(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowJobUISession, win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterUIEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_VirtualPrinterUIDataAvailable(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    VirtualPrinterUIDataAvailable = event()
+    VirtualPrinterUIDataAvailable = event(add_VirtualPrinterUIDataAvailable, remove_VirtualPrinterUIDataAvailable)
 class IPrintWorkflowObjectModelSourceFileContent(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelSourceFileContent'
@@ -462,7 +462,7 @@ class IPrintWorkflowVirtualPrinterSession(ComPtr):
     def Start(self) -> Void: ...
     Printer = property(get_Printer, None)
     Status = property(get_Status, None)
-    VirtualPrinterDataAvailable = event()
+    VirtualPrinterDataAvailable = event(add_VirtualPrinterDataAvailable, remove_VirtualPrinterDataAvailable)
 class IPrintWorkflowVirtualPrinterTriggerDetails(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowVirtualPrinterTriggerDetails'
@@ -524,8 +524,8 @@ class PrintWorkflowBackgroundSession(ComPtr):
     @winrt_mixinmethod
     def Start(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowBackgroundSession) -> Void: ...
     Status = property(get_Status, None)
-    SetupRequested = event()
-    Submitted = event()
+    SetupRequested = event(add_SetupRequested, remove_SetupRequested)
+    Submitted = event(add_Submitted, remove_Submitted)
 class PrintWorkflowBackgroundSetupRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowBackgroundSetupRequestedEventArgs
@@ -571,8 +571,8 @@ class PrintWorkflowForegroundSession(ComPtr):
     @winrt_mixinmethod
     def Start(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSession) -> Void: ...
     Status = property(get_Status, None)
-    SetupRequested = event()
-    XpsDataAvailable = event()
+    SetupRequested = event(add_SetupRequested, remove_SetupRequested)
+    XpsDataAvailable = event(add_XpsDataAvailable, remove_XpsDataAvailable)
 class PrintWorkflowForegroundSetupRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSetupRequestedEventArgs
@@ -627,9 +627,9 @@ class PrintWorkflowJobBackgroundSession(ComPtr):
     @winrt_mixinmethod
     def remove_JobIssueDetected(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowJobBackgroundSession2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    JobStarting = event()
-    PdlModificationRequested = event()
-    JobIssueDetected = event()
+    JobIssueDetected = event(add_JobIssueDetected, remove_JobIssueDetected)
+    JobStarting = event(add_JobStarting, remove_JobStarting)
+    PdlModificationRequested = event(add_PdlModificationRequested, remove_PdlModificationRequested)
 class PrintWorkflowJobIssueDetectedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowJobIssueDetectedEventArgs
@@ -732,9 +732,9 @@ class PrintWorkflowJobUISession(ComPtr):
     @winrt_mixinmethod
     def remove_VirtualPrinterUIDataAvailable(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowJobUISession2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    PdlDataAvailable = event()
-    JobNotification = event()
-    VirtualPrinterUIDataAvailable = event()
+    JobNotification = event(add_JobNotification, remove_JobNotification)
+    PdlDataAvailable = event(add_PdlDataAvailable, remove_PdlDataAvailable)
+    VirtualPrinterUIDataAvailable = event(add_VirtualPrinterUIDataAvailable, remove_VirtualPrinterUIDataAvailable)
 class PrintWorkflowObjectModelSourceFileContent(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelSourceFileContent
@@ -1005,7 +1005,7 @@ class PrintWorkflowVirtualPrinterSession(ComPtr):
     def Start(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowVirtualPrinterSession) -> Void: ...
     Printer = property(get_Printer, None)
     Status = property(get_Status, None)
-    VirtualPrinterDataAvailable = event()
+    VirtualPrinterDataAvailable = event(add_VirtualPrinterDataAvailable, remove_VirtualPrinterDataAvailable)
 class PrintWorkflowVirtualPrinterTriggerDetails(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowVirtualPrinterTriggerDetails

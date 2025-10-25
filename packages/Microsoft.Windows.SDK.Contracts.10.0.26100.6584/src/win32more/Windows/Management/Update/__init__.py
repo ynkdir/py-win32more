@@ -311,12 +311,12 @@ class IWindowsUpdateManager(ComPtr):
     IsScanning = property(get_IsScanning, None)
     IsWorking = property(get_IsWorking, None)
     LastSuccessfulScanTimestamp = property(get_LastSuccessfulScanTimestamp, None)
-    ScanningStateChanged = event()
-    WorkingStateChanged = event()
-    ProgressChanged = event()
-    AttentionRequiredReasonChanged = event()
-    ActionCompleted = event()
-    ScanCompleted = event()
+    ActionCompleted = event(add_ActionCompleted, remove_ActionCompleted)
+    AttentionRequiredReasonChanged = event(add_AttentionRequiredReasonChanged, remove_AttentionRequiredReasonChanged)
+    ProgressChanged = event(add_ProgressChanged, remove_ProgressChanged)
+    ScanCompleted = event(add_ScanCompleted, remove_ScanCompleted)
+    ScanningStateChanged = event(add_ScanningStateChanged, remove_ScanningStateChanged)
+    WorkingStateChanged = event(add_WorkingStateChanged, remove_WorkingStateChanged)
 class IWindowsUpdateManagerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateManagerFactory'
@@ -756,12 +756,12 @@ class WindowsUpdateManager(ComPtr):
     IsScanning = property(get_IsScanning, None)
     IsWorking = property(get_IsWorking, None)
     LastSuccessfulScanTimestamp = property(get_LastSuccessfulScanTimestamp, None)
-    ScanningStateChanged = event()
-    WorkingStateChanged = event()
-    ProgressChanged = event()
-    AttentionRequiredReasonChanged = event()
-    ActionCompleted = event()
-    ScanCompleted = event()
+    ActionCompleted = event(add_ActionCompleted, remove_ActionCompleted)
+    AttentionRequiredReasonChanged = event(add_AttentionRequiredReasonChanged, remove_AttentionRequiredReasonChanged)
+    ProgressChanged = event(add_ProgressChanged, remove_ProgressChanged)
+    ScanCompleted = event(add_ScanCompleted, remove_ScanCompleted)
+    ScanningStateChanged = event(add_ScanningStateChanged, remove_ScanningStateChanged)
+    WorkingStateChanged = event(add_WorkingStateChanged, remove_WorkingStateChanged)
 class WindowsUpdateProgressChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateProgressChangedEventArgs

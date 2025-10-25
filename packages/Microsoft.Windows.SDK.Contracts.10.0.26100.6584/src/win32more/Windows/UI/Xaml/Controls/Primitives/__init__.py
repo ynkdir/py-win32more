@@ -120,7 +120,7 @@ class ButtonBase(ComPtr, metaclass=_ButtonBase_Meta_):
     _ButtonBase_Meta_.CommandProperty = property(get_CommandProperty, None)
     _ButtonBase_Meta_.IsPointerOverProperty = property(get_IsPointerOverProperty, None)
     _ButtonBase_Meta_.IsPressedProperty = property(get_IsPressedProperty, None)
-    Click = event()
+    Click = event(add_Click, remove_Click)
 class CalendarPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ICalendarPanel
@@ -277,8 +277,8 @@ class CarouselPanel(ComPtr):
     VerticalOffset = property(get_VerticalOffset, None)
     ViewportHeight = property(get_ViewportHeight, None)
     ViewportWidth = property(get_ViewportWidth, None)
-    HorizontalSnapPointsChanged = event()
-    VerticalSnapPointsChanged = event()
+    HorizontalSnapPointsChanged = event(add_HorizontalSnapPointsChanged, remove_HorizontalSnapPointsChanged)
+    VerticalSnapPointsChanged = event(add_VerticalSnapPointsChanged, remove_VerticalSnapPointsChanged)
 class _ColorPickerSlider_Meta_(ComPtr.__class__):
     pass
 class ColorPickerSlider(ComPtr, metaclass=_ColorPickerSlider_Meta_):
@@ -401,7 +401,7 @@ class ColorSpectrum(ComPtr, metaclass=_ColorSpectrum_Meta_):
     _ColorSpectrum_Meta_.MinSaturationProperty = property(get_MinSaturationProperty, None)
     _ColorSpectrum_Meta_.MinValueProperty = property(get_MinValueProperty, None)
     _ColorSpectrum_Meta_.ShapeProperty = property(get_ShapeProperty, None)
-    ColorChanged = event()
+    ColorChanged = event(add_ColorChanged, remove_ColorChanged)
 class ComboBoxTemplateSettings(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IComboBoxTemplateSettings
@@ -776,10 +776,10 @@ class FlyoutBase(ComPtr, metaclass=_FlyoutBase_Meta_):
     _FlyoutBase_Meta_.ShouldConstrainToRootBoundsProperty = property(get_ShouldConstrainToRootBoundsProperty, None)
     _FlyoutBase_Meta_.ShowModeProperty = property(get_ShowModeProperty, None)
     _FlyoutBase_Meta_.TargetProperty = property(get_TargetProperty, None)
-    Opened = event()
-    Closed = event()
-    Opening = event()
-    Closing = event()
+    Closed = event(add_Closed, remove_Closed)
+    Closing = event(add_Closing, remove_Closing)
+    Opened = event(add_Opened, remove_Opened)
+    Opening = event(add_Opening, remove_Opening)
 class FlyoutBaseClosingEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseClosingEventArgs
@@ -1136,7 +1136,7 @@ class IButtonBase(ComPtr):
     CommandParameter = property(get_CommandParameter, put_CommandParameter)
     IsPointerOver = property(get_IsPointerOver, None)
     IsPressed = property(get_IsPressed, None)
-    Click = event()
+    Click = event(add_Click, remove_Click)
 class IButtonBaseFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IButtonBaseFactory'
@@ -1368,7 +1368,7 @@ class IColorSpectrum(ComPtr):
     MinSaturation = property(get_MinSaturation, put_MinSaturation)
     MinValue = property(get_MinValue, put_MinValue)
     Shape = property(get_Shape, put_Shape)
-    ColorChanged = event()
+    ColorChanged = event(add_ColorChanged, remove_ColorChanged)
 class IColorSpectrumFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IColorSpectrumFactory'
@@ -1637,9 +1637,9 @@ class IFlyoutBase(ComPtr):
     @winrt_commethod(15)
     def Hide(self) -> Void: ...
     Placement = property(get_Placement, put_Placement)
-    Opened = event()
-    Closed = event()
-    Opening = event()
+    Closed = event(add_Closed, remove_Closed)
+    Opened = event(add_Opened, remove_Opened)
+    Opening = event(add_Opening, remove_Opening)
 class IFlyoutBase2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IFlyoutBase2'
@@ -1671,7 +1671,7 @@ class IFlyoutBase2(ComPtr):
     ElementSoundMode = property(get_ElementSoundMode, put_ElementSoundMode)
     LightDismissOverlayMode = property(get_LightDismissOverlayMode, put_LightDismissOverlayMode)
     Target = property(get_Target, None)
-    Closing = event()
+    Closing = event(add_Closing, remove_Closing)
 class IFlyoutBase3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IFlyoutBase3'
@@ -2700,7 +2700,7 @@ class ILoopingSelector(ComPtr):
     SelectedIndex = property(get_SelectedIndex, put_SelectedIndex)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     ShouldLoop = property(get_ShouldLoop, put_ShouldLoop)
-    SelectionChanged = event()
+    SelectionChanged = event(add_SelectionChanged, remove_SelectionChanged)
 class ILoopingSelectorItem(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ILoopingSelectorItem'
@@ -2930,8 +2930,8 @@ class IPopup(ComPtr):
     IsLightDismissEnabled = property(get_IsLightDismissEnabled, put_IsLightDismissEnabled)
     IsOpen = property(get_IsOpen, put_IsOpen)
     VerticalOffset = property(get_VerticalOffset, put_VerticalOffset)
-    Opened = event()
-    Closed = event()
+    Closed = event(add_Closed, remove_Closed)
+    Opened = event(add_Opened, remove_Opened)
 class IPopup2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IPopup2'
@@ -2974,7 +2974,7 @@ class IPopup4(ComPtr):
     ActualPlacement = property(get_ActualPlacement, None)
     DesiredPlacement = property(get_DesiredPlacement, put_DesiredPlacement)
     PlacementTarget = property(get_PlacementTarget, put_PlacementTarget)
-    ActualPlacementChanged = event()
+    ActualPlacementChanged = event(add_ActualPlacementChanged, remove_ActualPlacementChanged)
 class IPopupStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IPopupStatics'
@@ -3092,7 +3092,7 @@ class IRangeBase(ComPtr):
     Minimum = property(get_Minimum, put_Minimum)
     SmallChange = property(get_SmallChange, put_SmallChange)
     Value = property(get_Value, put_Value)
-    ValueChanged = event()
+    ValueChanged = event(add_ValueChanged, remove_ValueChanged)
 class IRangeBaseFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IRangeBaseFactory'
@@ -3185,7 +3185,7 @@ class IScrollBar(ComPtr):
     IndicatorMode = property(get_IndicatorMode, put_IndicatorMode)
     Orientation = property(get_Orientation, put_Orientation)
     ViewportSize = property(get_ViewportSize, put_ViewportSize)
-    Scroll = event()
+    Scroll = event(add_Scroll, remove_Scroll)
 class IScrollBarStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IScrollBarStatics'
@@ -3231,8 +3231,8 @@ class IScrollSnapPointsInfo(ComPtr):
     def GetRegularSnapPoints(self, orientation: win32more.Windows.UI.Xaml.Controls.Orientation, alignment: win32more.Windows.UI.Xaml.Controls.Primitives.SnapPointsAlignment, offset: POINTER(Single)) -> Single: ...
     AreHorizontalSnapPointsRegular = property(get_AreHorizontalSnapPointsRegular, None)
     AreVerticalSnapPointsRegular = property(get_AreVerticalSnapPointsRegular, None)
-    HorizontalSnapPointsChanged = event()
-    VerticalSnapPointsChanged = event()
+    HorizontalSnapPointsChanged = event(add_HorizontalSnapPointsChanged, remove_HorizontalSnapPointsChanged)
+    VerticalSnapPointsChanged = event(add_VerticalSnapPointsChanged, remove_VerticalSnapPointsChanged)
 class ISelector(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ISelector'
@@ -3266,7 +3266,7 @@ class ISelector(ComPtr):
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     SelectedValue = property(get_SelectedValue, put_SelectedValue)
     SelectedValuePath = property(get_SelectedValuePath, put_SelectedValuePath)
-    SelectionChanged = event()
+    SelectionChanged = event(add_SelectionChanged, remove_SelectionChanged)
 class ISelectorFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ISelectorFactory'
@@ -3379,9 +3379,9 @@ class IThumb(ComPtr):
     @winrt_commethod(13)
     def CancelDrag(self) -> Void: ...
     IsDragging = property(get_IsDragging, None)
-    DragStarted = event()
-    DragDelta = event()
-    DragCompleted = event()
+    DragCompleted = event(add_DragCompleted, remove_DragCompleted)
+    DragDelta = event(add_DragDelta, remove_DragDelta)
+    DragStarted = event(add_DragStarted, remove_DragStarted)
 class IThumbStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IThumbStatics'
@@ -3431,9 +3431,9 @@ class IToggleButton(ComPtr):
     def remove_Indeterminate(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsChecked = property(get_IsChecked, put_IsChecked)
     IsThreeState = property(get_IsThreeState, put_IsThreeState)
-    Checked = event()
-    Unchecked = event()
-    Indeterminate = event()
+    Checked = event(add_Checked, remove_Checked)
+    Indeterminate = event(add_Indeterminate, remove_Indeterminate)
+    Unchecked = event(add_Unchecked, remove_Unchecked)
 class IToggleButtonFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.IToggleButtonFactory'
@@ -4164,7 +4164,7 @@ class LoopingSelector(ComPtr, metaclass=_LoopingSelector_Meta_):
     _LoopingSelector_Meta_.SelectedIndexProperty = property(get_SelectedIndexProperty, None)
     _LoopingSelector_Meta_.SelectedItemProperty = property(get_SelectedItemProperty, None)
     _LoopingSelector_Meta_.ShouldLoopProperty = property(get_ShouldLoopProperty, None)
-    SelectionChanged = event()
+    SelectionChanged = event(add_SelectionChanged, remove_SelectionChanged)
 class LoopingSelectorItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelectorItem
@@ -4191,8 +4191,8 @@ class LoopingSelectorPanel(ComPtr):
     def GetRegularSnapPoints(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, orientation: win32more.Windows.UI.Xaml.Controls.Orientation, alignment: win32more.Windows.UI.Xaml.Controls.Primitives.SnapPointsAlignment, offset: POINTER(Single)) -> Single: ...
     AreHorizontalSnapPointsRegular = property(get_AreHorizontalSnapPointsRegular, None)
     AreVerticalSnapPointsRegular = property(get_AreVerticalSnapPointsRegular, None)
-    HorizontalSnapPointsChanged = event()
-    VerticalSnapPointsChanged = event()
+    HorizontalSnapPointsChanged = event(add_HorizontalSnapPointsChanged, remove_HorizontalSnapPointsChanged)
+    VerticalSnapPointsChanged = event(add_VerticalSnapPointsChanged, remove_VerticalSnapPointsChanged)
 class MenuFlyoutItemTemplateSettings(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IMenuFlyoutItemTemplateSettings
@@ -4317,8 +4317,8 @@ class OrientedVirtualizingPanel(ComPtr):
     VerticalOffset = property(get_VerticalOffset, None)
     ViewportHeight = property(get_ViewportHeight, None)
     ViewportWidth = property(get_ViewportWidth, None)
-    HorizontalSnapPointsChanged = event()
-    VerticalSnapPointsChanged = event()
+    HorizontalSnapPointsChanged = event(add_HorizontalSnapPointsChanged, remove_HorizontalSnapPointsChanged)
+    VerticalSnapPointsChanged = event(add_VerticalSnapPointsChanged, remove_VerticalSnapPointsChanged)
 class _PickerFlyoutBase_Meta_(ComPtr.__class__):
     pass
 class PickerFlyoutBase(ComPtr, metaclass=_PickerFlyoutBase_Meta_):
@@ -4402,8 +4402,8 @@ class PivotPanel(ComPtr):
     def GetRegularSnapPoints(self: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, orientation: win32more.Windows.UI.Xaml.Controls.Orientation, alignment: win32more.Windows.UI.Xaml.Controls.Primitives.SnapPointsAlignment, offset: POINTER(Single)) -> Single: ...
     AreHorizontalSnapPointsRegular = property(get_AreHorizontalSnapPointsRegular, None)
     AreVerticalSnapPointsRegular = property(get_AreVerticalSnapPointsRegular, None)
-    HorizontalSnapPointsChanged = event()
-    VerticalSnapPointsChanged = event()
+    HorizontalSnapPointsChanged = event(add_HorizontalSnapPointsChanged, remove_HorizontalSnapPointsChanged)
+    VerticalSnapPointsChanged = event(add_VerticalSnapPointsChanged, remove_VerticalSnapPointsChanged)
 class PlacementMode(Enum, Int32):
     Bottom = 2
     Left = 9
@@ -4523,9 +4523,9 @@ class Popup(ComPtr, metaclass=_Popup_Meta_):
     _Popup_Meta_.PlacementTargetProperty = property(get_PlacementTargetProperty, None)
     _Popup_Meta_.ShouldConstrainToRootBoundsProperty = property(get_ShouldConstrainToRootBoundsProperty, None)
     _Popup_Meta_.VerticalOffsetProperty = property(get_VerticalOffsetProperty, None)
-    Opened = event()
-    Closed = event()
-    ActualPlacementChanged = event()
+    ActualPlacementChanged = event(add_ActualPlacementChanged, remove_ActualPlacementChanged)
+    Closed = event(add_Closed, remove_Closed)
+    Opened = event(add_Opened, remove_Opened)
 class PopupPlacementMode(Enum, Int32):
     Auto = 0
     Top = 1
@@ -4643,7 +4643,7 @@ class RangeBase(ComPtr, metaclass=_RangeBase_Meta_):
     _RangeBase_Meta_.MinimumProperty = property(get_MinimumProperty, None)
     _RangeBase_Meta_.SmallChangeProperty = property(get_SmallChangeProperty, None)
     _RangeBase_Meta_.ValueProperty = property(get_ValueProperty, None)
-    ValueChanged = event()
+    ValueChanged = event(add_ValueChanged, remove_ValueChanged)
 class RangeBaseValueChangedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IRangeBaseValueChangedEventArgs
@@ -4733,7 +4733,7 @@ class ScrollBar(ComPtr, metaclass=_ScrollBar_Meta_):
     _ScrollBar_Meta_.IndicatorModeProperty = property(get_IndicatorModeProperty, None)
     _ScrollBar_Meta_.OrientationProperty = property(get_OrientationProperty, None)
     _ScrollBar_Meta_.ViewportSizeProperty = property(get_ViewportSizeProperty, None)
-    Scroll = event()
+    Scroll = event(add_Scroll, remove_Scroll)
 class ScrollEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollEventArgs
@@ -4824,7 +4824,7 @@ class Selector(ComPtr, metaclass=_Selector_Meta_):
     _Selector_Meta_.SelectedItemProperty = property(get_SelectedItemProperty, None)
     _Selector_Meta_.SelectedValuePathProperty = property(get_SelectedValuePathProperty, None)
     _Selector_Meta_.SelectedValueProperty = property(get_SelectedValueProperty, None)
-    SelectionChanged = event()
+    SelectionChanged = event(add_SelectionChanged, remove_SelectionChanged)
 class _SelectorItem_Meta_(ComPtr.__class__):
     pass
 class SelectorItem(ComPtr, metaclass=_SelectorItem_Meta_):
@@ -4934,9 +4934,9 @@ class Thumb(ComPtr, metaclass=_Thumb_Meta_):
     def get_IsDraggingProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IThumbStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     IsDragging = property(get_IsDragging, None)
     _Thumb_Meta_.IsDraggingProperty = property(get_IsDraggingProperty, None)
-    DragStarted = event()
-    DragDelta = event()
-    DragCompleted = event()
+    DragCompleted = event(add_DragCompleted, remove_DragCompleted)
+    DragDelta = event(add_DragDelta, remove_DragDelta)
+    DragStarted = event(add_DragStarted, remove_DragStarted)
 class _TickBar_Meta_(ComPtr.__class__):
     pass
 class TickBar(ComPtr, metaclass=_TickBar_Meta_):
@@ -5011,9 +5011,9 @@ class ToggleButton(ComPtr, metaclass=_ToggleButton_Meta_):
     IsThreeState = property(get_IsThreeState, put_IsThreeState)
     _ToggleButton_Meta_.IsCheckedProperty = property(get_IsCheckedProperty, None)
     _ToggleButton_Meta_.IsThreeStateProperty = property(get_IsThreeStateProperty, None)
-    Checked = event()
-    Unchecked = event()
-    Indeterminate = event()
+    Checked = event(add_Checked, remove_Checked)
+    Indeterminate = event(add_Indeterminate, remove_Indeterminate)
+    Unchecked = event(add_Unchecked, remove_Unchecked)
 class ToggleSwitchTemplateSettings(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IToggleSwitchTemplateSettings

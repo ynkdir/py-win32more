@@ -76,6 +76,7 @@ class AccessKeyManager(ComPtr, metaclass=_AccessKeyManager_Meta_):
     def ExitDisplayMode(cls: win32more.Windows.UI.Xaml.Input.IAccessKeyManagerStatics) -> Void: ...
     _AccessKeyManager_Meta_.AreKeyTipsEnabled = property(get_AreKeyTipsEnabled, put_AreKeyTipsEnabled)
     _AccessKeyManager_Meta_.IsDisplayModeEnabled = property(get_IsDisplayModeEnabled, None)
+    _AccessKeyManager_Meta_.IsDisplayModeEnabledChanged = event(add_IsDisplayModeEnabledChanged, remove_IsDisplayModeEnabledChanged)
 class CanExecuteRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.ICanExecuteRequestedEventArgs
@@ -198,7 +199,9 @@ class FocusInputDeviceKind(Enum, Int32):
     Pen = 3
     Keyboard = 4
     GameController = 5
-class FocusManager(ComPtr):
+class _FocusManager_Meta_(ComPtr.__class__):
+    pass
+class FocusManager(ComPtr, metaclass=_FocusManager_Meta_):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IFocusManager
     _classid_ = 'Windows.UI.Xaml.Input.FocusManager'
@@ -246,6 +249,10 @@ class FocusManager(ComPtr):
     @GetFocusedElement.register
     @winrt_classmethod
     def GetFocusedElement(cls: win32more.Windows.UI.Xaml.Input.IFocusManagerStatics) -> IInspectable: ...
+    _FocusManager_Meta_.GettingFocus = event(add_GettingFocus, remove_GettingFocus)
+    _FocusManager_Meta_.GotFocus = event(add_GotFocus, remove_GotFocus)
+    _FocusManager_Meta_.LosingFocus = event(add_LosingFocus, remove_LosingFocus)
+    _FocusManager_Meta_.LostFocus = event(add_LostFocus, remove_LostFocus)
 class FocusManagerGotFocusEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IFocusManagerGotFocusEventArgs
@@ -387,7 +394,7 @@ class IAccessKeyManagerStatics(ComPtr):
     @winrt_commethod(9)
     def ExitDisplayMode(self) -> Void: ...
     IsDisplayModeEnabled = property(get_IsDisplayModeEnabled, None)
-    IsDisplayModeEnabledChanged = event()
+    IsDisplayModeEnabledChanged = event(add_IsDisplayModeEnabledChanged, remove_IsDisplayModeEnabledChanged)
 class IAccessKeyManagerStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyManagerStatics2'
@@ -436,7 +443,7 @@ class ICommand(ComPtr):
     def CanExecute(self, parameter: IInspectable) -> Boolean: ...
     @winrt_commethod(9)
     def Execute(self, parameter: IInspectable) -> Void: ...
-    CanExecuteChanged = event()
+    CanExecuteChanged = event(add_CanExecuteChanged, remove_CanExecuteChanged)
 class IContextRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IContextRequestedEventArgs'
@@ -581,10 +588,10 @@ class IFocusManagerStatics6(ComPtr):
     def add_LosingFocus(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.UI.Xaml.Input.LosingFocusEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_LosingFocus(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    GotFocus = event()
-    LostFocus = event()
-    GettingFocus = event()
-    LosingFocus = event()
+    GettingFocus = event(add_GettingFocus, remove_GettingFocus)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LosingFocus = event(add_LosingFocus, remove_LosingFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class IFocusManagerStatics7(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics7'
@@ -782,7 +789,7 @@ class IKeyboardAccelerator(ComPtr):
     Key = property(get_Key, put_Key)
     Modifiers = property(get_Modifiers, put_Modifiers)
     ScopeOwner = property(get_ScopeOwner, put_ScopeOwner)
-    Invoked = event()
+    Invoked = event(add_Invoked, remove_Invoked)
 class IKeyboardAcceleratorFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IKeyboardAcceleratorFactory'
@@ -1212,8 +1219,8 @@ class IXamlUICommand(ComPtr):
     IconSource = property(get_IconSource, put_IconSource)
     KeyboardAccelerators = property(get_KeyboardAccelerators, None)
     Label = property(get_Label, put_Label)
-    ExecuteRequested = event()
-    CanExecuteRequested = event()
+    CanExecuteRequested = event(add_CanExecuteRequested, remove_CanExecuteRequested)
+    ExecuteRequested = event(add_ExecuteRequested, remove_ExecuteRequested)
 class IXamlUICommandFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IXamlUICommandFactory'
@@ -1454,7 +1461,7 @@ class KeyboardAccelerator(ComPtr, metaclass=_KeyboardAccelerator_Meta_):
     _KeyboardAccelerator_Meta_.KeyProperty = property(get_KeyProperty, None)
     _KeyboardAccelerator_Meta_.ModifiersProperty = property(get_ModifiersProperty, None)
     _KeyboardAccelerator_Meta_.ScopeOwnerProperty = property(get_ScopeOwnerProperty, None)
-    Invoked = event()
+    Invoked = event(add_Invoked, remove_Invoked)
 class KeyboardAcceleratorInvokedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IKeyboardAcceleratorInvokedEventArgs
@@ -2038,9 +2045,9 @@ class XamlUICommand(ComPtr, metaclass=_XamlUICommand_Meta_):
     _XamlUICommand_Meta_.IconSourceProperty = property(get_IconSourceProperty, None)
     _XamlUICommand_Meta_.KeyboardAcceleratorsProperty = property(get_KeyboardAcceleratorsProperty, None)
     _XamlUICommand_Meta_.LabelProperty = property(get_LabelProperty, None)
-    ExecuteRequested = event()
-    CanExecuteRequested = event()
-    CanExecuteChanged = event()
+    CanExecuteChanged = event(add_CanExecuteChanged, remove_CanExecuteChanged)
+    CanExecuteRequested = event(add_CanExecuteRequested, remove_CanExecuteRequested)
+    ExecuteRequested = event(add_ExecuteRequested, remove_ExecuteRequested)
 
 
 make_ready(__name__)

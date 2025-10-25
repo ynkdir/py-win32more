@@ -84,7 +84,7 @@ class IRatedContentRestrictions(ComPtr):
     def add_RestrictionsChanged(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_RestrictionsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    RestrictionsChanged = event()
+    RestrictionsChanged = event(add_RestrictionsChanged, remove_RestrictionsChanged)
 class IRatedContentRestrictionsFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.ContentRestrictions.IRatedContentRestrictionsFactory'
@@ -163,7 +163,7 @@ class RatedContentRestrictions(ComPtr):
     def add_RestrictionsChanged(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_RestrictionsChanged(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    RestrictionsChanged = event()
+    RestrictionsChanged = event(add_RestrictionsChanged, remove_RestrictionsChanged)
 
 
 make_ready(__name__)

@@ -17,7 +17,7 @@ class IThemeSettings(ComPtr):
     def get_HighContrastScheme(self) -> WinRT_String: ...
     HighContrast = property(get_HighContrast, None)
     HighContrastScheme = property(get_HighContrastScheme, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IThemeSettingsStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.System.IThemeSettingsStatics'
@@ -40,7 +40,7 @@ class ThemeSettings(ComPtr):
     def CreateForWindowId(cls: win32more.Microsoft.UI.System.IThemeSettingsStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.System.ThemeSettings: ...
     HighContrast = property(get_HighContrast, None)
     HighContrastScheme = property(get_HighContrastScheme, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 
 
 make_ready(__name__)

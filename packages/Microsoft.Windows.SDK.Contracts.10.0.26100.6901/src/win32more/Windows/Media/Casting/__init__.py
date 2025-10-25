@@ -36,8 +36,8 @@ class CastingConnection(ComPtr):
     Device = property(get_Device, None)
     Source = property(get_Source, put_Source)
     State = property(get_State, None)
-    StateChanged = event()
-    ErrorOccurred = event()
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class CastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs
@@ -120,8 +120,8 @@ class CastingDevicePicker(ComPtr):
     def Hide(self: win32more.Windows.Media.Casting.ICastingDevicePicker) -> Void: ...
     Appearance = property(get_Appearance, None)
     Filter = property(get_Filter, None)
-    CastingDeviceSelected = event()
-    CastingDevicePickerDismissed = event()
+    CastingDevicePickerDismissed = event(add_CastingDevicePickerDismissed, remove_CastingDevicePickerDismissed)
+    CastingDeviceSelected = event(add_CastingDeviceSelected, remove_CastingDeviceSelected)
 class CastingDevicePickerFilter(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingDevicePickerFilter
@@ -193,8 +193,8 @@ class ICastingConnection(ComPtr):
     Device = property(get_Device, None)
     Source = property(get_Source, put_Source)
     State = property(get_State, None)
-    StateChanged = event()
-    ErrorOccurred = event()
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class ICastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs'
@@ -246,8 +246,8 @@ class ICastingDevicePicker(ComPtr):
     def Hide(self) -> Void: ...
     Appearance = property(get_Appearance, None)
     Filter = property(get_Filter, None)
-    CastingDeviceSelected = event()
-    CastingDevicePickerDismissed = event()
+    CastingDevicePickerDismissed = event(add_CastingDevicePickerDismissed, remove_CastingDevicePickerDismissed)
+    CastingDeviceSelected = event(add_CastingDeviceSelected, remove_CastingDeviceSelected)
 class ICastingDevicePickerFilter(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Casting.ICastingDevicePickerFilter'

@@ -70,8 +70,8 @@ class ISearchSuggestionManager(ComPtr):
     SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
     SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     Suggestions = property(get_Suggestions, None)
-    SuggestionsRequested = event()
-    RequestingFocusOnKeyboardInput = event()
+    RequestingFocusOnKeyboardInput = event(add_RequestingFocusOnKeyboardInput, remove_RequestingFocusOnKeyboardInput)
+    SuggestionsRequested = event(add_SuggestionsRequested, remove_SuggestionsRequested)
 class ISearchSuggestionsRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.Core.ISearchSuggestionsRequestedEventArgs'
@@ -167,8 +167,8 @@ class SearchSuggestionManager(ComPtr):
     SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
     SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     Suggestions = property(get_Suggestions, None)
-    SuggestionsRequested = event()
-    RequestingFocusOnKeyboardInput = event()
+    RequestingFocusOnKeyboardInput = event(add_RequestingFocusOnKeyboardInput, remove_RequestingFocusOnKeyboardInput)
+    SuggestionsRequested = event(add_SuggestionsRequested, remove_SuggestionsRequested)
 class SearchSuggestionsRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestionsRequestedEventArgs

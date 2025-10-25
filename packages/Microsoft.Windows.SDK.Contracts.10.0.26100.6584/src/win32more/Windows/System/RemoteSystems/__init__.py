@@ -299,7 +299,7 @@ class IRemoteSystemSession(ComPtr):
     ControllerDisplayName = property(get_ControllerDisplayName, None)
     DisplayName = property(get_DisplayName, None)
     Id = property(get_Id, None)
-    Disconnected = event()
+    Disconnected = event(add_Disconnected, remove_Disconnected)
 class IRemoteSystemSessionAddedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IRemoteSystemSessionAddedEventArgs'
@@ -319,7 +319,7 @@ class IRemoteSystemSessionController(ComPtr):
     def RemoveParticipantAsync(self, pParticipant: win32more.Windows.System.RemoteSystems.RemoteSystemSessionParticipant) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(9)
     def CreateSessionAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.System.RemoteSystems.RemoteSystemSessionCreationResult]: ...
-    JoinRequested = event()
+    JoinRequested = event(add_JoinRequested, remove_JoinRequested)
 class IRemoteSystemSessionControllerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IRemoteSystemSessionControllerFactory'
@@ -375,7 +375,7 @@ class IRemoteSystemSessionInvitationListener(ComPtr):
     def add_InvitationReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener, win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_InvitationReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    InvitationReceived = event()
+    InvitationReceived = event(add_InvitationReceived, remove_InvitationReceived)
 class IRemoteSystemSessionInvitationReceivedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IRemoteSystemSessionInvitationReceivedEventArgs'
@@ -428,7 +428,7 @@ class IRemoteSystemSessionMessageChannel(ComPtr):
     @winrt_commethod(11)
     def remove_ValueSetReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Session = property(get_Session, None)
-    ValueSetReceived = event()
+    ValueSetReceived = event(add_ValueSetReceived, remove_ValueSetReceived)
 class IRemoteSystemSessionMessageChannelFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannelFactory'
@@ -492,9 +492,9 @@ class IRemoteSystemSessionParticipantWatcher(ComPtr):
     @winrt_commethod(14)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    EnumerationCompleted = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
 class IRemoteSystemSessionRemovedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IRemoteSystemSessionRemovedEventArgs'
@@ -548,9 +548,9 @@ class IRemoteSystemSessionWatcher(ComPtr):
     @winrt_commethod(14)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Updated = event()
-    Removed = event()
+    Added = event(add_Added, remove_Added)
+    Removed = event(add_Removed, remove_Removed)
+    Updated = event(add_Updated, remove_Updated)
 class IRemoteSystemStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IRemoteSystemStatics'
@@ -617,9 +617,9 @@ class IRemoteSystemWatcher(ComPtr):
     def add_RemoteSystemRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteSystems.RemoteSystemWatcher, win32more.Windows.System.RemoteSystems.RemoteSystemRemovedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_RemoteSystemRemoved(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    RemoteSystemAdded = event()
-    RemoteSystemUpdated = event()
-    RemoteSystemRemoved = event()
+    RemoteSystemAdded = event(add_RemoteSystemAdded, remove_RemoteSystemAdded)
+    RemoteSystemRemoved = event(add_RemoteSystemRemoved, remove_RemoteSystemRemoved)
+    RemoteSystemUpdated = event(add_RemoteSystemUpdated, remove_RemoteSystemUpdated)
 class IRemoteSystemWatcher2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IRemoteSystemWatcher2'
@@ -632,8 +632,8 @@ class IRemoteSystemWatcher2(ComPtr):
     def add_ErrorOccurred(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteSystems.RemoteSystemWatcher, win32more.Windows.System.RemoteSystems.RemoteSystemWatcherErrorOccurredEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_ErrorOccurred(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    EnumerationCompleted = event()
-    ErrorOccurred = event()
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
 class IRemoteSystemWatcher3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteSystems.IRemoteSystemWatcher3'
@@ -949,7 +949,7 @@ class RemoteSystemSession(ComPtr):
     ControllerDisplayName = property(get_ControllerDisplayName, None)
     DisplayName = property(get_DisplayName, None)
     Id = property(get_Id, None)
-    Disconnected = event()
+    Disconnected = event(add_Disconnected, remove_Disconnected)
 class RemoteSystemSessionAddedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionAddedEventArgs
@@ -982,7 +982,7 @@ class RemoteSystemSessionController(ComPtr):
     def RemoveParticipantAsync(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionController, pParticipant: win32more.Windows.System.RemoteSystems.RemoteSystemSessionParticipant) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def CreateSessionAsync(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionController) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.System.RemoteSystems.RemoteSystemSessionCreationResult]: ...
-    JoinRequested = event()
+    JoinRequested = event(add_JoinRequested, remove_JoinRequested)
 class RemoteSystemSessionCreationResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionCreationResult
@@ -1047,7 +1047,7 @@ class RemoteSystemSessionInvitationListener(ComPtr):
     def add_InvitationReceived(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionInvitationListener, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener, win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_InvitationReceived(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionInvitationListener, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    InvitationReceived = event()
+    InvitationReceived = event(add_InvitationReceived, remove_InvitationReceived)
 class RemoteSystemSessionInvitationReceivedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionInvitationReceivedEventArgs
@@ -1119,7 +1119,7 @@ class RemoteSystemSessionMessageChannel(ComPtr):
     @winrt_mixinmethod
     def remove_ValueSetReceived(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannel, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Session = property(get_Session, None)
-    ValueSetReceived = event()
+    ValueSetReceived = event(add_ValueSetReceived, remove_ValueSetReceived)
 class RemoteSystemSessionMessageChannelReliability(Enum, Int32):
     Reliable = 0
     Unreliable = 1
@@ -1187,9 +1187,9 @@ class RemoteSystemSessionParticipantWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    EnumerationCompleted = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
 class RemoteSystemSessionParticipantWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -1244,9 +1244,9 @@ class RemoteSystemSessionWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Updated = event()
-    Removed = event()
+    Added = event(add_Added, remove_Added)
+    Removed = event(add_Removed, remove_Removed)
+    Updated = event(add_Updated, remove_Updated)
 class RemoteSystemSessionWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -1316,11 +1316,11 @@ class RemoteSystemWatcher(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.System.RemoteSystems.IRemoteSystemWatcher3) -> win32more.Windows.System.User: ...
     User = property(get_User, None)
-    RemoteSystemAdded = event()
-    RemoteSystemUpdated = event()
-    RemoteSystemRemoved = event()
-    EnumerationCompleted = event()
-    ErrorOccurred = event()
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    RemoteSystemAdded = event(add_RemoteSystemAdded, remove_RemoteSystemAdded)
+    RemoteSystemRemoved = event(add_RemoteSystemRemoved, remove_RemoteSystemRemoved)
+    RemoteSystemUpdated = event(add_RemoteSystemUpdated, remove_RemoteSystemUpdated)
 class RemoteSystemWatcherError(Enum, Int32):
     Unknown = 0
     InternetNotAvailable = 1

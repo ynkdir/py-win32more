@@ -71,6 +71,7 @@ class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
     _ClosedCaptionProperties_Meta_.FontStyle = property(get_FontStyle, None)
     _ClosedCaptionProperties_Meta_.RegionColor = property(get_RegionColor, None)
     _ClosedCaptionProperties_Meta_.RegionOpacity = property(get_RegionOpacity, None)
+    _ClosedCaptionProperties_Meta_.PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
 class ClosedCaptionSize(Enum, Int32):
     Default = 0
     FiftyPercent = 1
@@ -134,7 +135,7 @@ class IClosedCaptionPropertiesStatics2(ComPtr):
     def add_PropertiesChanged(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PropertiesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PropertiesChanged = event()
+    PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
 
 
 make_ready(__name__)

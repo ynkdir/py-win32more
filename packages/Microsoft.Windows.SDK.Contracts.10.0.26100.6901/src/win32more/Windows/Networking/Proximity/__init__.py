@@ -78,8 +78,8 @@ class IPeerFinderStatics(ComPtr):
     AlternateIdentities = property(get_AlternateIdentities, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
     SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes, None)
-    TriggeredConnectionStateChanged = event()
-    ConnectionRequested = event()
+    ConnectionRequested = event(add_ConnectionRequested, remove_ConnectionRequested)
+    TriggeredConnectionStateChanged = event(add_TriggeredConnectionStateChanged, remove_TriggeredConnectionStateChanged)
 class IPeerFinderStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerFinderStatics2'
@@ -154,11 +154,11 @@ class IPeerWatcher(ComPtr):
     @winrt_commethod(18)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    Updated = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class IProximityDevice(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IProximityDevice'
@@ -198,8 +198,8 @@ class IProximityDevice(ComPtr):
     BitsPerSecond = property(get_BitsPerSecond, None)
     DeviceId = property(get_DeviceId, None)
     MaxMessageBytes = property(get_MaxMessageBytes, None)
-    DeviceArrived = event()
-    DeviceDeparted = event()
+    DeviceArrived = event(add_DeviceArrived, remove_DeviceArrived)
+    DeviceDeparted = event(add_DeviceDeparted, remove_DeviceDeparted)
 class IProximityDeviceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IProximityDeviceStatics'
@@ -314,6 +314,8 @@ class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
     _PeerFinder_Meta_.DisplayName = property(get_DisplayName, put_DisplayName)
     _PeerFinder_Meta_.Role = property(get_Role, put_Role)
     _PeerFinder_Meta_.SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes, None)
+    _PeerFinder_Meta_.ConnectionRequested = event(add_ConnectionRequested, remove_ConnectionRequested)
+    _PeerFinder_Meta_.TriggeredConnectionStateChanged = event(add_TriggeredConnectionStateChanged, remove_TriggeredConnectionStateChanged)
 class PeerInformation(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IPeerInformation
@@ -368,11 +370,11 @@ class PeerWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.Proximity.IPeerWatcher) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    Removed = event()
-    Updated = event()
-    EnumerationCompleted = event()
-    Stopped = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class PeerWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -425,8 +427,8 @@ class ProximityDevice(ComPtr):
     BitsPerSecond = property(get_BitsPerSecond, None)
     DeviceId = property(get_DeviceId, None)
     MaxMessageBytes = property(get_MaxMessageBytes, None)
-    DeviceArrived = event()
-    DeviceDeparted = event()
+    DeviceArrived = event(add_DeviceArrived, remove_DeviceArrived)
+    DeviceDeparted = event(add_DeviceDeparted, remove_DeviceDeparted)
 class ProximityMessage(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IProximityMessage

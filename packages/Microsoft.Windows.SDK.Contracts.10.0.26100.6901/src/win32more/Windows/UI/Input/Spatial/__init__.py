@@ -79,20 +79,20 @@ class ISpatialGestureRecognizer(ComPtr):
     @winrt_commethod(37)
     def get_GestureSettings(self) -> win32more.Windows.UI.Input.Spatial.SpatialGestureSettings: ...
     GestureSettings = property(get_GestureSettings, None)
-    RecognitionStarted = event()
-    RecognitionEnded = event()
-    Tapped = event()
-    HoldStarted = event()
-    HoldCompleted = event()
-    HoldCanceled = event()
-    ManipulationStarted = event()
-    ManipulationUpdated = event()
-    ManipulationCompleted = event()
-    ManipulationCanceled = event()
-    NavigationStarted = event()
-    NavigationUpdated = event()
-    NavigationCompleted = event()
-    NavigationCanceled = event()
+    HoldCanceled = event(add_HoldCanceled, remove_HoldCanceled)
+    HoldCompleted = event(add_HoldCompleted, remove_HoldCompleted)
+    HoldStarted = event(add_HoldStarted, remove_HoldStarted)
+    ManipulationCanceled = event(add_ManipulationCanceled, remove_ManipulationCanceled)
+    ManipulationCompleted = event(add_ManipulationCompleted, remove_ManipulationCompleted)
+    ManipulationStarted = event(add_ManipulationStarted, remove_ManipulationStarted)
+    ManipulationUpdated = event(add_ManipulationUpdated, remove_ManipulationUpdated)
+    NavigationCanceled = event(add_NavigationCanceled, remove_NavigationCanceled)
+    NavigationCompleted = event(add_NavigationCompleted, remove_NavigationCompleted)
+    NavigationStarted = event(add_NavigationStarted, remove_NavigationStarted)
+    NavigationUpdated = event(add_NavigationUpdated, remove_NavigationUpdated)
+    RecognitionEnded = event(add_RecognitionEnded, remove_RecognitionEnded)
+    RecognitionStarted = event(add_RecognitionStarted, remove_RecognitionStarted)
+    Tapped = event(add_Tapped, remove_Tapped)
 class ISpatialGestureRecognizerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialGestureRecognizerFactory'
@@ -237,12 +237,12 @@ class ISpatialInteractionManager(ComPtr):
     def remove_InteractionDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
     def GetDetectedSourcesAtTimestamp(self, timeStamp: win32more.Windows.Perception.PerceptionTimestamp) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Spatial.SpatialInteractionSourceState]: ...
-    SourceDetected = event()
-    SourceLost = event()
-    SourceUpdated = event()
-    SourcePressed = event()
-    SourceReleased = event()
-    InteractionDetected = event()
+    InteractionDetected = event(add_InteractionDetected, remove_InteractionDetected)
+    SourceDetected = event(add_SourceDetected, remove_SourceDetected)
+    SourceLost = event(add_SourceLost, remove_SourceLost)
+    SourcePressed = event(add_SourcePressed, remove_SourcePressed)
+    SourceReleased = event(add_SourceReleased, remove_SourceReleased)
+    SourceUpdated = event(add_SourceUpdated, remove_SourceUpdated)
 class ISpatialInteractionManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics'
@@ -645,20 +645,20 @@ class SpatialGestureRecognizer(ComPtr):
     @winrt_mixinmethod
     def get_GestureSettings(self: win32more.Windows.UI.Input.Spatial.ISpatialGestureRecognizer) -> win32more.Windows.UI.Input.Spatial.SpatialGestureSettings: ...
     GestureSettings = property(get_GestureSettings, None)
-    RecognitionStarted = event()
-    RecognitionEnded = event()
-    Tapped = event()
-    HoldStarted = event()
-    HoldCompleted = event()
-    HoldCanceled = event()
-    ManipulationStarted = event()
-    ManipulationUpdated = event()
-    ManipulationCompleted = event()
-    ManipulationCanceled = event()
-    NavigationStarted = event()
-    NavigationUpdated = event()
-    NavigationCompleted = event()
-    NavigationCanceled = event()
+    HoldCanceled = event(add_HoldCanceled, remove_HoldCanceled)
+    HoldCompleted = event(add_HoldCompleted, remove_HoldCompleted)
+    HoldStarted = event(add_HoldStarted, remove_HoldStarted)
+    ManipulationCanceled = event(add_ManipulationCanceled, remove_ManipulationCanceled)
+    ManipulationCompleted = event(add_ManipulationCompleted, remove_ManipulationCompleted)
+    ManipulationStarted = event(add_ManipulationStarted, remove_ManipulationStarted)
+    ManipulationUpdated = event(add_ManipulationUpdated, remove_ManipulationUpdated)
+    NavigationCanceled = event(add_NavigationCanceled, remove_NavigationCanceled)
+    NavigationCompleted = event(add_NavigationCompleted, remove_NavigationCompleted)
+    NavigationStarted = event(add_NavigationStarted, remove_NavigationStarted)
+    NavigationUpdated = event(add_NavigationUpdated, remove_NavigationUpdated)
+    RecognitionEnded = event(add_RecognitionEnded, remove_RecognitionEnded)
+    RecognitionStarted = event(add_RecognitionStarted, remove_RecognitionStarted)
+    Tapped = event(add_Tapped, remove_Tapped)
 class SpatialGestureSettings(Enum, UInt32):
     None_ = 0
     Tap = 1
@@ -801,12 +801,12 @@ class SpatialInteractionManager(ComPtr):
     def IsSourceKindSupported(cls: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics2, kind: win32more.Windows.UI.Input.Spatial.SpatialInteractionSourceKind) -> Boolean: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionManager: ...
-    SourceDetected = event()
-    SourceLost = event()
-    SourceUpdated = event()
-    SourcePressed = event()
-    SourceReleased = event()
-    InteractionDetected = event()
+    InteractionDetected = event(add_InteractionDetected, remove_InteractionDetected)
+    SourceDetected = event(add_SourceDetected, remove_SourceDetected)
+    SourceLost = event(add_SourceLost, remove_SourceLost)
+    SourcePressed = event(add_SourcePressed, remove_SourcePressed)
+    SourceReleased = event(add_SourceReleased, remove_SourceReleased)
+    SourceUpdated = event(add_SourceUpdated, remove_SourceUpdated)
 class SpatialInteractionPressKind(Enum, Int32):
     None_ = 0
     Select = 1

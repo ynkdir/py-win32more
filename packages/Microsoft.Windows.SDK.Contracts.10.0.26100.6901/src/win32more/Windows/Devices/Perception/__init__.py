@@ -172,7 +172,7 @@ class IPerceptionColorFrameReader(ComPtr):
     def TryReadLatestFrame(self) -> win32more.Windows.Devices.Perception.PerceptionColorFrame: ...
     IsPaused = property(get_IsPaused, put_IsPaused)
     Source = property(get_Source, None)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class IPerceptionColorFrameSource(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionColorFrameSource'
@@ -246,11 +246,11 @@ class IPerceptionColorFrameSource(ComPtr):
     Properties = property(get_Properties, None)
     SupportedVideoProfiles = property(get_SupportedVideoProfiles, None)
     VideoProfile = property(get_VideoProfile, None)
-    AvailableChanged = event()
-    ActiveChanged = event()
-    PropertiesChanged = event()
-    VideoProfileChanged = event()
-    CameraIntrinsicsChanged = event()
+    ActiveChanged = event(add_ActiveChanged, remove_ActiveChanged)
+    AvailableChanged = event(add_AvailableChanged, remove_AvailableChanged)
+    CameraIntrinsicsChanged = event(add_CameraIntrinsicsChanged, remove_CameraIntrinsicsChanged)
+    PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
+    VideoProfileChanged = event(add_VideoProfileChanged, remove_VideoProfileChanged)
 class IPerceptionColorFrameSource2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionColorFrameSource2'
@@ -311,10 +311,10 @@ class IPerceptionColorFrameSourceWatcher(ComPtr):
     @winrt_commethod(16)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-    SourceAdded = event()
-    SourceRemoved = event()
-    Stopped = event()
-    EnumerationCompleted = event()
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    SourceAdded = event(add_SourceAdded, remove_SourceAdded)
+    SourceRemoved = event(add_SourceRemoved, remove_SourceRemoved)
+    Stopped = event(add_Stopped, remove_Stopped)
 class IPerceptionControlSession(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -326,7 +326,7 @@ class IPerceptionControlSession(ComPtr):
     def remove_ControlLost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def TrySetPropertyAsync(self, name: WinRT_String, value: IInspectable) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeResult]: ...
-    ControlLost = event()
+    ControlLost = event(add_ControlLost, remove_ControlLost)
 class IPerceptionDepthCorrelatedCameraIntrinsics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionDepthCorrelatedCameraIntrinsics'
@@ -387,7 +387,7 @@ class IPerceptionDepthFrameReader(ComPtr):
     def TryReadLatestFrame(self) -> win32more.Windows.Devices.Perception.PerceptionDepthFrame: ...
     IsPaused = property(get_IsPaused, put_IsPaused)
     Source = property(get_Source, None)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class IPerceptionDepthFrameSource(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionDepthFrameSource'
@@ -461,11 +461,11 @@ class IPerceptionDepthFrameSource(ComPtr):
     Properties = property(get_Properties, None)
     SupportedVideoProfiles = property(get_SupportedVideoProfiles, None)
     VideoProfile = property(get_VideoProfile, None)
-    AvailableChanged = event()
-    ActiveChanged = event()
-    PropertiesChanged = event()
-    VideoProfileChanged = event()
-    CameraIntrinsicsChanged = event()
+    ActiveChanged = event(add_ActiveChanged, remove_ActiveChanged)
+    AvailableChanged = event(add_AvailableChanged, remove_AvailableChanged)
+    CameraIntrinsicsChanged = event(add_CameraIntrinsicsChanged, remove_CameraIntrinsicsChanged)
+    PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
+    VideoProfileChanged = event(add_VideoProfileChanged, remove_VideoProfileChanged)
 class IPerceptionDepthFrameSource2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionDepthFrameSource2'
@@ -526,10 +526,10 @@ class IPerceptionDepthFrameSourceWatcher(ComPtr):
     @winrt_commethod(16)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-    SourceAdded = event()
-    SourceRemoved = event()
-    Stopped = event()
-    EnumerationCompleted = event()
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    SourceAdded = event(add_SourceAdded, remove_SourceAdded)
+    SourceRemoved = event(add_SourceRemoved, remove_SourceRemoved)
+    Stopped = event(add_Stopped, remove_Stopped)
 class IPerceptionFrameSourcePropertiesChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionFrameSourcePropertiesChangedEventArgs'
@@ -586,7 +586,7 @@ class IPerceptionInfraredFrameReader(ComPtr):
     def TryReadLatestFrame(self) -> win32more.Windows.Devices.Perception.PerceptionInfraredFrame: ...
     IsPaused = property(get_IsPaused, put_IsPaused)
     Source = property(get_Source, None)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class IPerceptionInfraredFrameSource(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionInfraredFrameSource'
@@ -660,11 +660,11 @@ class IPerceptionInfraredFrameSource(ComPtr):
     Properties = property(get_Properties, None)
     SupportedVideoProfiles = property(get_SupportedVideoProfiles, None)
     VideoProfile = property(get_VideoProfile, None)
-    AvailableChanged = event()
-    ActiveChanged = event()
-    PropertiesChanged = event()
-    VideoProfileChanged = event()
-    CameraIntrinsicsChanged = event()
+    ActiveChanged = event(add_ActiveChanged, remove_ActiveChanged)
+    AvailableChanged = event(add_AvailableChanged, remove_AvailableChanged)
+    CameraIntrinsicsChanged = event(add_CameraIntrinsicsChanged, remove_CameraIntrinsicsChanged)
+    PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
+    VideoProfileChanged = event(add_VideoProfileChanged, remove_VideoProfileChanged)
 class IPerceptionInfraredFrameSource2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionInfraredFrameSource2'
@@ -725,10 +725,10 @@ class IPerceptionInfraredFrameSourceWatcher(ComPtr):
     @winrt_commethod(16)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-    SourceAdded = event()
-    SourceRemoved = event()
-    Stopped = event()
-    EnumerationCompleted = event()
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    SourceAdded = event(add_SourceAdded, remove_SourceAdded)
+    SourceRemoved = event(add_SourceRemoved, remove_SourceRemoved)
+    Stopped = event(add_Stopped, remove_Stopped)
 class IPerceptionVideoProfile(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Perception.IPerceptionVideoProfile'
@@ -921,7 +921,7 @@ class PerceptionColorFrameReader(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     IsPaused = property(get_IsPaused, put_IsPaused)
     Source = property(get_Source, None)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class PerceptionColorFrameSource(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionColorFrameSource
@@ -1006,11 +1006,11 @@ class PerceptionColorFrameSource(ComPtr):
     Properties = property(get_Properties, None)
     SupportedVideoProfiles = property(get_SupportedVideoProfiles, None)
     VideoProfile = property(get_VideoProfile, None)
-    AvailableChanged = event()
-    ActiveChanged = event()
-    PropertiesChanged = event()
-    VideoProfileChanged = event()
-    CameraIntrinsicsChanged = event()
+    ActiveChanged = event(add_ActiveChanged, remove_ActiveChanged)
+    AvailableChanged = event(add_AvailableChanged, remove_AvailableChanged)
+    CameraIntrinsicsChanged = event(add_CameraIntrinsicsChanged, remove_CameraIntrinsicsChanged)
+    PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
+    VideoProfileChanged = event(add_VideoProfileChanged, remove_VideoProfileChanged)
 class PerceptionColorFrameSourceAddedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionColorFrameSourceAddedEventArgs
@@ -1052,10 +1052,10 @@ class PerceptionColorFrameSourceWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Devices.Perception.IPerceptionColorFrameSourceWatcher) -> Void: ...
     Status = property(get_Status, None)
-    SourceAdded = event()
-    SourceRemoved = event()
-    Stopped = event()
-    EnumerationCompleted = event()
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    SourceAdded = event(add_SourceAdded, remove_SourceAdded)
+    SourceRemoved = event(add_SourceRemoved, remove_SourceRemoved)
+    Stopped = event(add_Stopped, remove_Stopped)
 class PerceptionControlSession(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -1069,7 +1069,7 @@ class PerceptionControlSession(ComPtr):
     def TrySetPropertyAsync(self: win32more.Windows.Devices.Perception.IPerceptionControlSession, name: WinRT_String, value: IInspectable) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeResult]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    ControlLost = event()
+    ControlLost = event(add_ControlLost, remove_ControlLost)
 class PerceptionDepthCorrelatedCameraIntrinsics(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionDepthCorrelatedCameraIntrinsics
@@ -1134,7 +1134,7 @@ class PerceptionDepthFrameReader(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     IsPaused = property(get_IsPaused, put_IsPaused)
     Source = property(get_Source, None)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class PerceptionDepthFrameSource(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionDepthFrameSource
@@ -1219,11 +1219,11 @@ class PerceptionDepthFrameSource(ComPtr):
     Properties = property(get_Properties, None)
     SupportedVideoProfiles = property(get_SupportedVideoProfiles, None)
     VideoProfile = property(get_VideoProfile, None)
-    AvailableChanged = event()
-    ActiveChanged = event()
-    PropertiesChanged = event()
-    VideoProfileChanged = event()
-    CameraIntrinsicsChanged = event()
+    ActiveChanged = event(add_ActiveChanged, remove_ActiveChanged)
+    AvailableChanged = event(add_AvailableChanged, remove_AvailableChanged)
+    CameraIntrinsicsChanged = event(add_CameraIntrinsicsChanged, remove_CameraIntrinsicsChanged)
+    PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
+    VideoProfileChanged = event(add_VideoProfileChanged, remove_VideoProfileChanged)
 class PerceptionDepthFrameSourceAddedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionDepthFrameSourceAddedEventArgs
@@ -1265,10 +1265,10 @@ class PerceptionDepthFrameSourceWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Devices.Perception.IPerceptionDepthFrameSourceWatcher) -> Void: ...
     Status = property(get_Status, None)
-    SourceAdded = event()
-    SourceRemoved = event()
-    Stopped = event()
-    EnumerationCompleted = event()
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    SourceAdded = event(add_SourceAdded, remove_SourceAdded)
+    SourceRemoved = event(add_SourceRemoved, remove_SourceRemoved)
+    Stopped = event(add_Stopped, remove_Stopped)
 class PerceptionFrameSourceAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1
@@ -1341,7 +1341,7 @@ class PerceptionInfraredFrameReader(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     IsPaused = property(get_IsPaused, put_IsPaused)
     Source = property(get_Source, None)
-    FrameArrived = event()
+    FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class PerceptionInfraredFrameSource(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionInfraredFrameSource
@@ -1426,11 +1426,11 @@ class PerceptionInfraredFrameSource(ComPtr):
     Properties = property(get_Properties, None)
     SupportedVideoProfiles = property(get_SupportedVideoProfiles, None)
     VideoProfile = property(get_VideoProfile, None)
-    AvailableChanged = event()
-    ActiveChanged = event()
-    PropertiesChanged = event()
-    VideoProfileChanged = event()
-    CameraIntrinsicsChanged = event()
+    ActiveChanged = event(add_ActiveChanged, remove_ActiveChanged)
+    AvailableChanged = event(add_AvailableChanged, remove_AvailableChanged)
+    CameraIntrinsicsChanged = event(add_CameraIntrinsicsChanged, remove_CameraIntrinsicsChanged)
+    PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
+    VideoProfileChanged = event(add_VideoProfileChanged, remove_VideoProfileChanged)
 class PerceptionInfraredFrameSourceAddedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionInfraredFrameSourceAddedEventArgs
@@ -1472,10 +1472,10 @@ class PerceptionInfraredFrameSourceWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Devices.Perception.IPerceptionInfraredFrameSourceWatcher) -> Void: ...
     Status = property(get_Status, None)
-    SourceAdded = event()
-    SourceRemoved = event()
-    Stopped = event()
-    EnumerationCompleted = event()
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    SourceAdded = event(add_SourceAdded, remove_SourceAdded)
+    SourceRemoved = event(add_SourceRemoved, remove_SourceRemoved)
+    Stopped = event(add_Stopped, remove_Stopped)
 class PerceptionVideoProfile(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionVideoProfile

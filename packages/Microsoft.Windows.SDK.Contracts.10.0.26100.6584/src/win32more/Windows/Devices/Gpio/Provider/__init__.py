@@ -57,7 +57,7 @@ class IGpioPinProvider(ComPtr):
     DebounceTimeout = property(get_DebounceTimeout, put_DebounceTimeout)
     PinNumber = property(get_PinNumber, None)
     SharingMode = property(get_SharingMode, None)
-    ValueChanged = event()
+    ValueChanged = event(add_ValueChanged, remove_ValueChanged)
 class IGpioPinProviderValueChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgs'

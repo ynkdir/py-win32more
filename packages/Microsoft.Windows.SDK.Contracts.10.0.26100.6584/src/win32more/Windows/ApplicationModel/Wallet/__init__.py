@@ -236,7 +236,7 @@ class IWalletItemStore2(ComPtr):
     def add_ItemsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Wallet.WalletItemStore, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ItemsChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ItemsChanged = event()
+    ItemsChanged = event(add_ItemsChanged, remove_ItemsChanged)
 class IWalletManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Wallet.IWalletManagerStatics'

@@ -492,8 +492,8 @@ class ISmartCardEmulator2(ComPtr):
     def Start(self) -> Void: ...
     @winrt_commethod(11)
     def IsHostCardEmulationSupported(self) -> Boolean: ...
-    ApduReceived = event()
-    ConnectionDeactivated = event()
+    ApduReceived = event(add_ApduReceived, remove_ApduReceived)
+    ConnectionDeactivated = event(add_ConnectionDeactivated, remove_ConnectionDeactivated)
 class ISmartCardEmulatorApduReceivedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgs'
@@ -693,8 +693,8 @@ class ISmartCardReader(ComPtr):
     DeviceId = property(get_DeviceId, None)
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
-    CardAdded = event()
-    CardRemoved = event()
+    CardAdded = event(add_CardAdded, remove_CardAdded)
+    CardRemoved = event(add_CardRemoved, remove_CardRemoved)
 class ISmartCardReaderStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.SmartCards.ISmartCardReaderStatics'
@@ -1325,8 +1325,8 @@ class SmartCardEmulator(ComPtr, metaclass=_SmartCardEmulator_Meta_):
     def GetDefaultAsync(cls: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.SmartCards.SmartCardEmulator]: ...
     EnablementPolicy = property(get_EnablementPolicy, None)
     _SmartCardEmulator_Meta_.MaxAppletIdGroupRegistrations = property(get_MaxAppletIdGroupRegistrations, None)
-    ApduReceived = event()
-    ConnectionDeactivated = event()
+    ApduReceived = event(add_ApduReceived, remove_ApduReceived)
+    ConnectionDeactivated = event(add_ConnectionDeactivated, remove_ConnectionDeactivated)
 class SmartCardEmulatorApduReceivedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgs
@@ -1520,8 +1520,8 @@ class SmartCardReader(ComPtr):
     DeviceId = property(get_DeviceId, None)
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
-    CardAdded = event()
-    CardRemoved = event()
+    CardAdded = event(add_CardAdded, remove_CardAdded)
+    CardRemoved = event(add_CardRemoved, remove_CardRemoved)
 class SmartCardReaderKind(Enum, Int32):
     Any = 0
     Generic = 1

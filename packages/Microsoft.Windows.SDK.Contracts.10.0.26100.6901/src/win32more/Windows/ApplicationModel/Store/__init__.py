@@ -224,7 +224,7 @@ class ILicenseInformation(ComPtr):
     IsActive = property(get_IsActive, None)
     IsTrial = property(get_IsTrial, None)
     ProductLicenses = property(get_ProductLicenses, None)
-    LicenseChanged = event()
+    LicenseChanged = event(add_LicenseChanged, remove_LicenseChanged)
 class IListingInformation(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.IListingInformation'
@@ -417,7 +417,7 @@ class LicenseInformation(ComPtr):
     IsActive = property(get_IsActive, None)
     IsTrial = property(get_IsTrial, None)
     ProductLicenses = property(get_ProductLicenses, None)
-    LicenseChanged = event()
+    LicenseChanged = event(add_LicenseChanged, remove_LicenseChanged)
 class ListingInformation(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.IListingInformation

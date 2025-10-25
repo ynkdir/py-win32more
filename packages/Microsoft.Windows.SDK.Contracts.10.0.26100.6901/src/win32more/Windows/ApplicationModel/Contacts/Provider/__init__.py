@@ -35,7 +35,7 @@ class ContactPickerUI(ComPtr):
     DesiredFields = property(get_DesiredFields, None)
     DesiredFieldsWithContactFieldType = property(get_DesiredFieldsWithContactFieldType, None)
     SelectionMode = property(get_SelectionMode, None)
-    ContactRemoved = event()
+    ContactRemoved = event(add_ContactRemoved, remove_ContactRemoved)
 class ContactRemovedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.Provider.IContactRemovedEventArgs
@@ -63,7 +63,7 @@ class IContactPickerUI(ComPtr):
     def remove_ContactRemoved(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DesiredFields = property(get_DesiredFields, None)
     SelectionMode = property(get_SelectionMode, None)
-    ContactRemoved = event()
+    ContactRemoved = event(add_ContactRemoved, remove_ContactRemoved)
 class IContactPickerUI2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.Provider.IContactPickerUI2'

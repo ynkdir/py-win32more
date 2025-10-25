@@ -331,8 +331,8 @@ class IStorageQueryResultBase(ComPtr):
     @winrt_commethod(14)
     def ApplyNewQueryOptions(self, newQueryOptions: win32more.Windows.Storage.Search.QueryOptions) -> Void: ...
     Folder = property(get_Folder, None)
-    ContentsChanged = event()
-    OptionsChanged = event()
+    ContentsChanged = event(add_ContentsChanged, remove_ContentsChanged)
+    OptionsChanged = event(add_OptionsChanged, remove_OptionsChanged)
 class IValueAndLanguage(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Storage.Search.IValueAndLanguage'
@@ -521,8 +521,8 @@ class StorageFileQueryResult(ComPtr):
     @winrt_mixinmethod
     def GetMatchingPropertiesWithRanges(self: win32more.Windows.Storage.Search.IStorageFileQueryResult2, file: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Data.Text.TextSegment]]: ...
     Folder = property(get_Folder, None)
-    ContentsChanged = event()
-    OptionsChanged = event()
+    ContentsChanged = event(add_ContentsChanged, remove_ContentsChanged)
+    OptionsChanged = event(add_OptionsChanged, remove_OptionsChanged)
 class StorageFolderQueryResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Storage.Search.IStorageFolderQueryResult
@@ -550,8 +550,8 @@ class StorageFolderQueryResult(ComPtr):
     @winrt_mixinmethod
     def ApplyNewQueryOptions(self: win32more.Windows.Storage.Search.IStorageQueryResultBase, newQueryOptions: win32more.Windows.Storage.Search.QueryOptions) -> Void: ...
     Folder = property(get_Folder, None)
-    ContentsChanged = event()
-    OptionsChanged = event()
+    ContentsChanged = event(add_ContentsChanged, remove_ContentsChanged)
+    OptionsChanged = event(add_OptionsChanged, remove_OptionsChanged)
 class StorageItemQueryResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Storage.Search.IStorageItemQueryResult
@@ -579,8 +579,8 @@ class StorageItemQueryResult(ComPtr):
     @winrt_mixinmethod
     def ApplyNewQueryOptions(self: win32more.Windows.Storage.Search.IStorageQueryResultBase, newQueryOptions: win32more.Windows.Storage.Search.QueryOptions) -> Void: ...
     Folder = property(get_Folder, None)
-    ContentsChanged = event()
-    OptionsChanged = event()
+    ContentsChanged = event(add_ContentsChanged, remove_ContentsChanged)
+    OptionsChanged = event(add_OptionsChanged, remove_OptionsChanged)
 class StorageLibraryChangeTrackerTriggerDetails(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Storage.Search.IStorageLibraryChangeTrackerTriggerDetails

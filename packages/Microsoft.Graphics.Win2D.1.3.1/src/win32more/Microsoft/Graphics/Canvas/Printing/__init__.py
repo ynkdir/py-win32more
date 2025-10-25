@@ -66,9 +66,9 @@ class CanvasPrintDocument(ComPtr):
     @winrt_mixinmethod
     def get_Device(self: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator) -> win32more.Microsoft.Graphics.Canvas.CanvasDevice: ...
     Device = property(get_Device, None)
-    PrintTaskOptionsChanged = event()
-    Preview = event()
-    Print = event()
+    Preview = event(add_Preview, remove_Preview)
+    Print = event(add_Print, remove_Print)
+    PrintTaskOptionsChanged = event(add_PrintTaskOptionsChanged, remove_PrintTaskOptionsChanged)
 class CanvasPrintEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.Printing.ICanvasPrintEventArgs
@@ -146,9 +146,9 @@ class ICanvasPrintDocument(ComPtr):
     def SetPageCount(self, count: UInt32) -> Void: ...
     @winrt_commethod(14)
     def SetIntermediatePageCount(self, count: UInt32) -> Void: ...
-    PrintTaskOptionsChanged = event()
-    Preview = event()
-    Print = event()
+    Preview = event(add_Preview, remove_Preview)
+    Print = event(add_Print, remove_Print)
+    PrintTaskOptionsChanged = event(add_PrintTaskOptionsChanged, remove_PrintTaskOptionsChanged)
 class ICanvasPrintDocumentFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.ICanvasPrintDocumentFactory'

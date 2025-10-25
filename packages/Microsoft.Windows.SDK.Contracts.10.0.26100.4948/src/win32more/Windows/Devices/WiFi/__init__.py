@@ -29,7 +29,7 @@ class IWiFiAdapter(ComPtr):
     def Disconnect(self) -> Void: ...
     NetworkAdapter = property(get_NetworkAdapter, None)
     NetworkReport = property(get_NetworkReport, None)
-    AvailableNetworksChanged = event()
+    AvailableNetworksChanged = event(add_AvailableNetworksChanged, remove_AvailableNetworksChanged)
 class IWiFiAdapter2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.WiFi.IWiFiAdapter2'
@@ -231,7 +231,7 @@ class WiFiAdapter(ComPtr):
     def RequestAccessAsync(cls: win32more.Windows.Devices.WiFi.IWiFiAdapterStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.WiFi.WiFiAccessStatus]: ...
     NetworkAdapter = property(get_NetworkAdapter, None)
     NetworkReport = property(get_NetworkReport, None)
-    AvailableNetworksChanged = event()
+    AvailableNetworksChanged = event(add_AvailableNetworksChanged, remove_AvailableNetworksChanged)
 class WiFiAvailableNetwork(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.WiFi.IWiFiAvailableNetwork

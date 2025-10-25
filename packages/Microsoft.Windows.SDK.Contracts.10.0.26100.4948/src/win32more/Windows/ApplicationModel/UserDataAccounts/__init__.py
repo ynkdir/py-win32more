@@ -140,7 +140,7 @@ class IUserDataAccountStore2(ComPtr):
     def add_StoreChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore, win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_StoreChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    StoreChanged = event()
+    StoreChanged = event(add_StoreChanged, remove_StoreChanged)
 class IUserDataAccountStore3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3'
@@ -271,7 +271,7 @@ class UserDataAccountStore(ComPtr):
     def remove_StoreChanged(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def CreateAccountWithPackageRelativeAppIdAndEnterpriseIdAsync(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3, userDisplayName: WinRT_String, packageRelativeAppId: WinRT_String, enterpriseId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
-    StoreChanged = event()
+    StoreChanged = event(add_StoreChanged, remove_StoreChanged)
 class UserDataAccountStoreAccessType(Enum, Int32):
     AllAccountsReadOnly = 0
     AppAccountsReadWrite = 1
