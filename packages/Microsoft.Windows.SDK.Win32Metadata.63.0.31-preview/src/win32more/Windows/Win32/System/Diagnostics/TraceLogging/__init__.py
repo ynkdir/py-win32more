@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.System.Diagnostics.TraceLogging
 WINEVENT_CHANNEL_CLASSIC_TRACE: Int32 = 0
 WINEVENT_CHANNEL_GLOBAL_SYSTEM: Int32 = 8

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Devices.Nfc
 import win32more.Windows.Win32.Foundation
 GUID_DEVINTERFACE_NFCDTA: Guid = Guid('{7fd3f30b-5e49-4be1-b3aa-af06260d236a}')

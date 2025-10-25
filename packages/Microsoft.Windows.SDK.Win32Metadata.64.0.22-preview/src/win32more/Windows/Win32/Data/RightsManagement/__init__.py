@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Data.RightsManagement
 import win32more.Windows.Win32.Foundation
 DRMHANDLE_INVALID: UInt32 = 0

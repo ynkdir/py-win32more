@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Printers.Extensions
 import win32more.Windows.Foundation
 ExtensionsContract: UInt32 = 131072
