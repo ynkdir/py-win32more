@@ -7,11 +7,11 @@ set WEBVIEW2_METADATA=%TESTDIR%\Microsoft.Web.WebView2.1.0.3485.44.zip
 set WIN2D_METADATA=%TESTDIR%\Microsoft.Graphics.Win2D.1.3.2.zip
 set ALL_METADATA=%WIN32_METADATA% %WINRT_METADATA% %APPSDK_METADATA% %WEBVIEW2_METADATA% %WIN2D_METADATA%
 
-if not exist %WIN32_METADATA% curl.exe -L -o %WIN32_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Windows.SDK.Win32Metadata.64.0.22-preview.zip
-if not exist %WINRT_METADATA% curl.exe -L -o %WINRT_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Windows.SDK.Contracts.10.0.26100.6584.zip
-if not exist %APPSDK_METADATA% curl.exe -L -o %APPSDK_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.WindowsAppSDK.1.8.250916003.zip
-if not exist %WEBVIEW2_METADATA% curl.exe -L -o %WEBVIEW2_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Web.WebView2.1.0.3485.44.zip
-if not exist %WIN2D_METADATA% curl.exe -L -o %WIN2D_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Graphics.Win2D.1.3.2.zip
+if not exist %WIN32_METADATA% curl.exe -L -o %WIN32_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Windows.SDK.Win32Metadata.64.0.22-preview.zip
+if not exist %WINRT_METADATA% curl.exe -L -o %WINRT_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Windows.SDK.Contracts.10.0.26100.6584.zip
+if not exist %APPSDK_METADATA% curl.exe -L -o %APPSDK_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.WindowsAppSDK.1.8.250916003.zip
+if not exist %WEBVIEW2_METADATA% curl.exe -L -o %WEBVIEW2_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Web.WebView2.1.0.3485.44.zip
+if not exist %WIN2D_METADATA% curl.exe -L -o %WIN2D_METADATA% https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Graphics.Win2D.1.3.2.zip
 
 if not exist %WATCHDIR% git init %WATCHDIR%
 
