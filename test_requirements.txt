@@ -1,4 +1,5 @@
-.
+./packages/core
+./packages/appsdk
 ./packages/Microsoft.Windows.SDK.Win32Metadata.66.0.5-preview
 ./packages/Microsoft.Windows.SDK.Contracts.10.0.26100.6584
 ./packages/Microsoft.WindowsAppSDK.1.8.251003001

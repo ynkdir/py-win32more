@@ -1,7 +1,7 @@
 [project]
 name = "win32more-Microsoft.Web.WebView2"
 version = "0.6.1.0.3485.44"
-dependencies = ["win32more==0.6.*"]
+dependencies = ["win32more-core==0.6.*"]
 
 [build-system]
 requires = ["hatchling >= 1.26"]

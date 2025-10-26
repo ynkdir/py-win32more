@@ -693,7 +693,7 @@ class Pypkg:
             writebytes(self.package_dir() / asset.dst, asset.data)
 
     def pyproject_dependencies(self) -> str:
-        deps = [f'"win32more=={win32more_version[0]}.{win32more_version[1]}.*"']
+        deps = [f'"win32more-core=={win32more_version[0]}.{win32more_version[1]}.*"']
         for ver in self.runtime_dependencies():
             deps.append(f'"{ver.pydependency()}"')
         return ", ".join(deps)
