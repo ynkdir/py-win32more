@@ -7,7 +7,7 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 from win32more import FAILED, ComClass, WinError, asyncui
-from win32more._winrt import ISelf, WinRT_String
+from win32more._winrt import ISelf, hstr
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
@@ -302,7 +302,7 @@ class XamlType(ComClass, IXamlType):
         return self._key_type
 
     def get_UnderlyingType(self):
-        return TypeName(WinRT_String(self._full_name), self._type_kind)
+        return TypeName(hstr(self._full_name), self._type_kind)
 
     def ActivateInstance(self):
         if self._activate_instance is None:
@@ -337,7 +337,7 @@ class XamlType(ComClass, IXamlType):
 
 
 def xaml_typename(name, kind):
-    hs = WinRT_String(name)
+    hs = hstr(name)
     tn = TypeName(hs, kind)
     weakref.finalize(tn, hs.clear)
     return tn
@@ -357,11 +357,11 @@ def _get_runtime_class(uielement):
 
 
 def _get_runtime_class_name(uielement):
-    s = WinRT_String(own=True)
-    hr = uielement.GetRuntimeClassName(s)
+    hs = hstr(own=True)
+    hr = uielement.GetRuntimeClassName(hs)
     if FAILED(hr):
         raise WinError(hr)
-    return str(s)
+    return str(hs)
 
 
 _known_events = {

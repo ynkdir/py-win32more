@@ -51,7 +51,7 @@ class Formatter:
             if ttype.name == "Object":
                 return "IInspectable"
             elif ttype.name == "String":
-                return "WinRT_String"
+                return "hstr"
             else:
                 return ttype.name
         elif ttype.kind == "Reference":

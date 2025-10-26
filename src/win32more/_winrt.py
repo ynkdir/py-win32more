@@ -56,9 +56,6 @@ from ._win32api import (
     IUnknown,
 )
 
-# TODO: For backword compatibility.  Remove later.
-WinRT_String = hstr
-
 K = TypeVar("K")
 T = TypeVar("T")
 V = TypeVar("V")
