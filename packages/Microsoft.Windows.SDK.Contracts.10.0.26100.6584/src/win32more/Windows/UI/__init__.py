@@ -11,7 +11,7 @@ class ColorHelper(ComPtr):
     default_interface: win32more.Windows.UI.IColorHelper
     _classid_ = 'Windows.UI.ColorHelper'
     @winrt_classmethod
-    def ToDisplayName(cls: win32more.Windows.UI.IColorHelperStatics2, color: win32more.Windows.UI.Color) -> WinRT_String: ...
+    def ToDisplayName(cls: win32more.Windows.UI.IColorHelperStatics2, color: win32more.Windows.UI.Color) -> hstr: ...
     @winrt_classmethod
     def FromArgb(cls: win32more.Windows.UI.IColorHelperStatics, a: Byte, r: Byte, g: Byte, b: Byte) -> win32more.Windows.UI.Color: ...
 class _Colors_Meta_(ComPtr.__class__):
@@ -458,7 +458,7 @@ class IColorHelperStatics2(ComPtr):
     _classid_ = 'Windows.UI.IColorHelperStatics2'
     _iid_ = Guid('{24d9af02-6eb0-4b94-855c-fcf0818d9a16}')
     @winrt_commethod(6)
-    def ToDisplayName(self, color: win32more.Windows.UI.Color) -> WinRT_String: ...
+    def ToDisplayName(self, color: win32more.Windows.UI.Color) -> hstr: ...
 class IColors(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.IColors'
