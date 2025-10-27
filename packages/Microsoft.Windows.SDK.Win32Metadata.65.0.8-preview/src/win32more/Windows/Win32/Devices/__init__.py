@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Devices
 BUS1394_VIRTUAL_DEVICE_LIST_KEY: String = 'Virtual Device List'
 BUS1394_LOCAL_HOST_INSTANCE_KEY: String = 'LOCAL HOST EUI64'

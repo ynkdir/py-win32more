@@ -604,10 +604,10 @@ class Pypkg:
     def package_dir(self) -> Path:
         return package_dir / f"{self._id}.{self._version}"
 
-    def dependencies(self) -> Iterable[Version]:
-        yield from self.collect_dependencies(self._nupkg, set())
+    def build_dependencies(self) -> Iterable[Version]:
+        yield from self.collect_build_dependencies(self._nupkg, set())
 
-    def collect_dependencies(self, nupkg: Nupkg, sentinel: set[str]) -> Iterable[Version]:
+    def collect_build_dependencies(self, nupkg: Nupkg, sentinel: set[str]) -> Iterable[Version]:
         if nupkg.id() in sentinel:
             return
         sentinel.add(nupkg.id())
@@ -615,33 +615,44 @@ class Pypkg:
         for ver in nupkg.dependencies():
             if ver.id().startswith("System."):
                 continue
-            yield from self.collect_dependencies(Nupkg(ver.id(), ver.version()), sentinel)
+            yield from self.collect_build_dependencies(Nupkg(ver.id(), ver.version()), sentinel)
 
-    def runtime_dependencies(self) -> set[str]:
-        return {id for id in self.collect_runtime_dependencies(self._nupkg, set())}
+    def runtime_dependencies(self) -> Iterable[Version]:
+        yield from self.collect_runtime_dependencies(self._nupkg, set())
 
-    def collect_runtime_dependencies(self, nupkg: Nupkg, sentinel: set[str]) -> Iterable[str]:
+    def collect_runtime_dependencies(self, nupkg: Nupkg, sentinel: set[str]) -> Iterable[Version]:
         if nupkg.id() in sentinel:
             return
         sentinel.add(nupkg.id())
-        yield from nupkg.runtime_dependencies()
+        for ver in nupkg.dependencies():
+            if ver.id().startswith("System."):
+                continue
+            if ver.id() in nupkg.runtime_dependencies():
+                yield ver
+                continue
+            yield from self.collect_runtime_dependencies(Nupkg(ver.id(), ver.version()), sentinel)
+
+    def dist_dependencies(self) -> Iterable[Version]:
+        yield from self.collect_dist_dependencies(self._nupkg, set())
+
+    def collect_dist_dependencies(self, nupkg: Nupkg, sentinel: set[str]) -> Iterable[Version]:
+        if nupkg.id() in sentinel:
+            return
+        sentinel.add(nupkg.id())
+        yield Version(nupkg.id(), nupkg.version())
         for ver in nupkg.dependencies():
             if ver.id().startswith("System."):
                 continue
             if ver.id() in nupkg.runtime_dependencies():
                 continue
-            yield from self.collect_runtime_dependencies(Nupkg(ver.id(), ver.version()), sentinel)
+            yield from self.collect_dist_dependencies(Nupkg(ver.id(), ver.version()), sentinel)
 
     def namespaces(self) -> Iterable[str]:
-        for ver in self.dependencies():
-            if ver.id() in self.runtime_dependencies():
-                continue
+        for ver in self.dist_dependencies():
             yield from Nupkg(ver.id(), ver.version()).namespaces()
 
     def assets(self) -> Iterable[Asset]:
-        for ver in self.dependencies():
-            if ver.id() in self.runtime_dependencies():
-                continue
+        for ver in self.dist_dependencies():
             yield from Nupkg(ver.id(), ver.version()).assets()
 
     def build(self) -> None:
@@ -654,7 +665,7 @@ class Pypkg:
             rmtree_force(self.generate_dir())
         self.generate_dir().mkdir()
         json_files: list[Path] = []
-        for ver in self.dependencies():
+        for ver in self.build_dependencies():
             json_files.extend(Nupkg(ver.id(), ver.version()).json_files())
         if self._nupkg.id() != "Microsoft.Windows.SDK.Contracts":
             json_files.extend(nupkg_winrt.json_files())
@@ -682,10 +693,8 @@ class Pypkg:
             writebytes(self.package_dir() / asset.dst, asset.data)
 
     def pyproject_dependencies(self) -> str:
-        deps = [f'"win32more=={win32more_version[0]}.{win32more_version[1]}.*"']
-        for ver in self.dependencies():
-            if ver.id() not in self.runtime_dependencies():
-                continue
+        deps = [f'"win32more-core=={win32more_version[0]}.{win32more_version[1]}.*"']
+        for ver in self.runtime_dependencies():
             deps.append(f'"{ver.pydependency()}"')
         return ", ".join(deps)
 

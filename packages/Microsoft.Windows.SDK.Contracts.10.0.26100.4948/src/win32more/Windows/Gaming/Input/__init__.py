@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Haptics
 import win32more.Windows.Devices.Power
 import win32more.Windows.Foundation
@@ -53,9 +53,11 @@ class ArcadeStick(ComPtr, metaclass=_ArcadeStick_Meta_):
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
     _ArcadeStick_Meta_.ArcadeSticks = property(get_ArcadeSticks, None)
-    HeadsetConnected = event()
-    HeadsetDisconnected = event()
-    UserChanged = event()
+    HeadsetConnected = event(add_HeadsetConnected, remove_HeadsetConnected)
+    HeadsetDisconnected = event(add_HeadsetDisconnected, remove_HeadsetDisconnected)
+    UserChanged = event(add_UserChanged, remove_UserChanged)
+    _ArcadeStick_Meta_.ArcadeStickAdded = event(add_ArcadeStickAdded, remove_ArcadeStickAdded)
+    _ArcadeStick_Meta_.ArcadeStickRemoved = event(add_ArcadeStickRemoved, remove_ArcadeStickRemoved)
 class ArcadeStickButtons(Enum, UInt32):
     None_ = 0
     StickUp = 1
@@ -122,9 +124,11 @@ class FlightStick(ComPtr, metaclass=_FlightStick_Meta_):
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
     _FlightStick_Meta_.FlightSticks = property(get_FlightSticks, None)
-    HeadsetConnected = event()
-    HeadsetDisconnected = event()
-    UserChanged = event()
+    HeadsetConnected = event(add_HeadsetConnected, remove_HeadsetConnected)
+    HeadsetDisconnected = event(add_HeadsetDisconnected, remove_HeadsetDisconnected)
+    UserChanged = event(add_UserChanged, remove_UserChanged)
+    _FlightStick_Meta_.FlightStickAdded = event(add_FlightStickAdded, remove_FlightStickAdded)
+    _FlightStick_Meta_.FlightStickRemoved = event(add_FlightStickRemoved, remove_FlightStickRemoved)
 class FlightStickButtons(Enum, UInt32):
     None_ = 0
     FirePrimary = 1
@@ -272,9 +276,11 @@ class Gamepad(ComPtr, metaclass=_Gamepad_Meta_):
     User = property(get_User, None)
     Vibration = property(get_Vibration, put_Vibration)
     _Gamepad_Meta_.Gamepads = property(get_Gamepads, None)
-    HeadsetConnected = event()
-    HeadsetDisconnected = event()
-    UserChanged = event()
+    HeadsetConnected = event(add_HeadsetConnected, remove_HeadsetConnected)
+    HeadsetDisconnected = event(add_HeadsetDisconnected, remove_HeadsetDisconnected)
+    UserChanged = event(add_UserChanged, remove_UserChanged)
+    _Gamepad_Meta_.GamepadAdded = event(add_GamepadAdded, remove_GamepadAdded)
+    _Gamepad_Meta_.GamepadRemoved = event(add_GamepadRemoved, remove_GamepadRemoved)
 class GamepadButtons(Enum, UInt32):
     None_ = 0
     Menu = 1
@@ -315,9 +321,9 @@ class Headset(ComPtr):
     default_interface: win32more.Windows.Gaming.Input.IHeadset
     _classid_ = 'Windows.Gaming.Input.Headset'
     @winrt_mixinmethod
-    def get_CaptureDeviceId(self: win32more.Windows.Gaming.Input.IHeadset) -> WinRT_String: ...
+    def get_CaptureDeviceId(self: win32more.Windows.Gaming.Input.IHeadset) -> hstr: ...
     @winrt_mixinmethod
-    def get_RenderDeviceId(self: win32more.Windows.Gaming.Input.IHeadset) -> WinRT_String: ...
+    def get_RenderDeviceId(self: win32more.Windows.Gaming.Input.IHeadset) -> hstr: ...
     @winrt_mixinmethod
     def TryGetBatteryReport(self: win32more.Windows.Gaming.Input.IGameControllerBatteryInfo) -> win32more.Windows.Devices.Power.BatteryReport: ...
     CaptureDeviceId = property(get_CaptureDeviceId, None)
@@ -345,8 +351,8 @@ class IArcadeStickStatics(ComPtr):
     @winrt_commethod(10)
     def get_ArcadeSticks(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Gaming.Input.ArcadeStick]: ...
     ArcadeSticks = property(get_ArcadeSticks, None)
-    ArcadeStickAdded = event()
-    ArcadeStickRemoved = event()
+    ArcadeStickAdded = event(add_ArcadeStickAdded, remove_ArcadeStickAdded)
+    ArcadeStickRemoved = event(add_ArcadeStickRemoved, remove_ArcadeStickRemoved)
 class IArcadeStickStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.IArcadeStickStatics2'
@@ -381,8 +387,8 @@ class IFlightStickStatics(ComPtr):
     @winrt_commethod(11)
     def FromGameController(self, gameController: win32more.Windows.Gaming.Input.IGameController) -> win32more.Windows.Gaming.Input.FlightStick: ...
     FlightSticks = property(get_FlightSticks, None)
-    FlightStickAdded = event()
-    FlightStickRemoved = event()
+    FlightStickAdded = event(add_FlightStickAdded, remove_FlightStickAdded)
+    FlightStickRemoved = event(add_FlightStickRemoved, remove_FlightStickRemoved)
 class IGameController(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.IGameController'
@@ -408,9 +414,9 @@ class IGameController(ComPtr):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    HeadsetConnected = event()
-    HeadsetDisconnected = event()
-    UserChanged = event()
+    HeadsetConnected = event(add_HeadsetConnected, remove_HeadsetConnected)
+    HeadsetDisconnected = event(add_HeadsetDisconnected, remove_HeadsetDisconnected)
+    UserChanged = event(add_UserChanged, remove_UserChanged)
 class IGameControllerBatteryInfo(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.IGameControllerBatteryInfo'
@@ -449,8 +455,8 @@ class IGamepadStatics(ComPtr):
     @winrt_commethod(10)
     def get_Gamepads(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Gaming.Input.Gamepad]: ...
     Gamepads = property(get_Gamepads, None)
-    GamepadAdded = event()
-    GamepadRemoved = event()
+    GamepadAdded = event(add_GamepadAdded, remove_GamepadAdded)
+    GamepadRemoved = event(add_GamepadRemoved, remove_GamepadRemoved)
 class IGamepadStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.IGamepadStatics2'
@@ -462,9 +468,9 @@ class IHeadset(ComPtr):
     _classid_ = 'Windows.Gaming.Input.IHeadset'
     _iid_ = Guid('{3fd156ef-6925-3fa8-9181-029c5223ae3b}')
     @winrt_commethod(6)
-    def get_CaptureDeviceId(self) -> WinRT_String: ...
+    def get_CaptureDeviceId(self) -> hstr: ...
     @winrt_commethod(7)
-    def get_RenderDeviceId(self) -> WinRT_String: ...
+    def get_RenderDeviceId(self) -> hstr: ...
     CaptureDeviceId = property(get_CaptureDeviceId, None)
     RenderDeviceId = property(get_RenderDeviceId, None)
 class IRacingWheel(ComPtr):
@@ -508,8 +514,8 @@ class IRacingWheelStatics(ComPtr):
     @winrt_commethod(10)
     def get_RacingWheels(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Gaming.Input.RacingWheel]: ...
     RacingWheels = property(get_RacingWheels, None)
-    RacingWheelAdded = event()
-    RacingWheelRemoved = event()
+    RacingWheelAdded = event(add_RacingWheelAdded, remove_RacingWheelAdded)
+    RacingWheelRemoved = event(add_RacingWheelRemoved, remove_RacingWheelRemoved)
 class IRacingWheelStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.IRacingWheelStatics2'
@@ -551,9 +557,9 @@ class IRawGameController2(ComPtr):
     @winrt_commethod(6)
     def get_SimpleHapticsControllers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Haptics.SimpleHapticsController]: ...
     @winrt_commethod(7)
-    def get_NonRoamableId(self) -> WinRT_String: ...
+    def get_NonRoamableId(self) -> hstr: ...
     @winrt_commethod(8)
-    def get_DisplayName(self) -> WinRT_String: ...
+    def get_DisplayName(self) -> hstr: ...
     DisplayName = property(get_DisplayName, None)
     NonRoamableId = property(get_NonRoamableId, None)
     SimpleHapticsControllers = property(get_SimpleHapticsControllers, None)
@@ -574,8 +580,8 @@ class IRawGameControllerStatics(ComPtr):
     @winrt_commethod(11)
     def FromGameController(self, gameController: win32more.Windows.Gaming.Input.IGameController) -> win32more.Windows.Gaming.Input.RawGameController: ...
     RawGameControllers = property(get_RawGameControllers, None)
-    RawGameControllerAdded = event()
-    RawGameControllerRemoved = event()
+    RawGameControllerAdded = event(add_RawGameControllerAdded, remove_RawGameControllerAdded)
+    RawGameControllerRemoved = event(add_RawGameControllerRemoved, remove_RawGameControllerRemoved)
 class IUINavigationController(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.IUINavigationController'
@@ -601,8 +607,8 @@ class IUINavigationControllerStatics(ComPtr):
     @winrt_commethod(10)
     def get_UINavigationControllers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Gaming.Input.UINavigationController]: ...
     UINavigationControllers = property(get_UINavigationControllers, None)
-    UINavigationControllerAdded = event()
-    UINavigationControllerRemoved = event()
+    UINavigationControllerAdded = event(add_UINavigationControllerAdded, remove_UINavigationControllerAdded)
+    UINavigationControllerRemoved = event(add_UINavigationControllerRemoved, remove_UINavigationControllerRemoved)
 class IUINavigationControllerStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.IUINavigationControllerStatics2'
@@ -687,9 +693,11 @@ class RacingWheel(ComPtr, metaclass=_RacingWheel_Meta_):
     User = property(get_User, None)
     WheelMotor = property(get_WheelMotor, None)
     _RacingWheel_Meta_.RacingWheels = property(get_RacingWheels, None)
-    HeadsetConnected = event()
-    HeadsetDisconnected = event()
-    UserChanged = event()
+    HeadsetConnected = event(add_HeadsetConnected, remove_HeadsetConnected)
+    HeadsetDisconnected = event(add_HeadsetDisconnected, remove_HeadsetDisconnected)
+    UserChanged = event(add_UserChanged, remove_UserChanged)
+    _RacingWheel_Meta_.RacingWheelAdded = event(add_RacingWheelAdded, remove_RacingWheelAdded)
+    _RacingWheel_Meta_.RacingWheelRemoved = event(add_RacingWheelRemoved, remove_RacingWheelRemoved)
 class RacingWheelButtons(Enum, UInt32):
     None_ = 0
     PreviousGear = 1
@@ -770,9 +778,9 @@ class RawGameController(ComPtr, metaclass=_RawGameController_Meta_):
     @winrt_mixinmethod
     def get_SimpleHapticsControllers(self: win32more.Windows.Gaming.Input.IRawGameController2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Haptics.SimpleHapticsController]: ...
     @winrt_mixinmethod
-    def get_NonRoamableId(self: win32more.Windows.Gaming.Input.IRawGameController2) -> WinRT_String: ...
+    def get_NonRoamableId(self: win32more.Windows.Gaming.Input.IRawGameController2) -> hstr: ...
     @winrt_mixinmethod
-    def get_DisplayName(self: win32more.Windows.Gaming.Input.IRawGameController2) -> WinRT_String: ...
+    def get_DisplayName(self: win32more.Windows.Gaming.Input.IRawGameController2) -> hstr: ...
     @winrt_classmethod
     def add_RawGameControllerAdded(cls: win32more.Windows.Gaming.Input.IRawGameControllerStatics, value: win32more.Windows.Foundation.EventHandler[win32more.Windows.Gaming.Input.RawGameController]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -798,9 +806,11 @@ class RawGameController(ComPtr, metaclass=_RawGameController_Meta_):
     SwitchCount = property(get_SwitchCount, None)
     User = property(get_User, None)
     _RawGameController_Meta_.RawGameControllers = property(get_RawGameControllers, None)
-    HeadsetConnected = event()
-    HeadsetDisconnected = event()
-    UserChanged = event()
+    HeadsetConnected = event(add_HeadsetConnected, remove_HeadsetConnected)
+    HeadsetDisconnected = event(add_HeadsetDisconnected, remove_HeadsetDisconnected)
+    UserChanged = event(add_UserChanged, remove_UserChanged)
+    _RawGameController_Meta_.RawGameControllerAdded = event(add_RawGameControllerAdded, remove_RawGameControllerAdded)
+    _RawGameController_Meta_.RawGameControllerRemoved = event(add_RawGameControllerRemoved, remove_RawGameControllerRemoved)
 class RequiredUINavigationButtons(Enum, UInt32):
     None_ = 0
     Menu = 1
@@ -859,9 +869,11 @@ class UINavigationController(ComPtr, metaclass=_UINavigationController_Meta_):
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
     _UINavigationController_Meta_.UINavigationControllers = property(get_UINavigationControllers, None)
-    HeadsetConnected = event()
-    HeadsetDisconnected = event()
-    UserChanged = event()
+    HeadsetConnected = event(add_HeadsetConnected, remove_HeadsetConnected)
+    HeadsetDisconnected = event(add_HeadsetDisconnected, remove_HeadsetDisconnected)
+    UserChanged = event(add_UserChanged, remove_UserChanged)
+    _UINavigationController_Meta_.UINavigationControllerAdded = event(add_UINavigationControllerAdded, remove_UINavigationControllerAdded)
+    _UINavigationController_Meta_.UINavigationControllerRemoved = event(add_UINavigationControllerRemoved, remove_UINavigationControllerRemoved)
 class UINavigationReading(Structure):
     Timestamp: UInt64
     RequiredButtons: win32more.Windows.Gaming.Input.RequiredUINavigationButtons

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Power
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -11,7 +11,7 @@ class Battery(ComPtr, metaclass=_Battery_Meta_):
     default_interface: win32more.Windows.Devices.Power.IBattery
     _classid_ = 'Windows.Devices.Power.Battery'
     @winrt_mixinmethod
-    def get_DeviceId(self: win32more.Windows.Devices.Power.IBattery) -> WinRT_String: ...
+    def get_DeviceId(self: win32more.Windows.Devices.Power.IBattery) -> hstr: ...
     @winrt_mixinmethod
     def GetReport(self: win32more.Windows.Devices.Power.IBattery) -> win32more.Windows.Devices.Power.BatteryReport: ...
     @winrt_mixinmethod
@@ -21,12 +21,12 @@ class Battery(ComPtr, metaclass=_Battery_Meta_):
     @winrt_classmethod
     def get_AggregateBattery(cls: win32more.Windows.Devices.Power.IBatteryStatics) -> win32more.Windows.Devices.Power.Battery: ...
     @winrt_classmethod
-    def FromIdAsync(cls: win32more.Windows.Devices.Power.IBatteryStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Power.Battery]: ...
+    def FromIdAsync(cls: win32more.Windows.Devices.Power.IBatteryStatics, deviceId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Power.Battery]: ...
     @winrt_classmethod
-    def GetDeviceSelector(cls: win32more.Windows.Devices.Power.IBatteryStatics) -> WinRT_String: ...
+    def GetDeviceSelector(cls: win32more.Windows.Devices.Power.IBatteryStatics) -> hstr: ...
     DeviceId = property(get_DeviceId, None)
     _Battery_Meta_.AggregateBattery = property(get_AggregateBattery, None)
-    ReportUpdated = event()
+    ReportUpdated = event(add_ReportUpdated, remove_ReportUpdated)
 class BatteryReport(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Power.IBatteryReport
@@ -51,7 +51,7 @@ class IBattery(ComPtr):
     _classid_ = 'Windows.Devices.Power.IBattery'
     _iid_ = Guid('{bc894fc6-0072-47c8-8b5d-614aaa7a437e}')
     @winrt_commethod(6)
-    def get_DeviceId(self) -> WinRT_String: ...
+    def get_DeviceId(self) -> hstr: ...
     @winrt_commethod(7)
     def GetReport(self) -> win32more.Windows.Devices.Power.BatteryReport: ...
     @winrt_commethod(8)
@@ -59,7 +59,7 @@ class IBattery(ComPtr):
     @winrt_commethod(9)
     def remove_ReportUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
-    ReportUpdated = event()
+    ReportUpdated = event(add_ReportUpdated, remove_ReportUpdated)
 class IBatteryReport(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Power.IBatteryReport'
@@ -86,9 +86,9 @@ class IBatteryStatics(ComPtr):
     @winrt_commethod(6)
     def get_AggregateBattery(self) -> win32more.Windows.Devices.Power.Battery: ...
     @winrt_commethod(7)
-    def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Power.Battery]: ...
+    def FromIdAsync(self, deviceId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Power.Battery]: ...
     @winrt_commethod(8)
-    def GetDeviceSelector(self) -> WinRT_String: ...
+    def GetDeviceSelector(self) -> hstr: ...
     AggregateBattery = property(get_AggregateBattery, None)
 class IPowerGridData(ComPtr):
     extends: IInspectable
@@ -123,7 +123,7 @@ class IPowerGridForecastStatics(ComPtr):
     def add_ForecastUpdated(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_ForecastUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ForecastUpdated = event()
+    ForecastUpdated = event(add_ForecastUpdated, remove_ForecastUpdated)
 PowerGridApiContract: UInt32 = 65536
 class PowerGridData(ComPtr):
     extends: IInspectable
@@ -135,7 +135,9 @@ class PowerGridData(ComPtr):
     def get_IsLowUserExperienceImpact(self: win32more.Windows.Devices.Power.IPowerGridData) -> Boolean: ...
     IsLowUserExperienceImpact = property(get_IsLowUserExperienceImpact, None)
     Severity = property(get_Severity, None)
-class PowerGridForecast(ComPtr):
+class _PowerGridForecast_Meta_(ComPtr.__class__):
+    pass
+class PowerGridForecast(ComPtr, metaclass=_PowerGridForecast_Meta_):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Power.IPowerGridForecast
     _classid_ = 'Windows.Devices.Power.PowerGridForecast'
@@ -154,6 +156,7 @@ class PowerGridForecast(ComPtr):
     BlockDuration = property(get_BlockDuration, None)
     Forecast = property(get_Forecast, None)
     StartTime = property(get_StartTime, None)
+    _PowerGridForecast_Meta_.ForecastUpdated = event(add_ForecastUpdated, remove_ForecastUpdated)
 
 
 make_ready(__name__)

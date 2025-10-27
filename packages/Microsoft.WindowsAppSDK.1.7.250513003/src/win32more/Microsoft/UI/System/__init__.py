@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.System
 import win32more.Windows.Foundation
@@ -14,10 +14,10 @@ class IThemeSettings(ComPtr):
     @winrt_commethod(8)
     def get_HighContrast(self) -> Boolean: ...
     @winrt_commethod(9)
-    def get_HighContrastScheme(self) -> WinRT_String: ...
+    def get_HighContrastScheme(self) -> hstr: ...
     HighContrast = property(get_HighContrast, None)
     HighContrastScheme = property(get_HighContrastScheme, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IThemeSettingsStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.System.IThemeSettingsStatics'
@@ -35,12 +35,12 @@ class ThemeSettings(ComPtr):
     @winrt_mixinmethod
     def get_HighContrast(self: win32more.Microsoft.UI.System.IThemeSettings) -> Boolean: ...
     @winrt_mixinmethod
-    def get_HighContrastScheme(self: win32more.Microsoft.UI.System.IThemeSettings) -> WinRT_String: ...
+    def get_HighContrastScheme(self: win32more.Microsoft.UI.System.IThemeSettings) -> hstr: ...
     @winrt_classmethod
     def CreateForWindowId(cls: win32more.Microsoft.UI.System.IThemeSettingsStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.System.ThemeSettings: ...
     HighContrast = property(get_HighContrast, None)
     HighContrastScheme = property(get_HighContrastScheme, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 
 
 make_ready(__name__)

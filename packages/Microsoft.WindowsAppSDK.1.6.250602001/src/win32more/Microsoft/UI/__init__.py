@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI
 import win32more.Windows.Foundation
 import win32more.Windows.UI
@@ -13,7 +13,7 @@ class ColorHelper(ComPtr):
     default_interface: win32more.Microsoft.UI.IColorHelper
     _classid_ = 'Microsoft.UI.ColorHelper'
     @winrt_classmethod
-    def ToDisplayName(cls: win32more.Microsoft.UI.IColorHelperStatics2, color: win32more.Windows.UI.Color) -> WinRT_String: ...
+    def ToDisplayName(cls: win32more.Microsoft.UI.IColorHelperStatics2, color: win32more.Windows.UI.Color) -> hstr: ...
     @winrt_classmethod
     def FromArgb(cls: win32more.Microsoft.UI.IColorHelperStatics, a: Byte, r: Byte, g: Byte, b: Byte) -> win32more.Windows.UI.Color: ...
 class _Colors_Meta_(ComPtr.__class__):
@@ -462,8 +462,8 @@ class IClosableNotifier(ComPtr):
     @winrt_commethod(10)
     def remove_FrameworkClosed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsClosed = property(get_IsClosed, None)
-    Closed = event()
-    FrameworkClosed = event()
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
 class IColorHelper(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.IColorHelper'
@@ -479,7 +479,7 @@ class IColorHelperStatics2(ComPtr):
     _classid_ = 'Microsoft.UI.IColorHelperStatics2'
     _iid_ = Guid('{982a2d93-0ec4-56b7-9c20-0b5c77949066}')
     @winrt_commethod(6)
-    def ToDisplayName(self, color: win32more.Windows.UI.Color) -> WinRT_String: ...
+    def ToDisplayName(self, color: win32more.Windows.UI.Color) -> hstr: ...
 class IColors(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.IColors'

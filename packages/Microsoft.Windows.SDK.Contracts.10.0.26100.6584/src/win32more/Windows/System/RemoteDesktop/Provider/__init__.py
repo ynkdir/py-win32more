@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System.RemoteDesktop.Provider
@@ -45,8 +45,8 @@ class IRemoteDesktopConnectionRemoteInfo(ComPtr):
     def add_PerformLocalActionRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo, win32more.Windows.System.RemoteDesktop.Provider.PerformLocalActionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_PerformLocalActionRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    SwitchToLocalSessionRequested = event()
-    PerformLocalActionRequested = event()
+    PerformLocalActionRequested = event(add_PerformLocalActionRequested, remove_PerformLocalActionRequested)
+    SwitchToLocalSessionRequested = event(add_SwitchToLocalSessionRequested, remove_SwitchToLocalSessionRequested)
 class IRemoteDesktopConnectionRemoteInfoStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics'
@@ -60,9 +60,9 @@ class IRemoteDesktopInfo(ComPtr):
     _classid_ = 'Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo'
     _iid_ = Guid('{d185bb25-2f1e-5098-b9e0-f46d6358c5c4}')
     @winrt_commethod(6)
-    def get_DisplayName(self) -> WinRT_String: ...
+    def get_DisplayName(self) -> hstr: ...
     @winrt_commethod(7)
-    def get_Id(self) -> WinRT_String: ...
+    def get_Id(self) -> hstr: ...
     DisplayName = property(get_DisplayName, None)
     Id = property(get_Id, None)
 class IRemoteDesktopInfoFactory(ComPtr):
@@ -70,7 +70,7 @@ class IRemoteDesktopInfoFactory(ComPtr):
     _classid_ = 'Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfoFactory'
     _iid_ = Guid('{ad0e8d58-b56f-5a8b-b419-8002ee0c5ee9}')
     @winrt_commethod(6)
-    def CreateInstance(self, id: WinRT_String, displayName: WinRT_String) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo: ...
+    def CreateInstance(self, id: hstr, displayName: hstr) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo: ...
 class IRemoteDesktopRegistrarStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.RemoteDesktop.Provider.IRemoteDesktopRegistrarStatics'
@@ -120,8 +120,8 @@ class RemoteDesktopConnectionRemoteInfo(ComPtr):
     def IsSwitchSupported(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics) -> Boolean: ...
     @winrt_classmethod
     def GetForLaunchUri(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics, launchUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo: ...
-    SwitchToLocalSessionRequested = event()
-    PerformLocalActionRequested = event()
+    PerformLocalActionRequested = event(add_PerformLocalActionRequested, remove_PerformLocalActionRequested)
+    SwitchToLocalSessionRequested = event(add_SwitchToLocalSessionRequested, remove_SwitchToLocalSessionRequested)
 class RemoteDesktopConnectionStatus(Enum, Int32):
     Connecting = 0
     Connected = 1
@@ -139,11 +139,11 @@ class RemoteDesktopInfo(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfoFactory, id: WinRT_String, displayName: WinRT_String) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo: ...
+    def CreateInstance(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfoFactory, id: hstr, displayName: hstr) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo: ...
     @winrt_mixinmethod
-    def get_DisplayName(self: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo) -> WinRT_String: ...
+    def get_DisplayName(self: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo) -> hstr: ...
     @winrt_mixinmethod
-    def get_Id(self: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo) -> WinRT_String: ...
+    def get_Id(self: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo) -> hstr: ...
     DisplayName = property(get_DisplayName, None)
     Id = property(get_Id, None)
 class RemoteDesktopLocalAction(Enum, Int32):

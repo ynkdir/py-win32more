@@ -171,11 +171,8 @@ class Win32Module(Module):
     def emit_header(self) -> str:
         writer = StringIO()
         writer.write("from __future__ import annotations\n")
-        writer.write(f"from {self._package.name}.win32.prelude import *\n")
+        writer.write(f"from {self._package.name}._prelude import *\n")
         for namespace in sorted(self.imported_namespaces() | {self.namespace}):
-            if not namespace.startswith("Windows.Win32."):
-                # FIXME: _winrt.py doesn't support circular import
-                continue
             writer.write(f"import {self._package.name}.{namespace}\n")
         return writer.getvalue()
 
@@ -190,7 +187,7 @@ class Win32Module(Module):
     def emit_header_one(cls, package_name: str) -> str:
         writer = StringIO()
         writer.write("from __future__ import annotations\n")
-        writer.write(f"from {package_name}.win32.prelude import *\n")
+        writer.write(f"from {package_name}._prelude import *\n")
         return writer.getvalue()
 
 

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -254,8 +254,8 @@ class IInkPresenter(ComPtr):
     StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
     StrokeInput = property(get_StrokeInput, None)
     UnprocessedInput = property(get_UnprocessedInput, None)
-    StrokesCollected = event()
-    StrokesErased = event()
+    StrokesCollected = event(add_StrokesCollected, remove_StrokesCollected)
+    StrokesErased = event(add_StrokesErased, remove_StrokesErased)
 class IInkPresenter2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkPresenter2'
@@ -385,7 +385,7 @@ class IInkRecognitionResult(ComPtr):
     @winrt_commethod(6)
     def get_BoundingRect(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(7)
-    def GetTextCandidates(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    def GetTextCandidates(self) -> win32more.Windows.Foundation.Collections.IVectorView[hstr]: ...
     @winrt_commethod(8)
     def GetStrokes(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Inking.InkStroke]: ...
     BoundingRect = property(get_BoundingRect, None)
@@ -394,7 +394,7 @@ class IInkRecognizer(ComPtr):
     _classid_ = 'Windows.UI.Input.Inking.IInkRecognizer'
     _iid_ = Guid('{077ccea3-904d-442a-b151-aaca3631c43b}')
     @winrt_commethod(6)
-    def get_Name(self) -> WinRT_String: ...
+    def get_Name(self) -> hstr: ...
     Name = property(get_Name, None)
 class IInkRecognizerContainer(ComPtr):
     extends: IInspectable
@@ -563,10 +563,10 @@ class IInkStrokeInput(ComPtr):
     @winrt_commethod(14)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    StrokeStarted = event()
-    StrokeContinued = event()
-    StrokeEnded = event()
-    StrokeCanceled = event()
+    StrokeCanceled = event(add_StrokeCanceled, remove_StrokeCanceled)
+    StrokeContinued = event(add_StrokeContinued, remove_StrokeContinued)
+    StrokeEnded = event(add_StrokeEnded, remove_StrokeEnded)
+    StrokeStarted = event(add_StrokeStarted, remove_StrokeStarted)
 class IInkStrokeRenderingSegment(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkStrokeRenderingSegment'
@@ -649,13 +649,13 @@ class IInkUnprocessedInput(ComPtr):
     @winrt_commethod(20)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    PointerEntered = event()
-    PointerHovered = event()
-    PointerExited = event()
-    PointerPressed = event()
-    PointerMoved = event()
-    PointerReleased = event()
-    PointerLost = event()
+    PointerEntered = event(add_PointerEntered, remove_PointerEntered)
+    PointerExited = event(add_PointerExited, remove_PointerExited)
+    PointerHovered = event(add_PointerHovered, remove_PointerHovered)
+    PointerLost = event(add_PointerLost, remove_PointerLost)
+    PointerMoved = event(add_PointerMoved, remove_PointerMoved)
+    PointerPressed = event(add_PointerPressed, remove_PointerPressed)
+    PointerReleased = event(add_PointerReleased, remove_PointerReleased)
 class IPenAndInkSettings(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IPenAndInkSettings'
@@ -667,7 +667,7 @@ class IPenAndInkSettings(ComPtr):
     @winrt_commethod(8)
     def get_HandwritingLineHeight(self) -> win32more.Windows.UI.Input.Inking.HandwritingLineHeight: ...
     @winrt_commethod(9)
-    def get_FontFamilyName(self) -> WinRT_String: ...
+    def get_FontFamilyName(self) -> hstr: ...
     @winrt_commethod(10)
     def get_UserConsentsToHandwritingTelemetryCollection(self) -> Boolean: ...
     @winrt_commethod(11)
@@ -983,8 +983,8 @@ class InkPresenter(ComPtr):
     StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
     StrokeInput = property(get_StrokeInput, None)
     UnprocessedInput = property(get_UnprocessedInput, None)
-    StrokesCollected = event()
-    StrokesErased = event()
+    StrokesCollected = event(add_StrokesCollected, remove_StrokesCollected)
+    StrokesErased = event(add_StrokesErased, remove_StrokesErased)
 class InkPresenterPredefinedConfiguration(Enum, Int32):
     SimpleSinglePointer = 0
     SimpleMultiplePointer = 1
@@ -1126,7 +1126,7 @@ class InkRecognitionResult(ComPtr):
     @winrt_mixinmethod
     def get_BoundingRect(self: win32more.Windows.UI.Input.Inking.IInkRecognitionResult) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
-    def GetTextCandidates(self: win32more.Windows.UI.Input.Inking.IInkRecognitionResult) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    def GetTextCandidates(self: win32more.Windows.UI.Input.Inking.IInkRecognitionResult) -> win32more.Windows.Foundation.Collections.IVectorView[hstr]: ...
     @winrt_mixinmethod
     def GetStrokes(self: win32more.Windows.UI.Input.Inking.IInkRecognitionResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Inking.InkStroke]: ...
     BoundingRect = property(get_BoundingRect, None)
@@ -1139,7 +1139,7 @@ class InkRecognizer(ComPtr):
     default_interface: win32more.Windows.UI.Input.Inking.IInkRecognizer
     _classid_ = 'Windows.UI.Input.Inking.InkRecognizer'
     @winrt_mixinmethod
-    def get_Name(self: win32more.Windows.UI.Input.Inking.IInkRecognizer) -> WinRT_String: ...
+    def get_Name(self: win32more.Windows.UI.Input.Inking.IInkRecognizer) -> hstr: ...
     Name = property(get_Name, None)
 class InkRecognizerContainer(ComPtr):
     extends: IInspectable
@@ -1309,10 +1309,10 @@ class InkStrokeInput(ComPtr):
     @winrt_mixinmethod
     def get_InkPresenter(self: win32more.Windows.UI.Input.Inking.IInkStrokeInput) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    StrokeStarted = event()
-    StrokeContinued = event()
-    StrokeEnded = event()
-    StrokeCanceled = event()
+    StrokeCanceled = event(add_StrokeCanceled, remove_StrokeCanceled)
+    StrokeContinued = event(add_StrokeContinued, remove_StrokeContinued)
+    StrokeEnded = event(add_StrokeEnded, remove_StrokeEnded)
+    StrokeStarted = event(add_StrokeStarted, remove_StrokeStarted)
 class InkStrokeRenderingSegment(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeRenderingSegment
@@ -1395,13 +1395,13 @@ class InkUnprocessedInput(ComPtr):
     @winrt_mixinmethod
     def get_InkPresenter(self: win32more.Windows.UI.Input.Inking.IInkUnprocessedInput) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
-    PointerEntered = event()
-    PointerHovered = event()
-    PointerExited = event()
-    PointerPressed = event()
-    PointerMoved = event()
-    PointerReleased = event()
-    PointerLost = event()
+    PointerEntered = event(add_PointerEntered, remove_PointerEntered)
+    PointerExited = event(add_PointerExited, remove_PointerExited)
+    PointerHovered = event(add_PointerHovered, remove_PointerHovered)
+    PointerLost = event(add_PointerLost, remove_PointerLost)
+    PointerMoved = event(add_PointerMoved, remove_PointerMoved)
+    PointerPressed = event(add_PointerPressed, remove_PointerPressed)
+    PointerReleased = event(add_PointerReleased, remove_PointerReleased)
 class PenAndInkSettings(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IPenAndInkSettings
@@ -1413,7 +1413,7 @@ class PenAndInkSettings(ComPtr):
     @winrt_mixinmethod
     def get_HandwritingLineHeight(self: win32more.Windows.UI.Input.Inking.IPenAndInkSettings) -> win32more.Windows.UI.Input.Inking.HandwritingLineHeight: ...
     @winrt_mixinmethod
-    def get_FontFamilyName(self: win32more.Windows.UI.Input.Inking.IPenAndInkSettings) -> WinRT_String: ...
+    def get_FontFamilyName(self: win32more.Windows.UI.Input.Inking.IPenAndInkSettings) -> hstr: ...
     @winrt_mixinmethod
     def get_UserConsentsToHandwritingTelemetryCollection(self: win32more.Windows.UI.Input.Inking.IPenAndInkSettings) -> Boolean: ...
     @winrt_mixinmethod

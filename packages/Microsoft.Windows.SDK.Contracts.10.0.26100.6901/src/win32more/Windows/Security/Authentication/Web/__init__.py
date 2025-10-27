@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Authentication.Web
@@ -32,7 +32,7 @@ class IWebAuthenticationResult(ComPtr):
     _classid_ = 'Windows.Security.Authentication.Web.IWebAuthenticationResult'
     _iid_ = Guid('{64002b4b-ede9-470a-a5cd-0323faf6e262}')
     @winrt_commethod(6)
-    def get_ResponseData(self) -> WinRT_String: ...
+    def get_ResponseData(self) -> hstr: ...
     @winrt_commethod(7)
     def get_ResponseStatus(self) -> win32more.Windows.Security.Authentication.Web.WebAuthenticationStatus: ...
     @winrt_commethod(8)
@@ -74,7 +74,7 @@ class WebAuthenticationResult(ComPtr):
     default_interface: win32more.Windows.Security.Authentication.Web.IWebAuthenticationResult
     _classid_ = 'Windows.Security.Authentication.Web.WebAuthenticationResult'
     @winrt_mixinmethod
-    def get_ResponseData(self: win32more.Windows.Security.Authentication.Web.IWebAuthenticationResult) -> WinRT_String: ...
+    def get_ResponseData(self: win32more.Windows.Security.Authentication.Web.IWebAuthenticationResult) -> hstr: ...
     @winrt_mixinmethod
     def get_ResponseStatus(self: win32more.Windows.Security.Authentication.Web.IWebAuthenticationResult) -> win32more.Windows.Security.Authentication.Web.WebAuthenticationStatus: ...
     @winrt_mixinmethod

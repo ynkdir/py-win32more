@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Printers.Extensions
 import win32more.Windows.Foundation
 ExtensionsContract: UInt32 = 131072
@@ -8,7 +8,7 @@ class IPrint3DWorkflow(ComPtr):
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrint3DWorkflow'
     _iid_ = Guid('{c56f74bd-3669-4a66-ab42-c8151930cd34}')
     @winrt_commethod(6)
-    def get_DeviceID(self) -> WinRT_String: ...
+    def get_DeviceID(self) -> hstr: ...
     @winrt_commethod(7)
     def GetPrintModelPackage(self) -> IInspectable: ...
     @winrt_commethod(8)
@@ -21,7 +21,7 @@ class IPrint3DWorkflow(ComPtr):
     def remove_PrintRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceID = property(get_DeviceID, None)
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
-    PrintRequested = event()
+    PrintRequested = event(add_PrintRequested, remove_PrintRequested)
 class IPrint3DWorkflow2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrint3DWorkflow2'
@@ -30,7 +30,7 @@ class IPrint3DWorkflow2(ComPtr):
     def add_PrinterChanged(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Printers.Extensions.Print3DWorkflow, win32more.Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrinterChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PrinterChanged = event()
+    PrinterChanged = event(add_PrinterChanged, remove_PrinterChanged)
 class IPrint3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrintRequestedEventArgs'
@@ -49,24 +49,24 @@ class IPrint3DWorkflowPrinterChangedEventArgs(ComPtr):
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs'
     _iid_ = Guid('{45226402-95fc-4847-93b3-134dbf5c60f7}')
     @winrt_commethod(6)
-    def get_NewDeviceId(self) -> WinRT_String: ...
+    def get_NewDeviceId(self) -> hstr: ...
     NewDeviceId = property(get_NewDeviceId, None)
 class IPrintExtensionContextStatic(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrintExtensionContextStatic'
     _iid_ = Guid('{e70d9fc1-ff79-4aa4-8c9b-0c93aedfde8a}')
     @winrt_commethod(6)
-    def FromDeviceId(self, deviceId: WinRT_String) -> IInspectable: ...
+    def FromDeviceId(self, deviceId: hstr) -> IInspectable: ...
 class IPrintNotificationEventDetails(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails'
     _iid_ = Guid('{e00e4c8a-4828-4da1-8bb8-8672df8515e7}')
     @winrt_commethod(6)
-    def get_PrinterName(self) -> WinRT_String: ...
+    def get_PrinterName(self) -> hstr: ...
     @winrt_commethod(7)
-    def get_EventData(self) -> WinRT_String: ...
+    def get_EventData(self) -> hstr: ...
     @winrt_commethod(8)
-    def put_EventData(self, value: WinRT_String) -> Void: ...
+    def put_EventData(self, value: hstr) -> Void: ...
     EventData = property(get_EventData, put_EventData)
     PrinterName = property(get_PrinterName, None)
 class IPrintTaskConfiguration(ComPtr):
@@ -80,7 +80,7 @@ class IPrintTaskConfiguration(ComPtr):
     @winrt_commethod(8)
     def remove_SaveRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PrinterExtensionContext = property(get_PrinterExtensionContext, None)
-    SaveRequested = event()
+    SaveRequested = event(add_SaveRequested, remove_SaveRequested)
 class IPrintTaskConfigurationSaveRequest(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest'
@@ -112,7 +112,7 @@ class Print3DWorkflow(ComPtr):
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflow
     _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflow'
     @winrt_mixinmethod
-    def get_DeviceID(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflow) -> WinRT_String: ...
+    def get_DeviceID(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflow) -> hstr: ...
     @winrt_mixinmethod
     def GetPrintModelPackage(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflow) -> IInspectable: ...
     @winrt_mixinmethod
@@ -129,8 +129,8 @@ class Print3DWorkflow(ComPtr):
     def remove_PrinterChanged(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflow2, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceID = property(get_DeviceID, None)
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
-    PrintRequested = event()
-    PrinterChanged = event()
+    PrintRequested = event(add_PrintRequested, remove_PrintRequested)
+    PrinterChanged = event(add_PrinterChanged, remove_PrinterChanged)
 class Print3DWorkflowDetail(Enum, Int32):
     Unknown = 0
     ModelExceedsPrintBed = 1
@@ -157,7 +157,7 @@ class Print3DWorkflowPrinterChangedEventArgs(ComPtr):
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs
     _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs'
     @winrt_mixinmethod
-    def get_NewDeviceId(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs) -> WinRT_String: ...
+    def get_NewDeviceId(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs) -> hstr: ...
     NewDeviceId = property(get_NewDeviceId, None)
 class Print3DWorkflowStatus(Enum, Int32):
     Abandoned = 0
@@ -169,17 +169,17 @@ class PrintExtensionContext(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintExtensionContext'
     @winrt_classmethod
-    def FromDeviceId(cls: win32more.Windows.Devices.Printers.Extensions.IPrintExtensionContextStatic, deviceId: WinRT_String) -> IInspectable: ...
+    def FromDeviceId(cls: win32more.Windows.Devices.Printers.Extensions.IPrintExtensionContextStatic, deviceId: hstr) -> IInspectable: ...
 class PrintNotificationEventDetails(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintNotificationEventDetails'
     @winrt_mixinmethod
-    def get_PrinterName(self: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails) -> WinRT_String: ...
+    def get_PrinterName(self: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails) -> hstr: ...
     @winrt_mixinmethod
-    def get_EventData(self: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails) -> WinRT_String: ...
+    def get_EventData(self: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails) -> hstr: ...
     @winrt_mixinmethod
-    def put_EventData(self: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails, value: WinRT_String) -> Void: ...
+    def put_EventData(self: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails, value: hstr) -> Void: ...
     EventData = property(get_EventData, put_EventData)
     PrinterName = property(get_PrinterName, None)
 class PrintTaskConfiguration(ComPtr):
@@ -193,7 +193,7 @@ class PrintTaskConfiguration(ComPtr):
     @winrt_mixinmethod
     def remove_SaveRequested(self: win32more.Windows.Devices.Printers.Extensions.IPrintTaskConfiguration, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PrinterExtensionContext = property(get_PrinterExtensionContext, None)
-    SaveRequested = event()
+    SaveRequested = event(add_SaveRequested, remove_SaveRequested)
 class PrintTaskConfigurationSaveRequest(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest

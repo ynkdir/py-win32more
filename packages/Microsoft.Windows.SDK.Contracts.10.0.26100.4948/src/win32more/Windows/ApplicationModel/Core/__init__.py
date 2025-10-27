@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.ApplicationModel.Core
@@ -16,7 +16,7 @@ class AppListEntry(ComPtr):
     @winrt_mixinmethod
     def LaunchAsync(self: win32more.Windows.ApplicationModel.Core.IAppListEntry) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def get_AppUserModelId(self: win32more.Windows.ApplicationModel.Core.IAppListEntry2) -> WinRT_String: ...
+    def get_AppUserModelId(self: win32more.Windows.ApplicationModel.Core.IAppListEntry2) -> hstr: ...
     @winrt_mixinmethod
     def LaunchForUserAsync(self: win32more.Windows.ApplicationModel.Core.IAppListEntry3, user: win32more.Windows.System.User) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
@@ -49,7 +49,7 @@ class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     @winrt_classmethod
     def get_Views(cls: win32more.Windows.ApplicationModel.Core.ICoreImmersiveApplication) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Core.CoreApplicationView]: ...
     @winrt_classmethod
-    def CreateNewView(cls: win32more.Windows.ApplicationModel.Core.ICoreImmersiveApplication, runtimeType: WinRT_String, entryPoint: WinRT_String) -> win32more.Windows.ApplicationModel.Core.CoreApplicationView: ...
+    def CreateNewView(cls: win32more.Windows.ApplicationModel.Core.ICoreImmersiveApplication, runtimeType: hstr, entryPoint: hstr) -> win32more.Windows.ApplicationModel.Core.CoreApplicationView: ...
     @winrt_classmethod
     def get_MainView(cls: win32more.Windows.ApplicationModel.Core.ICoreImmersiveApplication) -> win32more.Windows.ApplicationModel.Core.CoreApplicationView: ...
     @winrt_classmethod
@@ -59,9 +59,9 @@ class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     @winrt_classmethod
     def remove_Exiting(cls: win32more.Windows.ApplicationModel.Core.ICoreApplicationExit, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def RequestRestartAsync(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication3, launchArguments: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
+    def RequestRestartAsync(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication3, launchArguments: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
     @winrt_classmethod
-    def RequestRestartForUserAsync(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication3, user: win32more.Windows.System.User, launchArguments: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
+    def RequestRestartForUserAsync(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication3, user: win32more.Windows.System.User, launchArguments: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
     @winrt_classmethod
     def add_BackgroundActivated(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.ApplicationModel.Activation.BackgroundActivatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -77,7 +77,7 @@ class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     @winrt_classmethod
     def EnablePrelaunch(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication2, value: Boolean) -> Void: ...
     @winrt_classmethod
-    def get_Id(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication) -> WinRT_String: ...
+    def get_Id(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication) -> hstr: ...
     @winrt_classmethod
     def add_Suspending(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.ApplicationModel.SuspendingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -98,6 +98,13 @@ class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     _CoreApplication_Meta_.MainView = property(get_MainView, None)
     _CoreApplication_Meta_.Properties = property(get_Properties, None)
     _CoreApplication_Meta_.Views = property(get_Views, None)
+    _CoreApplication_Meta_.BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
+    _CoreApplication_Meta_.EnteredBackground = event(add_EnteredBackground, remove_EnteredBackground)
+    _CoreApplication_Meta_.Exiting = event(add_Exiting, remove_Exiting)
+    _CoreApplication_Meta_.LeavingBackground = event(add_LeavingBackground, remove_LeavingBackground)
+    _CoreApplication_Meta_.Resuming = event(add_Resuming, remove_Resuming)
+    _CoreApplication_Meta_.Suspending = event(add_Suspending, remove_Suspending)
+    _CoreApplication_Meta_.UnhandledErrorDetected = event(add_UnhandledErrorDetected, remove_UnhandledErrorDetected)
 class CoreApplicationView(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Core.ICoreApplicationView
@@ -134,8 +141,8 @@ class CoreApplicationView(ComPtr):
     IsMain = property(get_IsMain, None)
     Properties = property(get_Properties, None)
     TitleBar = property(get_TitleBar, None)
-    Activated = event()
-    HostedViewClosing = event()
+    Activated = event(add_Activated, remove_Activated)
+    HostedViewClosing = event(add_HostedViewClosing, remove_HostedViewClosing)
 class CoreApplicationViewTitleBar(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar
@@ -165,8 +172,8 @@ class CoreApplicationViewTitleBar(ComPtr):
     IsVisible = property(get_IsVisible, None)
     SystemOverlayLeftInset = property(get_SystemOverlayLeftInset, None)
     SystemOverlayRightInset = property(get_SystemOverlayRightInset, None)
-    LayoutMetricsChanged = event()
-    IsVisibleChanged = event()
+    IsVisibleChanged = event(add_IsVisibleChanged, remove_IsVisibleChanged)
+    LayoutMetricsChanged = event(add_LayoutMetricsChanged, remove_LayoutMetricsChanged)
 class HostedViewClosingEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Core.IHostedViewClosingEventArgs
@@ -187,7 +194,7 @@ class IAppListEntry2(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Core.IAppListEntry2'
     _iid_ = Guid('{d0a618ad-bf35-42ac-ac06-86eeeb41d04b}')
     @winrt_commethod(6)
-    def get_AppUserModelId(self) -> WinRT_String: ...
+    def get_AppUserModelId(self) -> hstr: ...
     AppUserModelId = property(get_AppUserModelId, None)
 class IAppListEntry3(ComPtr):
     extends: IInspectable
@@ -207,7 +214,7 @@ class ICoreApplication(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplication'
     _iid_ = Guid('{0aacf7a4-5e1d-49df-8034-fb6a68bc5ed1}')
     @winrt_commethod(6)
-    def get_Id(self) -> WinRT_String: ...
+    def get_Id(self) -> hstr: ...
     @winrt_commethod(7)
     def add_Suspending(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.ApplicationModel.SuspendingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
@@ -226,8 +233,8 @@ class ICoreApplication(ComPtr):
     def RunWithActivationFactories(self, activationFactoryCallback: win32more.Windows.Foundation.IGetActivationFactory) -> Void: ...
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
-    Suspending = event()
-    Resuming = event()
+    Resuming = event(add_Resuming, remove_Resuming)
+    Suspending = event(add_Suspending, remove_Suspending)
 class ICoreApplication2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplication2'
@@ -246,17 +253,17 @@ class ICoreApplication2(ComPtr):
     def remove_EnteredBackground(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
     def EnablePrelaunch(self, value: Boolean) -> Void: ...
-    BackgroundActivated = event()
-    LeavingBackground = event()
-    EnteredBackground = event()
+    BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
+    EnteredBackground = event(add_EnteredBackground, remove_EnteredBackground)
+    LeavingBackground = event(add_LeavingBackground, remove_LeavingBackground)
 class ICoreApplication3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplication3'
     _iid_ = Guid('{feec0d39-598b-4507-8a67-772632580a57}')
     @winrt_commethod(6)
-    def RequestRestartAsync(self, launchArguments: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
+    def RequestRestartAsync(self, launchArguments: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
     @winrt_commethod(7)
-    def RequestRestartForUserAsync(self, user: win32more.Windows.System.User, launchArguments: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
+    def RequestRestartForUserAsync(self, user: win32more.Windows.System.User, launchArguments: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
 class ICoreApplicationExit(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationExit'
@@ -267,7 +274,7 @@ class ICoreApplicationExit(ComPtr):
     def add_Exiting(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Exiting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Exiting = event()
+    Exiting = event(add_Exiting, remove_Exiting)
 class ICoreApplicationUnhandledError(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationUnhandledError'
@@ -276,7 +283,7 @@ class ICoreApplicationUnhandledError(ComPtr):
     def add_UnhandledErrorDetected(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.ApplicationModel.Core.UnhandledErrorDetectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_UnhandledErrorDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    UnhandledErrorDetected = event()
+    UnhandledErrorDetected = event(add_UnhandledErrorDetected, remove_UnhandledErrorDetected)
 class ICoreApplicationUseCount(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationUseCount'
@@ -302,7 +309,7 @@ class ICoreApplicationView(ComPtr):
     CoreWindow = property(get_CoreWindow, None)
     IsHosted = property(get_IsHosted, None)
     IsMain = property(get_IsMain, None)
-    Activated = event()
+    Activated = event(add_Activated, remove_Activated)
 class ICoreApplicationView2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationView2'
@@ -324,7 +331,7 @@ class ICoreApplicationView3(ComPtr):
     def remove_HostedViewClosing(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsComponent = property(get_IsComponent, None)
     TitleBar = property(get_TitleBar, None)
-    HostedViewClosing = event()
+    HostedViewClosing = event(add_HostedViewClosing, remove_HostedViewClosing)
 class ICoreApplicationView5(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreApplicationView5'
@@ -368,8 +375,8 @@ class ICoreApplicationViewTitleBar(ComPtr):
     IsVisible = property(get_IsVisible, None)
     SystemOverlayLeftInset = property(get_SystemOverlayLeftInset, None)
     SystemOverlayRightInset = property(get_SystemOverlayRightInset, None)
-    LayoutMetricsChanged = event()
-    IsVisibleChanged = event()
+    IsVisibleChanged = event(add_IsVisibleChanged, remove_IsVisibleChanged)
+    LayoutMetricsChanged = event(add_LayoutMetricsChanged, remove_LayoutMetricsChanged)
 class ICoreImmersiveApplication(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Core.ICoreImmersiveApplication'
@@ -377,7 +384,7 @@ class ICoreImmersiveApplication(ComPtr):
     @winrt_commethod(6)
     def get_Views(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Core.CoreApplicationView]: ...
     @winrt_commethod(7)
-    def CreateNewView(self, runtimeType: WinRT_String, entryPoint: WinRT_String) -> win32more.Windows.ApplicationModel.Core.CoreApplicationView: ...
+    def CreateNewView(self, runtimeType: hstr, entryPoint: hstr) -> win32more.Windows.ApplicationModel.Core.CoreApplicationView: ...
     @winrt_commethod(8)
     def get_MainView(self) -> win32more.Windows.ApplicationModel.Core.CoreApplicationView: ...
     MainView = property(get_MainView, None)
@@ -403,7 +410,7 @@ class IFrameworkView(ComPtr):
     @winrt_commethod(7)
     def SetWindow(self, window: win32more.Windows.UI.Core.CoreWindow) -> Void: ...
     @winrt_commethod(8)
-    def Load(self, entryPoint: WinRT_String) -> Void: ...
+    def Load(self, entryPoint: hstr) -> Void: ...
     @winrt_commethod(9)
     def Run(self) -> Void: ...
     @winrt_commethod(10)

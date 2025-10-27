@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Input
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -36,7 +36,7 @@ class AccessKeyDisplayRequestedEventArgs(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Input.AccessKeyDisplayRequestedEventArgs: ...
     @winrt_mixinmethod
-    def get_PressedKeys(self: win32more.Windows.UI.Xaml.Input.IAccessKeyDisplayRequestedEventArgs) -> WinRT_String: ...
+    def get_PressedKeys(self: win32more.Windows.UI.Xaml.Input.IAccessKeyDisplayRequestedEventArgs) -> hstr: ...
     PressedKeys = property(get_PressedKeys, None)
 class AccessKeyInvokedEventArgs(ComPtr):
     extends: IInspectable
@@ -76,6 +76,7 @@ class AccessKeyManager(ComPtr, metaclass=_AccessKeyManager_Meta_):
     def ExitDisplayMode(cls: win32more.Windows.UI.Xaml.Input.IAccessKeyManagerStatics) -> Void: ...
     _AccessKeyManager_Meta_.AreKeyTipsEnabled = property(get_AreKeyTipsEnabled, put_AreKeyTipsEnabled)
     _AccessKeyManager_Meta_.IsDisplayModeEnabled = property(get_IsDisplayModeEnabled, None)
+    _AccessKeyManager_Meta_.IsDisplayModeEnabledChanged = event(add_IsDisplayModeEnabledChanged, remove_IsDisplayModeEnabledChanged)
 class CanExecuteRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.ICanExecuteRequestedEventArgs
@@ -198,7 +199,9 @@ class FocusInputDeviceKind(Enum, Int32):
     Pen = 3
     Keyboard = 4
     GameController = 5
-class FocusManager(ComPtr):
+class _FocusManager_Meta_(ComPtr.__class__):
+    pass
+class FocusManager(ComPtr, metaclass=_FocusManager_Meta_):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IFocusManager
     _classid_ = 'Windows.UI.Xaml.Input.FocusManager'
@@ -246,6 +249,10 @@ class FocusManager(ComPtr):
     @GetFocusedElement.register
     @winrt_classmethod
     def GetFocusedElement(cls: win32more.Windows.UI.Xaml.Input.IFocusManagerStatics) -> IInspectable: ...
+    _FocusManager_Meta_.GettingFocus = event(add_GettingFocus, remove_GettingFocus)
+    _FocusManager_Meta_.GotFocus = event(add_GotFocus, remove_GotFocus)
+    _FocusManager_Meta_.LosingFocus = event(add_LosingFocus, remove_LosingFocus)
+    _FocusManager_Meta_.LostFocus = event(add_LostFocus, remove_LostFocus)
 class FocusManagerGotFocusEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IFocusManagerGotFocusEventArgs
@@ -359,7 +366,7 @@ class IAccessKeyDisplayRequestedEventArgs(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyDisplayRequestedEventArgs'
     _iid_ = Guid('{0c079e55-13fe-4d03-a61d-e12f06567286}')
     @winrt_commethod(6)
-    def get_PressedKeys(self) -> WinRT_String: ...
+    def get_PressedKeys(self) -> hstr: ...
     PressedKeys = property(get_PressedKeys, None)
 class IAccessKeyInvokedEventArgs(ComPtr):
     extends: IInspectable
@@ -387,7 +394,7 @@ class IAccessKeyManagerStatics(ComPtr):
     @winrt_commethod(9)
     def ExitDisplayMode(self) -> Void: ...
     IsDisplayModeEnabled = property(get_IsDisplayModeEnabled, None)
-    IsDisplayModeEnabledChanged = event()
+    IsDisplayModeEnabledChanged = event(add_IsDisplayModeEnabledChanged, remove_IsDisplayModeEnabledChanged)
 class IAccessKeyManagerStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IAccessKeyManagerStatics2'
@@ -436,7 +443,7 @@ class ICommand(ComPtr):
     def CanExecute(self, parameter: IInspectable) -> Boolean: ...
     @winrt_commethod(9)
     def Execute(self, parameter: IInspectable) -> Void: ...
-    CanExecuteChanged = event()
+    CanExecuteChanged = event(add_CanExecuteChanged, remove_CanExecuteChanged)
 class IContextRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IContextRequestedEventArgs'
@@ -581,10 +588,10 @@ class IFocusManagerStatics6(ComPtr):
     def add_LosingFocus(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.UI.Xaml.Input.LosingFocusEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_LosingFocus(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    GotFocus = event()
-    LostFocus = event()
-    GettingFocus = event()
-    LosingFocus = event()
+    GettingFocus = event(add_GettingFocus, remove_GettingFocus)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LosingFocus = event(add_LosingFocus, remove_LosingFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class IFocusManagerStatics7(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IFocusManagerStatics7'
@@ -752,7 +759,7 @@ class IKeyRoutedEventArgs3(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Input.IKeyRoutedEventArgs3'
     _iid_ = Guid('{2779f5b4-ca41-411b-a8ef-f4fc78e78057}')
     @winrt_commethod(6)
-    def get_DeviceId(self) -> WinRT_String: ...
+    def get_DeviceId(self) -> hstr: ...
     DeviceId = property(get_DeviceId, None)
 class IKeyboardAccelerator(ComPtr):
     extends: IInspectable
@@ -782,7 +789,7 @@ class IKeyboardAccelerator(ComPtr):
     Key = property(get_Key, put_Key)
     Modifiers = property(get_Modifiers, put_Modifiers)
     ScopeOwner = property(get_ScopeOwner, put_ScopeOwner)
-    Invoked = event()
+    Invoked = event(add_Invoked, remove_Invoked)
 class IKeyboardAcceleratorFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IKeyboardAcceleratorFactory'
@@ -1175,9 +1182,9 @@ class IXamlUICommand(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Input.IXamlUICommand'
     _iid_ = Guid('{8494f8d4-ead1-5f01-ad2e-a8cad4f9dc0e}')
     @winrt_commethod(6)
-    def get_Label(self) -> WinRT_String: ...
+    def get_Label(self) -> hstr: ...
     @winrt_commethod(7)
-    def put_Label(self, value: WinRT_String) -> Void: ...
+    def put_Label(self, value: hstr) -> Void: ...
     @winrt_commethod(8)
     def get_IconSource(self) -> win32more.Windows.UI.Xaml.Controls.IconSource: ...
     @winrt_commethod(9)
@@ -1185,13 +1192,13 @@ class IXamlUICommand(ComPtr):
     @winrt_commethod(10)
     def get_KeyboardAccelerators(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Input.KeyboardAccelerator]: ...
     @winrt_commethod(11)
-    def get_AccessKey(self) -> WinRT_String: ...
+    def get_AccessKey(self) -> hstr: ...
     @winrt_commethod(12)
-    def put_AccessKey(self, value: WinRT_String) -> Void: ...
+    def put_AccessKey(self, value: hstr) -> Void: ...
     @winrt_commethod(13)
-    def get_Description(self) -> WinRT_String: ...
+    def get_Description(self) -> hstr: ...
     @winrt_commethod(14)
-    def put_Description(self, value: WinRT_String) -> Void: ...
+    def put_Description(self, value: hstr) -> Void: ...
     @winrt_commethod(15)
     def get_Command(self) -> win32more.Windows.UI.Xaml.Input.ICommand: ...
     @winrt_commethod(16)
@@ -1212,8 +1219,8 @@ class IXamlUICommand(ComPtr):
     IconSource = property(get_IconSource, put_IconSource)
     KeyboardAccelerators = property(get_KeyboardAccelerators, None)
     Label = property(get_Label, put_Label)
-    ExecuteRequested = event()
-    CanExecuteRequested = event()
+    CanExecuteRequested = event(add_CanExecuteRequested, remove_CanExecuteRequested)
+    ExecuteRequested = event(add_ExecuteRequested, remove_ExecuteRequested)
 class IXamlUICommandFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Input.IXamlUICommandFactory'
@@ -1389,7 +1396,7 @@ class KeyRoutedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_OriginalKey(self: win32more.Windows.UI.Xaml.Input.IKeyRoutedEventArgs2) -> win32more.Windows.System.VirtualKey: ...
     @winrt_mixinmethod
-    def get_DeviceId(self: win32more.Windows.UI.Xaml.Input.IKeyRoutedEventArgs3) -> WinRT_String: ...
+    def get_DeviceId(self: win32more.Windows.UI.Xaml.Input.IKeyRoutedEventArgs3) -> hstr: ...
     DeviceId = property(get_DeviceId, None)
     Handled = property(get_Handled, put_Handled)
     Key = property(get_Key, None)
@@ -1454,7 +1461,7 @@ class KeyboardAccelerator(ComPtr, metaclass=_KeyboardAccelerator_Meta_):
     _KeyboardAccelerator_Meta_.KeyProperty = property(get_KeyProperty, None)
     _KeyboardAccelerator_Meta_.ModifiersProperty = property(get_ModifiersProperty, None)
     _KeyboardAccelerator_Meta_.ScopeOwnerProperty = property(get_ScopeOwnerProperty, None)
-    Invoked = event()
+    Invoked = event(add_Invoked, remove_Invoked)
 class KeyboardAcceleratorInvokedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IKeyboardAcceleratorInvokedEventArgs
@@ -1975,9 +1982,9 @@ class XamlUICommand(ComPtr, metaclass=_XamlUICommand_Meta_):
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Input.IXamlUICommandFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Input.XamlUICommand: ...
     @winrt_mixinmethod
-    def get_Label(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> WinRT_String: ...
+    def get_Label(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> hstr: ...
     @winrt_mixinmethod
-    def put_Label(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand, value: WinRT_String) -> Void: ...
+    def put_Label(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_IconSource(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> win32more.Windows.UI.Xaml.Controls.IconSource: ...
     @winrt_mixinmethod
@@ -1985,13 +1992,13 @@ class XamlUICommand(ComPtr, metaclass=_XamlUICommand_Meta_):
     @winrt_mixinmethod
     def get_KeyboardAccelerators(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Input.KeyboardAccelerator]: ...
     @winrt_mixinmethod
-    def get_AccessKey(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> WinRT_String: ...
+    def get_AccessKey(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> hstr: ...
     @winrt_mixinmethod
-    def put_AccessKey(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand, value: WinRT_String) -> Void: ...
+    def put_AccessKey(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand, value: hstr) -> Void: ...
     @winrt_mixinmethod
-    def get_Description(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> WinRT_String: ...
+    def get_Description(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> hstr: ...
     @winrt_mixinmethod
-    def put_Description(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand, value: WinRT_String) -> Void: ...
+    def put_Description(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_Command(self: win32more.Windows.UI.Xaml.Input.IXamlUICommand) -> win32more.Windows.UI.Xaml.Input.ICommand: ...
     @winrt_mixinmethod
@@ -2038,9 +2045,9 @@ class XamlUICommand(ComPtr, metaclass=_XamlUICommand_Meta_):
     _XamlUICommand_Meta_.IconSourceProperty = property(get_IconSourceProperty, None)
     _XamlUICommand_Meta_.KeyboardAcceleratorsProperty = property(get_KeyboardAcceleratorsProperty, None)
     _XamlUICommand_Meta_.LabelProperty = property(get_LabelProperty, None)
-    ExecuteRequested = event()
-    CanExecuteRequested = event()
-    CanExecuteChanged = event()
+    CanExecuteChanged = event(add_CanExecuteChanged, remove_CanExecuteChanged)
+    CanExecuteRequested = event(add_CanExecuteRequested, remove_CanExecuteRequested)
+    ExecuteRequested = event(add_ExecuteRequested, remove_ExecuteRequested)
 
 
 make_ready(__name__)

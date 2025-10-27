@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Devices.SerialCommunication
 import win32more.Windows.Win32.Foundation
 DEVPKEY_DeviceInterface_Serial_UsbVendorId: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=2)

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Playback
@@ -61,7 +61,7 @@ class HdcpSession(ComPtr):
     def remove_ProtectionChanged(self: win32more.Windows.Media.Protection.IHdcpSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    ProtectionChanged = event()
+    ProtectionChanged = event(add_ProtectionChanged, remove_ProtectionChanged)
 class HdcpSetProtectionResult(Enum, Int32):
     Success = 0
     TimedOut = 1
@@ -98,7 +98,7 @@ class IHdcpSession(ComPtr):
     def add_ProtectionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.HdcpSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ProtectionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ProtectionChanged = event()
+    ProtectionChanged = event(add_ProtectionChanged, remove_ProtectionChanged)
 class IMediaProtectionManager(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Protection.IMediaProtectionManager'
@@ -118,9 +118,9 @@ class IMediaProtectionManager(ComPtr):
     @winrt_commethod(12)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-    ServiceRequested = event()
-    RebootNeeded = event()
-    ComponentLoadFailed = event()
+    ComponentLoadFailed = event(add_ComponentLoadFailed, remove_ComponentLoadFailed)
+    RebootNeeded = event(add_RebootNeeded, remove_RebootNeeded)
+    ServiceRequested = event(add_ServiceRequested, remove_ServiceRequested)
 class IMediaProtectionPMPServer(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Protection.IMediaProtectionPMPServer'
@@ -155,7 +155,7 @@ class IProtectionCapabilities(ComPtr):
     _classid_ = 'Windows.Media.Protection.IProtectionCapabilities'
     _iid_ = Guid('{c7ac5d7e-7480-4d29-a464-7bcd913dd8e4}')
     @winrt_commethod(6)
-    def IsTypeSupported(self, type: WinRT_String, keySystem: WinRT_String) -> win32more.Windows.Media.Protection.ProtectionCapabilityResult: ...
+    def IsTypeSupported(self, type: hstr, keySystem: hstr) -> win32more.Windows.Media.Protection.ProtectionCapabilityResult: ...
 class IRevocationAndRenewalInformation(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Protection.IRevocationAndRenewalInformation'
@@ -170,13 +170,13 @@ class IRevocationAndRenewalItem(ComPtr):
     @winrt_commethod(6)
     def get_Reasons(self) -> win32more.Windows.Media.Protection.RevocationAndRenewalReasons: ...
     @winrt_commethod(7)
-    def get_HeaderHash(self) -> WinRT_String: ...
+    def get_HeaderHash(self) -> hstr: ...
     @winrt_commethod(8)
-    def get_PublicKeyHash(self) -> WinRT_String: ...
+    def get_PublicKeyHash(self) -> hstr: ...
     @winrt_commethod(9)
-    def get_Name(self) -> WinRT_String: ...
+    def get_Name(self) -> hstr: ...
     @winrt_commethod(10)
-    def get_RenewalId(self) -> WinRT_String: ...
+    def get_RenewalId(self) -> hstr: ...
     HeaderHash = property(get_HeaderHash, None)
     Name = property(get_Name, None)
     PublicKeyHash = property(get_PublicKeyHash, None)
@@ -227,9 +227,9 @@ class MediaProtectionManager(ComPtr):
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Media.Protection.IMediaProtectionManager) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-    ServiceRequested = event()
-    RebootNeeded = event()
-    ComponentLoadFailed = event()
+    ComponentLoadFailed = event(add_ComponentLoadFailed, remove_ComponentLoadFailed)
+    RebootNeeded = event(add_RebootNeeded, remove_RebootNeeded)
+    ServiceRequested = event(add_ServiceRequested, remove_ServiceRequested)
 class MediaProtectionPMPServer(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Protection.IMediaProtectionPMPServer
@@ -266,7 +266,7 @@ class ProtectionCapabilities(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.ProtectionCapabilities: ...
     @winrt_mixinmethod
-    def IsTypeSupported(self: win32more.Windows.Media.Protection.IProtectionCapabilities, type: WinRT_String, keySystem: WinRT_String) -> win32more.Windows.Media.Protection.ProtectionCapabilityResult: ...
+    def IsTypeSupported(self: win32more.Windows.Media.Protection.IProtectionCapabilities, type: hstr, keySystem: hstr) -> win32more.Windows.Media.Protection.ProtectionCapabilityResult: ...
 class ProtectionCapabilityResult(Enum, Int32):
     NotSupported = 0
     Maybe = 1
@@ -297,13 +297,13 @@ class RevocationAndRenewalItem(ComPtr):
     @winrt_mixinmethod
     def get_Reasons(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> win32more.Windows.Media.Protection.RevocationAndRenewalReasons: ...
     @winrt_mixinmethod
-    def get_HeaderHash(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> WinRT_String: ...
+    def get_HeaderHash(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> hstr: ...
     @winrt_mixinmethod
-    def get_PublicKeyHash(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> WinRT_String: ...
+    def get_PublicKeyHash(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> hstr: ...
     @winrt_mixinmethod
-    def get_Name(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> WinRT_String: ...
+    def get_Name(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> hstr: ...
     @winrt_mixinmethod
-    def get_RenewalId(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> WinRT_String: ...
+    def get_RenewalId(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> hstr: ...
     HeaderHash = property(get_HeaderHash, None)
     Name = property(get_Name, None)
     PublicKeyHash = property(get_PublicKeyHash, None)

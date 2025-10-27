@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI.Xaml.Interop
 import win32more.Windows.Foundation
 class BindableVectorChangedEventHandler(MulticastDelegate):
@@ -33,7 +33,7 @@ class IBindableObservableVector(ComPtr):
     def add_VectorChanged(self, handler: win32more.Microsoft.UI.Xaml.Interop.BindableVectorChangedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_VectorChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    VectorChanged = event()
+    VectorChanged = event(add_VectorChanged, remove_VectorChanged)
 class IBindableVector(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Interop.IBindableVector'
@@ -78,7 +78,7 @@ class INotifyCollectionChanged(ComPtr):
     def add_CollectionChanged(self, handler: win32more.Microsoft.UI.Xaml.Interop.NotifyCollectionChangedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_CollectionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    CollectionChanged = event()
+    CollectionChanged = event(add_CollectionChanged, remove_CollectionChanged)
 class INotifyCollectionChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Interop.INotifyCollectionChangedEventArgs'

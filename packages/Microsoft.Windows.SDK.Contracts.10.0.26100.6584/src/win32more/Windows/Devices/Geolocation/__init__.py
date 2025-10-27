@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -18,13 +18,13 @@ class CivicAddress(ComPtr):
     default_interface: win32more.Windows.Devices.Geolocation.ICivicAddress
     _classid_ = 'Windows.Devices.Geolocation.CivicAddress'
     @winrt_mixinmethod
-    def get_Country(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> WinRT_String: ...
+    def get_Country(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> hstr: ...
     @winrt_mixinmethod
-    def get_State(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> WinRT_String: ...
+    def get_State(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> hstr: ...
     @winrt_mixinmethod
-    def get_City(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> WinRT_String: ...
+    def get_City(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> hstr: ...
     @winrt_mixinmethod
-    def get_PostalCode(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> WinRT_String: ...
+    def get_PostalCode(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> hstr: ...
     @winrt_mixinmethod
     def get_Timestamp(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> win32more.Windows.Foundation.DateTime: ...
     City = property(get_City, None)
@@ -251,8 +251,8 @@ class Geolocator(ComPtr, metaclass=_Geolocator_Meta_):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     _Geolocator_Meta_.DefaultGeoposition = property(get_DefaultGeoposition, put_DefaultGeoposition)
     _Geolocator_Meta_.IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended, None)
-    PositionChanged = event()
-    StatusChanged = event()
+    PositionChanged = event(add_PositionChanged, remove_PositionChanged)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class Geopath(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeopath
@@ -376,7 +376,7 @@ class GeovisitMonitor(ComPtr):
     @winrt_classmethod
     def GetLastReportAsync(cls: win32more.Windows.Devices.Geolocation.IGeovisitMonitorStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Geolocation.Geovisit]: ...
     MonitoringScope = property(get_MonitoringScope, None)
-    VisitStateChanged = event()
+    VisitStateChanged = event(add_VisitStateChanged, remove_VisitStateChanged)
 class GeovisitStateChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeovisitStateChangedEventArgs
@@ -395,13 +395,13 @@ class ICivicAddress(ComPtr):
     _classid_ = 'Windows.Devices.Geolocation.ICivicAddress'
     _iid_ = Guid('{a8567a1a-64f4-4d48-bcea-f6b008eca34c}')
     @winrt_commethod(6)
-    def get_Country(self) -> WinRT_String: ...
+    def get_Country(self) -> hstr: ...
     @winrt_commethod(7)
-    def get_State(self) -> WinRT_String: ...
+    def get_State(self) -> hstr: ...
     @winrt_commethod(8)
-    def get_City(self) -> WinRT_String: ...
+    def get_City(self) -> hstr: ...
     @winrt_commethod(9)
-    def get_PostalCode(self) -> WinRT_String: ...
+    def get_PostalCode(self) -> hstr: ...
     @winrt_commethod(10)
     def get_Timestamp(self) -> win32more.Windows.Foundation.DateTime: ...
     City = property(get_City, None)
@@ -584,8 +584,8 @@ class IGeolocator(ComPtr):
     LocationStatus = property(get_LocationStatus, None)
     MovementThreshold = property(get_MovementThreshold, put_MovementThreshold)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
-    PositionChanged = event()
-    StatusChanged = event()
+    PositionChanged = event(add_PositionChanged, remove_PositionChanged)
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IGeolocator2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeolocator2'
@@ -715,7 +715,7 @@ class IGeovisitMonitor(ComPtr):
     @winrt_commethod(10)
     def remove_VisitStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MonitoringScope = property(get_MonitoringScope, None)
-    VisitStateChanged = event()
+    VisitStateChanged = event(add_VisitStateChanged, remove_VisitStateChanged)
 class IGeovisitMonitorStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeovisitMonitorStatics'
@@ -754,9 +754,9 @@ class IVenueData(ComPtr):
     _classid_ = 'Windows.Devices.Geolocation.IVenueData'
     _iid_ = Guid('{66f39187-60e3-4b2f-b527-4f53f1c3c677}')
     @winrt_commethod(6)
-    def get_Id(self) -> WinRT_String: ...
+    def get_Id(self) -> hstr: ...
     @winrt_commethod(7)
-    def get_Level(self) -> WinRT_String: ...
+    def get_Level(self) -> hstr: ...
     Id = property(get_Id, None)
     Level = property(get_Level, None)
 class PositionAccuracy(Enum, Int32):
@@ -796,9 +796,9 @@ class VenueData(ComPtr):
     default_interface: win32more.Windows.Devices.Geolocation.IVenueData
     _classid_ = 'Windows.Devices.Geolocation.VenueData'
     @winrt_mixinmethod
-    def get_Id(self: win32more.Windows.Devices.Geolocation.IVenueData) -> WinRT_String: ...
+    def get_Id(self: win32more.Windows.Devices.Geolocation.IVenueData) -> hstr: ...
     @winrt_mixinmethod
-    def get_Level(self: win32more.Windows.Devices.Geolocation.IVenueData) -> WinRT_String: ...
+    def get_Level(self: win32more.Windows.Devices.Geolocation.IVenueData) -> hstr: ...
     Id = property(get_Id, None)
     Level = property(get_Level, None)
 class VisitMonitoringScope(Enum, Int32):

@@ -1,14 +1,14 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.System.Diagnostics.Telemetry
 class IPlatformTelemetryClientStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics'
     _iid_ = Guid('{9bf3f25d-d5c3-4eea-8dbe-9c8dbb0d9d8f}')
     @winrt_commethod(6)
-    def Register(self, id: WinRT_String) -> win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
+    def Register(self, id: hstr) -> win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
     @winrt_commethod(7)
-    def RegisterWithSettings(self, id: WinRT_String, settings: win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings) -> win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
+    def RegisterWithSettings(self, id: hstr, settings: win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings) -> win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
 class IPlatformTelemetryRegistrationResult(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationResult'
@@ -34,9 +34,9 @@ class PlatformTelemetryClient(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient'
     @winrt_classmethod
-    def Register(cls: win32more.Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics, id: WinRT_String) -> win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
+    def Register(cls: win32more.Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics, id: hstr) -> win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
     @winrt_classmethod
-    def RegisterWithSettings(cls: win32more.Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics, id: WinRT_String, settings: win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings) -> win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
+    def RegisterWithSettings(cls: win32more.Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics, id: hstr, settings: win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings) -> win32more.Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
 class PlatformTelemetryRegistrationResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationResult

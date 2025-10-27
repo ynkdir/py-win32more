@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.UI.Xaml.Resources
 class _CustomXamlResourceLoader_Meta_(ComPtr.__class__):
     pass
@@ -17,7 +17,7 @@ class CustomXamlResourceLoader(ComPtr, metaclass=_CustomXamlResourceLoader_Meta_
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Resources.CustomXamlResourceLoader: ...
     @winrt_mixinmethod
-    def GetResource(self: win32more.Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderOverrides, resourceId: WinRT_String, objectType: WinRT_String, propertyName: WinRT_String, propertyType: WinRT_String) -> IInspectable: ...
+    def GetResource(self: win32more.Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderOverrides, resourceId: hstr, objectType: hstr, propertyName: hstr, propertyType: hstr) -> IInspectable: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderStatics) -> win32more.Windows.UI.Xaml.Resources.CustomXamlResourceLoader: ...
     @winrt_classmethod
@@ -38,7 +38,7 @@ class ICustomXamlResourceLoaderOverrides(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderOverrides'
     _iid_ = Guid('{f851e991-af02-46e8-9af8-427b7ebfe9f8}')
     @winrt_commethod(6)
-    def GetResource(self, resourceId: WinRT_String, objectType: WinRT_String, propertyName: WinRT_String, propertyType: WinRT_String) -> IInspectable: ...
+    def GetResource(self, resourceId: hstr, objectType: hstr, propertyName: hstr, propertyType: hstr) -> IInspectable: ...
 class ICustomXamlResourceLoaderStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderStatics'

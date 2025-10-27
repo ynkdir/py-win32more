@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WebSocket
 WEB_SOCKET_MAX_CLOSE_REASON_LENGTH: UInt32 = 123

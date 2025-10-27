@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI.Xaml.Markup
 import win32more.Microsoft.UI.Xaml.XamlTypeInfo
 import win32more.Windows.UI.Xaml.Interop
@@ -29,7 +29,7 @@ class XamlControlsXamlMetaDataProvider(ComPtr):
     @winrt_mixinmethod
     def GetXamlType(self: win32more.Microsoft.UI.Xaml.Markup.IXamlMetadataProvider, type: win32more.Windows.UI.Xaml.Interop.TypeName) -> win32more.Microsoft.UI.Xaml.Markup.IXamlType: ...
     @winrt_mixinmethod
-    def GetXamlTypeByFullName(self: win32more.Microsoft.UI.Xaml.Markup.IXamlMetadataProvider, fullName: WinRT_String) -> win32more.Microsoft.UI.Xaml.Markup.IXamlType: ...
+    def GetXamlTypeByFullName(self: win32more.Microsoft.UI.Xaml.Markup.IXamlMetadataProvider, fullName: hstr) -> win32more.Microsoft.UI.Xaml.Markup.IXamlType: ...
     @winrt_mixinmethod
     def GetXmlnsDefinitions(self: win32more.Microsoft.UI.Xaml.Markup.IXamlMetadataProvider) -> ReceiveArray[win32more.Microsoft.UI.Xaml.Markup.XmlnsDefinition]: ...
     @winrt_classmethod

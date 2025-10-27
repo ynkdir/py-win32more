@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Devices.Pwm
 import win32more.Windows.Win32.Foundation
 GUID_DEVINTERFACE_PWM_CONTROLLER: Guid = Guid('{60824b4c-eed1-4c9c-b49c-1b961461a819}')

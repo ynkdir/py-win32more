@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
@@ -19,15 +19,15 @@ class AppWindow(ComPtr):
     @winrt_mixinmethod
     def get_IsVisible(self: win32more.Windows.UI.WindowManagement.IAppWindow) -> Boolean: ...
     @winrt_mixinmethod
-    def get_PersistedStateId(self: win32more.Windows.UI.WindowManagement.IAppWindow) -> WinRT_String: ...
+    def get_PersistedStateId(self: win32more.Windows.UI.WindowManagement.IAppWindow) -> hstr: ...
     @winrt_mixinmethod
-    def put_PersistedStateId(self: win32more.Windows.UI.WindowManagement.IAppWindow, value: WinRT_String) -> Void: ...
+    def put_PersistedStateId(self: win32more.Windows.UI.WindowManagement.IAppWindow, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_Presenter(self: win32more.Windows.UI.WindowManagement.IAppWindow) -> win32more.Windows.UI.WindowManagement.AppWindowPresenter: ...
     @winrt_mixinmethod
-    def get_Title(self: win32more.Windows.UI.WindowManagement.IAppWindow) -> WinRT_String: ...
+    def get_Title(self: win32more.Windows.UI.WindowManagement.IAppWindow) -> hstr: ...
     @winrt_mixinmethod
-    def put_Title(self: win32more.Windows.UI.WindowManagement.IAppWindow, value: WinRT_String) -> Void: ...
+    def put_Title(self: win32more.Windows.UI.WindowManagement.IAppWindow, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_TitleBar(self: win32more.Windows.UI.WindowManagement.IAppWindow) -> win32more.Windows.UI.WindowManagement.AppWindowTitleBar: ...
     @winrt_mixinmethod
@@ -73,7 +73,7 @@ class AppWindow(ComPtr):
     @winrt_classmethod
     def ClearAllPersistedState(cls: win32more.Windows.UI.WindowManagement.IAppWindowStatics) -> Void: ...
     @winrt_classmethod
-    def ClearPersistedState(cls: win32more.Windows.UI.WindowManagement.IAppWindowStatics, key: WinRT_String) -> Void: ...
+    def ClearPersistedState(cls: win32more.Windows.UI.WindowManagement.IAppWindowStatics, key: hstr) -> Void: ...
     Content = property(get_Content, None)
     DispatcherQueue = property(get_DispatcherQueue, None)
     Frame = property(get_Frame, None)
@@ -84,9 +84,9 @@ class AppWindow(ComPtr):
     TitleBar = property(get_TitleBar, None)
     UIContext = property(get_UIContext, None)
     WindowingEnvironment = property(get_WindowingEnvironment, None)
-    Changed = event()
-    Closed = event()
-    CloseRequested = event()
+    Changed = event(add_Changed, remove_Changed)
+    CloseRequested = event(add_CloseRequested, remove_CloseRequested)
+    Closed = event(add_Closed, remove_Closed)
 class AppWindowChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IAppWindowChangedEventArgs
@@ -306,7 +306,7 @@ class DisplayRegion(ComPtr):
     default_interface: win32more.Windows.UI.WindowManagement.IDisplayRegion
     _classid_ = 'Windows.UI.WindowManagement.DisplayRegion'
     @winrt_mixinmethod
-    def get_DisplayMonitorDeviceId(self: win32more.Windows.UI.WindowManagement.IDisplayRegion) -> WinRT_String: ...
+    def get_DisplayMonitorDeviceId(self: win32more.Windows.UI.WindowManagement.IDisplayRegion) -> hstr: ...
     @winrt_mixinmethod
     def get_IsVisible(self: win32more.Windows.UI.WindowManagement.IDisplayRegion) -> Boolean: ...
     @winrt_mixinmethod
@@ -324,7 +324,7 @@ class DisplayRegion(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
     WorkAreaOffset = property(get_WorkAreaOffset, None)
     WorkAreaSize = property(get_WorkAreaSize, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class FullScreenPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.IFullScreenPresentationConfiguration
@@ -356,15 +356,15 @@ class IAppWindow(ComPtr):
     @winrt_commethod(9)
     def get_IsVisible(self) -> Boolean: ...
     @winrt_commethod(10)
-    def get_PersistedStateId(self) -> WinRT_String: ...
+    def get_PersistedStateId(self) -> hstr: ...
     @winrt_commethod(11)
-    def put_PersistedStateId(self, value: WinRT_String) -> Void: ...
+    def put_PersistedStateId(self, value: hstr) -> Void: ...
     @winrt_commethod(12)
     def get_Presenter(self) -> win32more.Windows.UI.WindowManagement.AppWindowPresenter: ...
     @winrt_commethod(13)
-    def get_Title(self) -> WinRT_String: ...
+    def get_Title(self) -> hstr: ...
     @winrt_commethod(14)
-    def put_Title(self, value: WinRT_String) -> Void: ...
+    def put_Title(self, value: hstr) -> Void: ...
     @winrt_commethod(15)
     def get_TitleBar(self) -> win32more.Windows.UI.WindowManagement.AppWindowTitleBar: ...
     @winrt_commethod(16)
@@ -415,9 +415,9 @@ class IAppWindow(ComPtr):
     TitleBar = property(get_TitleBar, None)
     UIContext = property(get_UIContext, None)
     WindowingEnvironment = property(get_WindowingEnvironment, None)
-    Changed = event()
-    Closed = event()
-    CloseRequested = event()
+    Changed = event(add_Changed, remove_Changed)
+    CloseRequested = event(add_CloseRequested, remove_CloseRequested)
+    Closed = event(add_Closed, remove_Closed)
 class IAppWindowChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IAppWindowChangedEventArgs'
@@ -524,7 +524,7 @@ class IAppWindowStatics(ComPtr):
     @winrt_commethod(7)
     def ClearAllPersistedState(self) -> Void: ...
     @winrt_commethod(8)
-    def ClearPersistedState(self, key: WinRT_String) -> Void: ...
+    def ClearPersistedState(self, key: hstr) -> Void: ...
 class IAppWindowTitleBar(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IAppWindowTitleBar'
@@ -627,7 +627,7 @@ class IDisplayRegion(ComPtr):
     _classid_ = 'Windows.UI.WindowManagement.IDisplayRegion'
     _iid_ = Guid('{db50c3a2-4094-5f47-8cb1-ea01ddafaa94}')
     @winrt_commethod(6)
-    def get_DisplayMonitorDeviceId(self) -> WinRT_String: ...
+    def get_DisplayMonitorDeviceId(self) -> hstr: ...
     @winrt_commethod(7)
     def get_IsVisible(self) -> Boolean: ...
     @winrt_commethod(8)
@@ -645,7 +645,7 @@ class IDisplayRegion(ComPtr):
     WindowingEnvironment = property(get_WindowingEnvironment, None)
     WorkAreaOffset = property(get_WorkAreaOffset, None)
     WorkAreaSize = property(get_WorkAreaSize, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IFullScreenPresentationConfiguration(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IFullScreenPresentationConfiguration'
@@ -677,7 +677,7 @@ class IWindowingEnvironment(ComPtr):
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsEnabled = property(get_IsEnabled, None)
     Kind = property(get_Kind, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IWindowingEnvironmentAddedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IWindowingEnvironmentAddedEventArgs'
@@ -729,7 +729,7 @@ class WindowingEnvironment(ComPtr):
     def FindAllWithKind(cls: win32more.Windows.UI.WindowManagement.IWindowingEnvironmentStatics, kind: win32more.Windows.UI.WindowManagement.WindowingEnvironmentKind) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.WindowManagement.WindowingEnvironment]: ...
     IsEnabled = property(get_IsEnabled, None)
     Kind = property(get_Kind, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class WindowingEnvironmentAddedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IWindowingEnvironmentAddedEventArgs

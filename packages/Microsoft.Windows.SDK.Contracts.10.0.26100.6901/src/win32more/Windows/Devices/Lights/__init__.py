@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Lights
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
@@ -12,7 +12,7 @@ class ILamp(ComPtr):
     _classid_ = 'Windows.Devices.Lights.ILamp'
     _iid_ = Guid('{047d5b9a-ea45-4b2b-b1a2-14dff00bde7b}')
     @winrt_commethod(6)
-    def get_DeviceId(self) -> WinRT_String: ...
+    def get_DeviceId(self) -> hstr: ...
     @winrt_commethod(7)
     def get_IsEnabled(self) -> Boolean: ...
     @winrt_commethod(8)
@@ -36,13 +36,13 @@ class ILamp(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsColorSettable = property(get_IsColorSettable, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class ILampArray(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArray'
     _iid_ = Guid('{7ace9787-c8a0-4e95-a1e0-d58676538649}')
     @winrt_commethod(6)
-    def get_DeviceId(self) -> WinRT_String: ...
+    def get_DeviceId(self) -> hstr: ...
     @winrt_commethod(7)
     def get_HardwareVendorId(self) -> UInt16: ...
     @winrt_commethod(8)
@@ -116,15 +116,15 @@ class ILampArray2(ComPtr):
     @winrt_commethod(8)
     def remove_AvailabilityChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsAvailable = property(get_IsAvailable, None)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class ILampArrayStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArrayStatics'
     _iid_ = Guid('{7bb8c98d-5fc1-452d-bb1f-4ad410d398ff}')
     @winrt_commethod(6)
-    def GetDeviceSelector(self) -> WinRT_String: ...
+    def GetDeviceSelector(self) -> hstr: ...
     @winrt_commethod(7)
-    def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.LampArray]: ...
+    def FromIdAsync(self, deviceId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.LampArray]: ...
 class ILampAvailabilityChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampAvailabilityChangedEventArgs'
@@ -170,9 +170,9 @@ class ILampStatics(ComPtr):
     _classid_ = 'Windows.Devices.Lights.ILampStatics'
     _iid_ = Guid('{a822416c-8885-401e-b821-8e8b38a8e8ec}')
     @winrt_commethod(6)
-    def GetDeviceSelector(self) -> WinRT_String: ...
+    def GetDeviceSelector(self) -> hstr: ...
     @winrt_commethod(7)
-    def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
+    def FromIdAsync(self, deviceId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
     @winrt_commethod(8)
     def GetDefaultAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
 class Lamp(ComPtr):
@@ -181,7 +181,7 @@ class Lamp(ComPtr):
     default_interface: win32more.Windows.Devices.Lights.ILamp
     _classid_ = 'Windows.Devices.Lights.Lamp'
     @winrt_mixinmethod
-    def get_DeviceId(self: win32more.Windows.Devices.Lights.ILamp) -> WinRT_String: ...
+    def get_DeviceId(self: win32more.Windows.Devices.Lights.ILamp) -> hstr: ...
     @winrt_mixinmethod
     def get_IsEnabled(self: win32more.Windows.Devices.Lights.ILamp) -> Boolean: ...
     @winrt_mixinmethod
@@ -203,9 +203,9 @@ class Lamp(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
-    def GetDeviceSelector(cls: win32more.Windows.Devices.Lights.ILampStatics) -> WinRT_String: ...
+    def GetDeviceSelector(cls: win32more.Windows.Devices.Lights.ILampStatics) -> hstr: ...
     @winrt_classmethod
-    def FromIdAsync(cls: win32more.Windows.Devices.Lights.ILampStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
+    def FromIdAsync(cls: win32more.Windows.Devices.Lights.ILampStatics, deviceId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
     @winrt_classmethod
     def GetDefaultAsync(cls: win32more.Windows.Devices.Lights.ILampStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
@@ -213,13 +213,13 @@ class Lamp(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsColorSettable = property(get_IsColorSettable, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class LampArray(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampArray
     _classid_ = 'Windows.Devices.Lights.LampArray'
     @winrt_mixinmethod
-    def get_DeviceId(self: win32more.Windows.Devices.Lights.ILampArray) -> WinRT_String: ...
+    def get_DeviceId(self: win32more.Windows.Devices.Lights.ILampArray) -> hstr: ...
     @winrt_mixinmethod
     def get_HardwareVendorId(self: win32more.Windows.Devices.Lights.ILampArray) -> UInt16: ...
     @winrt_mixinmethod
@@ -277,9 +277,9 @@ class LampArray(ComPtr):
     @winrt_mixinmethod
     def remove_AvailabilityChanged(self: win32more.Windows.Devices.Lights.ILampArray2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def GetDeviceSelector(cls: win32more.Windows.Devices.Lights.ILampArrayStatics) -> WinRT_String: ...
+    def GetDeviceSelector(cls: win32more.Windows.Devices.Lights.ILampArrayStatics) -> hstr: ...
     @winrt_classmethod
-    def FromIdAsync(cls: win32more.Windows.Devices.Lights.ILampArrayStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.LampArray]: ...
+    def FromIdAsync(cls: win32more.Windows.Devices.Lights.ILampArrayStatics, deviceId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.LampArray]: ...
     BoundingBox = property(get_BoundingBox, None)
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
     DeviceId = property(get_DeviceId, None)
@@ -293,7 +293,7 @@ class LampArray(ComPtr):
     LampCount = property(get_LampCount, None)
     MinUpdateInterval = property(get_MinUpdateInterval, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
-    AvailabilityChanged = event()
+    AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class LampArrayKind(Enum, Int32):
     Undefined = 0
     Keyboard = 1

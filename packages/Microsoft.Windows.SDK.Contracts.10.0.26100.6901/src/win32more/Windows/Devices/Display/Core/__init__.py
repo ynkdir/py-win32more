@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Display
 import win32more.Windows.Devices.Display.Core
 import win32more.Windows.Foundation
@@ -16,7 +16,7 @@ class DisplayAdapter(ComPtr):
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> win32more.Windows.Graphics.DisplayAdapterId: ...
     @winrt_mixinmethod
-    def get_DeviceInterfacePath(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> WinRT_String: ...
+    def get_DeviceInterfacePath(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> hstr: ...
     @winrt_mixinmethod
     def get_SourceCount(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> UInt32: ...
     @winrt_mixinmethod
@@ -133,10 +133,10 @@ class DisplayManager(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def Create(cls: win32more.Windows.Devices.Display.Core.IDisplayManagerStatics, options: win32more.Windows.Devices.Display.Core.DisplayManagerOptions) -> win32more.Windows.Devices.Display.Core.DisplayManager: ...
-    Enabled = event()
-    Disabled = event()
-    Changed = event()
-    PathsFailedOrInvalidated = event()
+    Changed = event(add_Changed, remove_Changed)
+    Disabled = event(add_Disabled, remove_Disabled)
+    Enabled = event(add_Enabled, remove_Enabled)
+    PathsFailedOrInvalidated = event(add_PathsFailedOrInvalidated, remove_PathsFailedOrInvalidated)
 class DisplayManagerChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayManagerChangedEventArgs
@@ -245,7 +245,7 @@ class DisplayMuxDevice(ComPtr):
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice
     _classid_ = 'Windows.Devices.Display.Core.DisplayMuxDevice'
     @winrt_mixinmethod
-    def get_Id(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> WinRT_String: ...
+    def get_Id(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> hstr: ...
     @winrt_mixinmethod
     def get_IsActive(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> Boolean: ...
     @winrt_mixinmethod
@@ -267,15 +267,15 @@ class DisplayMuxDevice(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
-    def GetDeviceSelector(cls: win32more.Windows.Devices.Display.Core.IDisplayMuxDeviceStatics) -> WinRT_String: ...
+    def GetDeviceSelector(cls: win32more.Windows.Devices.Display.Core.IDisplayMuxDeviceStatics) -> hstr: ...
     @winrt_classmethod
-    def FromIdAsync(cls: win32more.Windows.Devices.Display.Core.IDisplayMuxDeviceStatics, deviceInterfaceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Display.Core.DisplayMuxDevice]: ...
+    def FromIdAsync(cls: win32more.Windows.Devices.Display.Core.IDisplayMuxDeviceStatics, deviceInterfaceId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Display.Core.DisplayMuxDevice]: ...
     CurrentTarget = property(get_CurrentTarget, None)
     Id = property(get_Id, None)
     IsActive = property(get_IsActive, None)
     IsAutomaticTargetSwitchingEnabled = property(get_IsAutomaticTargetSwitchingEnabled, None)
     PreferredTarget = property(get_PreferredTarget, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class DisplayPath(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayPath
@@ -437,7 +437,7 @@ class DisplaySource(ComPtr):
     AdapterId = property(get_AdapterId, None)
     SourceId = property(get_SourceId, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class DisplaySourceStatus(Enum, Int32):
     Active = 0
     PoweredOff = 1
@@ -520,7 +520,7 @@ class DisplayTarget(ComPtr):
     @winrt_mixinmethod
     def get_Adapter(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> win32more.Windows.Devices.Display.Core.DisplayAdapter: ...
     @winrt_mixinmethod
-    def get_DeviceInterfacePath(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> WinRT_String: ...
+    def get_DeviceInterfacePath(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> hstr: ...
     @winrt_mixinmethod
     def get_AdapterRelativeId(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> UInt32: ...
     @winrt_mixinmethod
@@ -534,7 +534,7 @@ class DisplayTarget(ComPtr):
     @winrt_mixinmethod
     def get_MonitorPersistence(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> win32more.Windows.Devices.Display.Core.DisplayTargetPersistence: ...
     @winrt_mixinmethod
-    def get_StableMonitorId(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> WinRT_String: ...
+    def get_StableMonitorId(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> hstr: ...
     @winrt_mixinmethod
     def TryGetMonitor(self: win32more.Windows.Devices.Display.Core.IDisplayTarget) -> win32more.Windows.Devices.Display.DisplayMonitor: ...
     @winrt_mixinmethod
@@ -672,7 +672,7 @@ class IDisplayAdapter(ComPtr):
     @winrt_commethod(6)
     def get_Id(self) -> win32more.Windows.Graphics.DisplayAdapterId: ...
     @winrt_commethod(7)
-    def get_DeviceInterfacePath(self) -> WinRT_String: ...
+    def get_DeviceInterfacePath(self) -> hstr: ...
     @winrt_commethod(8)
     def get_SourceCount(self) -> UInt32: ...
     @winrt_commethod(9)
@@ -786,10 +786,10 @@ class IDisplayManager(ComPtr):
     def Start(self) -> Void: ...
     @winrt_commethod(24)
     def Stop(self) -> Void: ...
-    Enabled = event()
-    Disabled = event()
-    Changed = event()
-    PathsFailedOrInvalidated = event()
+    Changed = event(add_Changed, remove_Changed)
+    Disabled = event(add_Disabled, remove_Disabled)
+    Enabled = event(add_Enabled, remove_Enabled)
+    PathsFailedOrInvalidated = event(add_PathsFailedOrInvalidated, remove_PathsFailedOrInvalidated)
 class IDisplayManager2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayManager2'
@@ -906,7 +906,7 @@ class IDisplayMuxDevice(ComPtr):
     _classid_ = 'Windows.Devices.Display.Core.IDisplayMuxDevice'
     _iid_ = Guid('{d81c4925-83dd-52c9-ab4e-e0833fc75068}')
     @winrt_commethod(6)
-    def get_Id(self) -> WinRT_String: ...
+    def get_Id(self) -> hstr: ...
     @winrt_commethod(7)
     def get_IsActive(self) -> Boolean: ...
     @winrt_commethod(8)
@@ -930,15 +930,15 @@ class IDisplayMuxDevice(ComPtr):
     IsActive = property(get_IsActive, None)
     IsAutomaticTargetSwitchingEnabled = property(get_IsAutomaticTargetSwitchingEnabled, None)
     PreferredTarget = property(get_PreferredTarget, None)
-    Changed = event()
+    Changed = event(add_Changed, remove_Changed)
 class IDisplayMuxDeviceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayMuxDeviceStatics'
     _iid_ = Guid('{7b37a64a-0465-53da-baee-70028480ced0}')
     @winrt_commethod(6)
-    def GetDeviceSelector(self) -> WinRT_String: ...
+    def GetDeviceSelector(self) -> hstr: ...
     @winrt_commethod(7)
-    def FromIdAsync(self, deviceInterfaceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Display.Core.DisplayMuxDevice]: ...
+    def FromIdAsync(self, deviceInterfaceId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Display.Core.DisplayMuxDevice]: ...
 class IDisplayPath(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayPath'
@@ -1077,7 +1077,7 @@ class IDisplaySource2(ComPtr):
     @winrt_commethod(8)
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IDisplayState(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayState'
@@ -1136,7 +1136,7 @@ class IDisplayTarget(ComPtr):
     @winrt_commethod(6)
     def get_Adapter(self) -> win32more.Windows.Devices.Display.Core.DisplayAdapter: ...
     @winrt_commethod(7)
-    def get_DeviceInterfacePath(self) -> WinRT_String: ...
+    def get_DeviceInterfacePath(self) -> hstr: ...
     @winrt_commethod(8)
     def get_AdapterRelativeId(self) -> UInt32: ...
     @winrt_commethod(9)
@@ -1150,7 +1150,7 @@ class IDisplayTarget(ComPtr):
     @winrt_commethod(13)
     def get_MonitorPersistence(self) -> win32more.Windows.Devices.Display.Core.DisplayTargetPersistence: ...
     @winrt_commethod(14)
-    def get_StableMonitorId(self) -> WinRT_String: ...
+    def get_StableMonitorId(self) -> hstr: ...
     @winrt_commethod(15)
     def TryGetMonitor(self) -> win32more.Windows.Devices.Display.DisplayMonitor: ...
     @winrt_commethod(16)

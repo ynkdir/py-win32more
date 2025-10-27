@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Input.Inking
@@ -9,7 +9,7 @@ class IInkAnalysisInkBullet(ComPtr):
     _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet'
     _iid_ = Guid('{ee049368-6110-4136-95f9-ee809fc20030}')
     @winrt_commethod(6)
-    def get_RecognizedText(self) -> WinRT_String: ...
+    def get_RecognizedText(self) -> hstr: ...
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalysisInkDrawing(ComPtr):
     extends: IInspectable
@@ -29,9 +29,9 @@ class IInkAnalysisInkWord(ComPtr):
     _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord'
     _iid_ = Guid('{4bd228ad-83af-4034-8f3b-f8687dfff436}')
     @winrt_commethod(6)
-    def get_RecognizedText(self) -> WinRT_String: ...
+    def get_RecognizedText(self) -> hstr: ...
     @winrt_commethod(7)
-    def get_TextAlternates(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    def get_TextAlternates(self) -> win32more.Windows.Foundation.Collections.IVectorView[hstr]: ...
     RecognizedText = property(get_RecognizedText, None)
     TextAlternates = property(get_TextAlternates, None)
 class IInkAnalysisLine(ComPtr):
@@ -39,7 +39,7 @@ class IInkAnalysisLine(ComPtr):
     _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisLine'
     _iid_ = Guid('{a06d048d-2b8d-4754-ad5a-d0871193a956}')
     @winrt_commethod(6)
-    def get_RecognizedText(self) -> WinRT_String: ...
+    def get_RecognizedText(self) -> hstr: ...
     @winrt_commethod(7)
     def get_IndentLevel(self) -> Int32: ...
     IndentLevel = property(get_IndentLevel, None)
@@ -49,7 +49,7 @@ class IInkAnalysisListItem(ComPtr):
     _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisListItem'
     _iid_ = Guid('{b4e3c23f-c4c3-4c3a-a1a6-9d85547ee586}')
     @winrt_commethod(6)
-    def get_RecognizedText(self) -> WinRT_String: ...
+    def get_RecognizedText(self) -> hstr: ...
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalysisNode(ComPtr):
     extends: IInspectable
@@ -80,7 +80,7 @@ class IInkAnalysisParagraph(ComPtr):
     _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisParagraph'
     _iid_ = Guid('{d9ad045c-0cd1-4dd4-a68b-eb1f12b3d727}')
     @winrt_commethod(6)
-    def get_RecognizedText(self) -> WinRT_String: ...
+    def get_RecognizedText(self) -> hstr: ...
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalysisResult(ComPtr):
     extends: IInspectable
@@ -94,7 +94,7 @@ class IInkAnalysisRoot(ComPtr):
     _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisRoot'
     _iid_ = Guid('{3fb6a3c4-2fde-4061-8502-a90f32545b84}')
     @winrt_commethod(6)
-    def get_RecognizedText(self) -> WinRT_String: ...
+    def get_RecognizedText(self) -> hstr: ...
     @winrt_commethod(7)
     def FindNodes(self, nodeKind: win32more.Windows.UI.Input.Inking.Analysis.InkAnalysisNodeKind) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisNode]: ...
     RecognizedText = property(get_RecognizedText, None)
@@ -103,7 +103,7 @@ class IInkAnalysisWritingRegion(ComPtr):
     _classid_ = 'Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion'
     _iid_ = Guid('{dd6d6231-bd16-4663-b5ae-941d3043ef5b}')
     @winrt_commethod(6)
-    def get_RecognizedText(self) -> WinRT_String: ...
+    def get_RecognizedText(self) -> hstr: ...
     RecognizedText = property(get_RecognizedText, None)
 class IInkAnalyzer(ComPtr):
     extends: IInspectable
@@ -158,7 +158,7 @@ class InkAnalysisInkBullet(ComPtr):
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisInkBullet'
     @winrt_mixinmethod
-    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet) -> WinRT_String: ...
+    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet) -> hstr: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisNode) -> UInt32: ...
     @winrt_mixinmethod
@@ -218,9 +218,9 @@ class InkAnalysisInkWord(ComPtr):
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisInkWord'
     @winrt_mixinmethod
-    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord) -> WinRT_String: ...
+    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord) -> hstr: ...
     @winrt_mixinmethod
-    def get_TextAlternates(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    def get_TextAlternates(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkWord) -> win32more.Windows.Foundation.Collections.IVectorView[hstr]: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisNode) -> UInt32: ...
     @winrt_mixinmethod
@@ -248,7 +248,7 @@ class InkAnalysisLine(ComPtr):
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisLine
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisLine'
     @winrt_mixinmethod
-    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisLine) -> WinRT_String: ...
+    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisLine) -> hstr: ...
     @winrt_mixinmethod
     def get_IndentLevel(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisLine) -> Int32: ...
     @winrt_mixinmethod
@@ -278,7 +278,7 @@ class InkAnalysisListItem(ComPtr):
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisListItem
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisListItem'
     @winrt_mixinmethod
-    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisListItem) -> WinRT_String: ...
+    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisListItem) -> hstr: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisNode) -> UInt32: ...
     @winrt_mixinmethod
@@ -339,7 +339,7 @@ class InkAnalysisParagraph(ComPtr):
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisParagraph
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisParagraph'
     @winrt_mixinmethod
-    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisParagraph) -> WinRT_String: ...
+    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisParagraph) -> hstr: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisNode) -> UInt32: ...
     @winrt_mixinmethod
@@ -373,7 +373,7 @@ class InkAnalysisRoot(ComPtr):
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisRoot
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisRoot'
     @winrt_mixinmethod
-    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisRoot) -> WinRT_String: ...
+    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisRoot) -> hstr: ...
     @winrt_mixinmethod
     def FindNodes(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisRoot, nodeKind: win32more.Windows.UI.Input.Inking.Analysis.InkAnalysisNodeKind) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisNode]: ...
     @winrt_mixinmethod
@@ -409,7 +409,7 @@ class InkAnalysisWritingRegion(ComPtr):
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion
     _classid_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisWritingRegion'
     @winrt_mixinmethod
-    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion) -> WinRT_String: ...
+    def get_RecognizedText(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion) -> hstr: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisNode) -> UInt32: ...
     @winrt_mixinmethod

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -24,14 +24,14 @@ class AccessibilitySettings(ComPtr):
     @winrt_mixinmethod
     def get_HighContrast(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings) -> Boolean: ...
     @winrt_mixinmethod
-    def get_HighContrastScheme(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings) -> WinRT_String: ...
+    def get_HighContrastScheme(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings) -> hstr: ...
     @winrt_mixinmethod
     def add_HighContrastChanged(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.AccessibilitySettings, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_HighContrastChanged(self: win32more.Windows.UI.ViewManagement.IAccessibilitySettings, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HighContrast = property(get_HighContrast, None)
     HighContrastScheme = property(get_HighContrastScheme, None)
-    HighContrastChanged = event()
+    HighContrastChanged = event(add_HighContrastChanged, remove_HighContrastChanged)
 class ActivationViewSwitcher(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IActivationViewSwitcher
@@ -63,9 +63,9 @@ class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     @winrt_mixinmethod
     def put_IsScreenCaptureEnabled(self: win32more.Windows.UI.ViewManagement.IApplicationView, value: Boolean) -> Void: ...
     @winrt_mixinmethod
-    def put_Title(self: win32more.Windows.UI.ViewManagement.IApplicationView, value: WinRT_String) -> Void: ...
+    def put_Title(self: win32more.Windows.UI.ViewManagement.IApplicationView, value: hstr) -> Void: ...
     @winrt_mixinmethod
-    def get_Title(self: win32more.Windows.UI.ViewManagement.IApplicationView) -> WinRT_String: ...
+    def get_Title(self: win32more.Windows.UI.ViewManagement.IApplicationView) -> hstr: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.UI.ViewManagement.IApplicationView) -> Int32: ...
     @winrt_mixinmethod
@@ -115,9 +115,9 @@ class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     @winrt_mixinmethod
     def TryConsolidateAsync(self: win32more.Windows.UI.ViewManagement.IApplicationView4) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def get_PersistedStateId(self: win32more.Windows.UI.ViewManagement.IApplicationView7) -> WinRT_String: ...
+    def get_PersistedStateId(self: win32more.Windows.UI.ViewManagement.IApplicationView7) -> hstr: ...
     @winrt_mixinmethod
-    def put_PersistedStateId(self: win32more.Windows.UI.ViewManagement.IApplicationView7, value: WinRT_String) -> Void: ...
+    def put_PersistedStateId(self: win32more.Windows.UI.ViewManagement.IApplicationView7, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_WindowingEnvironment(self: win32more.Windows.UI.ViewManagement.IApplicationView9) -> win32more.Windows.UI.WindowManagement.WindowingEnvironment: ...
     @winrt_mixinmethod
@@ -127,7 +127,7 @@ class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     @winrt_classmethod
     def ClearAllPersistedState(cls: win32more.Windows.UI.ViewManagement.IApplicationViewStatics4) -> Void: ...
     @winrt_classmethod
-    def ClearPersistedState(cls: win32more.Windows.UI.ViewManagement.IApplicationViewStatics4, key: WinRT_String) -> Void: ...
+    def ClearPersistedState(cls: win32more.Windows.UI.ViewManagement.IApplicationViewStatics4, key: hstr) -> Void: ...
     @winrt_classmethod
     def get_PreferredLaunchWindowingMode(cls: win32more.Windows.UI.ViewManagement.IApplicationViewStatics3) -> win32more.Windows.UI.ViewManagement.ApplicationViewWindowingMode: ...
     @winrt_classmethod
@@ -172,8 +172,8 @@ class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     _ApplicationView_Meta_.PreferredLaunchWindowingMode = property(get_PreferredLaunchWindowingMode, put_PreferredLaunchWindowingMode)
     _ApplicationView_Meta_.TerminateAppOnFinalViewClose = property(get_TerminateAppOnFinalViewClose, put_TerminateAppOnFinalViewClose)
     _ApplicationView_Meta_.Value = property(get_Value, None)
-    Consolidated = event()
-    VisibleBoundsChanged = event()
+    Consolidated = event(add_Consolidated, remove_Consolidated)
+    VisibleBoundsChanged = event(add_VisibleBoundsChanged, remove_VisibleBoundsChanged)
 class ApplicationViewBoundsMode(Enum, Int32):
     UseVisible = 0
     UseCoreWindow = 1
@@ -322,7 +322,7 @@ class ApplicationViewTransferContext(ComPtr, metaclass=_ApplicationViewTransferC
     @winrt_mixinmethod
     def put_ViewId(self: win32more.Windows.UI.ViewManagement.IApplicationViewTransferContext, value: Int32) -> Void: ...
     @winrt_classmethod
-    def get_DataPackageFormatId(cls: win32more.Windows.UI.ViewManagement.IApplicationViewTransferContextStatics) -> WinRT_String: ...
+    def get_DataPackageFormatId(cls: win32more.Windows.UI.ViewManagement.IApplicationViewTransferContextStatics) -> hstr: ...
     ViewId = property(get_ViewId, put_ViewId)
     _ApplicationViewTransferContext_Meta_.DataPackageFormatId = property(get_DataPackageFormatId, None)
 class ApplicationViewWindowingMode(Enum, Int32):
@@ -344,14 +344,14 @@ class IAccessibilitySettings(ComPtr):
     @winrt_commethod(6)
     def get_HighContrast(self) -> Boolean: ...
     @winrt_commethod(7)
-    def get_HighContrastScheme(self) -> WinRT_String: ...
+    def get_HighContrastScheme(self) -> hstr: ...
     @winrt_commethod(8)
     def add_HighContrastChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.AccessibilitySettings, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_HighContrastChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HighContrast = property(get_HighContrast, None)
     HighContrastScheme = property(get_HighContrastScheme, None)
-    HighContrastChanged = event()
+    HighContrastChanged = event(add_HighContrastChanged, remove_HighContrastChanged)
 class IActivationViewSwitcher(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IActivationViewSwitcher'
@@ -381,9 +381,9 @@ class IApplicationView(ComPtr):
     @winrt_commethod(12)
     def put_IsScreenCaptureEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(13)
-    def put_Title(self, value: WinRT_String) -> Void: ...
+    def put_Title(self, value: hstr) -> Void: ...
     @winrt_commethod(14)
-    def get_Title(self) -> WinRT_String: ...
+    def get_Title(self) -> hstr: ...
     @winrt_commethod(15)
     def get_Id(self) -> Int32: ...
     @winrt_commethod(16)
@@ -398,7 +398,7 @@ class IApplicationView(ComPtr):
     IsScreenCaptureEnabled = property(get_IsScreenCaptureEnabled, put_IsScreenCaptureEnabled)
     Orientation = property(get_Orientation, None)
     Title = property(get_Title, put_Title)
-    Consolidated = event()
+    Consolidated = event(add_Consolidated, remove_Consolidated)
 class IApplicationView2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IApplicationView2'
@@ -420,7 +420,7 @@ class IApplicationView2(ComPtr):
     DesiredBoundsMode = property(get_DesiredBoundsMode, None)
     SuppressSystemOverlays = property(get_SuppressSystemOverlays, put_SuppressSystemOverlays)
     VisibleBounds = property(get_VisibleBounds, None)
-    VisibleBoundsChanged = event()
+    VisibleBoundsChanged = event(add_VisibleBoundsChanged, remove_VisibleBoundsChanged)
 class IApplicationView3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IApplicationView3'
@@ -466,9 +466,9 @@ class IApplicationView7(ComPtr):
     _classid_ = 'Windows.UI.ViewManagement.IApplicationView7'
     _iid_ = Guid('{a0369647-5faf-5aa6-9c38-befbb12a071e}')
     @winrt_commethod(6)
-    def get_PersistedStateId(self) -> WinRT_String: ...
+    def get_PersistedStateId(self) -> hstr: ...
     @winrt_commethod(7)
-    def put_PersistedStateId(self, value: WinRT_String) -> Void: ...
+    def put_PersistedStateId(self, value: hstr) -> Void: ...
     PersistedStateId = property(get_PersistedStateId, put_PersistedStateId)
 class IApplicationView9(ComPtr):
     extends: IInspectable
@@ -559,7 +559,7 @@ class IApplicationViewStatics4(ComPtr):
     @winrt_commethod(6)
     def ClearAllPersistedState(self) -> Void: ...
     @winrt_commethod(7)
-    def ClearPersistedState(self, key: WinRT_String) -> Void: ...
+    def ClearPersistedState(self, key: hstr) -> Void: ...
 class IApplicationViewSwitcherStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IApplicationViewSwitcherStatics'
@@ -672,7 +672,7 @@ class IApplicationViewTransferContextStatics(ComPtr):
     _classid_ = 'Windows.UI.ViewManagement.IApplicationViewTransferContextStatics'
     _iid_ = Guid('{15a89d92-dd79-4b0b-bc47-d5f195f14661}')
     @winrt_commethod(6)
-    def get_DataPackageFormatId(self) -> WinRT_String: ...
+    def get_DataPackageFormatId(self) -> hstr: ...
     DataPackageFormatId = property(get_DataPackageFormatId, None)
 class IApplicationViewWithContext(ComPtr):
     extends: IInspectable
@@ -696,8 +696,8 @@ class IInputPane(ComPtr):
     @winrt_commethod(10)
     def get_OccludedRect(self) -> win32more.Windows.Foundation.Rect: ...
     OccludedRect = property(get_OccludedRect, None)
-    Showing = event()
-    Hiding = event()
+    Hiding = event(add_Hiding, remove_Hiding)
+    Showing = event(add_Showing, remove_Showing)
 class IInputPane2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IInputPane2'
@@ -756,7 +756,7 @@ class IProjectionManagerStatics(ComPtr):
     @winrt_commethod(11)
     def remove_ProjectionDisplayAvailableChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable, None)
-    ProjectionDisplayAvailableChanged = event()
+    ProjectionDisplayAvailableChanged = event(add_ProjectionDisplayAvailableChanged, remove_ProjectionDisplayAvailableChanged)
 class IProjectionManagerStatics2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IProjectionManagerStatics2'
@@ -768,7 +768,7 @@ class IProjectionManagerStatics2(ComPtr):
     @winrt_commethod(8)
     def RequestStartProjectingWithPlacementAsync(self, projectionViewId: Int32, anchorViewId: Int32, selection: win32more.Windows.Foundation.Rect, prefferedPlacement: win32more.Windows.UI.Popups.Placement) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(9)
-    def GetDeviceSelector(self) -> WinRT_String: ...
+    def GetDeviceSelector(self) -> hstr: ...
 class IUISettings(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IUISettings'
@@ -822,7 +822,7 @@ class IUISettings2(ComPtr):
     @winrt_commethod(8)
     def remove_TextScaleFactorChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     TextScaleFactor = property(get_TextScaleFactor, None)
-    TextScaleFactorChanged = event()
+    TextScaleFactorChanged = event(add_TextScaleFactorChanged, remove_TextScaleFactorChanged)
 class IUISettings3(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IUISettings3'
@@ -833,7 +833,7 @@ class IUISettings3(ComPtr):
     def add_ColorValuesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_ColorValuesChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ColorValuesChanged = event()
+    ColorValuesChanged = event(add_ColorValuesChanged, remove_ColorValuesChanged)
 class IUISettings4(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IUISettings4'
@@ -845,7 +845,7 @@ class IUISettings4(ComPtr):
     @winrt_commethod(8)
     def remove_AdvancedEffectsEnabledChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AdvancedEffectsEnabled = property(get_AdvancedEffectsEnabled, None)
-    AdvancedEffectsEnabledChanged = event()
+    AdvancedEffectsEnabledChanged = event(add_AdvancedEffectsEnabledChanged, remove_AdvancedEffectsEnabledChanged)
 class IUISettings5(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IUISettings5'
@@ -857,7 +857,7 @@ class IUISettings5(ComPtr):
     @winrt_commethod(8)
     def remove_AutoHideScrollBarsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoHideScrollBars = property(get_AutoHideScrollBars, None)
-    AutoHideScrollBarsChanged = event()
+    AutoHideScrollBarsChanged = event(add_AutoHideScrollBarsChanged, remove_AutoHideScrollBarsChanged)
 class IUISettings6(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IUISettings6'
@@ -870,8 +870,8 @@ class IUISettings6(ComPtr):
     def add_MessageDurationChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UISettings, win32more.Windows.UI.ViewManagement.UISettingsMessageDurationChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_MessageDurationChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    AnimationsEnabledChanged = event()
-    MessageDurationChanged = event()
+    AnimationsEnabledChanged = event(add_AnimationsEnabledChanged, remove_AnimationsEnabledChanged)
+    MessageDurationChanged = event(add_MessageDurationChanged, remove_MessageDurationChanged)
 class IUISettingsAnimationsEnabledChangedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IUISettingsAnimationsEnabledChangedEventArgs'
@@ -901,7 +901,7 @@ class IUIViewSettingsPreferredInteractionMode(ComPtr):
     def add_PreferredInteractionModeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ViewManagement.UIViewSettings, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_PreferredInteractionModeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    PreferredInteractionModeChanged = event()
+    PreferredInteractionModeChanged = event(add_PreferredInteractionModeChanged, remove_PreferredInteractionModeChanged)
 class IUIViewSettingsStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IUIViewSettingsStatics'
@@ -956,8 +956,8 @@ class InputPane(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.UI.ViewManagement.IInputPaneStatics) -> win32more.Windows.UI.ViewManagement.InputPane: ...
     OccludedRect = property(get_OccludedRect, None)
     Visible = property(get_Visible, put_Visible)
-    Showing = event()
-    Hiding = event()
+    Hiding = event(add_Hiding, remove_Hiding)
+    Showing = event(add_Showing, remove_Showing)
 class InputPaneVisibilityEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IInputPaneVisibilityEventArgs
@@ -982,7 +982,7 @@ class ProjectionManager(ComPtr, metaclass=_ProjectionManager_Meta_):
     @winrt_classmethod
     def RequestStartProjectingWithPlacementAsync(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics2, projectionViewId: Int32, anchorViewId: Int32, selection: win32more.Windows.Foundation.Rect, prefferedPlacement: win32more.Windows.UI.Popups.Placement) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
-    def GetDeviceSelector(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics2) -> WinRT_String: ...
+    def GetDeviceSelector(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics2) -> hstr: ...
     @winrt_classmethod
     def StartProjectingAsync(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics, projectionViewId: Int32, anchorViewId: Int32) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -996,6 +996,7 @@ class ProjectionManager(ComPtr, metaclass=_ProjectionManager_Meta_):
     @winrt_classmethod
     def remove_ProjectionDisplayAvailableChanged(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _ProjectionManager_Meta_.ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable, None)
+    _ProjectionManager_Meta_.ProjectionDisplayAvailableChanged = event(add_ProjectionDisplayAvailableChanged, remove_ProjectionDisplayAvailableChanged)
 class ScreenCaptureDisabledBehavior(Enum, Int32):
     DrawAsBlack = 0
     ExcludeFromCapture = 1
@@ -1123,12 +1124,12 @@ class UISettings(ComPtr):
     ScrollBarSize = property(get_ScrollBarSize, None)
     ScrollBarThumbBoxSize = property(get_ScrollBarThumbBoxSize, None)
     TextScaleFactor = property(get_TextScaleFactor, None)
-    TextScaleFactorChanged = event()
-    ColorValuesChanged = event()
-    AdvancedEffectsEnabledChanged = event()
-    AutoHideScrollBarsChanged = event()
-    AnimationsEnabledChanged = event()
-    MessageDurationChanged = event()
+    AdvancedEffectsEnabledChanged = event(add_AdvancedEffectsEnabledChanged, remove_AdvancedEffectsEnabledChanged)
+    AnimationsEnabledChanged = event(add_AnimationsEnabledChanged, remove_AnimationsEnabledChanged)
+    AutoHideScrollBarsChanged = event(add_AutoHideScrollBarsChanged, remove_AutoHideScrollBarsChanged)
+    ColorValuesChanged = event(add_ColorValuesChanged, remove_ColorValuesChanged)
+    MessageDurationChanged = event(add_MessageDurationChanged, remove_MessageDurationChanged)
+    TextScaleFactorChanged = event(add_TextScaleFactorChanged, remove_TextScaleFactorChanged)
 class UISettingsAnimationsEnabledChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IUISettingsAnimationsEnabledChangedEventArgs
@@ -1156,7 +1157,7 @@ class UIViewSettings(ComPtr):
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.ViewManagement.IUIViewSettingsStatics) -> win32more.Windows.UI.ViewManagement.UIViewSettings: ...
     UserInteractionMode = property(get_UserInteractionMode, None)
-    PreferredInteractionModeChanged = event()
+    PreferredInteractionModeChanged = event(add_PreferredInteractionModeChanged, remove_PreferredInteractionModeChanged)
 class UserInteractionMode(Enum, Int32):
     Mouse = 0
     Touch = 1

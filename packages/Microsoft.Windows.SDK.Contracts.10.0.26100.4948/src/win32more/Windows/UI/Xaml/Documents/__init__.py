@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Core
@@ -265,9 +265,9 @@ class ContentLink(ComPtr, metaclass=_ContentLink_Meta_):
     _ContentLink_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty, None)
     _ContentLink_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
     _ContentLink_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty, None)
-    Invoked = event()
-    GotFocus = event()
-    LostFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    Invoked = event(add_Invoked, remove_Invoked)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class ContentLinkInvokedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkInvokedEventArgs
@@ -350,13 +350,13 @@ class Glyphs(ComPtr, metaclass=_Glyphs_Meta_):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Glyphs: ...
     @winrt_mixinmethod
-    def get_UnicodeString(self: win32more.Windows.UI.Xaml.Documents.IGlyphs) -> WinRT_String: ...
+    def get_UnicodeString(self: win32more.Windows.UI.Xaml.Documents.IGlyphs) -> hstr: ...
     @winrt_mixinmethod
-    def put_UnicodeString(self: win32more.Windows.UI.Xaml.Documents.IGlyphs, value: WinRT_String) -> Void: ...
+    def put_UnicodeString(self: win32more.Windows.UI.Xaml.Documents.IGlyphs, value: hstr) -> Void: ...
     @winrt_mixinmethod
-    def get_Indices(self: win32more.Windows.UI.Xaml.Documents.IGlyphs) -> WinRT_String: ...
+    def get_Indices(self: win32more.Windows.UI.Xaml.Documents.IGlyphs) -> hstr: ...
     @winrt_mixinmethod
-    def put_Indices(self: win32more.Windows.UI.Xaml.Documents.IGlyphs, value: WinRT_String) -> Void: ...
+    def put_Indices(self: win32more.Windows.UI.Xaml.Documents.IGlyphs, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_FontUri(self: win32more.Windows.UI.Xaml.Documents.IGlyphs) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -568,9 +568,9 @@ class Hyperlink(ComPtr, metaclass=_Hyperlink_Meta_):
     _Hyperlink_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty, None)
     _Hyperlink_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
     _Hyperlink_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty, None)
-    Click = event()
-    GotFocus = event()
-    LostFocus = event()
+    Click = event(add_Click, remove_Click)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class HyperlinkClickEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Documents.IHyperlinkClickEventArgs
@@ -736,9 +736,9 @@ class IContentLink(ComPtr):
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     XYFocusUp = property(get_XYFocusUp, put_XYFocusUp)
     XYFocusUpNavigationStrategy = property(get_XYFocusUpNavigationStrategy, put_XYFocusUpNavigationStrategy)
-    Invoked = event()
-    GotFocus = event()
-    LostFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    Invoked = event(add_Invoked, remove_Invoked)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class IContentLinkInvokedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IContentLinkInvokedEventArgs'
@@ -816,13 +816,13 @@ class IGlyphs(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.IGlyphs'
     _iid_ = Guid('{d079498b-f2b1-4281-99a2-e4d05932b2b5}')
     @winrt_commethod(6)
-    def get_UnicodeString(self) -> WinRT_String: ...
+    def get_UnicodeString(self) -> hstr: ...
     @winrt_commethod(7)
-    def put_UnicodeString(self, value: WinRT_String) -> Void: ...
+    def put_UnicodeString(self, value: hstr) -> Void: ...
     @winrt_commethod(8)
-    def get_Indices(self) -> WinRT_String: ...
+    def get_Indices(self) -> hstr: ...
     @winrt_commethod(9)
-    def put_Indices(self, value: WinRT_String) -> Void: ...
+    def put_Indices(self, value: hstr) -> Void: ...
     @winrt_commethod(10)
     def get_FontUri(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(11)
@@ -920,7 +920,7 @@ class IHyperlink(ComPtr):
     @winrt_commethod(9)
     def remove_Click(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     NavigateUri = property(get_NavigateUri, put_NavigateUri)
-    Click = event()
+    Click = event(add_Click, remove_Click)
 class IHyperlink2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IHyperlink2'
@@ -996,8 +996,8 @@ class IHyperlink4(ComPtr):
     XYFocusLeftNavigationStrategy = property(get_XYFocusLeftNavigationStrategy, put_XYFocusLeftNavigationStrategy)
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     XYFocusUpNavigationStrategy = property(get_XYFocusUpNavigationStrategy, put_XYFocusUpNavigationStrategy)
-    GotFocus = event()
-    LostFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class IHyperlink5(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IHyperlink5'
@@ -1133,9 +1133,9 @@ class IRun(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.IRun'
     _iid_ = Guid('{59553c83-0e14-49bd-b84b-c526f3034349}')
     @winrt_commethod(6)
-    def get_Text(self) -> WinRT_String: ...
+    def get_Text(self) -> hstr: ...
     @winrt_commethod(7)
-    def put_Text(self, value: WinRT_String) -> Void: ...
+    def put_Text(self, value: hstr) -> Void: ...
     @winrt_commethod(8)
     def get_FlowDirection(self) -> win32more.Windows.UI.Xaml.FlowDirection: ...
     @winrt_commethod(9)
@@ -1169,7 +1169,7 @@ class ITextElement(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Documents.ITextElement'
     _iid_ = Guid('{e83b0062-d776-4f92-baea-40e77d4791d5}')
     @winrt_commethod(6)
-    def get_Name(self) -> WinRT_String: ...
+    def get_Name(self) -> hstr: ...
     @winrt_commethod(7)
     def get_FontSize(self) -> Double: ...
     @winrt_commethod(8)
@@ -1199,9 +1199,9 @@ class ITextElement(ComPtr):
     @winrt_commethod(20)
     def put_Foreground(self, value: win32more.Windows.UI.Xaml.Media.Brush) -> Void: ...
     @winrt_commethod(21)
-    def get_Language(self) -> WinRT_String: ...
+    def get_Language(self) -> hstr: ...
     @winrt_commethod(22)
-    def put_Language(self, value: WinRT_String) -> Void: ...
+    def put_Language(self, value: hstr) -> Void: ...
     @winrt_commethod(23)
     def get_ContentStart(self) -> win32more.Windows.UI.Xaml.Documents.TextPointer: ...
     @winrt_commethod(24)
@@ -1211,7 +1211,7 @@ class ITextElement(ComPtr):
     @winrt_commethod(26)
     def get_ElementEnd(self) -> win32more.Windows.UI.Xaml.Documents.TextPointer: ...
     @winrt_commethod(27)
-    def FindName(self, name: WinRT_String) -> IInspectable: ...
+    def FindName(self, name: hstr) -> IInspectable: ...
     CharacterSpacing = property(get_CharacterSpacing, put_CharacterSpacing)
     ContentEnd = property(get_ContentEnd, None)
     ContentStart = property(get_ContentStart, None)
@@ -1243,9 +1243,9 @@ class ITextElement3(ComPtr):
     @winrt_commethod(7)
     def put_AllowFocusOnInteraction(self, value: Boolean) -> Void: ...
     @winrt_commethod(8)
-    def get_AccessKey(self) -> WinRT_String: ...
+    def get_AccessKey(self) -> hstr: ...
     @winrt_commethod(9)
-    def put_AccessKey(self, value: WinRT_String) -> Void: ...
+    def put_AccessKey(self, value: hstr) -> Void: ...
     @winrt_commethod(10)
     def get_ExitDisplayModeOnAccessKeyInvoked(self) -> Boolean: ...
     @winrt_commethod(11)
@@ -1299,9 +1299,9 @@ class ITextElement4(ComPtr):
     KeyTipPlacementMode = property(get_KeyTipPlacementMode, put_KeyTipPlacementMode)
     KeyTipVerticalOffset = property(get_KeyTipVerticalOffset, put_KeyTipVerticalOffset)
     TextDecorations = property(get_TextDecorations, put_TextDecorations)
-    AccessKeyDisplayRequested = event()
-    AccessKeyDisplayDismissed = event()
-    AccessKeyInvoked = event()
+    AccessKeyDisplayDismissed = event(add_AccessKeyDisplayDismissed, remove_AccessKeyDisplayDismissed)
+    AccessKeyDisplayRequested = event(add_AccessKeyDisplayRequested, remove_AccessKeyDisplayRequested)
+    AccessKeyInvoked = event(add_AccessKeyInvoked, remove_AccessKeyInvoked)
 class ITextElement5(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.ITextElement5'
@@ -1912,9 +1912,9 @@ class Run(ComPtr, metaclass=_Run_Meta_):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Run: ...
     @winrt_mixinmethod
-    def get_Text(self: win32more.Windows.UI.Xaml.Documents.IRun) -> WinRT_String: ...
+    def get_Text(self: win32more.Windows.UI.Xaml.Documents.IRun) -> hstr: ...
     @winrt_mixinmethod
-    def put_Text(self: win32more.Windows.UI.Xaml.Documents.IRun, value: WinRT_String) -> Void: ...
+    def put_Text(self: win32more.Windows.UI.Xaml.Documents.IRun, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_FlowDirection(self: win32more.Windows.UI.Xaml.Documents.IRun) -> win32more.Windows.UI.Xaml.FlowDirection: ...
     @winrt_mixinmethod
@@ -1949,7 +1949,7 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     default_interface: win32more.Windows.UI.Xaml.Documents.ITextElement
     _classid_ = 'Windows.UI.Xaml.Documents.TextElement'
     @winrt_mixinmethod
-    def get_Name(self: win32more.Windows.UI.Xaml.Documents.ITextElement) -> WinRT_String: ...
+    def get_Name(self: win32more.Windows.UI.Xaml.Documents.ITextElement) -> hstr: ...
     @winrt_mixinmethod
     def get_FontSize(self: win32more.Windows.UI.Xaml.Documents.ITextElement) -> Double: ...
     @winrt_mixinmethod
@@ -1979,9 +1979,9 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     @winrt_mixinmethod
     def put_Foreground(self: win32more.Windows.UI.Xaml.Documents.ITextElement, value: win32more.Windows.UI.Xaml.Media.Brush) -> Void: ...
     @winrt_mixinmethod
-    def get_Language(self: win32more.Windows.UI.Xaml.Documents.ITextElement) -> WinRT_String: ...
+    def get_Language(self: win32more.Windows.UI.Xaml.Documents.ITextElement) -> hstr: ...
     @winrt_mixinmethod
-    def put_Language(self: win32more.Windows.UI.Xaml.Documents.ITextElement, value: WinRT_String) -> Void: ...
+    def put_Language(self: win32more.Windows.UI.Xaml.Documents.ITextElement, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_ContentStart(self: win32more.Windows.UI.Xaml.Documents.ITextElement) -> win32more.Windows.UI.Xaml.Documents.TextPointer: ...
     @winrt_mixinmethod
@@ -1991,7 +1991,7 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     @winrt_mixinmethod
     def get_ElementEnd(self: win32more.Windows.UI.Xaml.Documents.ITextElement) -> win32more.Windows.UI.Xaml.Documents.TextPointer: ...
     @winrt_mixinmethod
-    def FindName(self: win32more.Windows.UI.Xaml.Documents.ITextElement, name: WinRT_String) -> IInspectable: ...
+    def FindName(self: win32more.Windows.UI.Xaml.Documents.ITextElement, name: hstr) -> IInspectable: ...
     @winrt_mixinmethod
     def get_IsTextScaleFactorEnabled(self: win32more.Windows.UI.Xaml.Documents.ITextElement2) -> Boolean: ...
     @winrt_mixinmethod
@@ -2001,9 +2001,9 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     @winrt_mixinmethod
     def put_AllowFocusOnInteraction(self: win32more.Windows.UI.Xaml.Documents.ITextElement3, value: Boolean) -> Void: ...
     @winrt_mixinmethod
-    def get_AccessKey(self: win32more.Windows.UI.Xaml.Documents.ITextElement3) -> WinRT_String: ...
+    def get_AccessKey(self: win32more.Windows.UI.Xaml.Documents.ITextElement3) -> hstr: ...
     @winrt_mixinmethod
-    def put_AccessKey(self: win32more.Windows.UI.Xaml.Documents.ITextElement3, value: WinRT_String) -> Void: ...
+    def put_AccessKey(self: win32more.Windows.UI.Xaml.Documents.ITextElement3, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_ExitDisplayModeOnAccessKeyInvoked(self: win32more.Windows.UI.Xaml.Documents.ITextElement3) -> Boolean: ...
     @winrt_mixinmethod
@@ -2128,9 +2128,9 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     _TextElement_Meta_.KeyTipVerticalOffsetProperty = property(get_KeyTipVerticalOffsetProperty, None)
     _TextElement_Meta_.LanguageProperty = property(get_LanguageProperty, None)
     _TextElement_Meta_.TextDecorationsProperty = property(get_TextDecorationsProperty, None)
-    AccessKeyDisplayRequested = event()
-    AccessKeyDisplayDismissed = event()
-    AccessKeyInvoked = event()
+    AccessKeyDisplayDismissed = event(add_AccessKeyDisplayDismissed, remove_AccessKeyDisplayDismissed)
+    AccessKeyDisplayRequested = event(add_AccessKeyDisplayRequested, remove_AccessKeyDisplayRequested)
+    AccessKeyInvoked = event(add_AccessKeyInvoked, remove_AccessKeyInvoked)
 class _TextHighlighter_Meta_(ComPtr.__class__):
     pass
 class TextHighlighter(ComPtr, metaclass=_TextHighlighter_Meta_):

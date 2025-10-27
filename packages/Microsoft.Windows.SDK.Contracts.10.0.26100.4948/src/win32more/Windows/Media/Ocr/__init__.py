@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
@@ -37,7 +37,7 @@ class IOcrLine(ComPtr):
     @winrt_commethod(6)
     def get_Words(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Ocr.OcrWord]: ...
     @winrt_commethod(7)
-    def get_Text(self) -> WinRT_String: ...
+    def get_Text(self) -> hstr: ...
     Text = property(get_Text, None)
     Words = property(get_Words, None)
 class IOcrResult(ComPtr):
@@ -49,7 +49,7 @@ class IOcrResult(ComPtr):
     @winrt_commethod(7)
     def get_TextAngle(self) -> win32more.Windows.Foundation.IReference[Double]: ...
     @winrt_commethod(8)
-    def get_Text(self) -> WinRT_String: ...
+    def get_Text(self) -> hstr: ...
     Lines = property(get_Lines, None)
     Text = property(get_Text, None)
     TextAngle = property(get_TextAngle, None)
@@ -60,7 +60,7 @@ class IOcrWord(ComPtr):
     @winrt_commethod(6)
     def get_BoundingRect(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(7)
-    def get_Text(self) -> WinRT_String: ...
+    def get_Text(self) -> hstr: ...
     BoundingRect = property(get_BoundingRect, None)
     Text = property(get_Text, None)
 class _OcrEngine_Meta_(ComPtr.__class__):
@@ -93,7 +93,7 @@ class OcrLine(ComPtr):
     @winrt_mixinmethod
     def get_Words(self: win32more.Windows.Media.Ocr.IOcrLine) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Ocr.OcrWord]: ...
     @winrt_mixinmethod
-    def get_Text(self: win32more.Windows.Media.Ocr.IOcrLine) -> WinRT_String: ...
+    def get_Text(self: win32more.Windows.Media.Ocr.IOcrLine) -> hstr: ...
     Text = property(get_Text, None)
     Words = property(get_Words, None)
 class OcrResult(ComPtr):
@@ -105,7 +105,7 @@ class OcrResult(ComPtr):
     @winrt_mixinmethod
     def get_TextAngle(self: win32more.Windows.Media.Ocr.IOcrResult) -> win32more.Windows.Foundation.IReference[Double]: ...
     @winrt_mixinmethod
-    def get_Text(self: win32more.Windows.Media.Ocr.IOcrResult) -> WinRT_String: ...
+    def get_Text(self: win32more.Windows.Media.Ocr.IOcrResult) -> hstr: ...
     Lines = property(get_Lines, None)
     Text = property(get_Text, None)
     TextAngle = property(get_TextAngle, None)
@@ -116,7 +116,7 @@ class OcrWord(ComPtr):
     @winrt_mixinmethod
     def get_BoundingRect(self: win32more.Windows.Media.Ocr.IOcrWord) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
-    def get_Text(self: win32more.Windows.Media.Ocr.IOcrWord) -> WinRT_String: ...
+    def get_Text(self: win32more.Windows.Media.Ocr.IOcrWord) -> hstr: ...
     BoundingRect = property(get_BoundingRect, None)
     Text = property(get_Text, None)
 

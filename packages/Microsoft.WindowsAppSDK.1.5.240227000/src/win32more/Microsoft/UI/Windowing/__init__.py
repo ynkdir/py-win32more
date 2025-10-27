@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Dispatching
 import win32more.Microsoft.UI.Windowing
@@ -28,9 +28,9 @@ class AppWindow(ComPtr):
     @winrt_mixinmethod
     def get_Size(self: win32more.Microsoft.UI.Windowing.IAppWindow) -> win32more.Windows.Graphics.SizeInt32: ...
     @winrt_mixinmethod
-    def get_Title(self: win32more.Microsoft.UI.Windowing.IAppWindow) -> WinRT_String: ...
+    def get_Title(self: win32more.Microsoft.UI.Windowing.IAppWindow) -> hstr: ...
     @winrt_mixinmethod
-    def put_Title(self: win32more.Microsoft.UI.Windowing.IAppWindow, value: WinRT_String) -> Void: ...
+    def put_Title(self: win32more.Microsoft.UI.Windowing.IAppWindow, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Microsoft.UI.Windowing.IAppWindow) -> win32more.Microsoft.UI.WindowId: ...
     @winrt_mixinmethod
@@ -46,7 +46,7 @@ class AppWindow(ComPtr):
     @winrt_mixinmethod
     def Resize(self: win32more.Microsoft.UI.Windowing.IAppWindow, size: win32more.Windows.Graphics.SizeInt32) -> Void: ...
     @winrt_mixinmethod
-    def SetIcon(self: win32more.Microsoft.UI.Windowing.IAppWindow, iconPath: WinRT_String) -> Void: ...
+    def SetIcon(self: win32more.Microsoft.UI.Windowing.IAppWindow, iconPath: hstr) -> Void: ...
     @winrt_mixinmethod
     def SetIconWithIconId(self: win32more.Microsoft.UI.Windowing.IAppWindow, iconId: win32more.Microsoft.UI.IconId) -> Void: ...
     @winrt_mixinmethod
@@ -106,9 +106,9 @@ class AppWindow(ComPtr):
     Size = property(get_Size, None)
     Title = property(get_Title, put_Title)
     TitleBar = property(get_TitleBar, None)
-    Closing = event()
-    Changed = event()
-    Destroying = event()
+    Changed = event(add_Changed, remove_Changed)
+    Closing = event(add_Closing, remove_Closing)
+    Destroying = event(add_Destroying, remove_Destroying)
 class AppWindowChangedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowChangedEventArgs
@@ -335,11 +335,11 @@ class DisplayAreaWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    EnumerationCompleted = event()
-    Removed = event()
-    Stopped = event()
-    Updated = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class DisplayAreaWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -374,9 +374,9 @@ class IAppWindow(ComPtr):
     @winrt_commethod(13)
     def get_Size(self) -> win32more.Windows.Graphics.SizeInt32: ...
     @winrt_commethod(14)
-    def get_Title(self) -> WinRT_String: ...
+    def get_Title(self) -> hstr: ...
     @winrt_commethod(15)
-    def put_Title(self, value: WinRT_String) -> Void: ...
+    def put_Title(self, value: hstr) -> Void: ...
     @winrt_commethod(16)
     def get_TitleBar(self) -> win32more.Microsoft.UI.Windowing.AppWindowTitleBar: ...
     @winrt_commethod(17)
@@ -392,7 +392,7 @@ class IAppWindow(ComPtr):
     @winrt_commethod(22)
     def Resize(self, size: win32more.Windows.Graphics.SizeInt32) -> Void: ...
     @winrt_commethod(23)
-    def SetIcon(self, iconPath: WinRT_String) -> Void: ...
+    def SetIcon(self, iconPath: hstr) -> Void: ...
     @winrt_commethod(24)
     def SetIconWithIconId(self, iconId: win32more.Microsoft.UI.IconId) -> Void: ...
     @winrt_commethod(25)
@@ -424,9 +424,9 @@ class IAppWindow(ComPtr):
     Size = property(get_Size, None)
     Title = property(get_Title, put_Title)
     TitleBar = property(get_TitleBar, None)
-    Changed = event()
-    Closing = event()
-    Destroying = event()
+    Changed = event(add_Changed, remove_Changed)
+    Closing = event(add_Closing, remove_Closing)
+    Destroying = event(add_Destroying, remove_Destroying)
 class IAppWindow2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindow2'
@@ -710,11 +710,11 @@ class IDisplayAreaWatcher(ComPtr):
     @winrt_commethod(18)
     def remove_Updated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-    Added = event()
-    EnumerationCompleted = event()
-    Removed = event()
-    Stopped = event()
-    Updated = event()
+    Added = event(add_Added, remove_Added)
+    EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
+    Removed = event(add_Removed, remove_Removed)
+    Stopped = event(add_Stopped, remove_Stopped)
+    Updated = event(add_Updated, remove_Updated)
 class IFullScreenPresenter(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IFullScreenPresenter'

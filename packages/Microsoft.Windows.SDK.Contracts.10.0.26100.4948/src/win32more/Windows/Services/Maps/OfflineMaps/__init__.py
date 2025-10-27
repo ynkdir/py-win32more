@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -11,9 +11,9 @@ class IOfflineMapPackage(ComPtr):
     @winrt_commethod(6)
     def get_Status(self) -> win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageStatus: ...
     @winrt_commethod(7)
-    def get_DisplayName(self) -> WinRT_String: ...
+    def get_DisplayName(self) -> hstr: ...
     @winrt_commethod(8)
-    def get_EnclosingRegionName(self) -> WinRT_String: ...
+    def get_EnclosingRegionName(self) -> hstr: ...
     @winrt_commethod(9)
     def get_EstimatedSizeInBytes(self) -> UInt64: ...
     @winrt_commethod(10)
@@ -26,7 +26,7 @@ class IOfflineMapPackage(ComPtr):
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IOfflineMapPackageQueryResult(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult'
@@ -61,9 +61,9 @@ class OfflineMapPackage(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackage) -> win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageStatus: ...
     @winrt_mixinmethod
-    def get_DisplayName(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackage) -> WinRT_String: ...
+    def get_DisplayName(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackage) -> hstr: ...
     @winrt_mixinmethod
-    def get_EnclosingRegionName(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackage) -> WinRT_String: ...
+    def get_EnclosingRegionName(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackage) -> hstr: ...
     @winrt_mixinmethod
     def get_EstimatedSizeInBytes(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackage) -> UInt64: ...
     @winrt_mixinmethod
@@ -82,7 +82,7 @@ class OfflineMapPackage(ComPtr):
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class OfflineMapPackageQueryResult(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult

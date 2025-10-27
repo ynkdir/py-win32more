@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.PlayTo
@@ -44,9 +44,9 @@ class IPlayToConnection(ComPtr):
     @winrt_commethod(12)
     def remove_Error(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     State = property(get_State, None)
-    StateChanged = event()
-    Transferred = event()
-    Error = event()
+    Error = event(add_Error, remove_Error)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
+    Transferred = event(add_Transferred, remove_Transferred)
 class IPlayToConnectionErrorEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToConnectionErrorEventArgs'
@@ -54,7 +54,7 @@ class IPlayToConnectionErrorEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_Code(self) -> win32more.Windows.Media.PlayTo.PlayToConnectionError: ...
     @winrt_commethod(7)
-    def get_Message(self) -> WinRT_String: ...
+    def get_Message(self) -> hstr: ...
     Code = property(get_Code, None)
     Message = property(get_Message, None)
 class IPlayToConnectionStateChangedEventArgs(ComPtr):
@@ -94,8 +94,8 @@ class IPlayToManager(ComPtr):
     @winrt_commethod(11)
     def get_DefaultSourceSelection(self) -> Boolean: ...
     DefaultSourceSelection = property(get_DefaultSourceSelection, put_DefaultSourceSelection)
-    SourceRequested = event()
-    SourceSelected = event()
+    SourceRequested = event(add_SourceRequested, remove_SourceRequested)
+    SourceSelected = event(add_SourceSelected, remove_SourceSelected)
 class IPlayToManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToManagerStatics'
@@ -169,9 +169,9 @@ class IPlayToReceiver(ComPtr):
     @winrt_commethod(35)
     def NotifyStopped(self) -> Void: ...
     @winrt_commethod(36)
-    def get_FriendlyName(self) -> WinRT_String: ...
+    def get_FriendlyName(self) -> hstr: ...
     @winrt_commethod(37)
-    def put_FriendlyName(self, value: WinRT_String) -> Void: ...
+    def put_FriendlyName(self, value: hstr) -> Void: ...
     @winrt_commethod(38)
     def put_SupportsImage(self, value: Boolean) -> Void: ...
     @winrt_commethod(39)
@@ -195,15 +195,15 @@ class IPlayToReceiver(ComPtr):
     SupportsAudio = property(get_SupportsAudio, put_SupportsAudio)
     SupportsImage = property(get_SupportsImage, put_SupportsImage)
     SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
-    PlayRequested = event()
-    PauseRequested = event()
-    SourceChangeRequested = event()
-    PlaybackRateChangeRequested = event()
-    CurrentTimeChangeRequested = event()
-    MuteChangeRequested = event()
-    VolumeChangeRequested = event()
-    TimeUpdateRequested = event()
-    StopRequested = event()
+    CurrentTimeChangeRequested = event(add_CurrentTimeChangeRequested, remove_CurrentTimeChangeRequested)
+    MuteChangeRequested = event(add_MuteChangeRequested, remove_MuteChangeRequested)
+    PauseRequested = event(add_PauseRequested, remove_PauseRequested)
+    PlayRequested = event(add_PlayRequested, remove_PlayRequested)
+    PlaybackRateChangeRequested = event(add_PlaybackRateChangeRequested, remove_PlaybackRateChangeRequested)
+    SourceChangeRequested = event(add_SourceChangeRequested, remove_SourceChangeRequested)
+    StopRequested = event(add_StopRequested, remove_StopRequested)
+    TimeUpdateRequested = event(add_TimeUpdateRequested, remove_TimeUpdateRequested)
+    VolumeChangeRequested = event(add_VolumeChangeRequested, remove_VolumeChangeRequested)
 class IPlayToSource(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToSource'
@@ -231,7 +231,7 @@ class IPlayToSourceRequest(ComPtr):
     @winrt_commethod(6)
     def get_Deadline(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
-    def DisplayErrorString(self, errorString: WinRT_String) -> Void: ...
+    def DisplayErrorString(self, errorString: hstr) -> Void: ...
     @winrt_commethod(8)
     def GetDeferral(self) -> win32more.Windows.Media.PlayTo.PlayToSourceDeferral: ...
     @winrt_commethod(9)
@@ -249,7 +249,7 @@ class IPlayToSourceSelectedEventArgs(ComPtr):
     _classid_ = 'Windows.Media.PlayTo.IPlayToSourceSelectedEventArgs'
     _iid_ = Guid('{0c9d8511-5202-4dcb-8c67-abda12bb3c12}')
     @winrt_commethod(6)
-    def get_FriendlyName(self) -> WinRT_String: ...
+    def get_FriendlyName(self) -> hstr: ...
     @winrt_commethod(7)
     def get_Icon(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     @winrt_commethod(8)
@@ -286,15 +286,15 @@ class ISourceChangeRequestedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_Stream(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     @winrt_commethod(7)
-    def get_Title(self) -> WinRT_String: ...
+    def get_Title(self) -> hstr: ...
     @winrt_commethod(8)
-    def get_Author(self) -> WinRT_String: ...
+    def get_Author(self) -> hstr: ...
     @winrt_commethod(9)
-    def get_Album(self) -> WinRT_String: ...
+    def get_Album(self) -> hstr: ...
     @winrt_commethod(10)
-    def get_Genre(self) -> WinRT_String: ...
+    def get_Genre(self) -> hstr: ...
     @winrt_commethod(11)
-    def get_Description(self) -> WinRT_String: ...
+    def get_Description(self) -> hstr: ...
     @winrt_commethod(12)
     def get_Date(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     @winrt_commethod(13)
@@ -302,7 +302,7 @@ class ISourceChangeRequestedEventArgs(ComPtr):
     @winrt_commethod(14)
     def get_Rating(self) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_commethod(15)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, IInspectable]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[hstr, IInspectable]: ...
     Album = property(get_Album, None)
     Author = property(get_Author, None)
     Date = property(get_Date, None)
@@ -346,9 +346,9 @@ class PlayToConnection(ComPtr):
     @winrt_mixinmethod
     def remove_Error(self: win32more.Windows.Media.PlayTo.IPlayToConnection, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     State = property(get_State, None)
-    StateChanged = event()
-    Transferred = event()
-    Error = event()
+    Error = event(add_Error, remove_Error)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
+    Transferred = event(add_Transferred, remove_Transferred)
 class PlayToConnectionError(Enum, Int32):
     None_ = 0
     DeviceNotResponding = 1
@@ -362,7 +362,7 @@ class PlayToConnectionErrorEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Code(self: win32more.Windows.Media.PlayTo.IPlayToConnectionErrorEventArgs) -> win32more.Windows.Media.PlayTo.PlayToConnectionError: ...
     @winrt_mixinmethod
-    def get_Message(self: win32more.Windows.Media.PlayTo.IPlayToConnectionErrorEventArgs) -> WinRT_String: ...
+    def get_Message(self: win32more.Windows.Media.PlayTo.IPlayToConnectionErrorEventArgs) -> hstr: ...
     Code = property(get_Code, None)
     Message = property(get_Message, None)
 class PlayToConnectionState(Enum, Int32):
@@ -410,8 +410,8 @@ class PlayToManager(ComPtr):
     @winrt_classmethod
     def ShowPlayToUI(cls: win32more.Windows.Media.PlayTo.IPlayToManagerStatics) -> Void: ...
     DefaultSourceSelection = property(get_DefaultSourceSelection, put_DefaultSourceSelection)
-    SourceRequested = event()
-    SourceSelected = event()
+    SourceRequested = event(add_SourceRequested, remove_SourceRequested)
+    SourceSelected = event(add_SourceSelected, remove_SourceSelected)
 class PlayToReceiver(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToReceiver
@@ -486,9 +486,9 @@ class PlayToReceiver(ComPtr):
     @winrt_mixinmethod
     def NotifyStopped(self: win32more.Windows.Media.PlayTo.IPlayToReceiver) -> Void: ...
     @winrt_mixinmethod
-    def get_FriendlyName(self: win32more.Windows.Media.PlayTo.IPlayToReceiver) -> WinRT_String: ...
+    def get_FriendlyName(self: win32more.Windows.Media.PlayTo.IPlayToReceiver) -> hstr: ...
     @winrt_mixinmethod
-    def put_FriendlyName(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, value: WinRT_String) -> Void: ...
+    def put_FriendlyName(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def put_SupportsImage(self: win32more.Windows.Media.PlayTo.IPlayToReceiver, value: Boolean) -> Void: ...
     @winrt_mixinmethod
@@ -512,15 +512,15 @@ class PlayToReceiver(ComPtr):
     SupportsAudio = property(get_SupportsAudio, put_SupportsAudio)
     SupportsImage = property(get_SupportsImage, put_SupportsImage)
     SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
-    PlayRequested = event()
-    PauseRequested = event()
-    SourceChangeRequested = event()
-    PlaybackRateChangeRequested = event()
-    CurrentTimeChangeRequested = event()
-    MuteChangeRequested = event()
-    VolumeChangeRequested = event()
-    TimeUpdateRequested = event()
-    StopRequested = event()
+    CurrentTimeChangeRequested = event(add_CurrentTimeChangeRequested, remove_CurrentTimeChangeRequested)
+    MuteChangeRequested = event(add_MuteChangeRequested, remove_MuteChangeRequested)
+    PauseRequested = event(add_PauseRequested, remove_PauseRequested)
+    PlayRequested = event(add_PlayRequested, remove_PlayRequested)
+    PlaybackRateChangeRequested = event(add_PlaybackRateChangeRequested, remove_PlaybackRateChangeRequested)
+    SourceChangeRequested = event(add_SourceChangeRequested, remove_SourceChangeRequested)
+    StopRequested = event(add_StopRequested, remove_StopRequested)
+    TimeUpdateRequested = event(add_TimeUpdateRequested, remove_TimeUpdateRequested)
+    VolumeChangeRequested = event(add_VolumeChangeRequested, remove_VolumeChangeRequested)
 class PlayToSource(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToSource
@@ -553,7 +553,7 @@ class PlayToSourceRequest(ComPtr):
     @winrt_mixinmethod
     def get_Deadline(self: win32more.Windows.Media.PlayTo.IPlayToSourceRequest) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
-    def DisplayErrorString(self: win32more.Windows.Media.PlayTo.IPlayToSourceRequest, errorString: WinRT_String) -> Void: ...
+    def DisplayErrorString(self: win32more.Windows.Media.PlayTo.IPlayToSourceRequest, errorString: hstr) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Media.PlayTo.IPlayToSourceRequest) -> win32more.Windows.Media.PlayTo.PlayToSourceDeferral: ...
     @winrt_mixinmethod
@@ -571,7 +571,7 @@ class PlayToSourceSelectedEventArgs(ComPtr):
     default_interface: win32more.Windows.Media.PlayTo.IPlayToSourceSelectedEventArgs
     _classid_ = 'Windows.Media.PlayTo.PlayToSourceSelectedEventArgs'
     @winrt_mixinmethod
-    def get_FriendlyName(self: win32more.Windows.Media.PlayTo.IPlayToSourceSelectedEventArgs) -> WinRT_String: ...
+    def get_FriendlyName(self: win32more.Windows.Media.PlayTo.IPlayToSourceSelectedEventArgs) -> hstr: ...
     @winrt_mixinmethod
     def get_Icon(self: win32more.Windows.Media.PlayTo.IPlayToSourceSelectedEventArgs) -> win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     @winrt_mixinmethod
@@ -599,15 +599,15 @@ class SourceChangeRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Stream(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     @winrt_mixinmethod
-    def get_Title(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> WinRT_String: ...
+    def get_Title(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> hstr: ...
     @winrt_mixinmethod
-    def get_Author(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> WinRT_String: ...
+    def get_Author(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> hstr: ...
     @winrt_mixinmethod
-    def get_Album(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> WinRT_String: ...
+    def get_Album(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> hstr: ...
     @winrt_mixinmethod
-    def get_Genre(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> WinRT_String: ...
+    def get_Genre(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> hstr: ...
     @winrt_mixinmethod
-    def get_Description(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> WinRT_String: ...
+    def get_Description(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> hstr: ...
     @winrt_mixinmethod
     def get_Date(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     @winrt_mixinmethod
@@ -615,7 +615,7 @@ class SourceChangeRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Rating(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, IInspectable]: ...
+    def get_Properties(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[hstr, IInspectable]: ...
     Album = property(get_Album, None)
     Author = property(get_Author, None)
     Date = property(get_Date, None)

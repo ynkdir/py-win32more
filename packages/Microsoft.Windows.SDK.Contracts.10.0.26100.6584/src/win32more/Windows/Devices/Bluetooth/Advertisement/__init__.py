@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Bluetooth
 import win32more.Windows.Devices.Bluetooth.Advertisement
 import win32more.Windows.Foundation
@@ -23,9 +23,9 @@ class BluetoothLEAdvertisement(ComPtr):
     @winrt_mixinmethod
     def put_Flags(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisement, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFlags]) -> Void: ...
     @winrt_mixinmethod
-    def get_LocalName(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisement) -> WinRT_String: ...
+    def get_LocalName(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisement) -> hstr: ...
     @winrt_mixinmethod
-    def put_LocalName(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisement, value: WinRT_String) -> Void: ...
+    def put_LocalName(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisement, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_ServiceUuids(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisement) -> win32more.Windows.Foundation.Collections.IVector[Guid]: ...
     @winrt_mixinmethod
@@ -265,7 +265,7 @@ class BluetoothLEAdvertisementPublisher(ComPtr):
     SecondaryPhy = property(get_SecondaryPhy, put_SecondaryPhy)
     Status = property(get_Status, None)
     UseExtendedAdvertisement = property(get_UseExtendedAdvertisement, put_UseExtendedAdvertisement)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class BluetoothLEAdvertisementPublisherStatus(Enum, Int32):
     Created = 0
     Waiting = 1
@@ -437,8 +437,8 @@ class BluetoothLEAdvertisementWatcher(ComPtr):
     UseCodedPhy = property(get_UseCodedPhy, put_UseCodedPhy)
     UseHardwareFilter = property(get_UseHardwareFilter, put_UseHardwareFilter)
     UseUncoded1MPhy = property(get_UseUncoded1MPhy, put_UseUncoded1MPhy)
-    Received = event()
-    Stopped = event()
+    Received = event(add_Received, remove_Received)
+    Stopped = event(add_Stopped, remove_Stopped)
 class BluetoothLEAdvertisementWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -492,9 +492,9 @@ class IBluetoothLEAdvertisement(ComPtr):
     @winrt_commethod(7)
     def put_Flags(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFlags]) -> Void: ...
     @winrt_commethod(8)
-    def get_LocalName(self) -> WinRT_String: ...
+    def get_LocalName(self) -> hstr: ...
     @winrt_commethod(9)
-    def put_LocalName(self, value: WinRT_String) -> Void: ...
+    def put_LocalName(self, value: hstr) -> Void: ...
     @winrt_commethod(10)
     def get_ServiceUuids(self) -> win32more.Windows.Foundation.Collections.IVector[Guid]: ...
     @winrt_commethod(11)
@@ -655,7 +655,7 @@ class IBluetoothLEAdvertisementPublisher(ComPtr):
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Advertisement = property(get_Advertisement, None)
     Status = property(get_Status, None)
-    StatusChanged = event()
+    StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class IBluetoothLEAdvertisementPublisher2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementPublisher2'
@@ -835,8 +835,8 @@ class IBluetoothLEAdvertisementWatcher(ComPtr):
     ScanningMode = property(get_ScanningMode, put_ScanningMode)
     SignalStrengthFilter = property(get_SignalStrengthFilter, put_SignalStrengthFilter)
     Status = property(get_Status, None)
-    Received = event()
-    Stopped = event()
+    Received = event(add_Received, remove_Received)
+    Stopped = event(add_Stopped, remove_Stopped)
 class IBluetoothLEAdvertisementWatcher2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementWatcher2'

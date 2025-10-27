@@ -46,7 +46,8 @@ from win32more._winrt import (
     MulticastDelegateImpl,
     PassArray,
     ReceiveArray,
-    WinRT_String,
+    event,
+    hstr,
     winrt_commethod,
 )
 
@@ -116,7 +117,7 @@ class TestWinrt(unittest.TestCase):
             _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
 
             @winrt_commethod(6)
-            def test_str(self, p: FillArray[WinRT_String]) -> Void: ...
+            def test_str(self, p: FillArray[hstr]) -> Void: ...
 
             @winrt_commethod(7)
             def test_int(self, p: FillArray[Int32]) -> Void: ...
@@ -151,7 +152,7 @@ class TestWinrt(unittest.TestCase):
             _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
 
             @winrt_commethod(6)
-            def test_str(self, p: ReceiveArray[WinRT_String]) -> Void: ...
+            def test_str(self, p: ReceiveArray[hstr]) -> Void: ...
 
             @winrt_commethod(7)
             def test_int(self, p: ReceiveArray[Int32]) -> Void: ...
@@ -198,7 +199,7 @@ class TestWinrt(unittest.TestCase):
             _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
 
             @winrt_commethod(6)
-            def test_str(self, p: PassArray[WinRT_String]) -> ReceiveArray[WinRT_String]: ...
+            def test_str(self, p: PassArray[hstr]) -> ReceiveArray[hstr]: ...
 
             @winrt_commethod(7)
             def test_int(self, p: PassArray[Int32]) -> ReceiveArray[Int32]: ...
@@ -524,6 +525,23 @@ class TestWinrt(unittest.TestCase):
         mock = Mock()
         unknown = mock.as_(IInspectable)
         self.assertIs(mock, unknown.as_(ISelf).GetSelf())
+
+    def test_classevent_calls_adder_function_as_classmethod(self):
+        class Meta(type):
+            pass
+
+        class Mock(metaclass=Meta):
+            # @classmethod
+            def add_Changed(cls, callback):
+                trace.append(cls)
+
+            Meta.Changed = event(add_Changed, None)
+
+        trace = []
+
+        Mock.Changed += lambda: None
+
+        self.assertEqual(trace, [Mock])
 
 
 if __name__ == "__main__":

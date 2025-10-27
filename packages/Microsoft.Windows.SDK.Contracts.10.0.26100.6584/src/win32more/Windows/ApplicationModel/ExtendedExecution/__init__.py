@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.ExtendedExecution
 import win32more.Windows.Foundation
 class ExtendedExecutionReason(Enum, Int32):
@@ -38,9 +38,9 @@ class ExtendedExecutionSession(ComPtr):
     @winrt_mixinmethod
     def put_Reason(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession, value: win32more.Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionReason) -> Void: ...
     @winrt_mixinmethod
-    def get_Description(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession) -> WinRT_String: ...
+    def get_Description(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession) -> hstr: ...
     @winrt_mixinmethod
-    def put_Description(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession, value: WinRT_String) -> Void: ...
+    def put_Description(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_PercentProgress(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession) -> UInt32: ...
     @winrt_mixinmethod
@@ -56,7 +56,7 @@ class ExtendedExecutionSession(ComPtr):
     Description = property(get_Description, put_Description)
     PercentProgress = property(get_PercentProgress, put_PercentProgress)
     Reason = property(get_Reason, put_Reason)
-    Revoked = event()
+    Revoked = event(add_Revoked, remove_Revoked)
 class IExtendedExecutionRevokedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionRevokedEventArgs'
@@ -74,9 +74,9 @@ class IExtendedExecutionSession(ComPtr):
     @winrt_commethod(7)
     def put_Reason(self, value: win32more.Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionReason) -> Void: ...
     @winrt_commethod(8)
-    def get_Description(self) -> WinRT_String: ...
+    def get_Description(self) -> hstr: ...
     @winrt_commethod(9)
-    def put_Description(self, value: WinRT_String) -> Void: ...
+    def put_Description(self, value: hstr) -> Void: ...
     @winrt_commethod(10)
     def get_PercentProgress(self) -> UInt32: ...
     @winrt_commethod(11)
@@ -90,7 +90,7 @@ class IExtendedExecutionSession(ComPtr):
     Description = property(get_Description, put_Description)
     PercentProgress = property(get_PercentProgress, put_PercentProgress)
     Reason = property(get_Reason, put_Reason)
-    Revoked = event()
+    Revoked = event(add_Revoked, remove_Revoked)
 
 
 make_ready(__name__)

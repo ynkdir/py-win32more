@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -36,8 +36,8 @@ class CastingConnection(ComPtr):
     Device = property(get_Device, None)
     Source = property(get_Source, put_Source)
     State = property(get_State, None)
-    StateChanged = event()
-    ErrorOccurred = event()
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class CastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs
@@ -45,7 +45,7 @@ class CastingConnectionErrorOccurredEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorStatus(self: win32more.Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs) -> win32more.Windows.Media.Casting.CastingConnectionErrorStatus: ...
     @winrt_mixinmethod
-    def get_Message(self: win32more.Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs) -> WinRT_String: ...
+    def get_Message(self: win32more.Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs) -> hstr: ...
     ErrorStatus = property(get_ErrorStatus, None)
     Message = property(get_Message, None)
 class CastingConnectionErrorStatus(Enum, Int32):
@@ -67,9 +67,9 @@ class CastingDevice(ComPtr):
     default_interface: win32more.Windows.Media.Casting.ICastingDevice
     _classid_ = 'Windows.Media.Casting.CastingDevice'
     @winrt_mixinmethod
-    def get_Id(self: win32more.Windows.Media.Casting.ICastingDevice) -> WinRT_String: ...
+    def get_Id(self: win32more.Windows.Media.Casting.ICastingDevice) -> hstr: ...
     @winrt_mixinmethod
-    def get_FriendlyName(self: win32more.Windows.Media.Casting.ICastingDevice) -> WinRT_String: ...
+    def get_FriendlyName(self: win32more.Windows.Media.Casting.ICastingDevice) -> hstr: ...
     @winrt_mixinmethod
     def get_Icon(self: win32more.Windows.Media.Casting.ICastingDevice) -> win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     @winrt_mixinmethod
@@ -77,11 +77,11 @@ class CastingDevice(ComPtr):
     @winrt_mixinmethod
     def CreateCastingConnection(self: win32more.Windows.Media.Casting.ICastingDevice) -> win32more.Windows.Media.Casting.CastingConnection: ...
     @winrt_classmethod
-    def GetDeviceSelector(cls: win32more.Windows.Media.Casting.ICastingDeviceStatics, type: win32more.Windows.Media.Casting.CastingPlaybackTypes) -> WinRT_String: ...
+    def GetDeviceSelector(cls: win32more.Windows.Media.Casting.ICastingDeviceStatics, type: win32more.Windows.Media.Casting.CastingPlaybackTypes) -> hstr: ...
     @winrt_classmethod
-    def GetDeviceSelectorFromCastingSourceAsync(cls: win32more.Windows.Media.Casting.ICastingDeviceStatics, castingSource: win32more.Windows.Media.Casting.CastingSource) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    def GetDeviceSelectorFromCastingSourceAsync(cls: win32more.Windows.Media.Casting.ICastingDeviceStatics, castingSource: win32more.Windows.Media.Casting.CastingSource) -> win32more.Windows.Foundation.IAsyncOperation[hstr]: ...
     @winrt_classmethod
-    def FromIdAsync(cls: win32more.Windows.Media.Casting.ICastingDeviceStatics, value: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Casting.CastingDevice]: ...
+    def FromIdAsync(cls: win32more.Windows.Media.Casting.ICastingDeviceStatics, value: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Casting.CastingDevice]: ...
     @winrt_classmethod
     def DeviceInfoSupportsCastingAsync(cls: win32more.Windows.Media.Casting.ICastingDeviceStatics, device: win32more.Windows.Devices.Enumeration.DeviceInformation) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     FriendlyName = property(get_FriendlyName, None)
@@ -120,8 +120,8 @@ class CastingDevicePicker(ComPtr):
     def Hide(self: win32more.Windows.Media.Casting.ICastingDevicePicker) -> Void: ...
     Appearance = property(get_Appearance, None)
     Filter = property(get_Filter, None)
-    CastingDeviceSelected = event()
-    CastingDevicePickerDismissed = event()
+    CastingDevicePickerDismissed = event(add_CastingDevicePickerDismissed, remove_CastingDevicePickerDismissed)
+    CastingDeviceSelected = event(add_CastingDeviceSelected, remove_CastingDeviceSelected)
 class CastingDevicePickerFilter(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingDevicePickerFilter
@@ -193,8 +193,8 @@ class ICastingConnection(ComPtr):
     Device = property(get_Device, None)
     Source = property(get_Source, put_Source)
     State = property(get_State, None)
-    StateChanged = event()
-    ErrorOccurred = event()
+    ErrorOccurred = event(add_ErrorOccurred, remove_ErrorOccurred)
+    StateChanged = event(add_StateChanged, remove_StateChanged)
 class ICastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs'
@@ -202,7 +202,7 @@ class ICastingConnectionErrorOccurredEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_ErrorStatus(self) -> win32more.Windows.Media.Casting.CastingConnectionErrorStatus: ...
     @winrt_commethod(7)
-    def get_Message(self) -> WinRT_String: ...
+    def get_Message(self) -> hstr: ...
     ErrorStatus = property(get_ErrorStatus, None)
     Message = property(get_Message, None)
 class ICastingDevice(ComPtr):
@@ -210,9 +210,9 @@ class ICastingDevice(ComPtr):
     _classid_ = 'Windows.Media.Casting.ICastingDevice'
     _iid_ = Guid('{de721c83-4a43-4ad1-a6d2-2492a796c3f2}')
     @winrt_commethod(6)
-    def get_Id(self) -> WinRT_String: ...
+    def get_Id(self) -> hstr: ...
     @winrt_commethod(7)
-    def get_FriendlyName(self) -> WinRT_String: ...
+    def get_FriendlyName(self) -> hstr: ...
     @winrt_commethod(8)
     def get_Icon(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     @winrt_commethod(9)
@@ -246,8 +246,8 @@ class ICastingDevicePicker(ComPtr):
     def Hide(self) -> Void: ...
     Appearance = property(get_Appearance, None)
     Filter = property(get_Filter, None)
-    CastingDeviceSelected = event()
-    CastingDevicePickerDismissed = event()
+    CastingDevicePickerDismissed = event(add_CastingDevicePickerDismissed, remove_CastingDevicePickerDismissed)
+    CastingDeviceSelected = event(add_CastingDeviceSelected, remove_CastingDeviceSelected)
 class ICastingDevicePickerFilter(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Media.Casting.ICastingDevicePickerFilter'
@@ -282,11 +282,11 @@ class ICastingDeviceStatics(ComPtr):
     _classid_ = 'Windows.Media.Casting.ICastingDeviceStatics'
     _iid_ = Guid('{e7d958d7-4d13-4237-a365-4c4f6a4cfd2f}')
     @winrt_commethod(6)
-    def GetDeviceSelector(self, type: win32more.Windows.Media.Casting.CastingPlaybackTypes) -> WinRT_String: ...
+    def GetDeviceSelector(self, type: win32more.Windows.Media.Casting.CastingPlaybackTypes) -> hstr: ...
     @winrt_commethod(7)
-    def GetDeviceSelectorFromCastingSourceAsync(self, castingSource: win32more.Windows.Media.Casting.CastingSource) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    def GetDeviceSelectorFromCastingSourceAsync(self, castingSource: win32more.Windows.Media.Casting.CastingSource) -> win32more.Windows.Foundation.IAsyncOperation[hstr]: ...
     @winrt_commethod(8)
-    def FromIdAsync(self, value: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Casting.CastingDevice]: ...
+    def FromIdAsync(self, value: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Casting.CastingDevice]: ...
     @winrt_commethod(9)
     def DeviceInfoSupportsCastingAsync(self, device: win32more.Windows.Devices.Enumeration.DeviceInformation) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ICastingSource(ComPtr):

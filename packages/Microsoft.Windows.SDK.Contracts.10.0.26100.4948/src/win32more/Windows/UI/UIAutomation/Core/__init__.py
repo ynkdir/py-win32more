@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.UI.UIAutomation
 import win32more.Windows.UI.UIAutomation.Core
@@ -163,22 +163,22 @@ class IRemoteAutomationClientSession(ComPtr):
     @winrt_commethod(13)
     def remove_Disconnected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SessionId = property(get_SessionId, None)
-    ConnectionRequested = event()
-    Disconnected = event()
+    ConnectionRequested = event(add_ConnectionRequested, remove_ConnectionRequested)
+    Disconnected = event(add_Disconnected, remove_Disconnected)
 class IRemoteAutomationClientSessionFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationClientSessionFactory'
     _iid_ = Guid('{f250263d-6057-5373-a5a5-ed7265fe0376}')
     @winrt_commethod(6)
-    def CreateInstance(self, name: WinRT_String) -> win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
+    def CreateInstance(self, name: hstr) -> win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
     @winrt_commethod(7)
-    def CreateInstance2(self, name: WinRT_String, sessionId: Guid) -> win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
+    def CreateInstance2(self, name: hstr, sessionId: Guid) -> win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
 class IRemoteAutomationConnectionRequestedEventArgs(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs'
     _iid_ = Guid('{ea3319a8-e3a8-5dc6-adf8-044e46b14af5}')
     @winrt_commethod(6)
-    def get_LocalPipeName(self) -> WinRT_String: ...
+    def get_LocalPipeName(self) -> hstr: ...
     @winrt_commethod(7)
     def get_RemoteProcessId(self) -> UInt32: ...
     LocalPipeName = property(get_LocalPipeName, None)
@@ -188,7 +188,7 @@ class IRemoteAutomationDisconnectedEventArgs(ComPtr):
     _classid_ = 'Windows.UI.UIAutomation.Core.IRemoteAutomationDisconnectedEventArgs'
     _iid_ = Guid('{bbb33a3d-5d90-5c38-9eb2-dd9dcc1b2e3f}')
     @winrt_commethod(6)
-    def get_LocalPipeName(self) -> WinRT_String: ...
+    def get_LocalPipeName(self) -> hstr: ...
     LocalPipeName = property(get_LocalPipeName, None)
 class IRemoteAutomationServerStatics(ComPtr):
     extends: IInspectable
@@ -219,9 +219,9 @@ class RemoteAutomationClientSession(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSessionFactory, name: WinRT_String) -> win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
+    def CreateInstance(cls: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSessionFactory, name: hstr) -> win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
     @winrt_factorymethod
-    def CreateInstance2(cls: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSessionFactory, name: WinRT_String, sessionId: Guid) -> win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
+    def CreateInstance2(cls: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSessionFactory, name: hstr, sessionId: Guid) -> win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
     @winrt_mixinmethod
     def Start(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession) -> Void: ...
     @winrt_mixinmethod
@@ -239,14 +239,14 @@ class RemoteAutomationClientSession(ComPtr):
     @winrt_mixinmethod
     def remove_Disconnected(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SessionId = property(get_SessionId, None)
-    ConnectionRequested = event()
-    Disconnected = event()
+    ConnectionRequested = event(add_ConnectionRequested, remove_ConnectionRequested)
+    Disconnected = event(add_Disconnected, remove_Disconnected)
 class RemoteAutomationConnectionRequestedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs
     _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationConnectionRequestedEventArgs'
     @winrt_mixinmethod
-    def get_LocalPipeName(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs) -> WinRT_String: ...
+    def get_LocalPipeName(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs) -> hstr: ...
     @winrt_mixinmethod
     def get_RemoteProcessId(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs) -> UInt32: ...
     LocalPipeName = property(get_LocalPipeName, None)
@@ -256,7 +256,7 @@ class RemoteAutomationDisconnectedEventArgs(ComPtr):
     default_interface: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationDisconnectedEventArgs
     _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationDisconnectedEventArgs'
     @winrt_mixinmethod
-    def get_LocalPipeName(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationDisconnectedEventArgs) -> WinRT_String: ...
+    def get_LocalPipeName(self: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationDisconnectedEventArgs) -> hstr: ...
     LocalPipeName = property(get_LocalPipeName, None)
 class RemoteAutomationServer(ComPtr):
     extends: IInspectable

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics.Printing
 import win32more.Windows.UI.Xaml
@@ -99,9 +99,9 @@ class IPrintDocument(ComPtr):
     @winrt_commethod(17)
     def InvalidatePreview(self) -> Void: ...
     DocumentSource = property(get_DocumentSource, None)
-    Paginate = event()
-    GetPreviewPage = event()
-    AddPages = event()
+    AddPages = event(add_AddPages, remove_AddPages)
+    GetPreviewPage = event(add_GetPreviewPage, remove_GetPreviewPage)
+    Paginate = event(add_Paginate, remove_Paginate)
 class IPrintDocumentFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Printing.IPrintDocumentFactory'
@@ -185,9 +185,9 @@ class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):
     def get_DocumentSourceProperty(cls: win32more.Windows.UI.Xaml.Printing.IPrintDocumentStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     DocumentSource = property(get_DocumentSource, None)
     _PrintDocument_Meta_.DocumentSourceProperty = property(get_DocumentSourceProperty, None)
-    Paginate = event()
-    GetPreviewPage = event()
-    AddPages = event()
+    AddPages = event(add_AddPages, remove_AddPages)
+    GetPreviewPage = event(add_GetPreviewPage, remove_GetPreviewPage)
+    Paginate = event(add_Paginate, remove_Paginate)
 
 
 make_ready(__name__)

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Security.Cryptography.DataProtection
 import win32more.Windows.Storage.Streams
@@ -19,7 +19,7 @@ class DataProtectionProvider(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.DataProtection.DataProtectionProvider: ...
     @winrt_factorymethod
-    def CreateOverloadExplicit(cls: win32more.Windows.Security.Cryptography.DataProtection.IDataProtectionProviderFactory, protectionDescriptor: WinRT_String) -> win32more.Windows.Security.Cryptography.DataProtection.DataProtectionProvider: ...
+    def CreateOverloadExplicit(cls: win32more.Windows.Security.Cryptography.DataProtection.IDataProtectionProviderFactory, protectionDescriptor: hstr) -> win32more.Windows.Security.Cryptography.DataProtection.DataProtectionProvider: ...
     @winrt_mixinmethod
     def ProtectAsync(self: win32more.Windows.Security.Cryptography.DataProtection.IDataProtectionProvider, data: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IBuffer]: ...
     @winrt_mixinmethod
@@ -45,7 +45,7 @@ class IDataProtectionProviderFactory(ComPtr):
     _classid_ = 'Windows.Security.Cryptography.DataProtection.IDataProtectionProviderFactory'
     _iid_ = Guid('{adf33dac-4932-4cdf-ac41-7214333514ca}')
     @winrt_commethod(6)
-    def CreateOverloadExplicit(self, protectionDescriptor: WinRT_String) -> win32more.Windows.Security.Cryptography.DataProtection.DataProtectionProvider: ...
+    def CreateOverloadExplicit(self, protectionDescriptor: hstr) -> win32more.Windows.Security.Cryptography.DataProtection.DataProtectionProvider: ...
 
 
 make_ready(__name__)

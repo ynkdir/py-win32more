@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Devices.HumanInterfaceDevice
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -122,17 +122,17 @@ class HidDevice(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
-    def GetDeviceSelector(cls: win32more.Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics, usagePage: UInt16, usageId: UInt16) -> WinRT_String: ...
+    def GetDeviceSelector(cls: win32more.Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics, usagePage: UInt16, usageId: UInt16) -> hstr: ...
     @winrt_classmethod
-    def GetDeviceSelectorVidPid(cls: win32more.Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics, usagePage: UInt16, usageId: UInt16, vendorId: UInt16, productId: UInt16) -> WinRT_String: ...
+    def GetDeviceSelectorVidPid(cls: win32more.Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics, usagePage: UInt16, usageId: UInt16, vendorId: UInt16, productId: UInt16) -> hstr: ...
     @winrt_classmethod
-    def FromIdAsync(cls: win32more.Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics, deviceId: WinRT_String, accessMode: win32more.Windows.Storage.FileAccessMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.HumanInterfaceDevice.HidDevice]: ...
+    def FromIdAsync(cls: win32more.Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics, deviceId: hstr, accessMode: win32more.Windows.Storage.FileAccessMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.HumanInterfaceDevice.HidDevice]: ...
     ProductId = property(get_ProductId, None)
     UsageId = property(get_UsageId, None)
     UsagePage = property(get_UsagePage, None)
     VendorId = property(get_VendorId, None)
     Version = property(get_Version, None)
-    InputReportReceived = event()
+    InputReportReceived = event(add_InputReportReceived, remove_InputReportReceived)
 class HidFeatureReport(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.HumanInterfaceDevice.IHidFeatureReport
@@ -403,17 +403,17 @@ class IHidDevice(ComPtr):
     UsagePage = property(get_UsagePage, None)
     VendorId = property(get_VendorId, None)
     Version = property(get_Version, None)
-    InputReportReceived = event()
+    InputReportReceived = event(add_InputReportReceived, remove_InputReportReceived)
 class IHidDeviceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidDeviceStatics'
     _iid_ = Guid('{9e5981e4-9856-418c-9f73-77de0cd85754}')
     @winrt_commethod(6)
-    def GetDeviceSelector(self, usagePage: UInt16, usageId: UInt16) -> WinRT_String: ...
+    def GetDeviceSelector(self, usagePage: UInt16, usageId: UInt16) -> hstr: ...
     @winrt_commethod(7)
-    def GetDeviceSelectorVidPid(self, usagePage: UInt16, usageId: UInt16, vendorId: UInt16, productId: UInt16) -> WinRT_String: ...
+    def GetDeviceSelectorVidPid(self, usagePage: UInt16, usageId: UInt16, vendorId: UInt16, productId: UInt16) -> hstr: ...
     @winrt_commethod(8)
-    def FromIdAsync(self, deviceId: WinRT_String, accessMode: win32more.Windows.Storage.FileAccessMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.HumanInterfaceDevice.HidDevice]: ...
+    def FromIdAsync(self, deviceId: hstr, accessMode: win32more.Windows.Storage.FileAccessMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.HumanInterfaceDevice.HidDevice]: ...
 class IHidFeatureReport(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidFeatureReport'

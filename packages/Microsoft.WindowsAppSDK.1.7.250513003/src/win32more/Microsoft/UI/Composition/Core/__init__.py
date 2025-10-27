@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Composition.Core
 import win32more.Windows.Foundation
@@ -30,7 +30,7 @@ class CompositorController(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Compositor = property(get_Compositor, None)
-    CommitNeeded = event()
+    CommitNeeded = event(add_CommitNeeded, remove_CommitNeeded)
 class ICompositorController(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Core.ICompositorController'
@@ -46,7 +46,7 @@ class ICompositorController(ComPtr):
     @winrt_commethod(10)
     def remove_CommitNeeded(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Compositor = property(get_Compositor, None)
-    CommitNeeded = event()
+    CommitNeeded = event(add_CommitNeeded, remove_CommitNeeded)
 
 
 make_ready(__name__)

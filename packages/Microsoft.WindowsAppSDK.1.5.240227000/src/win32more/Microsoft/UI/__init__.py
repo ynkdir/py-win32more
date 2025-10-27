@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI
 import win32more.Windows.Foundation
 import win32more.Windows.UI
@@ -460,8 +460,8 @@ class IClosableNotifier(ComPtr):
     @winrt_commethod(10)
     def remove_FrameworkClosed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsClosed = property(get_IsClosed, None)
-    Closed = event()
-    FrameworkClosed = event()
+    Closed = event(add_Closed, remove_Closed)
+    FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
 class IColorHelper(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.IColorHelper'

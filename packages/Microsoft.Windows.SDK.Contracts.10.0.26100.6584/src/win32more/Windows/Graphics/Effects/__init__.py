@@ -1,14 +1,14 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Graphics.Effects
 class IGraphicsEffect(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Effects.IGraphicsEffect'
     _iid_ = Guid('{cb51c0ce-8fe6-4636-b202-861faa07d8f3}')
     @winrt_commethod(6)
-    def get_Name(self) -> WinRT_String: ...
+    def get_Name(self) -> hstr: ...
     @winrt_commethod(7)
-    def put_Name(self, name: WinRT_String) -> Void: ...
+    def put_Name(self, name: hstr) -> Void: ...
     Name = property(get_Name, put_Name)
 class IGraphicsEffectSource(ComPtr):
     extends: IInspectable

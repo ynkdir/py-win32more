@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.Graphics.Imaging
 import win32more.Microsoft.Windows.AI
 import win32more.Microsoft.Windows.AI.ContentSafety
@@ -13,7 +13,7 @@ class IImageDescriptionGenerator(ComPtr):
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageDescriptionGenerator'
     _iid_ = Guid('{576b989e-9829-5682-91b0-a7110fa7d51e}')
     @winrt_commethod(6)
-    def DescribeAsync(self, image: win32more.Microsoft.Graphics.Imaging.ImageBuffer, kind: win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionKind, contentFilterOptions: win32more.Microsoft.Windows.AI.ContentSafety.ContentFilterOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionResult, WinRT_String]: ...
+    def DescribeAsync(self, image: win32more.Microsoft.Graphics.Imaging.ImageBuffer, kind: win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionKind, contentFilterOptions: win32more.Microsoft.Windows.AI.ContentSafety.ContentFilterOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionResult, hstr]: ...
 class IImageDescriptionGeneratorStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageDescriptionGeneratorStatics'
@@ -29,7 +29,7 @@ class IImageDescriptionResult(ComPtr):
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageDescriptionResult'
     _iid_ = Guid('{a066dd0c-110b-5275-a635-52bed7519a2f}')
     @winrt_commethod(6)
-    def get_Description(self) -> WinRT_String: ...
+    def get_Description(self) -> hstr: ...
     @winrt_commethod(7)
     def get_Status(self) -> win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionResultStatus: ...
     Description = property(get_Description, None)
@@ -99,7 +99,7 @@ class IRecognizedLine(ComPtr):
     _classid_ = 'Microsoft.Windows.AI.Imaging.IRecognizedLine'
     _iid_ = Guid('{612a6be6-f6bb-53c9-84ce-f0a5e565faa7}')
     @winrt_commethod(6)
-    def get_Text(self) -> WinRT_String: ...
+    def get_Text(self) -> hstr: ...
     @winrt_commethod(7)
     def get_BoundingBox(self) -> win32more.Microsoft.Windows.AI.Imaging.RecognizedTextBoundingBox: ...
     @winrt_commethod(8)
@@ -128,7 +128,7 @@ class IRecognizedWord(ComPtr):
     _classid_ = 'Microsoft.Windows.AI.Imaging.IRecognizedWord'
     _iid_ = Guid('{6b53daab-3410-5088-826a-0788a1ee3b52}')
     @winrt_commethod(6)
-    def get_Text(self) -> WinRT_String: ...
+    def get_Text(self) -> hstr: ...
     @winrt_commethod(7)
     def get_BoundingBox(self) -> win32more.Microsoft.Windows.AI.Imaging.RecognizedTextBoundingBox: ...
     @winrt_commethod(8)
@@ -161,7 +161,7 @@ class ImageDescriptionGenerator(ComPtr):
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionGenerator
     _classid_ = 'Microsoft.Windows.AI.Imaging.ImageDescriptionGenerator'
     @winrt_mixinmethod
-    def DescribeAsync(self: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionGenerator, image: win32more.Microsoft.Graphics.Imaging.ImageBuffer, kind: win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionKind, contentFilterOptions: win32more.Microsoft.Windows.AI.ContentSafety.ContentFilterOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionResult, WinRT_String]: ...
+    def DescribeAsync(self: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionGenerator, image: win32more.Microsoft.Graphics.Imaging.ImageBuffer, kind: win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionKind, contentFilterOptions: win32more.Microsoft.Windows.AI.ContentSafety.ContentFilterOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionResult, hstr]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
@@ -180,7 +180,7 @@ class ImageDescriptionResult(ComPtr):
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionResult
     _classid_ = 'Microsoft.Windows.AI.Imaging.ImageDescriptionResult'
     @winrt_mixinmethod
-    def get_Description(self: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionResult) -> WinRT_String: ...
+    def get_Description(self: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionResult) -> hstr: ...
     @winrt_mixinmethod
     def get_Status(self: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionResult) -> win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionResultStatus: ...
     Description = property(get_Description, None)
@@ -262,7 +262,7 @@ class RecognizedLine(ComPtr):
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IRecognizedLine
     _classid_ = 'Microsoft.Windows.AI.Imaging.RecognizedLine'
     @winrt_mixinmethod
-    def get_Text(self: win32more.Microsoft.Windows.AI.Imaging.IRecognizedLine) -> WinRT_String: ...
+    def get_Text(self: win32more.Microsoft.Windows.AI.Imaging.IRecognizedLine) -> hstr: ...
     @winrt_mixinmethod
     def get_BoundingBox(self: win32more.Microsoft.Windows.AI.Imaging.IRecognizedLine) -> win32more.Microsoft.Windows.AI.Imaging.RecognizedTextBoundingBox: ...
     @winrt_mixinmethod
@@ -298,7 +298,7 @@ class RecognizedWord(ComPtr):
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IRecognizedWord
     _classid_ = 'Microsoft.Windows.AI.Imaging.RecognizedWord'
     @winrt_mixinmethod
-    def get_Text(self: win32more.Microsoft.Windows.AI.Imaging.IRecognizedWord) -> WinRT_String: ...
+    def get_Text(self: win32more.Microsoft.Windows.AI.Imaging.IRecognizedWord) -> hstr: ...
     @winrt_mixinmethod
     def get_BoundingBox(self: win32more.Microsoft.Windows.AI.Imaging.IRecognizedWord) -> win32more.Microsoft.Windows.AI.Imaging.RecognizedTextBoundingBox: ...
     @winrt_mixinmethod

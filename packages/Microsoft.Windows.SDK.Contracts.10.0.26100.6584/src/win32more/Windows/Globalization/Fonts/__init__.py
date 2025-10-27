@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Globalization.Fonts
 import win32more.Windows.UI.Text
 class ILanguageFont(ComPtr):
@@ -7,7 +7,7 @@ class ILanguageFont(ComPtr):
     _classid_ = 'Windows.Globalization.Fonts.ILanguageFont'
     _iid_ = Guid('{b12e5c3a-b76d-459b-beeb-901151cd77d1}')
     @winrt_commethod(6)
-    def get_FontFamily(self) -> WinRT_String: ...
+    def get_FontFamily(self) -> hstr: ...
     @winrt_commethod(7)
     def get_FontWeight(self) -> win32more.Windows.UI.Text.FontWeight: ...
     @winrt_commethod(8)
@@ -63,13 +63,13 @@ class ILanguageFontGroupFactory(ComPtr):
     _classid_ = 'Windows.Globalization.Fonts.ILanguageFontGroupFactory'
     _iid_ = Guid('{fcaeac67-4e77-49c7-b856-dde934fc735b}')
     @winrt_commethod(6)
-    def CreateLanguageFontGroup(self, languageTag: WinRT_String) -> win32more.Windows.Globalization.Fonts.LanguageFontGroup: ...
+    def CreateLanguageFontGroup(self, languageTag: hstr) -> win32more.Windows.Globalization.Fonts.LanguageFontGroup: ...
 class LanguageFont(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Globalization.Fonts.ILanguageFont
     _classid_ = 'Windows.Globalization.Fonts.LanguageFont'
     @winrt_mixinmethod
-    def get_FontFamily(self: win32more.Windows.Globalization.Fonts.ILanguageFont) -> WinRT_String: ...
+    def get_FontFamily(self: win32more.Windows.Globalization.Fonts.ILanguageFont) -> hstr: ...
     @winrt_mixinmethod
     def get_FontWeight(self: win32more.Windows.Globalization.Fonts.ILanguageFont) -> win32more.Windows.UI.Text.FontWeight: ...
     @winrt_mixinmethod
@@ -95,7 +95,7 @@ class LanguageFontGroup(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateLanguageFontGroup(cls: win32more.Windows.Globalization.Fonts.ILanguageFontGroupFactory, languageTag: WinRT_String) -> win32more.Windows.Globalization.Fonts.LanguageFontGroup: ...
+    def CreateLanguageFontGroup(cls: win32more.Windows.Globalization.Fonts.ILanguageFontGroupFactory, languageTag: hstr) -> win32more.Windows.Globalization.Fonts.LanguageFontGroup: ...
     @winrt_mixinmethod
     def get_UITextFont(self: win32more.Windows.Globalization.Fonts.ILanguageFontGroup) -> win32more.Windows.Globalization.Fonts.LanguageFont: ...
     @winrt_mixinmethod

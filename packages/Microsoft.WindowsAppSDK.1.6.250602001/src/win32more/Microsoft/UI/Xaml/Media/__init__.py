@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Composition.SystemBackdrops
 import win32more.Microsoft.UI.Xaml
@@ -208,9 +208,9 @@ class Brush(ComPtr, metaclass=_Brush_Meta_):
     @winrt_mixinmethod
     def put_RelativeTransform(self: win32more.Microsoft.UI.Xaml.Media.IBrush, value: win32more.Microsoft.UI.Xaml.Media.Transform) -> Void: ...
     @winrt_mixinmethod
-    def PopulatePropertyInfoOverride(self: win32more.Microsoft.UI.Xaml.Media.IBrushOverrides, propertyName: WinRT_String, animationPropertyInfo: win32more.Microsoft.UI.Composition.AnimationPropertyInfo) -> Void: ...
+    def PopulatePropertyInfoOverride(self: win32more.Microsoft.UI.Xaml.Media.IBrushOverrides, propertyName: hstr, animationPropertyInfo: win32more.Microsoft.UI.Composition.AnimationPropertyInfo) -> Void: ...
     @winrt_mixinmethod
-    def PopulatePropertyInfo(self: win32more.Microsoft.UI.Composition.IAnimationObject, propertyName: WinRT_String, propertyInfo: win32more.Microsoft.UI.Composition.AnimationPropertyInfo) -> Void: ...
+    def PopulatePropertyInfo(self: win32more.Microsoft.UI.Composition.IAnimationObject, propertyName: hstr, propertyInfo: win32more.Microsoft.UI.Composition.AnimationPropertyInfo) -> Void: ...
     @winrt_classmethod
     def get_OpacityProperty(cls: win32more.Microsoft.UI.Xaml.Media.IBrushStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
@@ -370,7 +370,9 @@ class CompositeTransform(ComPtr, metaclass=_CompositeTransform_Meta_):
     _CompositeTransform_Meta_.SkewYProperty = property(get_SkewYProperty, None)
     _CompositeTransform_Meta_.TranslateXProperty = property(get_TranslateXProperty, None)
     _CompositeTransform_Meta_.TranslateYProperty = property(get_TranslateYProperty, None)
-class CompositionTarget(ComPtr):
+class _CompositionTarget_Meta_(ComPtr.__class__):
+    pass
+class CompositionTarget(ComPtr, metaclass=_CompositionTarget_Meta_):
     extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.ICompositionTarget
     _classid_ = 'Microsoft.UI.Xaml.Media.CompositionTarget'
@@ -388,6 +390,9 @@ class CompositionTarget(ComPtr):
     def remove_SurfaceContentsLost(cls: win32more.Microsoft.UI.Xaml.Media.ICompositionTargetStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetCompositorForCurrentThread(cls: win32more.Microsoft.UI.Xaml.Media.ICompositionTargetStatics) -> win32more.Microsoft.UI.Composition.Compositor: ...
+    _CompositionTarget_Meta_.Rendered = event(add_Rendered, remove_Rendered)
+    _CompositionTarget_Meta_.Rendering = event(add_Rendering, remove_Rendering)
+    _CompositionTarget_Meta_.SurfaceContentsLost = event(add_SurfaceContentsLost, remove_SurfaceContentsLost)
 class DesktopAcrylicBackdrop(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.SystemBackdrop
     default_interface: win32more.Microsoft.UI.Xaml.Media.IDesktopAcrylicBackdrop
@@ -506,9 +511,9 @@ class FontFamily(ComPtr, metaclass=_FontFamily_Meta_):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstanceWithName(cls: win32more.Microsoft.UI.Xaml.Media.IFontFamilyFactory, familyName: WinRT_String, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.FontFamily: ...
+    def CreateInstanceWithName(cls: win32more.Microsoft.UI.Xaml.Media.IFontFamilyFactory, familyName: hstr, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.FontFamily: ...
     @winrt_mixinmethod
-    def get_Source(self: win32more.Microsoft.UI.Xaml.Media.IFontFamily) -> WinRT_String: ...
+    def get_Source(self: win32more.Microsoft.UI.Xaml.Media.IFontFamily) -> hstr: ...
     @winrt_classmethod
     def get_XamlAutoFontFamily(cls: win32more.Microsoft.UI.Xaml.Media.IFontFamilyStatics) -> win32more.Microsoft.UI.Xaml.Media.FontFamily: ...
     Source = property(get_Source, None)
@@ -936,7 +941,7 @@ class IBrushOverrides(ComPtr):
     _classid_ = 'Microsoft.UI.Xaml.Media.IBrushOverrides'
     _iid_ = Guid('{b6b08394-bacf-53db-9ac7-be1c693e3513}')
     @winrt_commethod(6)
-    def PopulatePropertyInfoOverride(self, propertyName: WinRT_String, animationPropertyInfo: win32more.Microsoft.UI.Composition.AnimationPropertyInfo) -> Void: ...
+    def PopulatePropertyInfoOverride(self, propertyName: hstr, animationPropertyInfo: win32more.Microsoft.UI.Composition.AnimationPropertyInfo) -> Void: ...
 class IBrushStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.IBrushStatics'
@@ -1062,9 +1067,9 @@ class ICompositionTargetStatics(ComPtr):
     def remove_SurfaceContentsLost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
     def GetCompositorForCurrentThread(self) -> win32more.Microsoft.UI.Composition.Compositor: ...
-    Rendering = event()
-    Rendered = event()
-    SurfaceContentsLost = event()
+    Rendered = event(add_Rendered, remove_Rendered)
+    Rendering = event(add_Rendering, remove_Rendering)
+    SurfaceContentsLost = event(add_SurfaceContentsLost, remove_SurfaceContentsLost)
 class IDesktopAcrylicBackdrop(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.IDesktopAcrylicBackdrop'
@@ -1112,14 +1117,14 @@ class IFontFamily(ComPtr):
     _classid_ = 'Microsoft.UI.Xaml.Media.IFontFamily'
     _iid_ = Guid('{18fa5bc1-7294-527c-bb02-b213e0b3a2a3}')
     @winrt_commethod(6)
-    def get_Source(self) -> WinRT_String: ...
+    def get_Source(self) -> hstr: ...
     Source = property(get_Source, None)
 class IFontFamilyFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.IFontFamilyFactory'
     _iid_ = Guid('{61b88a77-d0f9-5e9e-8c28-eda01fede22e}')
     @winrt_commethod(6)
-    def CreateInstanceWithName(self, familyName: WinRT_String, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.FontFamily: ...
+    def CreateInstanceWithName(self, familyName: hstr, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.FontFamily: ...
 class IFontFamilyStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.IFontFamilyStatics'
@@ -1297,8 +1302,8 @@ class IImageBrush(ComPtr):
     @winrt_commethod(11)
     def remove_ImageOpened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
-    ImageFailed = event()
-    ImageOpened = event()
+    ImageFailed = event(add_ImageFailed, remove_ImageFailed)
+    ImageOpened = event(add_ImageOpened, remove_ImageOpened)
 class IImageBrushStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.IImageBrushStatics'
@@ -1408,7 +1413,7 @@ class ILoadedImageSurface(ComPtr):
     DecodedPhysicalSize = property(get_DecodedPhysicalSize, None)
     DecodedSize = property(get_DecodedSize, None)
     NaturalSize = property(get_NaturalSize, None)
-    LoadCompleted = event()
+    LoadCompleted = event(add_LoadCompleted, remove_LoadCompleted)
 class ILoadedImageSurfaceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.ILoadedImageSurfaceStatics'
@@ -2215,7 +2220,7 @@ class IXamlLightOverrides(ComPtr):
     _classid_ = 'Microsoft.UI.Xaml.Media.IXamlLightOverrides'
     _iid_ = Guid('{696d4f30-92ee-540d-ad70-33d4489514d0}')
     @winrt_commethod(6)
-    def GetId(self) -> WinRT_String: ...
+    def GetId(self) -> hstr: ...
     @winrt_commethod(7)
     def OnConnected(self, newElement: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     @winrt_commethod(8)
@@ -2234,13 +2239,13 @@ class IXamlLightStatics(ComPtr):
     _classid_ = 'Microsoft.UI.Xaml.Media.IXamlLightStatics'
     _iid_ = Guid('{a2d8ea26-26ff-5374-b1dd-f232d5604f6a}')
     @winrt_commethod(6)
-    def AddTargetElement(self, lightId: WinRT_String, element: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    def AddTargetElement(self, lightId: hstr, element: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     @winrt_commethod(7)
-    def RemoveTargetElement(self, lightId: WinRT_String, element: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    def RemoveTargetElement(self, lightId: hstr, element: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     @winrt_commethod(8)
-    def AddTargetBrush(self, lightId: WinRT_String, brush: win32more.Microsoft.UI.Xaml.Media.Brush) -> Void: ...
+    def AddTargetBrush(self, lightId: hstr, brush: win32more.Microsoft.UI.Xaml.Media.Brush) -> Void: ...
     @winrt_commethod(9)
-    def RemoveTargetBrush(self, lightId: WinRT_String, brush: win32more.Microsoft.UI.Xaml.Media.Brush) -> Void: ...
+    def RemoveTargetBrush(self, lightId: hstr, brush: win32more.Microsoft.UI.Xaml.Media.Brush) -> Void: ...
 class _ImageBrush_Meta_(ComPtr.__class__):
     pass
 class ImageBrush(ComPtr, metaclass=_ImageBrush_Meta_):
@@ -2272,8 +2277,8 @@ class ImageBrush(ComPtr, metaclass=_ImageBrush_Meta_):
     def get_ImageSourceProperty(cls: win32more.Microsoft.UI.Xaml.Media.IImageBrushStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
     _ImageBrush_Meta_.ImageSourceProperty = property(get_ImageSourceProperty, None)
-    ImageFailed = event()
-    ImageOpened = event()
+    ImageFailed = event(add_ImageFailed, remove_ImageFailed)
+    ImageOpened = event(add_ImageOpened, remove_ImageOpened)
 class ImageSource(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.IImageSource
@@ -2407,7 +2412,7 @@ class LoadedImageSurface(ComPtr):
     DecodedPhysicalSize = property(get_DecodedPhysicalSize, None)
     DecodedSize = property(get_DecodedSize, None)
     NaturalSize = property(get_NaturalSize, None)
-    LoadCompleted = event()
+    LoadCompleted = event(add_LoadCompleted, remove_LoadCompleted)
 class Matrix(Structure):
     M11: Double
     M12: Double
@@ -3491,19 +3496,19 @@ class XamlLight(ComPtr):
     @winrt_mixinmethod
     def put_CompositionLight(self: win32more.Microsoft.UI.Xaml.Media.IXamlLightProtected, value: win32more.Microsoft.UI.Composition.CompositionLight) -> Void: ...
     @winrt_mixinmethod
-    def GetId(self: win32more.Microsoft.UI.Xaml.Media.IXamlLightOverrides) -> WinRT_String: ...
+    def GetId(self: win32more.Microsoft.UI.Xaml.Media.IXamlLightOverrides) -> hstr: ...
     @winrt_mixinmethod
     def OnConnected(self: win32more.Microsoft.UI.Xaml.Media.IXamlLightOverrides, newElement: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     @winrt_mixinmethod
     def OnDisconnected(self: win32more.Microsoft.UI.Xaml.Media.IXamlLightOverrides, oldElement: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     @winrt_classmethod
-    def AddTargetElement(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightStatics, lightId: WinRT_String, element: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    def AddTargetElement(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightStatics, lightId: hstr, element: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     @winrt_classmethod
-    def RemoveTargetElement(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightStatics, lightId: WinRT_String, element: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    def RemoveTargetElement(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightStatics, lightId: hstr, element: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     @winrt_classmethod
-    def AddTargetBrush(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightStatics, lightId: WinRT_String, brush: win32more.Microsoft.UI.Xaml.Media.Brush) -> Void: ...
+    def AddTargetBrush(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightStatics, lightId: hstr, brush: win32more.Microsoft.UI.Xaml.Media.Brush) -> Void: ...
     @winrt_classmethod
-    def RemoveTargetBrush(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightStatics, lightId: WinRT_String, brush: win32more.Microsoft.UI.Xaml.Media.Brush) -> Void: ...
+    def RemoveTargetBrush(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightStatics, lightId: hstr, brush: win32more.Microsoft.UI.Xaml.Media.Brush) -> Void: ...
     CompositionLight = property(get_CompositionLight, put_CompositionLight)
 
 

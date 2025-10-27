@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core
@@ -20,7 +20,7 @@ class CoreDragDropManager(ComPtr):
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManagerStatics) -> win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragDropManager: ...
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
-    TargetRequested = event()
+    TargetRequested = event(add_TargetRequested, remove_TargetRequested)
 class CoreDragInfo(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo
@@ -87,9 +87,9 @@ class CoreDragUIOverride(ComPtr):
     @winrt_mixinmethod
     def put_IsContentVisible(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride, value: Boolean) -> Void: ...
     @winrt_mixinmethod
-    def get_Caption(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride) -> WinRT_String: ...
+    def get_Caption(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride) -> hstr: ...
     @winrt_mixinmethod
-    def put_Caption(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride, value: WinRT_String) -> Void: ...
+    def put_Caption(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride, value: hstr) -> Void: ...
     @winrt_mixinmethod
     def get_IsCaptionVisible(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride) -> Boolean: ...
     @winrt_mixinmethod
@@ -123,7 +123,7 @@ class ICoreDragDropManager(ComPtr):
     @winrt_commethod(9)
     def put_AreConcurrentOperationsEnabled(self, value: Boolean) -> Void: ...
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
-    TargetRequested = event()
+    TargetRequested = event(add_TargetRequested, remove_TargetRequested)
 class ICoreDragDropManagerStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManagerStatics'
@@ -192,9 +192,9 @@ class ICoreDragUIOverride(ComPtr):
     @winrt_commethod(9)
     def put_IsContentVisible(self, value: Boolean) -> Void: ...
     @winrt_commethod(10)
-    def get_Caption(self) -> WinRT_String: ...
+    def get_Caption(self) -> hstr: ...
     @winrt_commethod(11)
-    def put_Caption(self, value: WinRT_String) -> Void: ...
+    def put_Caption(self, value: hstr) -> Void: ...
     @winrt_commethod(12)
     def get_IsCaptionVisible(self) -> Boolean: ...
     @winrt_commethod(13)

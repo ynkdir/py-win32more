@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -46,7 +46,7 @@ class IWebViewControlProcess(ComPtr):
     @winrt_commethod(6)
     def get_ProcessId(self) -> UInt32: ...
     @winrt_commethod(7)
-    def get_EnterpriseId(self) -> WinRT_String: ...
+    def get_EnterpriseId(self) -> hstr: ...
     @winrt_commethod(8)
     def get_IsPrivateNetworkClientServerCapabilityEnabled(self) -> Boolean: ...
     @winrt_commethod(9)
@@ -62,7 +62,7 @@ class IWebViewControlProcess(ComPtr):
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
     ProcessId = property(get_ProcessId, None)
-    ProcessExited = event()
+    ProcessExited = event(add_ProcessExited, remove_ProcessExited)
 class IWebViewControlProcessFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Web.UI.Interop.IWebViewControlProcessFactory'
@@ -74,9 +74,9 @@ class IWebViewControlProcessOptions(ComPtr):
     _classid_ = 'Windows.Web.UI.Interop.IWebViewControlProcessOptions'
     _iid_ = Guid('{1cca72a7-3bd6-4826-8261-6c8189505d89}')
     @winrt_commethod(6)
-    def put_EnterpriseId(self, value: WinRT_String) -> Void: ...
+    def put_EnterpriseId(self, value: hstr) -> Void: ...
     @winrt_commethod(7)
-    def get_EnterpriseId(self) -> WinRT_String: ...
+    def get_EnterpriseId(self) -> hstr: ...
     @winrt_commethod(8)
     def put_PrivateNetworkClientServerCapability(self, value: win32more.Windows.Web.UI.Interop.WebViewControlProcessCapabilityState) -> Void: ...
     @winrt_commethod(9)
@@ -117,8 +117,8 @@ class IWebViewControlSite(ComPtr):
     IsVisible = property(get_IsVisible, put_IsVisible)
     Process = property(get_Process, None)
     Scale = property(get_Scale, put_Scale)
-    MoveFocusRequested = event()
-    AcceleratorKeyPressed = event()
+    AcceleratorKeyPressed = event(add_AcceleratorKeyPressed, remove_AcceleratorKeyPressed)
+    MoveFocusRequested = event(add_MoveFocusRequested, remove_MoveFocusRequested)
 class IWebViewControlSite2(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Web.UI.Interop.IWebViewControlSite2'
@@ -131,8 +131,8 @@ class IWebViewControlSite2(ComPtr):
     def add_LostFocus(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.Interop.WebViewControl, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_LostFocus(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    GotFocus = event()
-    LostFocus = event()
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
 class WebViewControl(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Web.UI.IWebViewControl
@@ -142,7 +142,7 @@ class WebViewControl(ComPtr):
     @winrt_mixinmethod
     def put_Source(self: win32more.Windows.Web.UI.IWebViewControl, source: win32more.Windows.Foundation.Uri) -> Void: ...
     @winrt_mixinmethod
-    def get_DocumentTitle(self: win32more.Windows.Web.UI.IWebViewControl) -> WinRT_String: ...
+    def get_DocumentTitle(self: win32more.Windows.Web.UI.IWebViewControl) -> hstr: ...
     @winrt_mixinmethod
     def get_CanGoBack(self: win32more.Windows.Web.UI.IWebViewControl) -> Boolean: ...
     @winrt_mixinmethod
@@ -168,19 +168,19 @@ class WebViewControl(ComPtr):
     @winrt_mixinmethod
     def Navigate(self: win32more.Windows.Web.UI.IWebViewControl, source: win32more.Windows.Foundation.Uri) -> Void: ...
     @winrt_mixinmethod
-    def NavigateToString(self: win32more.Windows.Web.UI.IWebViewControl, text: WinRT_String) -> Void: ...
+    def NavigateToString(self: win32more.Windows.Web.UI.IWebViewControl, text: hstr) -> Void: ...
     @winrt_mixinmethod
     def NavigateToLocalStreamUri(self: win32more.Windows.Web.UI.IWebViewControl, source: win32more.Windows.Foundation.Uri, streamResolver: win32more.Windows.Web.IUriToStreamResolver) -> Void: ...
     @winrt_mixinmethod
     def NavigateWithHttpRequestMessage(self: win32more.Windows.Web.UI.IWebViewControl, requestMessage: win32more.Windows.Web.Http.HttpRequestMessage) -> Void: ...
     @winrt_mixinmethod
-    def InvokeScriptAsync(self: win32more.Windows.Web.UI.IWebViewControl, scriptName: WinRT_String, arguments: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    def InvokeScriptAsync(self: win32more.Windows.Web.UI.IWebViewControl, scriptName: hstr, arguments: win32more.Windows.Foundation.Collections.IIterable[hstr]) -> win32more.Windows.Foundation.IAsyncOperation[hstr]: ...
     @winrt_mixinmethod
     def CapturePreviewToStreamAsync(self: win32more.Windows.Web.UI.IWebViewControl, stream: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def CaptureSelectedContentToDataPackageAsync(self: win32more.Windows.Web.UI.IWebViewControl) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.DataTransfer.DataPackage]: ...
     @winrt_mixinmethod
-    def BuildLocalStreamUri(self: win32more.Windows.Web.UI.IWebViewControl, contentIdentifier: WinRT_String, relativePath: WinRT_String) -> win32more.Windows.Foundation.Uri: ...
+    def BuildLocalStreamUri(self: win32more.Windows.Web.UI.IWebViewControl, contentIdentifier: hstr, relativePath: hstr) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
     def GetDeferredPermissionRequestById(self: win32more.Windows.Web.UI.IWebViewControl, id: UInt32, result: POINTER(win32more.Windows.Web.UI.WebViewControlDeferredPermissionRequest)) -> Void: ...
     @winrt_mixinmethod
@@ -278,7 +278,7 @@ class WebViewControl(ComPtr):
     @winrt_mixinmethod
     def remove_AcceleratorKeyPressed(self: win32more.Windows.Web.UI.Interop.IWebViewControlSite, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def AddInitializeScript(self: win32more.Windows.Web.UI.IWebViewControl2, script: WinRT_String) -> Void: ...
+    def AddInitializeScript(self: win32more.Windows.Web.UI.IWebViewControl2, script: hstr) -> Void: ...
     @winrt_mixinmethod
     def add_GotFocus(self: win32more.Windows.Web.UI.Interop.IWebViewControlSite2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.Interop.WebViewControl, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -299,27 +299,27 @@ class WebViewControl(ComPtr):
     Scale = property(get_Scale, put_Scale)
     Settings = property(get_Settings, None)
     Source = property(get_Source, put_Source)
-    NavigationStarting = event()
-    ContentLoading = event()
-    DOMContentLoaded = event()
-    NavigationCompleted = event()
-    FrameNavigationStarting = event()
-    FrameContentLoading = event()
-    FrameDOMContentLoaded = event()
-    FrameNavigationCompleted = event()
-    ScriptNotify = event()
-    LongRunningScriptDetected = event()
-    UnsafeContentWarningDisplaying = event()
-    UnviewableContentIdentified = event()
-    PermissionRequested = event()
-    UnsupportedUriSchemeIdentified = event()
-    NewWindowRequested = event()
-    ContainsFullScreenElementChanged = event()
-    WebResourceRequested = event()
-    MoveFocusRequested = event()
-    AcceleratorKeyPressed = event()
-    GotFocus = event()
-    LostFocus = event()
+    AcceleratorKeyPressed = event(add_AcceleratorKeyPressed, remove_AcceleratorKeyPressed)
+    ContainsFullScreenElementChanged = event(add_ContainsFullScreenElementChanged, remove_ContainsFullScreenElementChanged)
+    ContentLoading = event(add_ContentLoading, remove_ContentLoading)
+    DOMContentLoaded = event(add_DOMContentLoaded, remove_DOMContentLoaded)
+    FrameContentLoading = event(add_FrameContentLoading, remove_FrameContentLoading)
+    FrameDOMContentLoaded = event(add_FrameDOMContentLoaded, remove_FrameDOMContentLoaded)
+    FrameNavigationCompleted = event(add_FrameNavigationCompleted, remove_FrameNavigationCompleted)
+    FrameNavigationStarting = event(add_FrameNavigationStarting, remove_FrameNavigationStarting)
+    GotFocus = event(add_GotFocus, remove_GotFocus)
+    LongRunningScriptDetected = event(add_LongRunningScriptDetected, remove_LongRunningScriptDetected)
+    LostFocus = event(add_LostFocus, remove_LostFocus)
+    MoveFocusRequested = event(add_MoveFocusRequested, remove_MoveFocusRequested)
+    NavigationCompleted = event(add_NavigationCompleted, remove_NavigationCompleted)
+    NavigationStarting = event(add_NavigationStarting, remove_NavigationStarting)
+    NewWindowRequested = event(add_NewWindowRequested, remove_NewWindowRequested)
+    PermissionRequested = event(add_PermissionRequested, remove_PermissionRequested)
+    ScriptNotify = event(add_ScriptNotify, remove_ScriptNotify)
+    UnsafeContentWarningDisplaying = event(add_UnsafeContentWarningDisplaying, remove_UnsafeContentWarningDisplaying)
+    UnsupportedUriSchemeIdentified = event(add_UnsupportedUriSchemeIdentified, remove_UnsupportedUriSchemeIdentified)
+    UnviewableContentIdentified = event(add_UnviewableContentIdentified, remove_UnviewableContentIdentified)
+    WebResourceRequested = event(add_WebResourceRequested, remove_WebResourceRequested)
 class WebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlAcceleratorKeyPressedEventArgs
@@ -375,7 +375,7 @@ class WebViewControlProcess(ComPtr):
     @winrt_mixinmethod
     def get_ProcessId(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcess) -> UInt32: ...
     @winrt_mixinmethod
-    def get_EnterpriseId(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcess) -> WinRT_String: ...
+    def get_EnterpriseId(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcess) -> hstr: ...
     @winrt_mixinmethod
     def get_IsPrivateNetworkClientServerCapabilityEnabled(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcess) -> Boolean: ...
     @winrt_mixinmethod
@@ -391,7 +391,7 @@ class WebViewControlProcess(ComPtr):
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
     ProcessId = property(get_ProcessId, None)
-    ProcessExited = event()
+    ProcessExited = event(add_ProcessExited, remove_ProcessExited)
 class WebViewControlProcessCapabilityState(Enum, Int32):
     Default = 0
     Disabled = 1
@@ -410,9 +410,9 @@ class WebViewControlProcessOptions(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.UI.Interop.WebViewControlProcessOptions: ...
     @winrt_mixinmethod
-    def put_EnterpriseId(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcessOptions, value: WinRT_String) -> Void: ...
+    def put_EnterpriseId(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcessOptions, value: hstr) -> Void: ...
     @winrt_mixinmethod
-    def get_EnterpriseId(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcessOptions) -> WinRT_String: ...
+    def get_EnterpriseId(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcessOptions) -> hstr: ...
     @winrt_mixinmethod
     def put_PrivateNetworkClientServerCapability(self: win32more.Windows.Web.UI.Interop.IWebViewControlProcessOptions, value: win32more.Windows.Web.UI.Interop.WebViewControlProcessCapabilityState) -> Void: ...
     @winrt_mixinmethod

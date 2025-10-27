@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.winrt.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System.Power.Thermal
@@ -10,7 +10,7 @@ class IPowerThermalChannelConfiguration(ComPtr):
     @winrt_commethod(6)
     def get_Id(self) -> win32more.Windows.System.Power.Thermal.PowerThermalChannelId: ...
     @winrt_commethod(7)
-    def get_ConfigurationString(self) -> WinRT_String: ...
+    def get_ConfigurationString(self) -> hstr: ...
     @winrt_commethod(8)
     def GetConfigurationNumericParameters(self) -> ReceiveArray[Int32]: ...
     ConfigurationString = property(get_ConfigurationString, None)
@@ -38,8 +38,8 @@ class IPowerThermalChannelDataConsumer(ComPtr):
     @winrt_commethod(14)
     def remove_BackEndStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BackEndStatus = property(get_BackEndStatus, None)
-    ChannelDataReceived = event()
-    BackEndStatusChanged = event()
+    BackEndStatusChanged = event(add_BackEndStatusChanged, remove_BackEndStatusChanged)
+    ChannelDataReceived = event(add_ChannelDataReceived, remove_ChannelDataReceived)
 class IPowerThermalChannelDataConsumerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Power.Thermal.IPowerThermalChannelDataConsumerFactory'
@@ -69,7 +69,7 @@ class IPowerThermalChannelDataProducer(ComPtr):
     @winrt_commethod(14)
     def remove_BackEndStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BackEndStatus = property(get_BackEndStatus, None)
-    BackEndStatusChanged = event()
+    BackEndStatusChanged = event(add_BackEndStatusChanged, remove_BackEndStatusChanged)
 class IPowerThermalChannelDataProducerFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.System.Power.Thermal.IPowerThermalChannelDataProducerFactory'
@@ -112,7 +112,7 @@ class PowerThermalChannelConfiguration(ComPtr):
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.System.Power.Thermal.IPowerThermalChannelConfiguration) -> win32more.Windows.System.Power.Thermal.PowerThermalChannelId: ...
     @winrt_mixinmethod
-    def get_ConfigurationString(self: win32more.Windows.System.Power.Thermal.IPowerThermalChannelConfiguration) -> WinRT_String: ...
+    def get_ConfigurationString(self: win32more.Windows.System.Power.Thermal.IPowerThermalChannelConfiguration) -> hstr: ...
     @winrt_mixinmethod
     def GetConfigurationNumericParameters(self: win32more.Windows.System.Power.Thermal.IPowerThermalChannelConfiguration) -> ReceiveArray[Int32]: ...
     ConfigurationString = property(get_ConfigurationString, None)
@@ -155,8 +155,8 @@ class PowerThermalChannelDataConsumer(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     BackEndStatus = property(get_BackEndStatus, None)
-    ChannelDataReceived = event()
-    BackEndStatusChanged = event()
+    BackEndStatusChanged = event(add_BackEndStatusChanged, remove_BackEndStatusChanged)
+    ChannelDataReceived = event(add_ChannelDataReceived, remove_ChannelDataReceived)
 class PowerThermalChannelDataProducer(ComPtr):
     extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
@@ -192,7 +192,7 @@ class PowerThermalChannelDataProducer(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     BackEndStatus = property(get_BackEndStatus, None)
-    BackEndStatusChanged = event()
+    BackEndStatusChanged = event(add_BackEndStatusChanged, remove_BackEndStatusChanged)
 class PowerThermalChannelDataReceivedEventArgs(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.System.Power.Thermal.IPowerThermalChannelDataReceivedEventArgs

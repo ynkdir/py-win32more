@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more.win32.prelude import *
+from win32more._prelude import *
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.SubsystemForLinux
 @winfunctype('Api-ms-win-wsl-api-l1-1-0.dll')
