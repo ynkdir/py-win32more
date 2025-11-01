@@ -14,19 +14,13 @@ See [Generating MSIX package components](https://learn.microsoft.com/en-us/windo
 > testapp/python.exe -m pip install -r test_requirements.txt
 ```
 
-If you want to create self-contained package.  Use scripts/build_selfcontained.py.
+If you want to create self-contained package.  Use scripts/build\_selfcontained.py.
 
 ```powershell
 > py scripts/build_selfcontained.py --target=testapp
 ```
 
-# 2. Move to package directory
-
-```powershell
-> cd testapp
-```
-
-# 3. Create AppxManifest.xml
+# 2. Create AppxManifest.xml
 
 For example:
 
@@ -98,15 +92,15 @@ For example:
 </Package>
 ```
 
-# 4. Install package
+# 3. Install package
 
 [You need to enable Developer Mode on Windows11.](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development)
 
 ```powershell
-> Add-AppxPackage -Register AppxManifest.xml
+> Add-AppxPackage -Register testapp\AppxManifest.xml
 ```
 
-# 5. Get package information
+# 4. Get package information
 ```powershell
 > Get-AppxPackage Win32more.TestApp
 
@@ -129,7 +123,7 @@ SignatureKind     : None
 Status            : Ok
 ```
 
-# 6. Get package AppID
+# 5. Get package AppID
 
 ```powershell
 > Get-StartApps TestApp
@@ -139,7 +133,7 @@ Name    AppID
 TestApp Win32more.TestApp_x22gc0rg6bp3w!TestApp
 ```
 
-# 7. Start TestApp
+# 6. Start TestApp
 
 You can now start testapp.exe.
 
@@ -157,7 +151,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 'Win32more.TestApp_1.0.0.0_x64__x22gc0rg6bp3w'
 ```
 
-# 8. Uninstall TestApp
+# 7. Uninstall TestApp
 
 ```powershell
 > Remove-AppxPackage Win32more.TestApp_1.0.0.0_x64__x22gc0rg6bp3w
