@@ -273,6 +273,7 @@ class CoreTextLayoutRequestedEventArgs(ComPtr):
     def get_Request(self: win32more.Windows.UI.Text.Core.ICoreTextLayoutRequestedEventArgs) -> win32more.Windows.UI.Text.Core.CoreTextLayoutRequest: ...
     Request = property(get_Request, None)
 class CoreTextRange(Structure):
+    _name_ = 'Windows.UI.Text.Core.CoreTextRange'
     StartCaretPosition: Int32
     EndCaretPosition: Int32
 class CoreTextSelectionRequest(ComPtr):

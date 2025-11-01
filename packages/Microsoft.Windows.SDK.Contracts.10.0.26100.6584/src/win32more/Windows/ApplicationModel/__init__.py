@@ -1356,6 +1356,7 @@ class PackageId(ComPtr):
     ResourceId = property(get_ResourceId, None)
     Version = property(get_Version, None)
 class PackageInstallProgress(Structure):
+    _name_ = 'Windows.ApplicationModel.PackageInstallProgress'
     PercentComplete: UInt32
 class PackageInstallingEventArgs(ComPtr):
     extends: IInspectable
@@ -1512,6 +1513,7 @@ class PackageUpdatingEventArgs(ComPtr):
     SourcePackage = property(get_SourcePackage, None)
     TargetPackage = property(get_TargetPackage, None)
 class PackageVersion(Structure):
+    _name_ = 'Windows.ApplicationModel.PackageVersion'
     Major: UInt16
     Minor: UInt16
     Build: UInt16

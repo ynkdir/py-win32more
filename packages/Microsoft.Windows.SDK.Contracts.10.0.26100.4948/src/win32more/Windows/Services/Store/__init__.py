@@ -1047,6 +1047,7 @@ class StorePackageUpdateState(Enum, Int32):
     ErrorWiFiRecommended = 7
     ErrorWiFiRequired = 8
 class StorePackageUpdateStatus(Structure):
+    _name_ = 'Windows.Services.Store.StorePackageUpdateStatus'
     PackageFamilyName: hstr
     PackageDownloadSizeInBytes: UInt64
     PackageBytesDownloaded: UInt64

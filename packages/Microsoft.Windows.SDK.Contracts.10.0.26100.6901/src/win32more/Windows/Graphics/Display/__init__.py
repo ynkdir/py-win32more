@@ -683,6 +683,7 @@ class IDisplayServicesStatics(ComPtr):
     @winrt_commethod(6)
     def FindAll(self) -> ReceiveArray[win32more.Windows.Graphics.DisplayId]: ...
 class NitRange(Structure):
+    _name_ = 'Windows.Graphics.Display.NitRange'
     MinNits: Single
     MaxNits: Single
     StepSizeNits: Single

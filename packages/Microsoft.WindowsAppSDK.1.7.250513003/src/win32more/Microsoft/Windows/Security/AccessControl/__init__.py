@@ -3,6 +3,7 @@ from win32more._prelude import *
 import win32more.Microsoft.Windows.Security.AccessControl
 AccessControlContract: UInt32 = 65536
 class AppContainerNameAndAccess(Structure):
+    _name_ = 'Microsoft.Windows.Security.AccessControl.AppContainerNameAndAccess'
     appContainerName: hstr
     accessMask: UInt32
 class ISecurityDescriptorHelpersStatics(ComPtr):

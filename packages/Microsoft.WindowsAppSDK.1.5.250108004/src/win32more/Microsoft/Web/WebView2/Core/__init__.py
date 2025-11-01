@@ -1563,6 +1563,7 @@ class CoreWebView2PermissionState(Enum, Int32):
     Allow = 1
     Deny = 2
 class CoreWebView2PhysicalKeyStatus(Structure):
+    _name_ = 'Microsoft.Web.WebView2.Core.CoreWebView2PhysicalKeyStatus'
     RepeatCount: UInt32
     ScanCode: UInt32
     IsExtendedKey: Int32

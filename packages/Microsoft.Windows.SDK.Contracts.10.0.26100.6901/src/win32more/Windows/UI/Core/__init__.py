@@ -417,6 +417,7 @@ class CoreInputDeviceTypes(Enum, UInt32):
     Pen = 2
     Mouse = 4
 class CorePhysicalKeyStatus(Structure):
+    _name_ = 'Windows.UI.Core.CorePhysicalKeyStatus'
     RepeatCount: UInt32
     ScanCode: UInt32
     IsExtendedKey: Boolean
@@ -429,6 +430,7 @@ class CoreProcessEventsOption(Enum, Int32):
     ProcessUntilQuit = 2
     ProcessAllIfPresent = 3
 class CoreProximityEvaluation(Structure):
+    _name_ = 'Windows.UI.Core.CoreProximityEvaluation'
     Score: Int32
     AdjustedPoint: win32more.Windows.Foundation.Point
 class CoreProximityEvaluationScore(Enum, Int32):

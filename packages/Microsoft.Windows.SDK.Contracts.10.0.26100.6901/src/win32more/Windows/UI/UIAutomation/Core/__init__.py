@@ -4,8 +4,10 @@ import win32more.Windows.Foundation
 import win32more.Windows.UI.UIAutomation
 import win32more.Windows.UI.UIAutomation.Core
 class AutomationAnnotationTypeRegistration(Structure):
+    _name_ = 'Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration'
     LocalId: Int32
 class AutomationRemoteOperationOperandId(Structure):
+    _name_ = 'Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId'
     Value: Int32
 class AutomationRemoteOperationResult(ComPtr):
     extends: IInspectable

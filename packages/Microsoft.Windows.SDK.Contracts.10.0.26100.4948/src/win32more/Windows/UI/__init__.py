@@ -2,6 +2,7 @@ from __future__ import annotations
 from win32more._prelude import *
 import win32more.Windows.UI
 class Color(Structure):
+    _name_ = 'Windows.UI.Color'
     A: Byte
     R: Byte
     G: Byte
@@ -913,6 +914,7 @@ class UIContext(ComPtr):
     default_interface: win32more.Windows.UI.IUIContext
     _classid_ = 'Windows.UI.UIContext'
 class WindowId(Structure):
+    _name_ = 'Windows.UI.WindowId'
     Value: UInt64
 
 

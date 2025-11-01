@@ -446,6 +446,7 @@ class Colors(ComPtr, metaclass=_Colors_Meta_):
     _Colors_Meta_.Yellow = property(get_Yellow, None)
     _Colors_Meta_.YellowGreen = property(get_YellowGreen, None)
 class DisplayId(Structure):
+    _name_ = 'Microsoft.UI.DisplayId'
     Value: UInt64
 class IClosableNotifier(ComPtr):
     extends: IInspectable
@@ -912,8 +913,10 @@ class IColorsStatics(ComPtr):
     Yellow = property(get_Yellow, None)
     YellowGreen = property(get_YellowGreen, None)
 class IconId(Structure):
+    _name_ = 'Microsoft.UI.IconId'
     Value: UInt64
 class WindowId(Structure):
+    _name_ = 'Microsoft.UI.WindowId'
     Value: UInt64
 
 

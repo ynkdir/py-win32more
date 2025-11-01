@@ -208,6 +208,7 @@ class CanvasGradientMesh(ComPtr):
     Device = property(get_Device, None)
     Patches = property(get_Patches, None)
 class CanvasGradientMeshPatch(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasGradientMeshPatch'
     Point00: win32more.Windows.Foundation.Numerics.Vector2
     Point01: win32more.Windows.Foundation.Numerics.Vector2
     Point02: win32more.Windows.Foundation.Numerics.Vector2
@@ -354,6 +355,7 @@ class CanvasSweepDirection(Enum, Int32):
     CounterClockwise = 0
     Clockwise = 1
 class CanvasTriangleVertices(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasTriangleVertices'
     Vertex1: win32more.Windows.Foundation.Numerics.Vector2
     Vertex2: win32more.Windows.Foundation.Numerics.Vector2
     Vertex3: win32more.Windows.Foundation.Numerics.Vector2

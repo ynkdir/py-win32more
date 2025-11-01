@@ -420,9 +420,11 @@ class InjectedInputPenParameters(Enum, UInt32):
     TiltX = 4
     TiltY = 8
 class InjectedInputPoint(Structure):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputPoint'
     PositionX: Int32
     PositionY: Int32
 class InjectedInputPointerInfo(Structure):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputPointerInfo'
     PointerId: UInt32
     PointerOptions: win32more.Windows.UI.Input.Preview.Injection.InjectedInputPointerOptions
     PixelLocation: win32more.Windows.UI.Input.Preview.Injection.InjectedInputPoint
@@ -443,6 +445,7 @@ class InjectedInputPointerOptions(Enum, UInt32):
     PointerUp = 262144
     CaptureChanged = 2097152
 class InjectedInputRectangle(Structure):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputRectangle'
     Left: Int32
     Top: Int32
     Bottom: Int32

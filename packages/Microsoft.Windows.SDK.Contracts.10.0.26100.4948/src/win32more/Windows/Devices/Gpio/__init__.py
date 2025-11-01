@@ -5,6 +5,7 @@ import win32more.Windows.Devices.Gpio.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 class GpioChangeCount(Structure):
+    _name_ = 'Windows.Devices.Gpio.GpioChangeCount'
     Count: UInt64
     RelativeTime: win32more.Windows.Foundation.TimeSpan
 class GpioChangeCounter(ComPtr):
@@ -98,6 +99,7 @@ class GpioChangeReader(ComPtr):
     Length = property(get_Length, None)
     Polarity = property(get_Polarity, put_Polarity)
 class GpioChangeRecord(Structure):
+    _name_ = 'Windows.Devices.Gpio.GpioChangeRecord'
     RelativeTime: win32more.Windows.Foundation.TimeSpan
     Edge: win32more.Windows.Devices.Gpio.GpioPinEdge
 class GpioController(ComPtr):

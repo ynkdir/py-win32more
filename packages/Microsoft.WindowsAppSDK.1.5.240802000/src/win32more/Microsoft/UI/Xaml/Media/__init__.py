@@ -2414,6 +2414,7 @@ class LoadedImageSurface(ComPtr):
     NaturalSize = property(get_NaturalSize, None)
     LoadCompleted = event(add_LoadCompleted, remove_LoadCompleted)
 class Matrix(Structure):
+    _name_ = 'Microsoft.UI.Xaml.Media.Matrix'
     M11: Double
     M12: Double
     M21: Double

@@ -39,6 +39,7 @@ class GameControllerProviderInfo(ComPtr):
     @winrt_classmethod
     def GetProviderId(cls: win32more.Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics, provider: win32more.Windows.Gaming.Input.Custom.IGameControllerProvider) -> hstr: ...
 class HeadsetGeqGains(Structure):
+    _name_ = 'Windows.Gaming.Input.Preview.HeadsetGeqGains'
     band1Gain: Int32
     band2Gain: Int32
     band3Gain: Int32

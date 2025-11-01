@@ -735,6 +735,7 @@ class Printing3DBaseMaterialGroup(ComPtr):
     Bases = property(get_Bases, None)
     MaterialGroupId = property(get_MaterialGroupId, None)
 class Printing3DBufferDescription(Structure):
+    _name_ = 'Windows.Graphics.Printing3D.Printing3DBufferDescription'
     Format: win32more.Windows.Graphics.Printing3D.Printing3DBufferFormat
     Stride: UInt32
 class Printing3DBufferFormat(Enum, Int32):

@@ -506,6 +506,7 @@ class ImageScannerPreviewResult(ComPtr):
     Format = property(get_Format, None)
     Succeeded = property(get_Succeeded, None)
 class ImageScannerResolution(Structure):
+    _name_ = 'Windows.Devices.Scanners.ImageScannerResolution'
     DpiX: Single
     DpiY: Single
 class ImageScannerScanResult(ComPtr):

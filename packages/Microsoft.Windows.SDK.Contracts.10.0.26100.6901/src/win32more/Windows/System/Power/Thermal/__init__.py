@@ -118,6 +118,7 @@ class PowerThermalChannelConfiguration(ComPtr):
     ConfigurationString = property(get_ConfigurationString, None)
     Id = property(get_Id, None)
 class PowerThermalChannelData(Structure):
+    _name_ = 'Windows.System.Power.Thermal.PowerThermalChannelData'
     Id: win32more.Windows.System.Power.Thermal.PowerThermalChannelId
     Value: Int32
 class PowerThermalChannelDataConsumer(ComPtr):
@@ -216,6 +217,7 @@ class PowerThermalChannelFinder(ComPtr):
     @winrt_classmethod
     def FindChannels(cls: win32more.Windows.System.Power.Thermal.IPowerThermalChannelFinderStatics, channelInterfaceType: Guid) -> ReceiveArray[win32more.Windows.System.Power.Thermal.PowerThermalChannelId]: ...
 class PowerThermalChannelId(Structure):
+    _name_ = 'Windows.System.Power.Thermal.PowerThermalChannelId'
     InterfaceType: Guid
     InstanceId: UInt16
 

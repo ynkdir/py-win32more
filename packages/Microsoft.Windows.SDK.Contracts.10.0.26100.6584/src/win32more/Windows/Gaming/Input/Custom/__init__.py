@@ -16,11 +16,13 @@ class GameControllerFactoryManager(ComPtr):
     @winrt_classmethod
     def RegisterCustomFactoryForXusbType(cls: win32more.Windows.Gaming.Input.Custom.IGameControllerFactoryManagerStatics, factory: win32more.Windows.Gaming.Input.Custom.ICustomGameControllerFactory, xusbType: win32more.Windows.Gaming.Input.Custom.XusbDeviceType, xusbSubtype: win32more.Windows.Gaming.Input.Custom.XusbDeviceSubtype) -> Void: ...
 class GameControllerVersionInfo(Structure):
+    _name_ = 'Windows.Gaming.Input.Custom.GameControllerVersionInfo'
     Major: UInt16
     Minor: UInt16
     Build: UInt16
     Revision: UInt16
 class GipFirmwareUpdateProgress(Structure):
+    _name_ = 'Windows.Gaming.Input.Custom.GipFirmwareUpdateProgress'
     PercentCompleted: Double
     CurrentComponentId: UInt32
 class GipFirmwareUpdateResult(ComPtr):

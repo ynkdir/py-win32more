@@ -1700,6 +1700,7 @@ class TextPointer(ComPtr):
     Parent = property(get_Parent, None)
     VisualParent = property(get_VisualParent, None)
 class TextRange(Structure):
+    _name_ = 'Microsoft.UI.Xaml.Documents.TextRange'
     StartIndex: Int32
     Length: Int32
 class _Typography_Meta_(ComPtr.__class__):

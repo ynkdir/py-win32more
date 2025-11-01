@@ -2741,6 +2741,7 @@ class RatingControlAutomationPeer(ComPtr):
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IRatingControlAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.RatingControl, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer: ...
 class RawElementProviderRuntimeId(Structure):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.RawElementProviderRuntimeId'
     Part1: UInt32
     Part2: UInt32
 class RepeatButtonAutomationPeer(ComPtr):

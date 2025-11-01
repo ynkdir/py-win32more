@@ -2902,6 +2902,7 @@ class KeySpline(ComPtr):
     ControlPoint1 = property(get_ControlPoint1, put_ControlPoint1)
     ControlPoint2 = property(get_ControlPoint2, put_ControlPoint2)
 class KeyTime(Structure):
+    _name_ = 'Windows.UI.Xaml.Media.Animation.KeyTime'
     TimeSpan: win32more.Windows.Foundation.TimeSpan
 class KeyTimeHelper(ComPtr):
     extends: IInspectable
@@ -3477,6 +3478,7 @@ class ReorderThemeTransition(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Media.Animation.ReorderThemeTransition: ...
 class RepeatBehavior(Structure):
+    _name_ = 'Windows.UI.Xaml.Media.Animation.RepeatBehavior'
     Count: Double
     Duration: win32more.Windows.Foundation.TimeSpan
     Type: win32more.Windows.UI.Xaml.Media.Animation.RepeatBehaviorType

@@ -368,6 +368,7 @@ class DisplayPresentStatus(Enum, Int32):
     DeviceInvalid = 4
     UnknownFailure = 5
 class DisplayPresentationRate(Structure):
+    _name_ = 'Windows.Devices.Display.Core.DisplayPresentationRate'
     VerticalSyncRate: win32more.Windows.Foundation.Numerics.Rational
     VerticalSyncsPerPresentation: Int32
 class DisplayPrimaryDescription(ComPtr):

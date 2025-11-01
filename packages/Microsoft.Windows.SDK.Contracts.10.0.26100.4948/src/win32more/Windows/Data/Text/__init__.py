@@ -389,6 +389,7 @@ class TextReverseConversionGenerator(ComPtr):
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
     ResolvedLanguage = property(get_ResolvedLanguage, None)
 class TextSegment(Structure):
+    _name_ = 'Windows.Data.Text.TextSegment'
     StartPosition: UInt32
     Length: UInt32
 class UnicodeCharacters(ComPtr):

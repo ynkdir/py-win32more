@@ -10,6 +10,7 @@ class BitmapAlphaMode(Enum, Int32):
     Straight = 1
     Ignore = 2
 class BitmapBounds(Structure):
+    _name_ = 'Windows.Graphics.Imaging.BitmapBounds'
     X: UInt32
     Y: UInt32
     Width: UInt32
@@ -275,6 +276,7 @@ class BitmapPixelFormat(Enum, Int32):
     P010 = 104
     Yuy2 = 107
 class BitmapPlaneDescription(Structure):
+    _name_ = 'Windows.Graphics.Imaging.BitmapPlaneDescription'
     StartIndex: Int32
     Width: Int32
     Height: Int32
@@ -330,6 +332,7 @@ class BitmapRotation(Enum, Int32):
     Clockwise180Degrees = 2
     Clockwise270Degrees = 3
 class BitmapSize(Structure):
+    _name_ = 'Windows.Graphics.Imaging.BitmapSize'
     Width: UInt32
     Height: UInt32
 class BitmapTransform(ComPtr):

@@ -10,6 +10,7 @@ import win32more.Windows.Perception
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.UI.Core
 class HolographicAdapterId(Structure):
+    _name_ = 'Windows.Graphics.Holographic.HolographicAdapterId'
     LowPart: UInt32
     HighPart: Int32
 class HolographicCamera(ComPtr):
@@ -206,6 +207,7 @@ class HolographicFrame(ComPtr):
     Id = property(get_Id, None)
     RemovedCameras = property(get_RemovedCameras, None)
 class HolographicFrameId(Structure):
+    _name_ = 'Windows.Graphics.Holographic.HolographicFrameId'
     Value: UInt64
 class HolographicFramePrediction(ComPtr):
     extends: IInspectable
@@ -425,6 +427,7 @@ class HolographicSpaceUserPresence(Enum, Int32):
     PresentPassive = 1
     PresentActive = 2
 class HolographicStereoTransform(Structure):
+    _name_ = 'Windows.Graphics.Holographic.HolographicStereoTransform'
     Left: win32more.Windows.Foundation.Numerics.Matrix4x4
     Right: win32more.Windows.Foundation.Numerics.Matrix4x4
 class HolographicViewConfiguration(ComPtr):

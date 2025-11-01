@@ -650,6 +650,7 @@ class PrintOrientation(Enum, Int32):
     Landscape = 5
     LandscapeFlipped = 6
 class PrintPageDescription(Structure):
+    _name_ = 'Windows.Graphics.Printing.PrintPageDescription'
     PageSize: win32more.Windows.Foundation.Size
     ImageableRect: win32more.Windows.Foundation.Rect
     DpiX: UInt32

@@ -16,6 +16,7 @@ class AttachableInputObject(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class CrossSlideThresholds(Structure):
+    _name_ = 'Windows.UI.Input.CrossSlideThresholds'
     SelectionStart: Single
     SpeedBumpStart: Single
     SpeedBumpEnd: Single
@@ -1587,6 +1588,7 @@ class ManipulationCompletedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class ManipulationDelta(Structure):
+    _name_ = 'Windows.UI.Input.ManipulationDelta'
     Translation: win32more.Windows.Foundation.Point
     Scale: Single
     Rotation: Single
@@ -1655,6 +1657,7 @@ class ManipulationUpdatedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class ManipulationVelocities(Structure):
+    _name_ = 'Windows.UI.Input.ManipulationVelocities'
     Linear: win32more.Windows.Foundation.Point
     Angular: Single
     Expansion: Single

@@ -4230,6 +4230,7 @@ class InitialValueExpressionCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[hstr, hstr]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[hstr, hstr]]: ...
     Size = property(get_Size, None)
 class InkTrailPoint(Structure):
+    _name_ = 'Windows.UI.Composition.InkTrailPoint'
     Point: win32more.Windows.Foundation.Point
     Radius: Single
 class InsetClip(ComPtr):

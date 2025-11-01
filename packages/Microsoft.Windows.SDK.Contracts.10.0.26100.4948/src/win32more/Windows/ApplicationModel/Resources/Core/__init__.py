@@ -307,6 +307,7 @@ class ResourceContextLanguagesVectorView(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[hstr]) -> win32more.Windows.Foundation.Collections.IIterator[hstr]: ...
     Size = property(get_Size, None)
 class ResourceLayoutInfo(Structure):
+    _name_ = 'Windows.ApplicationModel.Resources.Core.ResourceLayoutInfo'
     MajorVersion: UInt32
     MinorVersion: UInt32
     ResourceSubtreeCount: UInt32

@@ -9,25 +9,31 @@ import win32more.Windows.Foundation.Numerics
 import win32more.Windows.UI
 import win32more.Windows.UI.Text
 class CanvasAnalyzedBidi(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasAnalyzedBidi'
     ExplicitLevel: UInt32
     ResolvedLevel: UInt32
 class CanvasAnalyzedBreakpoint(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasAnalyzedBreakpoint'
     BreakBefore: win32more.Microsoft.Graphics.Canvas.Text.CanvasLineBreakCondition
     BreakAfter: win32more.Microsoft.Graphics.Canvas.Text.CanvasLineBreakCondition
     IsWhitespace: Boolean
     IsSoftHyphen: Boolean
 class CanvasAnalyzedGlyphOrientation(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasAnalyzedGlyphOrientation'
     GlyphOrientation: win32more.Microsoft.Graphics.Canvas.Text.CanvasGlyphOrientation
     AdjustedBidiLevel: UInt32
     IsSideways: Boolean
     IsRightToLeft: Boolean
 class CanvasAnalyzedScript(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasAnalyzedScript'
     ScriptIdentifier: Int32
     Shape: win32more.Microsoft.Graphics.Canvas.Text.CanvasScriptShape
 class CanvasCharacterRange(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasCharacterRange'
     CharacterIndex: Int32
     CharacterCount: Int32
 class CanvasClusterMetrics(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasClusterMetrics'
     CharacterCount: Int32
     Width: Single
     Properties: win32more.Microsoft.Graphics.Canvas.Text.CanvasClusterProperties
@@ -206,6 +212,7 @@ class CanvasFontInformation(Enum, Int32):
     DesignScriptLanguageTag = 20
     SupportedScriptLanguageTag = 21
 class CanvasFontProperty(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasFontProperty'
     Identifier: win32more.Microsoft.Graphics.Canvas.Text.CanvasFontPropertyIdentifier
     Value: hstr
     Locale: hstr
@@ -264,6 +271,7 @@ class CanvasFontSimulations(Enum, UInt32):
     Bold = 1
     Oblique = 2
 class CanvasGlyph(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasGlyph'
     Index: Int32
     Advance: Single
     AdvanceOffset: Single
@@ -283,6 +291,7 @@ class CanvasGlyphJustification(Enum, Int32):
     ArabicSeen = 14
     ArabicSeenM = 15
 class CanvasGlyphMetrics(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasGlyphMetrics'
     LeftSideBearing: Single
     AdvanceWidth: Single
     RightSideBearing: Single
@@ -297,6 +306,7 @@ class CanvasGlyphOrientation(Enum, Int32):
     Clockwise180Degrees = 2
     Clockwise270Degrees = 3
 class CanvasGlyphShaping(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasGlyphShaping'
     Justification: win32more.Microsoft.Graphics.Canvas.Text.CanvasGlyphJustification
     IsClusterStart: Boolean
     IsDiacritic: Boolean
@@ -307,6 +317,7 @@ class CanvasHorizontalAlignment(Enum, Int32):
     Center = 2
     Justified = 3
 class CanvasJustificationOpportunity(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasJustificationOpportunity'
     ExpansionMinimum: Single
     ExpansionMaximum: Single
     CompressionMaximum: Single
@@ -322,6 +333,7 @@ class CanvasLineBreakCondition(Enum, Int32):
     CannotBreak = 2
     MustBreak = 3
 class CanvasLineMetrics(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasLineMetrics'
     CharacterCount: Int32
     TrailingWhitespaceCount: Int32
     TerminalNewlineCount: Int32
@@ -374,6 +386,7 @@ class CanvasScaledFont(ComPtr):
     FontFace = property(get_FontFace, None)
     ScaleFactor = property(get_ScaleFactor, None)
 class CanvasScriptProperties(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasScriptProperties'
     IsoScriptCode: hstr
     IsoScriptNumber: Int32
     ClusterLookahead: Int32
@@ -840,6 +853,7 @@ class CanvasTextLayout(ComPtr):
     VerticalGlyphOrientation = property(get_VerticalGlyphOrientation, put_VerticalGlyphOrientation)
     WordWrapping = property(get_WordWrapping, put_WordWrapping)
 class CanvasTextLayoutRegion(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasTextLayoutRegion'
     CharacterIndex: Int32
     CharacterCount: Int32
     LayoutBounds: win32more.Windows.Foundation.Rect
@@ -905,6 +919,7 @@ class CanvasTypography(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class CanvasTypographyFeature(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasTypographyFeature'
     Name: win32more.Microsoft.Graphics.Canvas.Text.CanvasTypographyFeatureName
     Parameter: UInt32
 class CanvasTypographyFeatureName(Enum, Int32):
@@ -991,6 +1006,7 @@ class CanvasTypographyFeatureName(Enum, Int32):
     Unicase = 1667853941
     SlashedZero = 1869768058
 class CanvasUnicodeRange(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Text.CanvasUnicodeRange'
     First: UInt32
     Last: UInt32
 class CanvasVerticalAlignment(Enum, Int32):

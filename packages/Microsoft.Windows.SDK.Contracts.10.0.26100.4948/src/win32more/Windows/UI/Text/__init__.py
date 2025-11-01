@@ -65,6 +65,7 @@ class FontStyle(Enum, Int32):
     Oblique = 1
     Italic = 2
 class FontWeight(Structure):
+    _name_ = 'Windows.UI.Text.FontWeight'
     Weight: UInt16
 class _FontWeights_Meta_(ComPtr.__class__):
     pass

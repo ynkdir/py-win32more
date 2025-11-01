@@ -10,6 +10,7 @@ class AltitudeReferenceSystem(Enum, Int32):
     Geoid = 3
     Surface = 4
 class BasicGeoposition(Structure):
+    _name_ = 'Windows.Devices.Geolocation.BasicGeoposition'
     Latitude: Double
     Longitude: Double
     Altitude: Double

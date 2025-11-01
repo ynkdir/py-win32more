@@ -753,6 +753,7 @@ class PhotoImportPowerSource(Enum, Int32):
     Battery = 1
     External = 2
 class PhotoImportProgress(Structure):
+    _name_ = 'Windows.Media.Import.PhotoImportProgress'
     ItemsImported: UInt32
     TotalItemsToImport: UInt32
     BytesImported: UInt64

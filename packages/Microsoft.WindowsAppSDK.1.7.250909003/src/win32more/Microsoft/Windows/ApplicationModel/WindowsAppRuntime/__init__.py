@@ -244,6 +244,7 @@ class RuntimeInfo(ComPtr, metaclass=_RuntimeInfo_Meta_):
     _RuntimeInfo_Meta_.Version = property(get_Version, None)
 VersionInfoContract: UInt32 = 65536
 class WindowsAppRuntimeVersion(Structure):
+    _name_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion'
     Major: UInt32
     Minor: UInt32
     Patch: UInt32

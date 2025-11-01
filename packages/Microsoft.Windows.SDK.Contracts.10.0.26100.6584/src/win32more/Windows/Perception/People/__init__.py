@@ -78,6 +78,7 @@ class HandMeshObserver(ComPtr):
     TriangleIndexCount = property(get_TriangleIndexCount, None)
     VertexCount = property(get_VertexCount, None)
 class HandMeshVertex(Structure):
+    _name_ = 'Windows.Perception.People.HandMeshVertex'
     Position: win32more.Windows.Foundation.Numerics.Vector3
     Normal: win32more.Windows.Foundation.Numerics.Vector3
 class HandMeshVertexState(ComPtr):
@@ -202,6 +203,7 @@ class IHeadPose(ComPtr):
     Position = property(get_Position, None)
     UpDirection = property(get_UpDirection, None)
 class JointPose(Structure):
+    _name_ = 'Windows.Perception.People.JointPose'
     Orientation: win32more.Windows.Foundation.Numerics.Quaternion
     Position: win32more.Windows.Foundation.Numerics.Vector3
     Radius: Single

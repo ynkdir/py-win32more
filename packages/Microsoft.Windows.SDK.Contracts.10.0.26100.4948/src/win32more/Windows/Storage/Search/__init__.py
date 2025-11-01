@@ -458,6 +458,7 @@ class QueryOptions(ComPtr):
     StorageProviderIdFilter = property(get_StorageProviderIdFilter, None)
     UserSearchFilter = property(get_UserSearchFilter, put_UserSearchFilter)
 class SortEntry(Structure):
+    _name_ = 'Windows.Storage.Search.SortEntry'
     PropertyName: hstr
     AscendingOrder: Boolean
 class SortEntryVector(ComPtr):

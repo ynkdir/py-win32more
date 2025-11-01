@@ -80,6 +80,7 @@ class ProviderI2cSharingMode(Enum, Int32):
     Exclusive = 0
     Shared = 1
 class ProviderI2cTransferResult(Structure):
+    _name_ = 'Windows.Devices.I2c.Provider.ProviderI2cTransferResult'
     Status: win32more.Windows.Devices.I2c.Provider.ProviderI2cTransferStatus
     BytesTransferred: UInt32
 class ProviderI2cTransferStatus(Enum, Int32):

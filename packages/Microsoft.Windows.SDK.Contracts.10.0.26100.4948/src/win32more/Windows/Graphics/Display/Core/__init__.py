@@ -9,6 +9,7 @@ class HdmiDisplayColorSpace(Enum, Int32):
     BT2020 = 2
     BT709 = 3
 class HdmiDisplayHdr2086Metadata(Structure):
+    _name_ = 'Windows.Graphics.Display.Core.HdmiDisplayHdr2086Metadata'
     RedPrimaryX: UInt16
     RedPrimaryY: UInt16
     GreenPrimaryX: UInt16

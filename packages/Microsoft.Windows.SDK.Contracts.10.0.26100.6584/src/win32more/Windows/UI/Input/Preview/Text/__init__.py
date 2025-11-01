@@ -544,6 +544,7 @@ class TextBoxFeatures(Enum, UInt32):
     WriteText = 2
     AugmentText = 4
 class TextBoxId(Structure):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextBoxId'
     Value: UInt32
 class TextBoxInfo(ComPtr):
     extends: IInspectable
@@ -773,9 +774,11 @@ class TextInputService(ComPtr):
     @winrt_classmethod
     def GetForCurrentThread(cls: win32more.Windows.UI.Input.Preview.Text.ITextInputServiceStatics) -> win32more.Windows.UI.Input.Preview.Text.TextInputService: ...
 class TextInputServiceSubscription(Structure):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextInputServiceSubscription'
     requiredEnabledFeatures: win32more.Windows.UI.Input.Preview.Text.TextBoxFeatures
     requiredDisabledFeatures: win32more.Windows.UI.Input.Preview.Text.TextBoxFeatures
 class TextStyle(Structure):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextStyle'
     mask: win32more.Windows.UI.Input.Preview.Text.TextStyleAttributes
     textColor: win32more.Windows.UI.Color
     backgroundColor: win32more.Windows.UI.Color

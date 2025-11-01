@@ -4627,6 +4627,7 @@ class ReceiptPrinterCapabilities(ComPtr):
     SupportedBitmapRotations = property(get_SupportedBitmapRotations, None)
     SupportedCharactersPerLine = property(get_SupportedCharactersPerLine, None)
 class SizeUInt32(Structure):
+    _name_ = 'Windows.Devices.PointOfService.SizeUInt32'
     Width: UInt32
     Height: UInt32
 class SlipPrintJob(ComPtr):

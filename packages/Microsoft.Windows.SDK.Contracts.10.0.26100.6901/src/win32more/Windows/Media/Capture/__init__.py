@@ -4139,6 +4139,7 @@ class VideoStreamConfiguration(ComPtr):
     InputProperties = property(get_InputProperties, None)
     OutputProperties = property(get_OutputProperties, None)
 class WhiteBalanceGain(Structure):
+    _name_ = 'Windows.Media.Capture.WhiteBalanceGain'
     R: Double
     G: Double
     B: Double

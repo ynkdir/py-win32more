@@ -11,6 +11,7 @@ import win32more.Windows.Security.Cryptography.Certificates
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Web
 class BandwidthStatistics(Structure):
+    _name_ = 'Windows.Networking.Sockets.BandwidthStatistics'
     OutboundBitsPerSecond: UInt64
     InboundBitsPerSecond: UInt64
     OutboundBitsPerSecondInstability: UInt64
@@ -1208,6 +1209,7 @@ class MessageWebSocketReceiveMode(Enum, Int32):
     FullMessage = 0
     PartialMessage = 1
 class RoundTripTimeStatistics(Structure):
+    _name_ = 'Windows.Networking.Sockets.RoundTripTimeStatistics'
     Variance: UInt32
     Max: UInt32
     Min: UInt32

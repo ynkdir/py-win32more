@@ -12,6 +12,7 @@ class AccessCacheOptions(Enum, UInt32):
     UseReadOnlyCachedCopy = 4
     SuppressAccessTimeUpdate = 8
 class AccessListEntry(Structure):
+    _name_ = 'Windows.Storage.AccessCache.AccessListEntry'
     Token: hstr
     Metadata: hstr
 class AccessListEntryView(ComPtr):

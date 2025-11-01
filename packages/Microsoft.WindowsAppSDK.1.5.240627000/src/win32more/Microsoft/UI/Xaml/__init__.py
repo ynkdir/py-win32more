@@ -446,6 +446,7 @@ class ColorPaletteResources(ComPtr):
     ListLow = property(get_ListLow, put_ListLow)
     ListMedium = property(get_ListMedium, put_ListMedium)
 class CornerRadius(Structure):
+    _name_ = 'Microsoft.UI.Xaml.CornerRadius'
     TopLeft: Double
     TopRight: Double
     BottomRight: Double
@@ -850,6 +851,7 @@ class DropCompletedEventArgs(ComPtr):
     def get_DropResult(self: win32more.Microsoft.UI.Xaml.IDropCompletedEventArgs) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     DropResult = property(get_DropResult, None)
 class Duration(Structure):
+    _name_ = 'Microsoft.UI.Xaml.Duration'
     TimeSpan: win32more.Windows.Foundation.TimeSpan
     Type: win32more.Microsoft.UI.Xaml.DurationType
 class _DurationHelper_Meta_(ComPtr.__class__):
@@ -1432,6 +1434,7 @@ class FrameworkViewSource(ComPtr):
     @winrt_mixinmethod
     def CreateView(self: win32more.Windows.ApplicationModel.Core.IFrameworkViewSource) -> win32more.Windows.ApplicationModel.Core.IFrameworkView: ...
 class GridLength(Structure):
+    _name_ = 'Microsoft.UI.Xaml.GridLength'
     Value: Double
     GridUnitType: win32more.Microsoft.UI.Xaml.GridUnitType
 class _GridLengthHelper_Meta_(ComPtr.__class__):
@@ -4653,6 +4656,7 @@ class TextWrapping(Enum, Int32):
     Wrap = 2
     WrapWholeWords = 3
 class Thickness(Structure):
+    _name_ = 'Microsoft.UI.Xaml.Thickness'
     Left: Double
     Top: Double
     Right: Double

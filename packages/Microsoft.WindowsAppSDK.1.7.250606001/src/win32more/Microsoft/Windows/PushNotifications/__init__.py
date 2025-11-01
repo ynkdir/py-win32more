@@ -99,6 +99,7 @@ class PushNotificationCreateChannelResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class PushNotificationCreateChannelStatus(Structure):
+    _name_ = 'Microsoft.Windows.PushNotifications.PushNotificationCreateChannelStatus'
     status: win32more.Microsoft.Windows.PushNotifications.PushNotificationChannelStatus
     extendedError: win32more.Windows.Foundation.HResult
     retryCount: UInt32

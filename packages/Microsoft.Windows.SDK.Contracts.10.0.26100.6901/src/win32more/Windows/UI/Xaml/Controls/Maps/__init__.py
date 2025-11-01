@@ -4233,6 +4233,7 @@ class MapWatermarkMode(Enum, Int32):
     Automatic = 0
     On = 1
 class MapZoomLevelRange(Structure):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange'
     Min: Double
     Max: Double
 class StreetsideExperience(ComPtr):

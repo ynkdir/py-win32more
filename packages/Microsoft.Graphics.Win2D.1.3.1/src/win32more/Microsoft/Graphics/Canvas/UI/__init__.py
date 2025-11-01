@@ -27,6 +27,7 @@ class CanvasCreateResourcesReason(Enum, Int32):
     NewDevice = 1
     DpiChanged = 2
 class CanvasTimingInformation(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.UI.CanvasTimingInformation'
     UpdateCount: Int64
     TotalTime: win32more.Windows.Foundation.TimeSpan
     ElapsedTime: win32more.Windows.Foundation.TimeSpan

@@ -34,6 +34,7 @@ class ContextMenuKeyEventArgs(ComPtr):
     def get_Handled(self: win32more.Microsoft.UI.Input.IContextMenuKeyEventArgs) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
 class CrossSlideThresholds(Structure):
+    _name_ = 'Microsoft.UI.Input.CrossSlideThresholds'
     SelectionStart: Single
     SpeedBumpStart: Single
     SpeedBumpEnd: Single
@@ -1615,6 +1616,7 @@ class ManipulationCompletedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class ManipulationDelta(Structure):
+    _name_ = 'Microsoft.UI.Input.ManipulationDelta'
     Translation: win32more.Windows.Foundation.Point
     Scale: Single
     Rotation: Single
@@ -1671,6 +1673,7 @@ class ManipulationUpdatedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class ManipulationVelocities(Structure):
+    _name_ = 'Microsoft.UI.Input.ManipulationVelocities'
     Linear: win32more.Windows.Foundation.Point
     Angular: Single
     Expansion: Single
@@ -1743,6 +1746,7 @@ class NonClientRegionsChangedEventArgs(ComPtr):
     def get_ChangedRegions(self: win32more.Microsoft.UI.Input.INonClientRegionsChangedEventArgs) -> ReceiveArray[win32more.Microsoft.UI.Input.NonClientRegionKind]: ...
     ChangedRegions = property(get_ChangedRegions, None)
 class PhysicalKeyStatus(Structure):
+    _name_ = 'Microsoft.UI.Input.PhysicalKeyStatus'
     RepeatCount: UInt32
     ScanCode: UInt32
     IsExtendedKey: Boolean

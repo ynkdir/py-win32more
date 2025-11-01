@@ -443,9 +443,11 @@ class SpatialAnchorTransferManager(ComPtr):
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Perception.Spatial.ISpatialAnchorTransferManagerStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
 class SpatialBoundingBox(Structure):
+    _name_ = 'Windows.Perception.Spatial.SpatialBoundingBox'
     Center: win32more.Windows.Foundation.Numerics.Vector3
     Extents: win32more.Windows.Foundation.Numerics.Vector3
 class SpatialBoundingFrustum(Structure):
+    _name_ = 'Windows.Perception.Spatial.SpatialBoundingFrustum'
     Near: win32more.Windows.Foundation.Numerics.Plane
     Far: win32more.Windows.Foundation.Numerics.Plane
     Right: win32more.Windows.Foundation.Numerics.Plane
@@ -453,10 +455,12 @@ class SpatialBoundingFrustum(Structure):
     Top: win32more.Windows.Foundation.Numerics.Plane
     Bottom: win32more.Windows.Foundation.Numerics.Plane
 class SpatialBoundingOrientedBox(Structure):
+    _name_ = 'Windows.Perception.Spatial.SpatialBoundingOrientedBox'
     Center: win32more.Windows.Foundation.Numerics.Vector3
     Extents: win32more.Windows.Foundation.Numerics.Vector3
     Orientation: win32more.Windows.Foundation.Numerics.Quaternion
 class SpatialBoundingSphere(Structure):
+    _name_ = 'Windows.Perception.Spatial.SpatialBoundingSphere'
     Center: win32more.Windows.Foundation.Numerics.Vector3
     Radius: Single
 class SpatialBoundingVolume(ComPtr):
@@ -691,6 +695,7 @@ class SpatialPerceptionAccessStatus(Enum, Int32):
     DeniedByUser = 2
     DeniedBySystem = 3
 class SpatialRay(Structure):
+    _name_ = 'Windows.Perception.Spatial.SpatialRay'
     Origin: win32more.Windows.Foundation.Numerics.Vector3
     Direction: win32more.Windows.Foundation.Numerics.Vector3
 class _SpatialStageFrameOfReference_Meta_(ComPtr.__class__):

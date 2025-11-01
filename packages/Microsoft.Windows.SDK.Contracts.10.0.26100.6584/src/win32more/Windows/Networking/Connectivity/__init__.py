@@ -1003,6 +1003,7 @@ class NetworkUsage(ComPtr):
     BytesSent = property(get_BytesSent, None)
     ConnectionDuration = property(get_ConnectionDuration, None)
 class NetworkUsageStates(Structure):
+    _name_ = 'Windows.Networking.Connectivity.NetworkUsageStates'
     Roaming: win32more.Windows.Networking.Connectivity.TriStates
     Shared: win32more.Windows.Networking.Connectivity.TriStates
 class ProviderNetworkUsage(ComPtr):

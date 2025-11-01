@@ -218,6 +218,7 @@ class PackageDependencyContext(ComPtr):
     PackageDependencyId = property(get_PackageDependencyId, None)
     PackageFullName = property(get_PackageFullName, None)
 class PackageDependencyContextId(Structure):
+    _name_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContextId'
     Id: UInt64
 class PackageDependencyLifetimeArtifactKind(Enum, Int32):
     Process = 0

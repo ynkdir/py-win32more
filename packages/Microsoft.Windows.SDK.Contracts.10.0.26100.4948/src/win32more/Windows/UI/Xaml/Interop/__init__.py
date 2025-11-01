@@ -148,6 +148,7 @@ class TypeKind(Enum, Int32):
     Metadata = 1
     Custom = 2
 class TypeName(Structure):
+    _name_ = 'Windows.UI.Xaml.Interop.TypeName'
     Name: hstr
     Kind: win32more.Windows.UI.Xaml.Interop.TypeKind
 

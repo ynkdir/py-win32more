@@ -10,6 +10,7 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Notifications
 import win32more.Windows.Web
 class BackgroundDownloadProgress(Structure):
+    _name_ = 'Windows.Networking.BackgroundTransfer.BackgroundDownloadProgress'
     BytesReceived: UInt64
     TotalBytesToReceive: UInt64
     Status: win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferStatus
@@ -172,6 +173,7 @@ class BackgroundTransferError(ComPtr):
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferErrorStaticMethods, hresult: Int32) -> win32more.Windows.Web.WebErrorStatus: ...
 class BackgroundTransferFileRange(Structure):
+    _name_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferFileRange'
     Offset: UInt64
     Length: UInt64
 class BackgroundTransferGroup(ComPtr):
@@ -216,6 +218,7 @@ class BackgroundTransferStatus(Enum, Int32):
     PausedRecoverableWebErrorStatus = 8
     PausedSystemPolicy = 32
 class BackgroundUploadProgress(Structure):
+    _name_ = 'Windows.Networking.BackgroundTransfer.BackgroundUploadProgress'
     BytesReceived: UInt64
     BytesSent: UInt64
     TotalBytesToReceive: UInt64

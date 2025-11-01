@@ -1030,6 +1030,7 @@ class SmsDeviceStatusChangedEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Devices.Sms.SmsDevice) -> Void: ...
 class SmsEncodedLength(Structure):
+    _name_ = 'Windows.Devices.Sms.SmsEncodedLength'
     SegmentCount: UInt32
     CharacterCountLastSegment: UInt32
     CharactersPerSegment: UInt32

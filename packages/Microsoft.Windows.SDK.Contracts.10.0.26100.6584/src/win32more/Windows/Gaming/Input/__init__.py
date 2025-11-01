@@ -73,6 +73,7 @@ class ArcadeStickButtons(Enum, UInt32):
     Special1 = 1024
     Special2 = 2048
 class ArcadeStickReading(Structure):
+    _name_ = 'Windows.Gaming.Input.ArcadeStickReading'
     Timestamp: UInt64
     Buttons: win32more.Windows.Gaming.Input.ArcadeStickButtons
 class _FlightStick_Meta_(ComPtr.__class__):
@@ -134,6 +135,7 @@ class FlightStickButtons(Enum, UInt32):
     FirePrimary = 1
     FireSecondary = 2
 class FlightStickReading(Structure):
+    _name_ = 'Windows.Gaming.Input.FlightStickReading'
     Timestamp: UInt64
     Buttons: win32more.Windows.Gaming.Input.FlightStickButtons
     HatSwitch: win32more.Windows.Gaming.Input.GameControllerSwitchPosition
@@ -302,6 +304,7 @@ class GamepadButtons(Enum, UInt32):
     Paddle3 = 65536
     Paddle4 = 131072
 class GamepadReading(Structure):
+    _name_ = 'Windows.Gaming.Input.GamepadReading'
     Timestamp: UInt64
     Buttons: win32more.Windows.Gaming.Input.GamepadButtons
     LeftTrigger: Double
@@ -311,6 +314,7 @@ class GamepadReading(Structure):
     RightThumbstickX: Double
     RightThumbstickY: Double
 class GamepadVibration(Structure):
+    _name_ = 'Windows.Gaming.Input.GamepadVibration'
     LeftMotor: Double
     RightMotor: Double
     LeftTrigger: Double
@@ -723,6 +727,7 @@ class RacingWheelButtons(Enum, UInt32):
     Button15 = 1048576
     Button16 = 2097152
 class RacingWheelReading(Structure):
+    _name_ = 'Windows.Gaming.Input.RacingWheelReading'
     Timestamp: UInt64
     Buttons: win32more.Windows.Gaming.Input.RacingWheelButtons
     PatternShifterGear: Int32
@@ -875,6 +880,7 @@ class UINavigationController(ComPtr, metaclass=_UINavigationController_Meta_):
     _UINavigationController_Meta_.UINavigationControllerAdded = event(add_UINavigationControllerAdded, remove_UINavigationControllerAdded)
     _UINavigationController_Meta_.UINavigationControllerRemoved = event(add_UINavigationControllerRemoved, remove_UINavigationControllerRemoved)
 class UINavigationReading(Structure):
+    _name_ = 'Windows.Gaming.Input.UINavigationReading'
     Timestamp: UInt64
     RequiredButtons: win32more.Windows.Gaming.Input.RequiredUINavigationButtons
     OptionalButtons: win32more.Windows.Gaming.Input.OptionalUINavigationButtons

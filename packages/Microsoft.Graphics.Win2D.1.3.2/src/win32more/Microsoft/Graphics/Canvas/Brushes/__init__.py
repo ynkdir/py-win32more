@@ -6,9 +6,11 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.UI
 class CanvasGradientStop(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Brushes.CanvasGradientStop'
     Position: Single
     Color: win32more.Windows.UI.Color
 class CanvasGradientStopHdr(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Brushes.CanvasGradientStopHdr'
     Position: Single
     Color: win32more.Windows.Foundation.Numerics.Vector4
 class CanvasImageBrush(ComPtr):

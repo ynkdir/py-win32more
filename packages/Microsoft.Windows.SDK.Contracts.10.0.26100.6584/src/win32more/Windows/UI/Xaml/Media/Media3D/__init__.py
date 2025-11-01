@@ -281,6 +281,7 @@ class ITransform3DFactory(ComPtr):
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
 class Matrix3D(Structure):
+    _name_ = 'Windows.UI.Xaml.Media.Media3D.Matrix3D'
     M11: Double
     M12: Double
     M13: Double

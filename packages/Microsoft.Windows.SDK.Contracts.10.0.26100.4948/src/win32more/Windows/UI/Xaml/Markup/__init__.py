@@ -252,6 +252,7 @@ class XamlBinaryWriter(ComPtr):
     @winrt_classmethod
     def Write(cls: win32more.Windows.UI.Xaml.Markup.IXamlBinaryWriterStatics, inputStreams: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Streams.IRandomAccessStream], outputStreams: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Streams.IRandomAccessStream], xamlMetadataProvider: win32more.Windows.UI.Xaml.Markup.IXamlMetadataProvider) -> win32more.Windows.UI.Xaml.Markup.XamlBinaryWriterErrorInformation: ...
 class XamlBinaryWriterErrorInformation(Structure):
+    _name_ = 'Windows.UI.Xaml.Markup.XamlBinaryWriterErrorInformation'
     InputStreamIndex: UInt32
     LineNumber: UInt32
     LinePosition: UInt32
@@ -323,6 +324,7 @@ class XamlReader(ComPtr):
     @winrt_classmethod
     def LoadWithInitialTemplateValidation(cls: win32more.Windows.UI.Xaml.Markup.IXamlReaderStatics, xaml: hstr) -> IInspectable: ...
 class XmlnsDefinition(Structure):
+    _name_ = 'Windows.UI.Xaml.Markup.XmlnsDefinition'
     XmlNamespace: hstr
     Namespace: hstr
 

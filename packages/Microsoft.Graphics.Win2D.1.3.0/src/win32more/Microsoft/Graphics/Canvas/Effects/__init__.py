@@ -613,6 +613,7 @@ class ColorManagementRenderingIntent(Enum, Int32):
     Saturation = 2
     AbsoluteColorimetric = 3
 class ColorManagementSimpleProfile(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.ColorManagementSimpleProfile'
     RedPrimary: win32more.Windows.Foundation.Numerics.Vector2
     GreenPrimary: win32more.Windows.Foundation.Numerics.Vector2
     BluePrimary: win32more.Windows.Foundation.Numerics.Vector2
@@ -4423,6 +4424,7 @@ class LuminanceToAlphaEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class Matrix5x4(Structure):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.Matrix5x4'
     M11: Single
     M12: Single
     M13: Single

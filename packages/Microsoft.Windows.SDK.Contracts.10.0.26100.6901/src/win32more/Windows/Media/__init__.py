@@ -903,6 +903,7 @@ class MediaProcessingTriggerDetails(ComPtr):
     def get_Arguments(self: win32more.Windows.Media.IMediaProcessingTriggerDetails) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     Arguments = property(get_Arguments, None)
 class MediaTimeRange(Structure):
+    _name_ = 'Windows.Media.MediaTimeRange'
     Start: win32more.Windows.Foundation.TimeSpan
     End: win32more.Windows.Foundation.TimeSpan
 class MediaTimelineController(ComPtr):

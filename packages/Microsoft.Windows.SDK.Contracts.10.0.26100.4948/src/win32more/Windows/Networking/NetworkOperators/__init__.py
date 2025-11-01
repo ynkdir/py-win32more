@@ -221,6 +221,7 @@ class ESimProfileClass(Enum, Int32):
     Test = 1
     Provisioning = 2
 class ESimProfileInstallProgress(Structure):
+    _name_ = 'Windows.Networking.NetworkOperators.ESimProfileInstallProgress'
     TotalSizeInBytes: Int32
     InstalledSizeInBytes: Int32
 class ESimProfileMetadata(ComPtr):
@@ -3345,6 +3346,7 @@ class ProfileMediaType(Enum, Int32):
     Wlan = 0
     Wwan = 1
 class ProfileUsage(Structure):
+    _name_ = 'Windows.Networking.NetworkOperators.ProfileUsage'
     UsageInMegabytes: UInt32
     LastSyncTime: win32more.Windows.Foundation.DateTime
 class ProvisionFromXmlDocumentResults(ComPtr):

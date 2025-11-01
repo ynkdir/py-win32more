@@ -427,6 +427,7 @@ class HttpMultipartFormDataContent(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> hstr: ...
     Headers = property(get_Headers, None)
 class HttpProgress(Structure):
+    _name_ = 'Windows.Web.Http.HttpProgress'
     Stage: win32more.Windows.Web.Http.HttpProgressStage
     BytesSent: UInt64
     TotalBytesToSend: win32more.Windows.Foundation.IReference[UInt64]

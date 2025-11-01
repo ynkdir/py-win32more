@@ -705,6 +705,7 @@ class PackageDeploymentManager(ComPtr):
     @winrt_classmethod
     def GetDefault(cls: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManagerStatics) -> win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentManager: ...
 class PackageDeploymentProgress(Structure):
+    _name_ = 'Microsoft.Windows.Management.Deployment.PackageDeploymentProgress'
     Status: win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentProgressStatus
     Progress: Double
 class PackageDeploymentProgressStatus(Enum, Int32):

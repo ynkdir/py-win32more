@@ -277,6 +277,7 @@ class DeploymentOptions(Enum, UInt32):
     RetainFilesOnFailure = 2097152
     StageInPlace = 4194304
 class DeploymentProgress(Structure):
+    _name_ = 'Windows.Management.Deployment.DeploymentProgress'
     state: win32more.Windows.Management.Deployment.DeploymentProgressState
     percentage: UInt32
 class DeploymentProgressState(Enum, Int32):

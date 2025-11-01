@@ -2892,6 +2892,7 @@ class MseStreamSource(ComPtr):
     Ended = event(add_Ended, remove_Ended)
     Opened = event(add_Opened, remove_Opened)
 class MseTimeRange(Structure):
+    _name_ = 'Windows.Media.Core.MseTimeRange'
     Start: win32more.Windows.Foundation.TimeSpan
     End: win32more.Windows.Foundation.TimeSpan
 class SceneAnalysisEffect(ComPtr):
@@ -3240,6 +3241,7 @@ class TimedTextDisplayAlignment(Enum, Int32):
     After = 1
     Center = 2
 class TimedTextDouble(Structure):
+    _name_ = 'Windows.Media.Core.TimedTextDouble'
     Value: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit
 class TimedTextFlowDirection(Enum, Int32):
@@ -3275,12 +3277,14 @@ class TimedTextLineAlignment(Enum, Int32):
     End = 1
     Center = 2
 class TimedTextPadding(Structure):
+    _name_ = 'Windows.Media.Core.TimedTextPadding'
     Before: Double
     After: Double
     Start: Double
     End: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit
 class TimedTextPoint(Structure):
+    _name_ = 'Windows.Media.Core.TimedTextPoint'
     X: Double
     Y: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit
@@ -3402,6 +3406,7 @@ class TimedTextScrollMode(Enum, Int32):
     Popon = 0
     Rollup = 1
 class TimedTextSize(Structure):
+    _name_ = 'Windows.Media.Core.TimedTextSize'
     Height: Double
     Width: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit

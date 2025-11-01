@@ -451,6 +451,7 @@ class ISyndicationTextFactory(ComPtr):
     @winrt_commethod(7)
     def CreateSyndicationTextEx(self, text: hstr, type: win32more.Windows.Web.Syndication.SyndicationTextType) -> win32more.Windows.Web.Syndication.SyndicationText: ...
 class RetrievalProgress(Structure):
+    _name_ = 'Windows.Web.Syndication.RetrievalProgress'
     BytesRetrieved: UInt32
     TotalBytesToRetrieve: UInt32
 class SyndicationAttribute(ComPtr):
@@ -1282,6 +1283,7 @@ class SyndicationTextType(Enum, Int32):
     Html = 1
     Xhtml = 2
 class TransferProgress(Structure):
+    _name_ = 'Windows.Web.Syndication.TransferProgress'
     BytesSent: UInt32
     TotalBytesToSend: UInt32
     BytesRetrieved: UInt32

@@ -243,6 +243,7 @@ class MouseCapabilities(ComPtr):
     SwapButtons = property(get_SwapButtons, None)
     VerticalWheelPresent = property(get_VerticalWheelPresent, None)
 class MouseDelta(Structure):
+    _name_ = 'Windows.Devices.Input.MouseDelta'
     X: Int32
     Y: Int32
 class MouseDevice(ComPtr):
@@ -381,6 +382,7 @@ class PointerDeviceType(Enum, Int32):
     Mouse = 2
     Touchpad = 3
 class PointerDeviceUsage(Structure):
+    _name_ = 'Windows.Devices.Input.PointerDeviceUsage'
     UsagePage: UInt32
     Usage: UInt32
     MinLogical: Int32

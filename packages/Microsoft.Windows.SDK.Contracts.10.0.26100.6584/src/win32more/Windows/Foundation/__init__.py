@@ -38,6 +38,7 @@ class AsyncStatus(Enum, Int32):
     Error = 3
     Started = 0
 class DateTime(Structure):
+    _name_ = 'Windows.Foundation.DateTime'
     UniversalTime: Int64
 class Deferral(ComPtr):
     extends: IInspectable
@@ -68,6 +69,7 @@ class EventHandler(Generic[T], MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable, args: T) -> Void: ...
 class EventRegistrationToken(Structure):
+    _name_ = 'Windows.Foundation.EventRegistrationToken'
     Value: Int64
 FoundationContract: UInt32 = 262144
 class _GuidHelper_Meta_(ComPtr.__class__):
@@ -83,6 +85,7 @@ class GuidHelper(ComPtr, metaclass=_GuidHelper_Meta_):
     def Equals(cls: win32more.Windows.Foundation.IGuidHelperStatics, target: POINTER(Guid), value: POINTER(Guid)) -> Boolean: ...
     _GuidHelper_Meta_.Empty = property(get_Empty, None)
 class HResult(Structure):
+    _name_ = 'Windows.Foundation.HResult'
     Value: Int32
 class IAsyncAction(ComPtr):
     extends: IInspectable
@@ -529,6 +532,7 @@ class MemoryBuffer(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class Point(Structure):
+    _name_ = 'Windows.Foundation.Point'
     X: Single
     Y: Single
 class PropertyType(Enum, Int32):
@@ -655,14 +659,17 @@ class PropertyValue(ComPtr):
     @winrt_classmethod
     def CreateRectArray(cls: win32more.Windows.Foundation.IPropertyValueStatics, value: PassArray[win32more.Windows.Foundation.Rect]) -> IInspectable: ...
 class Rect(Structure):
+    _name_ = 'Windows.Foundation.Rect'
     X: Single
     Y: Single
     Width: Single
     Height: Single
 class Size(Structure):
+    _name_ = 'Windows.Foundation.Size'
     Width: Single
     Height: Single
 class TimeSpan(Structure):
+    _name_ = 'Windows.Foundation.TimeSpan'
     Duration: Int64
 class TypedEventHandler(Generic[TSender, TResult], MulticastDelegate):
     extends: IUnknown

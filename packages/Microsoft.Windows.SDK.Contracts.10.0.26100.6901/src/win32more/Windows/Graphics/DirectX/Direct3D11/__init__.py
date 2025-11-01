@@ -15,9 +15,11 @@ class Direct3DBindings(Enum, UInt32):
     Decoder = 512
     VideoEncoder = 1024
 class Direct3DMultisampleDescription(Structure):
+    _name_ = 'Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription'
     Count: Int32
     Quality: Int32
 class Direct3DSurfaceDescription(Structure):
+    _name_ = 'Windows.Graphics.DirectX.Direct3D11.Direct3DSurfaceDescription'
     Width: Int32
     Height: Int32
     Format: win32more.Windows.Graphics.DirectX.DirectXPixelFormat

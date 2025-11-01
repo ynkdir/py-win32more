@@ -846,6 +846,7 @@ class GeneratorDirection(Enum, Int32):
     Forward = 0
     Backward = 1
 class GeneratorPosition(Structure):
+    _name_ = 'Windows.UI.Xaml.Controls.Primitives.GeneratorPosition'
     Index: Int32
     Offset: Int32
 class GeneratorPositionHelper(ComPtr):

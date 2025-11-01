@@ -616,6 +616,7 @@ class ItemIndexRange(ComPtr):
     LastIndex = property(get_LastIndex, None)
     Length = property(get_Length, None)
 class LoadMoreItemsResult(Structure):
+    _name_ = 'Microsoft.UI.Xaml.Data.LoadMoreItemsResult'
     Count: UInt32
 class PropertyChangedEventArgs(ComPtr):
     extends: IInspectable

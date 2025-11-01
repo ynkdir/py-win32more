@@ -325,6 +325,7 @@ class RecognizedText(ComPtr):
     Lines = property(get_Lines, None)
     TextAngle = property(get_TextAngle, None)
 class RecognizedTextBoundingBox(Structure):
+    _name_ = 'Microsoft.Windows.AI.Imaging.RecognizedTextBoundingBox'
     BottomLeft: win32more.Windows.Foundation.Point
     BottomRight: win32more.Windows.Foundation.Point
     TopLeft: win32more.Windows.Foundation.Point

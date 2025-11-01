@@ -106,6 +106,7 @@ class DecimalHelper(ComPtr):
     @winrt_classmethod
     def Modulo(cls: win32more.Microsoft.Windows.Foundation.IDecimalHelperStatics, left: win32more.Microsoft.Windows.Foundation.DecimalValue, right: win32more.Microsoft.Windows.Foundation.DecimalValue) -> win32more.Microsoft.Windows.Foundation.DecimalValue: ...
 class DecimalValue(Structure):
+    _name_ = 'Microsoft.Windows.Foundation.DecimalValue'
     Reserved: UInt16
     Scale: Byte
     Sign: Byte

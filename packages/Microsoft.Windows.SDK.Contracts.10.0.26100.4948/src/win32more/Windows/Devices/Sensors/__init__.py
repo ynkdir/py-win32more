@@ -2770,6 +2770,7 @@ class LightSensor(ComPtr):
     ReportThreshold = property(get_ReportThreshold, None)
     ReadingChanged = event(add_ReadingChanged, remove_ReadingChanged)
 class LightSensorChromaticity(Structure):
+    _name_ = 'Windows.Devices.Sensors.LightSensorChromaticity'
     X: Double
     Y: Double
 class LightSensorDataThreshold(ComPtr):
