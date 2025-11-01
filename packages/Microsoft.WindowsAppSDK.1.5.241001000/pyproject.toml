@@ -1,7 +1,7 @@
 [project]
 name = "win32more-Microsoft.WindowsAppSDK"
-version = "0.6.1.5.241001000"
-dependencies = ["win32more-core==0.6.*"]
+version = "0.7.1.5.241001000"
+dependencies = ["win32more-core==0.7.*"]
 
 [build-system]
 requires = ["hatchling >= 1.26"]

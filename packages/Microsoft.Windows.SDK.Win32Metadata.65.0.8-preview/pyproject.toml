@@ -1,7 +1,7 @@
 [project]
 name = "win32more-Microsoft.Windows.SDK.Win32Metadata"
-version = "0.6.65.0.8"
-dependencies = ["win32more-core==0.6.*"]
+version = "0.7.65.0.8"
+dependencies = ["win32more-core==0.7.*"]
 
 [build-system]
 requires = ["hatchling >= 1.26"]

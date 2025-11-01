@@ -1,7 +1,7 @@
 [project]
 name = "win32more-Microsoft.Graphics.Win2D"
-version = "0.6.1.3.1"
-dependencies = ["win32more-core==0.6.*", "win32more-Microsoft.WindowsAppSDK>=0.6.1.6.241114003,<0.7"]
+version = "0.7.1.3.1"
+dependencies = ["win32more-core==0.7.*", "win32more-Microsoft.WindowsAppSDK>=0.7.1.6.241114003,<0.8"]
 
 [build-system]
 requires = ["hatchling >= 1.26"]
