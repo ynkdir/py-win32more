@@ -6,19 +6,6 @@ from ctypes import POINTER, cast, pointer
 from pathlib import Path
 from typing import Generic, TypeVar
 
-from win32more.Windows.Data.Json import JsonObject, JsonValue
-from win32more.Windows.Data.Xml.Dom import XmlDocument
-from win32more.Windows.Devices.Display import DisplayMonitor
-from win32more.Windows.Devices.Enumeration import DeviceInformation
-from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
-from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
-from win32more.Windows.Storage import FileIO, PathIO, StorageFile
-from win32more.Windows.System import DispatcherQueueController
-from win32more.Windows.System.Threading import ThreadPool
-from win32more.Windows.Win32.Foundation import E_INVALIDARG, HRESULT, S_OK
-from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
-from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
-
 from win32more import (
     FAILED,
     WINFUNCTYPE,
@@ -34,7 +21,7 @@ from win32more import (
     box_value,
     unbox_value,
 )
-from win32more._ro import ro_get_parameterized_type_instance_iid
+from win32more._ro import _get_type_signature, ro_get_parameterized_type_instance_iid
 from win32more._vector import Vector
 from win32more._win32 import (
     Enum,
@@ -50,6 +37,18 @@ from win32more._winrt import (
     hstr,
     winrt_commethod,
 )
+from win32more.Windows.Data.Json import JsonObject, JsonValue
+from win32more.Windows.Data.Xml.Dom import XmlDocument
+from win32more.Windows.Devices.Display import DisplayMonitor
+from win32more.Windows.Devices.Enumeration import DeviceInformation
+from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, Point, PropertyValue, Uri
+from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
+from win32more.Windows.Storage import FileIO, PathIO, StorageFile
+from win32more.Windows.System import DispatcherQueueController
+from win32more.Windows.System.Threading import ThreadPool
+from win32more.Windows.Win32.Foundation import E_INVALIDARG, HRESULT, S_OK
+from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
+from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
 if sys.platform == "cygwin":
     from win32more._cygwin import posix_to_win
@@ -279,6 +278,9 @@ class TestWinrt(unittest.TestCase):
             str(ro_get_parameterized_type_instance_iid(IVector[IInspectable])),
             "{b32bdca4-5e52-5b27-bc5d-d66a1a268c2a}",
         )
+
+    def test_type_signature_of_struct(self):
+        self.assertEqual(_get_type_signature(Point), "struct(Windows.Foundation.Point;f4;f4)")
 
     def test_constructor_with_arguments(self):
         self.assertEqual(Uri("http://example.com/").ToString(), "http://example.com/")
