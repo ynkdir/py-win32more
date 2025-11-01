@@ -16,9 +16,11 @@ from ._win32 import (
     Int32,
     Int64,
     Single,
+    Structure,
     UInt32,
     UInt64,
     WinError,
+    get_type_hints,
     windll,
 )
 from ._win32api import (
@@ -115,6 +117,9 @@ def _get_type_signature(cls) -> str:
             return f"rc({cls._classid_};{args})"
         else:
             raise RuntimeError("no _iid_ found")
+    elif issubclass(cls, Structure):
+        args = ";".join(_get_type_signature(arg) for arg in get_type_hints(cls).values())
+        return f"struct({cls._name_};{args})"
     elif issubclass(cls, hstr):
         return "string"
     elif issubclass(cls, Char):
