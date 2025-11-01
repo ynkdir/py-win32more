@@ -237,6 +237,7 @@ class Struct:
     def emit(self) -> str:
         writer = StringIO()
         writer.write(f"class {self._td.name}(Structure):\n")
+        writer.write(f"    _name_ = '{self._td.fullname}'\n")
         for fd in self._td.fields:
             writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
         return writer.getvalue()
