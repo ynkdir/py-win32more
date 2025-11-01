@@ -1,12 +1,11 @@
 import importlib
-import sys
 import weakref
 import xml.etree.ElementTree as ET
 from functools import partial
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from win32more import FAILED, ComClass, WinError, asyncui
+from win32more import FAILED, Char, ComClass, WinError, asyncui
 from win32more._winrt import ISelf, hstr
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
@@ -15,6 +14,7 @@ from win32more.Microsoft.Windows.ApplicationModel.Resources import ResourceManag
 from win32more.Windows.Foundation import Uri
 from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
+from win32more.Windows.Win32.System.LibraryLoader import GetModuleFileName
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
@@ -35,10 +35,20 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self.ResourceManagerRequested += self.OnResourceManagerRequested
 
     def OnResourceManagerRequested(self, sender, e):
-        resources_pri = Path(sys.executable).with_name("resources.pri")
+        resources_pri = Path(self._sys_executable()).with_name("resources.pri")
         if not resources_pri.exists():
             resources_pri = Path(__file__).parent / "resources.pri"
         e.CustomResourceManager = ResourceManager(str(resources_pri))
+
+    # FIXME: When executing app execution alias, sys.executable points alias.
+    #   sys.executable => $LOCALAPPDATA\Microsoft\WindowsApps\python.exe
+    # We need resolved path instead.
+    def _sys_executable(self):
+        buf = (Char * 1024)()
+        r = GetModuleFileName(None, buf, 1024)
+        if r == 0:
+            raise WinError()
+        return buf.value
 
     def InitializeComponent(self):
         xaml_path = Path(__file__).with_name("app.xaml").as_posix()
