@@ -1,4 +1,5 @@
 import importlib
+import inspect
 import weakref
 import xml.etree.ElementTree as ET
 from functools import partial
@@ -10,7 +11,11 @@ from win32more._winrt import ISelf, hstr
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
-from win32more.Microsoft.Windows.ApplicationModel.Resources import ResourceManager
+from win32more.Microsoft.Windows.ApplicationModel.Resources import (
+    ResourceCandidate,
+    ResourceCandidateKind,
+    ResourceManager,
+)
 from win32more.Windows.Foundation import Uri
 from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
@@ -33,22 +38,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         super().__init__(own=True)
         self.InitializeComponent()
         self.ResourceManagerRequested += self.OnResourceManagerRequested
-
-    def OnResourceManagerRequested(self, sender, e):
-        resources_pri = Path(self._sys_executable()).with_name("resources.pri")
-        if not resources_pri.exists():
-            resources_pri = Path(__file__).parent / "resources.pri"
-        e.CustomResourceManager = ResourceManager(str(resources_pri))
-
-    # FIXME: When executing app execution alias, sys.executable points alias.
-    #   sys.executable => $LOCALAPPDATA\Microsoft\WindowsApps\python.exe
-    # We need resolved path instead.
-    def _sys_executable(self):
-        buf = (Char * 1024)()
-        r = GetModuleFileName(None, buf, 1024)
-        if r == 0:
-            raise WinError()
-        return buf.value
 
     def InitializeComponent(self):
         xaml_path = Path(__file__).with_name("app.xaml").as_posix()
@@ -73,6 +62,45 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         if self._provider is None:
             self._provider = XamlControlsXamlMetaDataProvider()
         return self._provider
+
+    # FIXME: When executing app execution alias, sys.executable points alias.
+    #   sys.executable => $LOCALAPPDATA\Microsoft\WindowsApps\python.exe
+    # We need resolved path instead.
+    def AppExecutable(self) -> Path:
+        buf = (Char * 1024)()
+        r = GetModuleFileName(None, buf, 1024)
+        if r == 0:
+            raise WinError()
+        return Path(buf.value)
+
+    # Application root path.  This is used to convert "ms-appx:///" path.  See OnResourceNotFound().
+    def AppRoot(self) -> Path:
+        # return self.AppExecutable().parent
+        return Path(inspect.getfile(type(self))).parent
+
+    def AppResourcePri(self) -> Path:
+        resources_pri = self.AppExecutable().with_name("resources.pri")
+        if not resources_pri.exists():
+            resources_pri = Path(__file__).parent / "resources.pri"
+        return resources_pri
+
+    def OnResourceManagerRequested(self, sender, e):
+        manager = ResourceManager(str(self.AppResourcePri()))
+        manager.ResourceNotFound += self.OnResourceNotFound
+        e.CustomResourceManager = manager
+
+    def OnResourceNotFound(self, sender, e):
+        name = e.Name
+        if name.startswith("Files/file:///"):
+            # ignore absolute path
+            pass
+        elif e.Name.startswith("Files/"):
+            # convert relative path from ms-appx:///path/to/file to AppRoot()/path/to/file
+            name = name.removeprefix("Files/")
+            apppath = self.AppRoot() / name
+            if apppath.exists():
+                resource_candidate = ResourceCandidate(ResourceCandidateKind.FilePath, str(apppath))
+                e.SetResolvedCandidate(resource_candidate)
 
     __current = None
 
