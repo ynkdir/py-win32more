@@ -74,6 +74,8 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         return Path(buf.value)
 
     # Application root path.  This is used to convert "ms-appx:///" path.  See OnResourceNotFound().
+    # This does not affect to WindowsAppSDK and may not work in specific situation.
+    # Normally application root is directory of .exe file.
     def AppRoot(self) -> Path:
         # return self.AppExecutable().parent
         return Path(inspect.getfile(type(self))).parent
@@ -97,10 +99,12 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         elif e.Name.startswith("Files/"):
             # convert relative path from ms-appx:///path/to/file to AppRoot()/path/to/file
             name = name.removeprefix("Files/")
-            apppath = self.AppRoot() / name
-            if apppath.exists():
-                resource_candidate = ResourceCandidate(ResourceCandidateKind.FilePath, str(apppath))
+            filepath = self.__tmp_resource_file.pop(name, self.AppRoot() / name)
+            if filepath.exists():
+                resource_candidate = ResourceCandidate(ResourceCandidateKind.FilePath, str(filepath))
                 e.SetResolvedCandidate(resource_candidate)
+
+    __tmp_resource_file = {}
 
     __current = None
 
@@ -136,10 +140,10 @@ class XamlClass(ComClass, IComponentConnector):
     def GetBindingConnector(self, connectionId, target):
         return self.__component_connector.GetBindingConnector(connectionId, target)
 
-    def LoadComponentFromFile(self, xaml_path, encoding: str | None = None):
+    def LoadComponentFromFile(self, xaml_path: str | Path, encoding: str | None = None) -> None:
         self.LoadComponentFromString(Path(xaml_path).read_text(encoding=encoding), xaml_path)
 
-    def LoadComponentFromString(self, xaml_str, xaml_path=None):
+    def LoadComponentFromString(self, xaml_str: str, xaml_path: str | Path | None = None) -> None:
         self.__component_connector = XamlComponentConnector()
         self.__component_connector.Load(self, xaml_str, xaml_path)
 
@@ -155,17 +159,30 @@ class XamlComponentConnector:
     def GetBindingConnector(self, connectionId, target):
         return None
 
-    def Load(self, component, xaml_str, xaml_path):
-        xaml_preprocessed = self._preprocess(component, xaml_str, xaml_path)
+    def Load(self, component: XamlClass, xaml_str: str, xaml_path: str | Path | None) -> None:
+        if xaml_path is not None:
+            xaml_path = Path(xaml_path)
+
+        xaml_preprocessed = self._preprocess(component, xaml_str)
+
         with NamedTemporaryFile(delete=False) as f:
             f.write(xaml_preprocessed.encode("utf-8"))
             f.close()
-            tmp_xaml_path = Path(f.name).as_posix()
-            resource_locator = Uri(f"ms-appx:///{tmp_xaml_path}")
+
+            approot = XamlApplication._XamlApplication__current.AppRoot()
+            if xaml_path is not None and xaml_path.is_relative_to(approot):
+                apppath = xaml_path.relative_to(approot).as_posix() + ".tmp"
+                XamlApplication._XamlApplication__tmp_resource_file[apppath] = Path(f.name)
+                resource_locator = Uri(f"ms-appx:///{apppath}")
+            else:
+                tmp_xaml_path = Path(f.name).as_posix()
+                resource_locator = Uri(f"ms-appx:///{tmp_xaml_path}")
+
             Application.LoadComponent(component, resource_locator)
+
             Path(f.name).unlink()
 
-    def _preprocess(self, component, xaml_str, xaml_path):
+    def _preprocess(self, component: XamlClass, xaml_str: str) -> str:
         root = ET.fromstring(xaml_str)
         for i, e in enumerate(root.iter()):
             self._connectors[i] = []
@@ -178,11 +195,6 @@ class XamlComponentConnector:
                     else:
                         self._connectors[i].append(partial(self._connect_event, component, k, v))
                     del e.attrib[k]
-                elif k in _path_names and xaml_path is not None:
-                    # FIXME: Workaround for relative path.
-                    src_path = Path(xaml_path).parent / v
-                    if src_path.exists():
-                        e.attrib[k] = src_path.absolute().as_posix()
             if self._connectors[i]:
                 e.attrib[f"{{{XMLNS_XAML}}}ConnectionId"] = str(i)
         return ET.tostring(root, encoding="unicode")
@@ -630,10 +642,4 @@ _known_events = {
     "XamlShutdownCompletedOnThread",
     "ZoomAnimationStarting",
     "ZoomCompleted",
-}
-
-
-_path_names = {
-    "Source",
-    "ProfilePicture",
 }
