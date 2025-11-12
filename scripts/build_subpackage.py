@@ -118,15 +118,23 @@ class NuspecParser:
         self._root = ET.fromstring(xml)
 
     def dependencies(self) -> Iterable[Version]:
-        ns = {"n": "http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"}
-        for dependency in self._root.findall("n:metadata/n:dependencies/n:dependency", ns):
+        def parse_dependency(dependency):
             id = dependency.get("id")
             if id is None:
                 raise RuntimeError("cannot get id")
             version = dependency.get("version")
             if version is None:
                 raise RuntimeError("cannot get version")
-            yield Version(id, version)
+            return Version(id, version)
+
+        ns = {"n": "http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"}
+        for dependency in self._root.findall("n:metadata/n:dependencies/n:dependency", ns):
+            yield parse_dependency(dependency)
+        # Microsoft.WindowsAppSDK.ML>=1.8.2109
+        for dependency in self._root.findall(
+            "n:metadata/n:dependencies/n:group[@targetFramework='native0.0']/n:dependency", ns
+        ):
+            yield parse_dependency(dependency)
 
 
 class MetadataParser:
