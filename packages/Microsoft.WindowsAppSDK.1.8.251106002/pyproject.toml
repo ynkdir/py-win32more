@@ -1,0 +1,11 @@
+[project]
+name = "win32more-Microsoft.WindowsAppSDK"
+version = "0.7.1.8.251106002"
+dependencies = ["win32more-core==0.7.*", "win32more-Microsoft.Web.WebView2>=0.7.1.0.3179.45,<0.8"]
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/win32more"]
