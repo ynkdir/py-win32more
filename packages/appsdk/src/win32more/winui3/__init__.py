@@ -160,8 +160,7 @@ class XamlComponentConnector:
 
     def Load(self, component: XamlClass, xaml_str: str, xaml_path: str | Path | None) -> None:
         if xaml_path is not None:
-            xaml_path = Path(xaml_path)
-        xaml_path = xaml_path.absolute()
+            xaml_path = Path(xaml_path).absolute()
 
         xaml_preprocessed = self._preprocess(component, xaml_str)
 
