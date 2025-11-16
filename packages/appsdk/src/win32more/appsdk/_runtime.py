@@ -74,6 +74,8 @@ def is_self_contained() -> bool:
 def _appsdk_runtime_dll_exists() -> bool:
     try:
         windll["Microsoft.WindowsAppRuntime.dll"]
-    except AttributeError:
+    # FileNotFoundError <= 3.12
+    # AttributeError >= 3.13
+    except (FileNotFoundError, AttributeError):
         return False
     return True

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from ctypes import pointer
 
 from win32more import FAILED, Byte, Char, String, UInt32, WinError
