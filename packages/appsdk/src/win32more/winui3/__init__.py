@@ -80,14 +80,10 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         # return self.AppExecutable().parent
         return Path(inspect.getfile(type(self))).parent
 
-    def AppResourcePri(self) -> Path:
-        resources_pri = self.AppExecutable().with_name("resources.pri")
-        if not resources_pri.exists():
-            resources_pri = Path(__file__).parent / "resources.pri"
-        return resources_pri
-
     def OnResourceManagerRequested(self, sender, e):
-        manager = ResourceManager(str(self.AppResourcePri()))
+        # Workaround to avoid FileNotFoundError with default constructor (file does not need to exist).
+        # https://github.com/microsoft/WindowsAppSDK/issues/5814
+        manager = ResourceManager("resources.pri")
         manager.ResourceNotFound += self.OnResourceNotFound
         e.CustomResourceManager = manager
 
