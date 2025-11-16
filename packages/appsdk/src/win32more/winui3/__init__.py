@@ -1,5 +1,6 @@
 import importlib
 import inspect
+import sys
 import weakref
 import xml.etree.ElementTree as ET
 from functools import partial
@@ -78,7 +79,7 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
     # Normally application root is directory of .exe file.
     def AppRoot(self) -> Path:
         # return self.AppExecutable().parent
-        return Path(inspect.getfile(type(self))).parent
+        return Path(inspect.getfile(sys.modules["__main__"])).parent
 
     def OnResourceManagerRequested(self, sender, e):
         # Workaround to avoid FileNotFoundError with default constructor (file does not need to exist).
