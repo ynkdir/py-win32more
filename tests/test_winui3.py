@@ -113,7 +113,7 @@ def _test_create_window_xaml_class_main():
 class TestWinui3(unittest.TestCase):
     def _mp(self, target):
         with Pool() as pool:
-            return pool.apply_async(_test_create_window_main).get()
+            return pool.apply_async(target).get()
 
     def test_create_window(self):
         activated = self._mp(_test_create_window_main)
