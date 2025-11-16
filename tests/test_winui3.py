@@ -1,5 +1,5 @@
 import unittest
-from multiprocessing import Pool
+from concurrent.futures import ProcessPoolExecutor
 
 try:
     import win32more.Microsoft  # noqa
@@ -184,8 +184,8 @@ def _test_xaml_class_connect_name_main():
 @unittest.skipUnless(appsdk_available, "WindowsAppSDK is not available")
 class TestWinui3(unittest.TestCase):
     def _mp(self, target):
-        with Pool() as pool:
-            return pool.apply_async(target).get()
+        with ProcessPoolExecutor(max_workers=1) as executor:
+            return executor.submit(target).result()
 
     def test_create_window(self):
         activated = self._mp(_test_create_window_main)
