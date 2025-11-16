@@ -20,6 +20,7 @@ def _test_create_window_main():
             self._window.Activate()
 
         def Window_Activated(self, sender, e):
+            # NOTE: activated may be called twice.
             nonlocal activated
             activated = True
             self.Exit()
@@ -69,6 +70,40 @@ def _test_create_window_xaml_loader_main():
     return activated
 
 
+def _test_xaml_loader_connect_name_main():
+    from win32more.winui3 import XamlApplication, XamlLoader
+
+    class App(XamlApplication):
+        def OnLaunched(self, args):
+            nonlocal button_content
+
+            self._window = XamlLoader.Load(
+                self,
+                """
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <Button x:Name="Button1" Content="Button1" />
+    </StackPanel>
+</Window>
+""",
+            )
+            button_content = self.Button1.Content.as_(str)
+            self.Exit()
+
+    button_content = None
+
+    XamlApplication.Start(App)
+
+    return button_content
+
+
 def _test_create_window_xaml_class_main():
     from win32more.Microsoft.UI.Xaml import Window
     from win32more.winui3 import XamlApplication, XamlClass
@@ -109,6 +144,43 @@ def _test_create_window_xaml_class_main():
     return activated
 
 
+def _test_xaml_class_connect_name_main():
+    from win32more.Microsoft.UI.Xaml import Window
+    from win32more.winui3 import XamlApplication, XamlClass
+
+    class App(XamlApplication):
+        def OnLaunched(self, args):
+            nonlocal button_content
+
+            self._window = MainWindow()
+            button_content = self._window.Button1.Content.as_(str)
+            self.Exit()
+
+    class MainWindow(XamlClass, Window):
+        def __init__(self):
+            super().__init__()
+            self.LoadComponentFromString("""
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <Button x:Name="Button1" Content="Button1" />
+    </StackPanel>
+</Window>
+""")
+
+    button_content = None
+
+    XamlApplication.Start(App)
+
+    return button_content
+
+
 @unittest.skipUnless(appsdk_available, "WindowsAppSDK is not available")
 class TestWinui3(unittest.TestCase):
     def _mp(self, target):
@@ -123,9 +195,17 @@ class TestWinui3(unittest.TestCase):
         activated = self._mp(_test_create_window_xaml_loader_main)
         self.assertTrue(activated)
 
+    def test_xaml_loader_connect_name(self):
+        button_content = self._mp(_test_xaml_loader_connect_name_main)
+        self.assertEqual(button_content, "Button1")
+
     def test_create_window_xaml_class(self):
         activated = self._mp(_test_create_window_xaml_class_main)
         self.assertTrue(activated)
+
+    def test_xaml_class_connect_name(self):
+        button_content = self._mp(_test_xaml_class_connect_name_main)
+        self.assertEqual(button_content, "Button1")
 
 
 if __name__ == "__main__":
