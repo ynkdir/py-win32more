@@ -46,7 +46,8 @@ def _test_create_window_xaml_loader_main():
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Activated="Window_Activated">
 
     <StackPanel>
         <Button Content="Button1" />
@@ -54,8 +55,6 @@ def _test_create_window_xaml_loader_main():
 </Window>
 """,
             )
-
-            self._window.Activated += self.Window_Activated
             self._window.Activate()
 
         def Window_Activated(self, sender, e):
@@ -111,13 +110,7 @@ def _test_create_window_xaml_class_main():
     class App(XamlApplication):
         def OnLaunched(self, args):
             self._window = MainWindow()
-            self._window.Activated += self.Window_Activated
             self._window.Activate()
-
-        def Window_Activated(self, sender, e):
-            nonlocal activated
-            activated = True
-            self.Exit()
 
     class MainWindow(XamlClass, Window):
         def __init__(self):
@@ -129,13 +122,19 @@ def _test_create_window_xaml_class_main():
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Activated="_Activated">
 
     <StackPanel>
         <Button Content="Button1" />
     </StackPanel>
 </Window>
 """)
+
+        def _Activated(self, sender, e):
+            nonlocal activated
+            activated = True
+            self.Close()
 
     activated = False
 
