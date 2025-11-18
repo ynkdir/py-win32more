@@ -1,0 +1,927 @@
+from __future__ import annotations
+from win32more._prelude import *
+import win32more.Windows.AI.Actions
+import win32more.Windows.AI.Actions.Hosting
+import win32more.Windows.ApplicationModel.Appointments
+import win32more.Windows.ApplicationModel.Contacts
+import win32more.Windows.Foundation
+import win32more.Windows.Foundation.Collections
+import win32more.Windows.UI
+class ActionEntity(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.IActionEntity
+    _classid_ = 'Windows.AI.Actions.ActionEntity'
+    @winrt_mixinmethod
+    def get_Kind(self: win32more.Windows.AI.Actions.IActionEntity) -> win32more.Windows.AI.Actions.ActionEntityKind: ...
+    @winrt_mixinmethod
+    def get_DisplayInfo(self: win32more.Windows.AI.Actions.IActionEntity) -> win32more.Windows.AI.Actions.ActionEntityDisplayInfo: ...
+    @winrt_mixinmethod
+    def get_Id(self: win32more.Windows.AI.Actions.IActionEntity2) -> hstr: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    DisplayInfo = property(get_DisplayInfo, None)
+    Id = property(get_Id, None)
+    Kind = property(get_Kind, None)
+class ActionEntityDisplayInfo(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.IActionEntityDisplayInfo
+    _classid_ = 'Windows.AI.Actions.ActionEntityDisplayInfo'
+    @winrt_mixinmethod
+    def get_Title(self: win32more.Windows.AI.Actions.IActionEntityDisplayInfo) -> hstr: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    Title = property(get_Title, None)
+class ActionEntityFactory(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.IActionEntityFactory2
+    _classid_ = 'Windows.AI.Actions.ActionEntityFactory'
+    @winrt_mixinmethod
+    def CreateFileEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory2, path: hstr) -> win32more.Windows.AI.Actions.FileActionEntity: ...
+    @winrt_mixinmethod
+    def CreateDocumentEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory2, path: hstr) -> win32more.Windows.AI.Actions.DocumentActionEntity: ...
+    @winrt_mixinmethod
+    def CreatePhotoEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory2, path: hstr) -> win32more.Windows.AI.Actions.PhotoActionEntity: ...
+    @winrt_mixinmethod
+    def CreateTextEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory2, text: hstr) -> win32more.Windows.AI.Actions.TextActionEntity: ...
+    @winrt_mixinmethod
+    def CreateRemoteFileEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory3, sourceId: hstr, fileKind: win32more.Windows.AI.Actions.RemoteFileKind, sourceUri: win32more.Windows.Foundation.Uri, fileId: hstr, contentType: hstr, driveId: hstr, accountId: hstr, extension: hstr) -> win32more.Windows.AI.Actions.RemoteFileActionEntity: ...
+    @winrt_mixinmethod
+    def CreateTextEntityWithTextFormat(self: win32more.Windows.AI.Actions.IActionEntityFactory3, text: hstr, textFormat: win32more.Windows.AI.Actions.ActionEntityTextFormat) -> win32more.Windows.AI.Actions.TextActionEntity: ...
+    @winrt_mixinmethod
+    def CreateStreamingTextActionEntityWriter(self: win32more.Windows.AI.Actions.IActionEntityFactory3, textFormat: win32more.Windows.AI.Actions.ActionEntityTextFormat) -> win32more.Windows.AI.Actions.StreamingTextActionEntityWriter: ...
+    @winrt_mixinmethod
+    def CreateTableEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory4, data: PassArray[hstr], columnCount: UInt32) -> win32more.Windows.AI.Actions.TableActionEntity: ...
+    @winrt_mixinmethod
+    def CreateContactEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory4, contact: win32more.Windows.ApplicationModel.Contacts.Contact) -> win32more.Windows.AI.Actions.ContactActionEntity: ...
+    @winrt_mixinmethod
+    def CreateUriEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory5, Uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.AI.Actions.UriActionEntity: ...
+    @winrt_mixinmethod
+    def CreateArrayEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory5, kind: win32more.Windows.AI.Actions.ActionEntityKind, entities: PassArray[win32more.Windows.AI.Actions.ActionEntity]) -> win32more.Windows.AI.Actions.ArrayActionEntity: ...
+    @winrt_mixinmethod
+    def CreateDateTimeEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory6, dateTime: win32more.Windows.Foundation.DateTime) -> win32more.Windows.AI.Actions.DateTimeActionEntity: ...
+    @winrt_mixinmethod
+    def CreateAppointmentEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory6, sourceId: hstr, appointment: win32more.Windows.ApplicationModel.Appointments.Appointment, attendees: PassArray[win32more.Windows.AI.Actions.ContactActionEntity]) -> win32more.Windows.AI.Actions.AppointmentActionEntity: ...
+    @winrt_mixinmethod
+    def CreateCustomTextEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory7, kind: hstr, keyPhrase: hstr, props: win32more.Windows.Foundation.Collections.IMapView[hstr, IInspectable]) -> win32more.Windows.AI.Actions.CustomTextActionEntity: ...
+    @winrt_mixinmethod
+    def CreateArrayEntityWithCustomKind(self: win32more.Windows.AI.Actions.IActionEntityFactory7, elementKind: win32more.Windows.AI.Actions.ActionEntityKind, customKind: hstr, entities: PassArray[win32more.Windows.AI.Actions.ActionEntity]) -> win32more.Windows.AI.Actions.ArrayActionEntity: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+class ActionEntityKind(Enum, Int32):
+    None_ = 0
+    Document = 1
+    File = 2
+    Photo = 3
+    Text = 4
+    StreamingText = 5
+    RemoteFile = 6
+    Table = 7
+    Contact = 8
+    Uri = 9
+    Array = 10
+    Appointment = 11
+    Date = 12
+    CustomText = 13
+class ActionEntityTextFormat(Enum, Int32):
+    Plain = 0
+    Markdown = 1
+class ActionFeedback(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.IActionFeedback
+    _classid_ = 'Windows.AI.Actions.ActionFeedback'
+    @winrt_mixinmethod
+    def get_FeedbackKind(self: win32more.Windows.AI.Actions.IActionFeedback) -> win32more.Windows.AI.Actions.ActionFeedbackKind: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    FeedbackKind = property(get_FeedbackKind, None)
+class ActionFeedbackKind(Enum, Int32):
+    Positive = 0
+    Negative = 1
+class ActionInvocationContext(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.IActionInvocationContext
+    _classid_ = 'Windows.AI.Actions.ActionInvocationContext'
+    @winrt_mixinmethod
+    def get_EntityFactory(self: win32more.Windows.AI.Actions.IActionInvocationContext) -> win32more.Windows.AI.Actions.ActionEntityFactory: ...
+    @winrt_mixinmethod
+    def SetInputEntity(self: win32more.Windows.AI.Actions.IActionInvocationContext, inputName: hstr, inputValue: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
+    @winrt_mixinmethod
+    def GetInputEntities(self: win32more.Windows.AI.Actions.IActionInvocationContext) -> ReceiveArray[win32more.Windows.AI.Actions.NamedActionEntity]: ...
+    @winrt_mixinmethod
+    def SetOutputEntity(self: win32more.Windows.AI.Actions.IActionInvocationContext, outputName: hstr, outputValue: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
+    @winrt_mixinmethod
+    def GetOutputEntities(self: win32more.Windows.AI.Actions.IActionInvocationContext) -> ReceiveArray[win32more.Windows.AI.Actions.NamedActionEntity]: ...
+    @winrt_mixinmethod
+    def get_Result(self: win32more.Windows.AI.Actions.IActionInvocationContext) -> win32more.Windows.AI.Actions.ActionInvocationResult: ...
+    @winrt_mixinmethod
+    def put_Result(self: win32more.Windows.AI.Actions.IActionInvocationContext, value: win32more.Windows.AI.Actions.ActionInvocationResult) -> Void: ...
+    @winrt_mixinmethod
+    def get_ExtendedError(self: win32more.Windows.AI.Actions.IActionInvocationContext) -> win32more.Windows.Foundation.HResult: ...
+    @winrt_mixinmethod
+    def put_ExtendedError(self: win32more.Windows.AI.Actions.IActionInvocationContext, value: win32more.Windows.Foundation.HResult) -> Void: ...
+    @winrt_mixinmethod
+    def get_InvokerWindowId(self: win32more.Windows.AI.Actions.IActionInvocationContext2) -> win32more.Windows.UI.WindowId: ...
+    @winrt_mixinmethod
+    def get_HelpDetails(self: win32more.Windows.AI.Actions.IActionInvocationContext2) -> win32more.Windows.AI.Actions.ActionInvocationHelpDetails: ...
+    @winrt_mixinmethod
+    def get_ActionId(self: win32more.Windows.AI.Actions.IActionInvocationContext2) -> hstr: ...
+    @winrt_mixinmethod
+    def get_InvokerAppUserModelId(self: win32more.Windows.AI.Actions.IActionInvocationContext2) -> hstr: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    ActionId = property(get_ActionId, None)
+    EntityFactory = property(get_EntityFactory, None)
+    ExtendedError = property(get_ExtendedError, put_ExtendedError)
+    HelpDetails = property(get_HelpDetails, None)
+    InvokerAppUserModelId = property(get_InvokerAppUserModelId, None)
+    InvokerWindowId = property(get_InvokerWindowId, None)
+    Result = property(get_Result, put_Result)
+class ActionInvocationHelpDetails(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.IActionInvocationHelpDetails
+    _classid_ = 'Windows.AI.Actions.ActionInvocationHelpDetails'
+    @winrt_mixinmethod
+    def get_Kind(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails) -> win32more.Windows.AI.Actions.ActionInvocationHelpKind: ...
+    @winrt_mixinmethod
+    def put_Kind(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails, value: win32more.Windows.AI.Actions.ActionInvocationHelpKind) -> Void: ...
+    @winrt_mixinmethod
+    def get_Title(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails) -> hstr: ...
+    @winrt_mixinmethod
+    def put_Title(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails, value: hstr) -> Void: ...
+    @winrt_mixinmethod
+    def get_Description(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails) -> hstr: ...
+    @winrt_mixinmethod
+    def put_Description(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails, value: hstr) -> Void: ...
+    @winrt_mixinmethod
+    def get_HelpUri(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def put_HelpUri(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_mixinmethod
+    def get_HelpUriDescription(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails) -> hstr: ...
+    @winrt_mixinmethod
+    def put_HelpUriDescription(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails, value: hstr) -> Void: ...
+    @winrt_mixinmethod
+    def add_Changed(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.ActionInvocationHelpDetails, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Changed(self: win32more.Windows.AI.Actions.IActionInvocationHelpDetails2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    Description = property(get_Description, put_Description)
+    HelpUri = property(get_HelpUri, put_HelpUri)
+    HelpUriDescription = property(get_HelpUriDescription, put_HelpUriDescription)
+    Kind = property(get_Kind, put_Kind)
+    Title = property(get_Title, put_Title)
+    Changed = event(add_Changed, remove_Changed)
+class ActionInvocationHelpKind(Enum, Int32):
+    None_ = 0
+    Error = 1
+    Warning = 2
+class ActionInvocationResult(Enum, Int32):
+    Success = 0
+    UserCanceled = 1
+    Unsupported = 2
+    Unavailable = 3
+class ActionRuntime(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.IActionRuntime
+    _classid_ = 'Windows.AI.Actions.ActionRuntime'
+    @winrt_mixinmethod
+    def get_ActionCatalog(self: win32more.Windows.AI.Actions.IActionRuntime) -> win32more.Windows.AI.Actions.Hosting.ActionCatalog: ...
+    @winrt_mixinmethod
+    def get_EntityFactory(self: win32more.Windows.AI.Actions.IActionRuntime) -> win32more.Windows.AI.Actions.ActionEntityFactory: ...
+    @winrt_mixinmethod
+    def CreateInvocationContext(self: win32more.Windows.AI.Actions.IActionRuntime, actionId: hstr) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
+    @winrt_mixinmethod
+    def CreateActionFeedback(self: win32more.Windows.AI.Actions.IActionRuntime2, feedbackKind: win32more.Windows.AI.Actions.ActionFeedbackKind) -> win32more.Windows.AI.Actions.ActionFeedback: ...
+    @winrt_mixinmethod
+    def SetActionAvailability(self: win32more.Windows.AI.Actions.IActionRuntime2, actionId: hstr, isAvailable: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def GetActionAvailability(self: win32more.Windows.AI.Actions.IActionRuntime2, actionId: hstr) -> Boolean: ...
+    @winrt_mixinmethod
+    def CreateInvocationContextWithWindowId(self: win32more.Windows.AI.Actions.IActionRuntime3, actionId: hstr, invokerWindowId: win32more.Windows.UI.WindowId) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
+    @winrt_mixinmethod
+    def GetActionEntityById(self: win32more.Windows.AI.Actions.IActionRuntime3, entityId: hstr) -> win32more.Windows.AI.Actions.ActionEntity: ...
+    @winrt_mixinmethod
+    def get_LatestSupportedSchemaVersion(self: win32more.Windows.AI.Actions.IActionRuntime3) -> UInt32: ...
+    @winrt_mixinmethod
+    def GetActionInvocationContextFromToken(self: win32more.Windows.AI.Actions.IActionRuntime4, token: hstr) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
+    @winrt_mixinmethod
+    def get_CustomEntityStore(self: win32more.Windows.AI.Actions.IActionRuntime5) -> win32more.Windows.AI.Actions.CustomActionEntityStore: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    @winrt_classmethod
+    def GetDefault(cls: win32more.Windows.AI.Actions.IActionRuntimeStatics) -> win32more.Windows.AI.Actions.ActionRuntime: ...
+    ActionCatalog = property(get_ActionCatalog, None)
+    CustomEntityStore = property(get_CustomEntityStore, None)
+    EntityFactory = property(get_EntityFactory, None)
+    LatestSupportedSchemaVersion = property(get_LatestSupportedSchemaVersion, None)
+ActionsContract: UInt32 = 524288
+class AppointmentActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IAppointmentActionEntity
+    _classid_ = 'Windows.AI.Actions.AppointmentActionEntity'
+    @winrt_mixinmethod
+    def get_SourceId(self: win32more.Windows.AI.Actions.IAppointmentActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_Appointment(self: win32more.Windows.AI.Actions.IAppointmentActionEntity) -> win32more.Windows.ApplicationModel.Appointments.Appointment: ...
+    @winrt_mixinmethod
+    def GetAttendees(self: win32more.Windows.AI.Actions.IAppointmentActionEntity) -> ReceiveArray[win32more.Windows.AI.Actions.ContactActionEntity]: ...
+    @winrt_mixinmethod
+    def GetPresentedFiles(self: win32more.Windows.AI.Actions.IAppointmentActionEntity) -> ReceiveArray[win32more.Windows.AI.Actions.RemoteFileActionEntity]: ...
+    @winrt_mixinmethod
+    def SetPresentedFiles(self: win32more.Windows.AI.Actions.IAppointmentActionEntity, files: PassArray[win32more.Windows.AI.Actions.RemoteFileActionEntity]) -> Void: ...
+    @winrt_mixinmethod
+    def GetSharedFiles(self: win32more.Windows.AI.Actions.IAppointmentActionEntity) -> ReceiveArray[win32more.Windows.AI.Actions.RemoteFileActionEntity]: ...
+    @winrt_mixinmethod
+    def SetSharedFiles(self: win32more.Windows.AI.Actions.IAppointmentActionEntity, files: PassArray[win32more.Windows.AI.Actions.RemoteFileActionEntity]) -> Void: ...
+    Appointment = property(get_Appointment, None)
+    SourceId = property(get_SourceId, None)
+class ArrayActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IArrayActionEntity
+    _classid_ = 'Windows.AI.Actions.ArrayActionEntity'
+    @winrt_mixinmethod
+    def get_ElementKind(self: win32more.Windows.AI.Actions.IArrayActionEntity) -> win32more.Windows.AI.Actions.ActionEntityKind: ...
+    @winrt_mixinmethod
+    def GetAll(self: win32more.Windows.AI.Actions.IArrayActionEntity) -> ReceiveArray[win32more.Windows.AI.Actions.ActionEntity]: ...
+    @winrt_mixinmethod
+    def get_CustomElementKind(self: win32more.Windows.AI.Actions.IArrayActionEntity2) -> hstr: ...
+    CustomElementKind = property(get_CustomElementKind, None)
+    ElementKind = property(get_ElementKind, None)
+class ContactActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IContactActionEntity
+    _classid_ = 'Windows.AI.Actions.ContactActionEntity'
+    @winrt_mixinmethod
+    def get_Contact(self: win32more.Windows.AI.Actions.IContactActionEntity) -> win32more.Windows.ApplicationModel.Contacts.Contact: ...
+    Contact = property(get_Contact, None)
+class CustomActionEntityStore(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.ICustomActionEntityStore
+    _classid_ = 'Windows.AI.Actions.CustomActionEntityStore'
+    @winrt_mixinmethod
+    def GetLastModifiedTime(self: win32more.Windows.AI.Actions.ICustomActionEntityStore, kind: hstr) -> win32more.Windows.Foundation.DateTime: ...
+    @winrt_mixinmethod
+    def Insert(self: win32more.Windows.AI.Actions.ICustomActionEntityStore, entity: win32more.Windows.AI.Actions.CustomTextActionEntity) -> Void: ...
+    @winrt_mixinmethod
+    def InsertMany(self: win32more.Windows.AI.Actions.ICustomActionEntityStore, entities: PassArray[win32more.Windows.AI.Actions.CustomTextActionEntity]) -> Void: ...
+    @winrt_mixinmethod
+    def Delete(self: win32more.Windows.AI.Actions.ICustomActionEntityStore, kind: hstr) -> Void: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+class CustomTextActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.ICustomTextActionEntity
+    _classid_ = 'Windows.AI.Actions.CustomTextActionEntity'
+    @winrt_mixinmethod
+    def get_CustomTextKind(self: win32more.Windows.AI.Actions.ICustomTextActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_KeyPhrase(self: win32more.Windows.AI.Actions.ICustomTextActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_Properties(self: win32more.Windows.AI.Actions.ICustomTextActionEntity) -> win32more.Windows.Foundation.Collections.IMapView[hstr, IInspectable]: ...
+    CustomTextKind = property(get_CustomTextKind, None)
+    KeyPhrase = property(get_KeyPhrase, None)
+    Properties = property(get_Properties, None)
+class DateTimeActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IDateTimeActionEntity
+    _classid_ = 'Windows.AI.Actions.DateTimeActionEntity'
+    @winrt_mixinmethod
+    def get_DateTime(self: win32more.Windows.AI.Actions.IDateTimeActionEntity) -> win32more.Windows.Foundation.DateTime: ...
+    DateTime = property(get_DateTime, None)
+class DocumentActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IDocumentActionEntity
+    _classid_ = 'Windows.AI.Actions.DocumentActionEntity'
+    @winrt_mixinmethod
+    def get_FullPath(self: win32more.Windows.AI.Actions.IDocumentActionEntity) -> hstr: ...
+    FullPath = property(get_FullPath, None)
+class FileActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IFileActionEntity
+    _classid_ = 'Windows.AI.Actions.FileActionEntity'
+    @winrt_mixinmethod
+    def get_FullPath(self: win32more.Windows.AI.Actions.IFileActionEntity) -> hstr: ...
+    FullPath = property(get_FullPath, None)
+class IActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntity'
+    _iid_ = Guid('{445e700f-2122-5668-9a16-4cab2982c5f4}')
+    @winrt_commethod(6)
+    def get_Kind(self) -> win32more.Windows.AI.Actions.ActionEntityKind: ...
+    @winrt_commethod(7)
+    def get_DisplayInfo(self) -> win32more.Windows.AI.Actions.ActionEntityDisplayInfo: ...
+    DisplayInfo = property(get_DisplayInfo, None)
+    Kind = property(get_Kind, None)
+class IActionEntity2(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntity2'
+    _iid_ = Guid('{98fe136d-dd3a-58c1-af76-feb4e19dce9e}')
+    @winrt_commethod(6)
+    def get_Id(self) -> hstr: ...
+    Id = property(get_Id, None)
+class IActionEntityDisplayInfo(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityDisplayInfo'
+    _iid_ = Guid('{057a9ede-03e1-55c6-acba-c7056216735a}')
+    @winrt_commethod(6)
+    def get_Title(self) -> hstr: ...
+    Title = property(get_Title, None)
+class IActionEntityFactory(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactory'
+    _iid_ = Guid('{9cb752a0-5bf8-5be2-916e-b00eff80088d}')
+class IActionEntityFactory2(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactory2'
+    _iid_ = Guid('{ea2fb6a5-ec6d-5180-9d30-bc663b84e7b8}')
+    @winrt_commethod(6)
+    def CreateFileEntity(self, path: hstr) -> win32more.Windows.AI.Actions.FileActionEntity: ...
+    @winrt_commethod(7)
+    def CreateDocumentEntity(self, path: hstr) -> win32more.Windows.AI.Actions.DocumentActionEntity: ...
+    @winrt_commethod(8)
+    def CreatePhotoEntity(self, path: hstr) -> win32more.Windows.AI.Actions.PhotoActionEntity: ...
+    @winrt_commethod(9)
+    def CreateTextEntity(self, text: hstr) -> win32more.Windows.AI.Actions.TextActionEntity: ...
+class IActionEntityFactory3(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactory3'
+    _iid_ = Guid('{4910e689-00b5-56bb-9c65-0fcc76215283}')
+    @winrt_commethod(6)
+    def CreateRemoteFileEntity(self, sourceId: hstr, fileKind: win32more.Windows.AI.Actions.RemoteFileKind, sourceUri: win32more.Windows.Foundation.Uri, fileId: hstr, contentType: hstr, driveId: hstr, accountId: hstr, extension: hstr) -> win32more.Windows.AI.Actions.RemoteFileActionEntity: ...
+    @winrt_commethod(7)
+    def CreateTextEntityWithTextFormat(self, text: hstr, textFormat: win32more.Windows.AI.Actions.ActionEntityTextFormat) -> win32more.Windows.AI.Actions.TextActionEntity: ...
+    @winrt_commethod(8)
+    def CreateStreamingTextActionEntityWriter(self, textFormat: win32more.Windows.AI.Actions.ActionEntityTextFormat) -> win32more.Windows.AI.Actions.StreamingTextActionEntityWriter: ...
+class IActionEntityFactory4(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactory4'
+    _iid_ = Guid('{332eda05-de0e-5a58-b318-a2ad771f013d}')
+    @winrt_commethod(6)
+    def CreateTableEntity(self, data: PassArray[hstr], columnCount: UInt32) -> win32more.Windows.AI.Actions.TableActionEntity: ...
+    @winrt_commethod(7)
+    def CreateContactEntity(self, contact: win32more.Windows.ApplicationModel.Contacts.Contact) -> win32more.Windows.AI.Actions.ContactActionEntity: ...
+class IActionEntityFactory5(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactory5'
+    _iid_ = Guid('{b59faab1-cfe4-564a-a5ba-53ad7ff6f924}')
+    @winrt_commethod(6)
+    def CreateUriEntity(self, Uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.AI.Actions.UriActionEntity: ...
+    @winrt_commethod(7)
+    def CreateArrayEntity(self, kind: win32more.Windows.AI.Actions.ActionEntityKind, entities: PassArray[win32more.Windows.AI.Actions.ActionEntity]) -> win32more.Windows.AI.Actions.ArrayActionEntity: ...
+class IActionEntityFactory6(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactory6'
+    _iid_ = Guid('{da7123da-5639-590f-a2db-c3b5e221f3b6}')
+    @winrt_commethod(6)
+    def CreateDateTimeEntity(self, dateTime: win32more.Windows.Foundation.DateTime) -> win32more.Windows.AI.Actions.DateTimeActionEntity: ...
+    @winrt_commethod(7)
+    def CreateAppointmentEntity(self, sourceId: hstr, appointment: win32more.Windows.ApplicationModel.Appointments.Appointment, attendees: PassArray[win32more.Windows.AI.Actions.ContactActionEntity]) -> win32more.Windows.AI.Actions.AppointmentActionEntity: ...
+class IActionEntityFactory7(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactory7'
+    _iid_ = Guid('{b814b8d5-c9b2-51b5-a342-9fe054d8a1eb}')
+    @winrt_commethod(6)
+    def CreateCustomTextEntity(self, kind: hstr, keyPhrase: hstr, props: win32more.Windows.Foundation.Collections.IMapView[hstr, IInspectable]) -> win32more.Windows.AI.Actions.CustomTextActionEntity: ...
+    @winrt_commethod(7)
+    def CreateArrayEntityWithCustomKind(self, elementKind: win32more.Windows.AI.Actions.ActionEntityKind, customKind: hstr, entities: PassArray[win32more.Windows.AI.Actions.ActionEntity]) -> win32more.Windows.AI.Actions.ArrayActionEntity: ...
+class IActionEntityFactoryFactory(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactoryFactory'
+    _iid_ = Guid('{c9147d8f-88a0-5ec0-a564-47e2a1081412}')
+class IActionFeedback(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionFeedback'
+    _iid_ = Guid('{a12ee7ab-2454-56c9-bbdf-c089457fbc5e}')
+    @winrt_commethod(6)
+    def get_FeedbackKind(self) -> win32more.Windows.AI.Actions.ActionFeedbackKind: ...
+    FeedbackKind = property(get_FeedbackKind, None)
+class IActionInvocationContext(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionInvocationContext'
+    _iid_ = Guid('{c32b622e-86e1-5eba-9661-605910104978}')
+    @winrt_commethod(6)
+    def get_EntityFactory(self) -> win32more.Windows.AI.Actions.ActionEntityFactory: ...
+    @winrt_commethod(7)
+    def SetInputEntity(self, inputName: hstr, inputValue: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
+    @winrt_commethod(8)
+    def GetInputEntities(self) -> ReceiveArray[win32more.Windows.AI.Actions.NamedActionEntity]: ...
+    @winrt_commethod(9)
+    def SetOutputEntity(self, outputName: hstr, outputValue: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
+    @winrt_commethod(10)
+    def GetOutputEntities(self) -> ReceiveArray[win32more.Windows.AI.Actions.NamedActionEntity]: ...
+    @winrt_commethod(11)
+    def get_Result(self) -> win32more.Windows.AI.Actions.ActionInvocationResult: ...
+    @winrt_commethod(12)
+    def put_Result(self, value: win32more.Windows.AI.Actions.ActionInvocationResult) -> Void: ...
+    @winrt_commethod(13)
+    def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
+    @winrt_commethod(14)
+    def put_ExtendedError(self, value: win32more.Windows.Foundation.HResult) -> Void: ...
+    EntityFactory = property(get_EntityFactory, None)
+    ExtendedError = property(get_ExtendedError, put_ExtendedError)
+    Result = property(get_Result, put_Result)
+class IActionInvocationContext2(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionInvocationContext2'
+    _iid_ = Guid('{7c843086-9279-5bcd-8f2e-d15121e7a827}')
+    @winrt_commethod(6)
+    def get_InvokerWindowId(self) -> win32more.Windows.UI.WindowId: ...
+    @winrt_commethod(7)
+    def get_HelpDetails(self) -> win32more.Windows.AI.Actions.ActionInvocationHelpDetails: ...
+    @winrt_commethod(8)
+    def get_ActionId(self) -> hstr: ...
+    @winrt_commethod(9)
+    def get_InvokerAppUserModelId(self) -> hstr: ...
+    ActionId = property(get_ActionId, None)
+    HelpDetails = property(get_HelpDetails, None)
+    InvokerAppUserModelId = property(get_InvokerAppUserModelId, None)
+    InvokerWindowId = property(get_InvokerWindowId, None)
+class IActionInvocationHelpDetails(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionInvocationHelpDetails'
+    _iid_ = Guid('{5430f272-078f-5722-8f7d-90cf8ddd595e}')
+    @winrt_commethod(6)
+    def get_Kind(self) -> win32more.Windows.AI.Actions.ActionInvocationHelpKind: ...
+    @winrt_commethod(7)
+    def put_Kind(self, value: win32more.Windows.AI.Actions.ActionInvocationHelpKind) -> Void: ...
+    @winrt_commethod(8)
+    def get_Title(self) -> hstr: ...
+    @winrt_commethod(9)
+    def put_Title(self, value: hstr) -> Void: ...
+    @winrt_commethod(10)
+    def get_Description(self) -> hstr: ...
+    @winrt_commethod(11)
+    def put_Description(self, value: hstr) -> Void: ...
+    @winrt_commethod(12)
+    def get_HelpUri(self) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_commethod(13)
+    def put_HelpUri(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_commethod(14)
+    def get_HelpUriDescription(self) -> hstr: ...
+    @winrt_commethod(15)
+    def put_HelpUriDescription(self, value: hstr) -> Void: ...
+    Description = property(get_Description, put_Description)
+    HelpUri = property(get_HelpUri, put_HelpUri)
+    HelpUriDescription = property(get_HelpUriDescription, put_HelpUriDescription)
+    Kind = property(get_Kind, put_Kind)
+    Title = property(get_Title, put_Title)
+class IActionInvocationHelpDetails2(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionInvocationHelpDetails2'
+    _iid_ = Guid('{307f6ba5-5fda-59f1-9722-1859801ad550}')
+    @winrt_commethod(6)
+    def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.ActionInvocationHelpDetails, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Changed = event(add_Changed, remove_Changed)
+class IActionRuntime(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntime'
+    _iid_ = Guid('{206efa2c-c909-508a-b4b0-9482be96db9c}')
+    @winrt_commethod(6)
+    def get_ActionCatalog(self) -> win32more.Windows.AI.Actions.Hosting.ActionCatalog: ...
+    @winrt_commethod(7)
+    def get_EntityFactory(self) -> win32more.Windows.AI.Actions.ActionEntityFactory: ...
+    @winrt_commethod(8)
+    def CreateInvocationContext(self, actionId: hstr) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
+    ActionCatalog = property(get_ActionCatalog, None)
+    EntityFactory = property(get_EntityFactory, None)
+class IActionRuntime2(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntime2'
+    _iid_ = Guid('{2da4d2c0-e593-5350-8143-15bb24f63411}')
+    @winrt_commethod(6)
+    def CreateActionFeedback(self, feedbackKind: win32more.Windows.AI.Actions.ActionFeedbackKind) -> win32more.Windows.AI.Actions.ActionFeedback: ...
+    @winrt_commethod(7)
+    def SetActionAvailability(self, actionId: hstr, isAvailable: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def GetActionAvailability(self, actionId: hstr) -> Boolean: ...
+class IActionRuntime3(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntime3'
+    _iid_ = Guid('{f020c3c0-caec-5928-ad00-81069b80fbc1}')
+    @winrt_commethod(6)
+    def CreateInvocationContextWithWindowId(self, actionId: hstr, invokerWindowId: win32more.Windows.UI.WindowId) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
+    @winrt_commethod(7)
+    def GetActionEntityById(self, entityId: hstr) -> win32more.Windows.AI.Actions.ActionEntity: ...
+    @winrt_commethod(8)
+    def get_LatestSupportedSchemaVersion(self) -> UInt32: ...
+    LatestSupportedSchemaVersion = property(get_LatestSupportedSchemaVersion, None)
+class IActionRuntime4(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntime4'
+    _iid_ = Guid('{06851dcd-c743-5c7f-88a1-bbaeb02f5e28}')
+    @winrt_commethod(6)
+    def GetActionInvocationContextFromToken(self, token: hstr) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
+class IActionRuntime5(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntime5'
+    _iid_ = Guid('{c2e995b1-52a9-5f3a-bebb-a04655e96218}')
+    @winrt_commethod(6)
+    def get_CustomEntityStore(self) -> win32more.Windows.AI.Actions.CustomActionEntityStore: ...
+    CustomEntityStore = property(get_CustomEntityStore, None)
+class IActionRuntimeFactory(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntimeFactory'
+    _iid_ = Guid('{d3f366e9-8dc9-50a0-8040-e5c14fa609d6}')
+class IActionRuntimeStatics(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntimeStatics'
+    _iid_ = Guid('{2c697aab-55f2-55aa-9d63-a73ec190cecd}')
+    @winrt_commethod(6)
+    def GetDefault(self) -> win32more.Windows.AI.Actions.ActionRuntime: ...
+class IAppointmentActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IAppointmentActionEntity'
+    _iid_ = Guid('{29daa00e-b474-581c-b555-6187d1aa8231}')
+    @winrt_commethod(6)
+    def get_SourceId(self) -> hstr: ...
+    @winrt_commethod(7)
+    def get_Appointment(self) -> win32more.Windows.ApplicationModel.Appointments.Appointment: ...
+    @winrt_commethod(8)
+    def GetAttendees(self) -> ReceiveArray[win32more.Windows.AI.Actions.ContactActionEntity]: ...
+    @winrt_commethod(9)
+    def GetPresentedFiles(self) -> ReceiveArray[win32more.Windows.AI.Actions.RemoteFileActionEntity]: ...
+    @winrt_commethod(10)
+    def SetPresentedFiles(self, files: PassArray[win32more.Windows.AI.Actions.RemoteFileActionEntity]) -> Void: ...
+    @winrt_commethod(11)
+    def GetSharedFiles(self) -> ReceiveArray[win32more.Windows.AI.Actions.RemoteFileActionEntity]: ...
+    @winrt_commethod(12)
+    def SetSharedFiles(self, files: PassArray[win32more.Windows.AI.Actions.RemoteFileActionEntity]) -> Void: ...
+    Appointment = property(get_Appointment, None)
+    SourceId = property(get_SourceId, None)
+class IArrayActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IArrayActionEntity'
+    _iid_ = Guid('{45798e78-1059-5311-8a1b-de0081a4ca3b}')
+    @winrt_commethod(6)
+    def get_ElementKind(self) -> win32more.Windows.AI.Actions.ActionEntityKind: ...
+    @winrt_commethod(7)
+    def GetAll(self) -> ReceiveArray[win32more.Windows.AI.Actions.ActionEntity]: ...
+    ElementKind = property(get_ElementKind, None)
+class IArrayActionEntity2(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IArrayActionEntity2'
+    _iid_ = Guid('{7366e049-7fe8-5df9-bbca-cea5c0f3d316}')
+    @winrt_commethod(6)
+    def get_CustomElementKind(self) -> hstr: ...
+    CustomElementKind = property(get_CustomElementKind, None)
+class IContactActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IContactActionEntity'
+    _iid_ = Guid('{458c3e07-5892-5485-bd9b-8f7a540c9501}')
+    @winrt_commethod(6)
+    def get_Contact(self) -> win32more.Windows.ApplicationModel.Contacts.Contact: ...
+    Contact = property(get_Contact, None)
+class ICustomActionEntityStore(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.ICustomActionEntityStore'
+    _iid_ = Guid('{fa7b44d0-1762-5828-9938-e7cae5199e01}')
+    @winrt_commethod(6)
+    def GetLastModifiedTime(self, kind: hstr) -> win32more.Windows.Foundation.DateTime: ...
+    @winrt_commethod(7)
+    def Insert(self, entity: win32more.Windows.AI.Actions.CustomTextActionEntity) -> Void: ...
+    @winrt_commethod(8)
+    def InsertMany(self, entities: PassArray[win32more.Windows.AI.Actions.CustomTextActionEntity]) -> Void: ...
+    @winrt_commethod(9)
+    def Delete(self, kind: hstr) -> Void: ...
+class ICustomActionEntityStoreFactory(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.ICustomActionEntityStoreFactory'
+    _iid_ = Guid('{d8b46bdb-68a5-5e07-9113-abb9241aaab1}')
+class ICustomTextActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.ICustomTextActionEntity'
+    _iid_ = Guid('{50eaac95-1d6c-54b0-8963-e38dea3f6aec}')
+    @winrt_commethod(6)
+    def get_CustomTextKind(self) -> hstr: ...
+    @winrt_commethod(7)
+    def get_KeyPhrase(self) -> hstr: ...
+    @winrt_commethod(8)
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[hstr, IInspectable]: ...
+    CustomTextKind = property(get_CustomTextKind, None)
+    KeyPhrase = property(get_KeyPhrase, None)
+    Properties = property(get_Properties, None)
+class IDateTimeActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IDateTimeActionEntity'
+    _iid_ = Guid('{fd5a0880-eeae-553a-bfed-a9229d57447d}')
+    @winrt_commethod(6)
+    def get_DateTime(self) -> win32more.Windows.Foundation.DateTime: ...
+    DateTime = property(get_DateTime, None)
+class IDocumentActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IDocumentActionEntity'
+    _iid_ = Guid('{56715297-960b-59ff-af4b-ece1098b2e36}')
+    @winrt_commethod(6)
+    def get_FullPath(self) -> hstr: ...
+    FullPath = property(get_FullPath, None)
+class IFileActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IFileActionEntity'
+    _iid_ = Guid('{f20ab43f-4c80-5904-bd42-3e6248babfcf}')
+    @winrt_commethod(6)
+    def get_FullPath(self) -> hstr: ...
+    FullPath = property(get_FullPath, None)
+class INamedActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.INamedActionEntity'
+    _iid_ = Guid('{1aaebeef-435b-5a0d-8182-05fe4dd47712}')
+    @winrt_commethod(6)
+    def get_Name(self) -> hstr: ...
+    @winrt_commethod(7)
+    def put_Name(self, value: hstr) -> Void: ...
+    @winrt_commethod(8)
+    def get_Entity(self) -> win32more.Windows.AI.Actions.ActionEntity: ...
+    @winrt_commethod(9)
+    def put_Entity(self, value: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
+    Entity = property(get_Entity, put_Entity)
+    Name = property(get_Name, put_Name)
+class IPhotoActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IPhotoActionEntity'
+    _iid_ = Guid('{425123b3-20ef-51a6-b35f-8414384765c5}')
+    @winrt_commethod(6)
+    def get_FullPath(self) -> hstr: ...
+    FullPath = property(get_FullPath, None)
+class IRemoteFileActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IRemoteFileActionEntity'
+    _iid_ = Guid('{a5d8ec21-a2bd-545a-abfc-d7aa79fd0b81}')
+    @winrt_commethod(6)
+    def get_SourceId(self) -> hstr: ...
+    @winrt_commethod(7)
+    def get_FileKind(self) -> win32more.Windows.AI.Actions.RemoteFileKind: ...
+    @winrt_commethod(8)
+    def get_SourceUri(self) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_commethod(9)
+    def get_FileId(self) -> hstr: ...
+    @winrt_commethod(10)
+    def get_ContentType(self) -> hstr: ...
+    @winrt_commethod(11)
+    def get_DriveId(self) -> hstr: ...
+    @winrt_commethod(12)
+    def get_AccountId(self) -> hstr: ...
+    @winrt_commethod(13)
+    def get_Extension(self) -> hstr: ...
+    AccountId = property(get_AccountId, None)
+    ContentType = property(get_ContentType, None)
+    DriveId = property(get_DriveId, None)
+    Extension = property(get_Extension, None)
+    FileId = property(get_FileId, None)
+    FileKind = property(get_FileKind, None)
+    SourceId = property(get_SourceId, None)
+    SourceUri = property(get_SourceUri, None)
+class IRemoteFileActionEntity2(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IRemoteFileActionEntity2'
+    _iid_ = Guid('{9cc8cc54-77d8-5537-83c4-6f18c1bc9f67}')
+    @winrt_commethod(6)
+    def get_Filename(self) -> hstr: ...
+    @winrt_commethod(7)
+    def put_Filename(self, value: hstr) -> Void: ...
+    @winrt_commethod(8)
+    def get_Creator(self) -> win32more.Windows.AI.Actions.ContactActionEntity: ...
+    @winrt_commethod(9)
+    def put_Creator(self, value: win32more.Windows.AI.Actions.ContactActionEntity) -> Void: ...
+    @winrt_commethod(10)
+    def get_LastUpdatedTime(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
+    @winrt_commethod(11)
+    def put_LastUpdatedTime(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]) -> Void: ...
+    @winrt_commethod(12)
+    def SetContributors(self, contributors: PassArray[win32more.Windows.AI.Actions.ContactActionEntity]) -> Void: ...
+    @winrt_commethod(13)
+    def GetContributors(self) -> ReceiveArray[win32more.Windows.AI.Actions.ContactActionEntity]: ...
+    Creator = property(get_Creator, put_Creator)
+    Filename = property(get_Filename, put_Filename)
+    LastUpdatedTime = property(get_LastUpdatedTime, put_LastUpdatedTime)
+class IStreamingTextActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IStreamingTextActionEntity'
+    _iid_ = Guid('{44cd8a16-abc9-5703-b4bf-6fe8b7a802fd}')
+    @winrt_commethod(6)
+    def get_IsComplete(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def GetText(self) -> hstr: ...
+    @winrt_commethod(8)
+    def get_TextFormat(self) -> win32more.Windows.AI.Actions.ActionEntityTextFormat: ...
+    @winrt_commethod(9)
+    def add_TextChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.StreamingTextActionEntity, win32more.Windows.AI.Actions.StreamingTextActionEntityTextChangedArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(10)
+    def remove_TextChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    IsComplete = property(get_IsComplete, None)
+    TextFormat = property(get_TextFormat, None)
+    TextChanged = event(add_TextChanged, remove_TextChanged)
+class IStreamingTextActionEntityTextChangedArgs(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs'
+    _iid_ = Guid('{2c62011f-3e06-588b-a3bd-d726bd82fb13}')
+    @winrt_commethod(6)
+    def get_Text(self) -> hstr: ...
+    @winrt_commethod(7)
+    def get_IsComplete(self) -> Boolean: ...
+    IsComplete = property(get_IsComplete, None)
+    Text = property(get_Text, None)
+class IStreamingTextActionEntityWriter(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IStreamingTextActionEntityWriter'
+    _iid_ = Guid('{6bce2f76-a8af-5ff2-833c-108737ba0f42}')
+    @winrt_commethod(6)
+    def get_ReaderEntity(self) -> win32more.Windows.AI.Actions.StreamingTextActionEntity: ...
+    @winrt_commethod(7)
+    def get_TextFormat(self) -> win32more.Windows.AI.Actions.ActionEntityTextFormat: ...
+    @winrt_commethod(8)
+    def SetText(self, text: hstr) -> Void: ...
+    ReaderEntity = property(get_ReaderEntity, None)
+    TextFormat = property(get_TextFormat, None)
+class ITableActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.ITableActionEntity'
+    _iid_ = Guid('{0f252cdb-ba24-5dbb-9d17-1b300773d141}')
+    @winrt_commethod(6)
+    def GetTextContent(self) -> ReceiveArray[hstr]: ...
+    @winrt_commethod(7)
+    def get_RowCount(self) -> UInt32: ...
+    @winrt_commethod(8)
+    def get_ColumnCount(self) -> UInt32: ...
+    ColumnCount = property(get_ColumnCount, None)
+    RowCount = property(get_RowCount, None)
+class ITextActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.ITextActionEntity'
+    _iid_ = Guid('{3c4ec25f-5adb-5f73-b8f3-080fbeadd612}')
+    @winrt_commethod(6)
+    def get_Text(self) -> hstr: ...
+    Text = property(get_Text, None)
+class ITextActionEntity2(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.ITextActionEntity2'
+    _iid_ = Guid('{7c500889-cf08-51e7-beca-f0bbc7a7486c}')
+    @winrt_commethod(6)
+    def get_TextFormat(self) -> win32more.Windows.AI.Actions.ActionEntityTextFormat: ...
+    TextFormat = property(get_TextFormat, None)
+class IUriActionEntity(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IUriActionEntity'
+    _iid_ = Guid('{a81cde77-bc25-532d-905e-b0725c5bcd4e}')
+    @winrt_commethod(6)
+    def get_Uri(self) -> win32more.Windows.Foundation.Uri: ...
+    Uri = property(get_Uri, None)
+class NamedActionEntity(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.INamedActionEntity
+    _classid_ = 'Windows.AI.Actions.NamedActionEntity'
+    @winrt_mixinmethod
+    def get_Name(self: win32more.Windows.AI.Actions.INamedActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def put_Name(self: win32more.Windows.AI.Actions.INamedActionEntity, value: hstr) -> Void: ...
+    @winrt_mixinmethod
+    def get_Entity(self: win32more.Windows.AI.Actions.INamedActionEntity) -> win32more.Windows.AI.Actions.ActionEntity: ...
+    @winrt_mixinmethod
+    def put_Entity(self: win32more.Windows.AI.Actions.INamedActionEntity, value: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    Entity = property(get_Entity, put_Entity)
+    Name = property(get_Name, put_Name)
+class PhotoActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IPhotoActionEntity
+    _classid_ = 'Windows.AI.Actions.PhotoActionEntity'
+    @winrt_mixinmethod
+    def get_FullPath(self: win32more.Windows.AI.Actions.IPhotoActionEntity) -> hstr: ...
+    FullPath = property(get_FullPath, None)
+class RemoteFileActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IRemoteFileActionEntity
+    _classid_ = 'Windows.AI.Actions.RemoteFileActionEntity'
+    @winrt_mixinmethod
+    def get_SourceId(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_FileKind(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity) -> win32more.Windows.AI.Actions.RemoteFileKind: ...
+    @winrt_mixinmethod
+    def get_SourceUri(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def get_FileId(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_ContentType(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_DriveId(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_AccountId(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_Extension(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_Filename(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity2) -> hstr: ...
+    @winrt_mixinmethod
+    def put_Filename(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity2, value: hstr) -> Void: ...
+    @winrt_mixinmethod
+    def get_Creator(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity2) -> win32more.Windows.AI.Actions.ContactActionEntity: ...
+    @winrt_mixinmethod
+    def put_Creator(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity2, value: win32more.Windows.AI.Actions.ContactActionEntity) -> Void: ...
+    @winrt_mixinmethod
+    def get_LastUpdatedTime(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
+    @winrt_mixinmethod
+    def put_LastUpdatedTime(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity2, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]) -> Void: ...
+    @winrt_mixinmethod
+    def SetContributors(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity2, contributors: PassArray[win32more.Windows.AI.Actions.ContactActionEntity]) -> Void: ...
+    @winrt_mixinmethod
+    def GetContributors(self: win32more.Windows.AI.Actions.IRemoteFileActionEntity2) -> ReceiveArray[win32more.Windows.AI.Actions.ContactActionEntity]: ...
+    AccountId = property(get_AccountId, None)
+    ContentType = property(get_ContentType, None)
+    Creator = property(get_Creator, put_Creator)
+    DriveId = property(get_DriveId, None)
+    Extension = property(get_Extension, None)
+    FileId = property(get_FileId, None)
+    FileKind = property(get_FileKind, None)
+    Filename = property(get_Filename, put_Filename)
+    LastUpdatedTime = property(get_LastUpdatedTime, put_LastUpdatedTime)
+    SourceId = property(get_SourceId, None)
+    SourceUri = property(get_SourceUri, None)
+class RemoteFileKind(Enum, Int32):
+    Document = 0
+    Photo = 1
+    File = 2
+class StreamingTextActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IStreamingTextActionEntity
+    _classid_ = 'Windows.AI.Actions.StreamingTextActionEntity'
+    @winrt_mixinmethod
+    def get_IsComplete(self: win32more.Windows.AI.Actions.IStreamingTextActionEntity) -> Boolean: ...
+    @winrt_mixinmethod
+    def GetText(self: win32more.Windows.AI.Actions.IStreamingTextActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_TextFormat(self: win32more.Windows.AI.Actions.IStreamingTextActionEntity) -> win32more.Windows.AI.Actions.ActionEntityTextFormat: ...
+    @winrt_mixinmethod
+    def add_TextChanged(self: win32more.Windows.AI.Actions.IStreamingTextActionEntity, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.StreamingTextActionEntity, win32more.Windows.AI.Actions.StreamingTextActionEntityTextChangedArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_TextChanged(self: win32more.Windows.AI.Actions.IStreamingTextActionEntity, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    IsComplete = property(get_IsComplete, None)
+    TextFormat = property(get_TextFormat, None)
+    TextChanged = event(add_TextChanged, remove_TextChanged)
+class StreamingTextActionEntityTextChangedArgs(ComPtr):
+    extends: IInspectable
+    default_interface: win32more.Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs
+    _classid_ = 'Windows.AI.Actions.StreamingTextActionEntityTextChangedArgs'
+    @winrt_mixinmethod
+    def get_Text(self: win32more.Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs) -> hstr: ...
+    @winrt_mixinmethod
+    def get_IsComplete(self: win32more.Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs) -> Boolean: ...
+    IsComplete = property(get_IsComplete, None)
+    Text = property(get_Text, None)
+class StreamingTextActionEntityWriter(ComPtr):
+    extends: IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Windows.AI.Actions.IStreamingTextActionEntityWriter
+    _classid_ = 'Windows.AI.Actions.StreamingTextActionEntityWriter'
+    @winrt_mixinmethod
+    def get_ReaderEntity(self: win32more.Windows.AI.Actions.IStreamingTextActionEntityWriter) -> win32more.Windows.AI.Actions.StreamingTextActionEntity: ...
+    @winrt_mixinmethod
+    def get_TextFormat(self: win32more.Windows.AI.Actions.IStreamingTextActionEntityWriter) -> win32more.Windows.AI.Actions.ActionEntityTextFormat: ...
+    @winrt_mixinmethod
+    def SetText(self: win32more.Windows.AI.Actions.IStreamingTextActionEntityWriter, text: hstr) -> Void: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    ReaderEntity = property(get_ReaderEntity, None)
+    TextFormat = property(get_TextFormat, None)
+class TableActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.ITableActionEntity
+    _classid_ = 'Windows.AI.Actions.TableActionEntity'
+    @winrt_mixinmethod
+    def GetTextContent(self: win32more.Windows.AI.Actions.ITableActionEntity) -> ReceiveArray[hstr]: ...
+    @winrt_mixinmethod
+    def get_RowCount(self: win32more.Windows.AI.Actions.ITableActionEntity) -> UInt32: ...
+    @winrt_mixinmethod
+    def get_ColumnCount(self: win32more.Windows.AI.Actions.ITableActionEntity) -> UInt32: ...
+    ColumnCount = property(get_ColumnCount, None)
+    RowCount = property(get_RowCount, None)
+class TextActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.ITextActionEntity
+    _classid_ = 'Windows.AI.Actions.TextActionEntity'
+    @winrt_mixinmethod
+    def get_Text(self: win32more.Windows.AI.Actions.ITextActionEntity) -> hstr: ...
+    @winrt_mixinmethod
+    def get_TextFormat(self: win32more.Windows.AI.Actions.ITextActionEntity2) -> win32more.Windows.AI.Actions.ActionEntityTextFormat: ...
+    Text = property(get_Text, None)
+    TextFormat = property(get_TextFormat, None)
+class UriActionEntity(ComPtr):
+    extends: win32more.Windows.AI.Actions.ActionEntity
+    default_interface: win32more.Windows.AI.Actions.IUriActionEntity
+    _classid_ = 'Windows.AI.Actions.UriActionEntity'
+    @winrt_mixinmethod
+    def get_Uri(self: win32more.Windows.AI.Actions.IUriActionEntity) -> win32more.Windows.Foundation.Uri: ...
+    Uri = property(get_Uri, None)
+
+
+make_ready(__name__)
