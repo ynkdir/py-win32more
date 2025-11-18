@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import importlib
 import inspect
-import sys
 import weakref
 import xml.etree.ElementTree as ET
 from functools import partial
@@ -78,14 +77,10 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
 
     # Application root path.  This is used to convert "ms-appx:///" path.  See OnResourceNotFound().
     # This does not affect to WindowsAppSDK and may not work in specific situation.
-    # Normally application root is directory of .exe file.
+    # Appsdk's default is directory of python.exe file.
     def AppRoot(self) -> Path:
         # return self.AppExecutable().parent
-        try:
-            return Path(inspect.getfile(sys.modules["__main__"])).parent
-        except TypeError:
-            # for pytest
-            return Path(inspect.getfile(type(self)))
+        return Path(inspect.getfile(type(self))).parent
 
     def OnResourceManagerRequested(self, sender, e):
         # Workaround to avoid FileNotFoundError with default constructor (file does not need to exist).
