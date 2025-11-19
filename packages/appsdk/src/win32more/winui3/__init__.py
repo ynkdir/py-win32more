@@ -161,6 +161,7 @@ class XamlComponentConnector:
         if xaml_path is not None:
             xaml_path = Path(xaml_path).absolute()
 
+        xaml_str = _xaml_workaround(xaml_str, xaml_path)
         xaml_preprocessed = self._preprocess(component, xaml_str)
 
         with NamedTemporaryFile(delete=False) as f:
@@ -226,6 +227,7 @@ class XamlLoader:
         self._connectors = {}
 
     def execute(self, view, xaml_str):
+        xaml_str = _xaml_workaround(xaml_str, None)
         xaml_preprocessed = self._preprocess(view, xaml_str)
         uiroot = as_runtime_class(XamlReader.Load(xaml_preprocessed))
         self._connect(uiroot)
@@ -410,6 +412,33 @@ def _get_runtime_class_name(uielement):
     if FAILED(hr):
         raise WinError(hr)
     return str(hs)
+
+
+def _xaml_workaround(xaml_str: str, xaml_path: Path | None) -> str:
+    approot = XamlApplication._XamlApplication__current.AppRoot()
+    if xaml_path is None:
+        xaml_root = approot
+    else:
+        xaml_root = xaml_path.parent
+    root = ET.fromstring(xaml_str)
+    for e in root.iter():
+        for k, v in list(e.attrib.items()):
+            # ResourceNotFound event is not triggered for MediaPlayerElement.Source
+            if e.tag == f"{{{XMLNS_XAML_PRESENTATION}}}MediaPlayerElement" and k == "Source":
+                e.attrib[k] = _ms_appx_absolute_path(v, xaml_root, approot)
+    return ET.tostring(root, encoding="unicode")
+
+
+def _ms_appx_absolute_path(uri: str, xaml_root: Path, approot: Path) -> str:
+    if uri.startswith("ms-appx:///"):
+        path = Path(uri.removeprefix("ms-appx:///"))
+        if path.is_absolute():
+            return uri
+        return f"ms-appx:///{(approot / path).as_posix()}"
+    elif ":" not in uri and not uri.startswith(("/", "\\")):
+        return f"ms-appx:///{(xaml_root / uri).as_posix()}"
+    else:
+        return uri
 
 
 _known_events = {

@@ -162,6 +162,25 @@ def _test_xaml_class_connect_name_main():
     return button_content
 
 
+def _test_ms_appx_absolute_path():
+    from pathlib import Path
+
+    from win32more.winui3 import _ms_appx_absolute_path
+
+    approot = Path("C:\\myapp")
+    xaml_root = Path("C:\\myapp\\src")
+
+    return [
+        ("ms-appx:///C:/myapp/foo.txt", _ms_appx_absolute_path("ms-appx:///foo.txt", xaml_root, approot)),
+        ("ms-appx:///C:/foo.txt", _ms_appx_absolute_path("ms-appx:///C:/foo.txt", xaml_root, approot)),
+        ("ms-appx:///C:/myapp/src/foo.txt", _ms_appx_absolute_path("foo.txt", xaml_root, approot)),
+        ("/foo.txt", _ms_appx_absolute_path("/foo.txt", xaml_root, approot)),
+        ("ms-appx:///C:/myapp/src/foo.txt", _ms_appx_absolute_path("./foo.txt", xaml_root, approot)),
+        ("C:/path/to/foo.txt", _ms_appx_absolute_path("C:/path/to/foo.txt", xaml_root, approot)),
+        ("http://example.com/foo.txt", _ms_appx_absolute_path("http://example.com/foo.txt", xaml_root, approot)),
+    ]
+
+
 @unittest.skipUnless(appsdk_available, "WindowsAppSDK is not available")
 class TestWinui3(unittest.TestCase):
     def _mp(self, target):
@@ -187,6 +206,11 @@ class TestWinui3(unittest.TestCase):
     def test_xaml_class_connect_name(self):
         button_content = self._mp(_test_xaml_class_connect_name_main)
         self.assertEqual(button_content, "Button1")
+
+    def test_ms_appx_absolute_path(self):
+        results = self._mp(_test_ms_appx_absolute_path)
+        for expected, result in results:
+            self.assertEqual(expected, result)
 
 
 if __name__ == "__main__":
