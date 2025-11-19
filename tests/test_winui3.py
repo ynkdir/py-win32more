@@ -162,7 +162,7 @@ def _test_xaml_class_connect_name_main():
     return button_content
 
 
-def _test_ms_appx_absolute_path():
+def _test_ms_appx_absolute_path_main():
     from pathlib import Path
 
     from win32more.winui3 import _ms_appx_absolute_path
@@ -208,7 +208,7 @@ class TestWinui3(unittest.TestCase):
         self.assertEqual(button_content, "Button1")
 
     def test_ms_appx_absolute_path(self):
-        results = self._mp(_test_ms_appx_absolute_path)
+        results = self._mp(_test_ms_appx_absolute_path_main)
         for expected, result in results:
             self.assertEqual(expected, result)
 
