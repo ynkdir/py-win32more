@@ -16,15 +16,15 @@ assertion_error = None
 
 def process(testfunc):
     def wrapper(self):
-        if parent_process() is not None:
-            testfunc(self)
-            if assertion_error is not None:
-                raise assertion_error.with_traceback(assertion_error.__traceback__)
-        else:
+        if parent_process() is None:
             with ProcessPoolExecutor() as executor:
                 was_successful = executor.submit(run, testfunc.__qualname__).result()
             if not was_successful:
                 self.fail("test in subprocess failed")
+        else:
+            testfunc(self)
+            if assertion_error is not None:
+                raise assertion_error
 
     return wrapper
 
