@@ -1,7 +1,5 @@
-import sys
 import unittest
-from concurrent.futures import ProcessPoolExecutor
-from multiprocessing import parent_process
+from multiprocessing import Process, parent_process
 
 try:
     import win32more.Microsoft  # noqa
@@ -17,9 +15,10 @@ assertion_error = None
 def process(testfunc):
     def wrapper(self):
         if parent_process() is None:
-            with ProcessPoolExecutor() as executor:
-                was_successful = executor.submit(run, testfunc.__qualname__).result()
-            if not was_successful:
+            p = Process(target=unittest.main, args=(__name__, None, (__file__, testfunc.__qualname__)))
+            p.start()
+            p.join()
+            if p.exitcode != 0:
                 self.fail("test in subprocess failed")
         else:
             testfunc(self)
@@ -27,13 +26,6 @@ def process(testfunc):
                 raise assertion_error
 
     return wrapper
-
-
-def run(name):
-    suite = unittest.TestLoader().loadTestsFromName(name, sys.modules[__name__])
-    runner = unittest.TextTestRunner()
-    result = runner.run(suite)
-    return result.wasSuccessful()
 
 
 def exitonerror(func):
