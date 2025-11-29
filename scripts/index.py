@@ -72,19 +72,19 @@ def main() -> None:
     meta = load_files(
         [
             download_zip(
-                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Windows.SDK.Win32Metadata.66.0.5-preview.zip"
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Windows.SDK.Win32Metadata.68.0.4-preview.zip"
             ),
             download_zip(
-                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Windows.SDK.Contracts.10.0.26100.6584.zip"
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Windows.SDK.Contracts.10.0.26100.7175.zip"
             ),
             download_zip(
-                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.WindowsAppSDK.1.8.251003001.zip"
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.WindowsAppSDK.1.8.251106002.zip"
             ),
             download_zip(
-                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Web.WebView2.1.0.3537.50.zip"
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Web.WebView2.1.0.3595.46.zip"
             ),
             download_zip(
-                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Graphics.Win2D.1.3.2.zip"
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Graphics.Win2D.1.3.2.zip"
             ),
         ]
     )
