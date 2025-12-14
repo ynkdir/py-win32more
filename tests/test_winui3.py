@@ -46,7 +46,7 @@ def exitonerror(func):
 class TestWinui3(unittest.TestCase):
     @process
     def test_create_window(testcase):
-        from win32more.Microsoft.UI.Xaml import Window
+        from win32more.Microsoft.UI.Xaml import Window, WindowActivationState
         from win32more.winui3 import XamlApplication
 
         class App(XamlApplication):
@@ -56,10 +56,10 @@ class TestWinui3(unittest.TestCase):
                 self._window.Activate()
 
             def Window_Activated(self, sender, e):
-                # NOTE: activated may be called twice.
                 nonlocal activated
-                activated = True
-                self.Exit()
+                if e.WindowActivationState == WindowActivationState.CodeActivated:
+                    activated = True
+                    self.Exit()
 
         activated = False
 
@@ -69,6 +69,7 @@ class TestWinui3(unittest.TestCase):
 
     @process
     def test_create_window_xaml_loader(testcase):
+        from win32more.Microsoft.UI.Xaml import WindowActivationState
         from win32more.winui3 import XamlApplication, XamlLoader
 
         class App(XamlApplication):
@@ -90,8 +91,9 @@ class TestWinui3(unittest.TestCase):
 
             def Window_Activated(self, sender, e):
                 nonlocal activated
-                activated = True
-                self.Exit()
+                if e.WindowActivationState == WindowActivationState.CodeActivated:
+                    activated = True
+                    self.Exit()
 
         activated = False
 
@@ -126,7 +128,7 @@ class TestWinui3(unittest.TestCase):
 
     @process
     def test_create_window_xaml_class(testcase):
-        from win32more.Microsoft.UI.Xaml import Window
+        from win32more.Microsoft.UI.Xaml import Window, WindowActivationState
         from win32more.winui3 import XamlApplication, XamlClass
 
         class App(XamlApplication):
@@ -150,8 +152,9 @@ class TestWinui3(unittest.TestCase):
 
             def _Activated(self, sender, e):
                 nonlocal activated
-                activated = True
-                self.Close()
+                if e.WindowActivationState == WindowActivationState.CodeActivated:
+                    activated = True
+                    self.Close()
 
         activated = False
 
