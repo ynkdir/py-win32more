@@ -202,6 +202,7 @@ class Enum:
         writer = StringIO()
         type_field, *value_fields = self._td.fields
         writer.write(f"class {self._td.name}(Enum, {self._formatter.pytype(type_field.signature)}):\n")
+        writer.write(f"    _name_ = '{self._td.fullname}'\n")
         for fd in value_fields:
             writer.write(f"    {fd.name} = {fd.default_value.value}\n")
         return writer.getvalue()

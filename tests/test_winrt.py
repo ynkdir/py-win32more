@@ -41,7 +41,15 @@ from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Data.Xml.Dom import XmlDocument
 from win32more.Windows.Devices.Display import DisplayMonitor
 from win32more.Windows.Devices.Enumeration import DeviceInformation
-from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, Point, PropertyValue, Uri
+from win32more.Windows.Foundation import (
+    IAsyncInfo,
+    IAsyncOperation,
+    IPropertyValue,
+    Point,
+    PropertyType,
+    PropertyValue,
+    Uri,
+)
 from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
@@ -279,6 +287,12 @@ class TestWinrt(unittest.TestCase):
             "{b32bdca4-5e52-5b27-bc5d-d66a1a268c2a}",
         )
 
+    def test_guid_generation_for_parameterized_types_enum(self):
+        self.assertEqual(
+            str(ro_get_parameterized_type_instance_iid(IAsyncOperation[PropertyType])),
+            "{09be7aa0-f2e0-5244-a6cb-b607d1d279a9}",
+        )
+
     def test_type_signature_of_struct(self):
         self.assertEqual(_get_type_signature(Point), "struct(Windows.Foundation.Point;f4;f4)")
 
@@ -413,6 +427,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_enum_value_will_be_returned_as_int(self):
         class E(Enum, Int32):
+            _name_ = "E"
             A = 42
 
         T = TypeVar("T")

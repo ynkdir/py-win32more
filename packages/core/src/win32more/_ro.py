@@ -12,6 +12,7 @@ from ._win32 import (
     Char,
     ComPtr,
     Double,
+    Enum,
     Guid,
     Int32,
     Int64,
@@ -120,6 +121,10 @@ def _get_type_signature(cls) -> str:
     elif issubclass(cls, Structure):
         args = ";".join(_get_type_signature(arg) for arg in get_type_hints(cls).values())
         return f"struct({cls._name_};{args})"
+    elif issubclass(cls, Enum):
+        _Enum, enum_underlying_type = cls.__bases__
+        type_signature = _get_type_signature(enum_underlying_type)
+        return f"enum({cls._name_};{type_signature})"
     elif issubclass(cls, hstr):
         return "string"
     elif issubclass(cls, Char):
