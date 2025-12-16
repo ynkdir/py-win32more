@@ -1,8 +1,8 @@
 ./packages/core
 ./packages/appsdk
-./packages/Microsoft.Windows.SDK.Win32Metadata.66.0.5-preview
-./packages/Microsoft.Windows.SDK.Contracts.10.0.26100.6584
-./packages/Microsoft.WindowsAppSDK.1.8.251003001
-./packages/Microsoft.Web.WebView2.1.0.3537.50
+./packages/Microsoft.Windows.SDK.Win32Metadata.68.0.4-preview
+./packages/Microsoft.Windows.SDK.Contracts.10.0.26100.7175
+./packages/Microsoft.WindowsAppSDK.1.8.251106002
+./packages/Microsoft.Web.WebView2.1.0.3650.58
 ./packages/Microsoft.Graphics.Win2D.1.3.2
 pytest
