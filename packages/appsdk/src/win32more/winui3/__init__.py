@@ -20,6 +20,7 @@ from win32more.Microsoft.Windows.ApplicationModel.Resources import (
 )
 from win32more.Windows.Foundation import Uri
 from win32more.Windows.UI.Xaml.Interop import TypeName
+from win32more.Windows.Win32.Foundation import ERROR_ACCESS_DENIED, GetLastError
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 from win32more.Windows.Win32.System.LibraryLoader import GetModuleFileName
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
@@ -109,7 +110,8 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
     @classmethod
     def Start(cls, init):
         r = SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)
-        if not r:
+        # ERROR_ACCESS_DENIED if it has already been set.
+        if not r and GetLastError() != ERROR_ACCESS_DENIED:
             raise WinError()
 
         hr = CoInitializeEx(None, COINIT_APARTMENTTHREADED)
