@@ -20,11 +20,13 @@ class DialApp(ComPtr):
     def GetAppStateAsync(self: win32more.Windows.Media.DialProtocol.IDialApp) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.DialProtocol.DialAppStateDetails]: ...
     AppName = property(get_AppName, None)
 class DialAppLaunchResult(Enum, Int32):
+    _name_ = 'Windows.Media.DialProtocol.DialAppLaunchResult'
     Launched = 0
     FailedToLaunch = 1
     NotFound = 2
     NetworkFailure = 3
 class DialAppState(Enum, Int32):
+    _name_ = 'Windows.Media.DialProtocol.DialAppState'
     Unknown = 0
     Stopped = 1
     Running = 2
@@ -40,6 +42,7 @@ class DialAppStateDetails(ComPtr):
     FullXml = property(get_FullXml, None)
     State = property(get_State, None)
 class DialAppStopResult(Enum, Int32):
+    _name_ = 'Windows.Media.DialProtocol.DialAppStopResult'
     Stopped = 0
     StopFailed = 1
     OperationNotSupported = 2
@@ -66,6 +69,7 @@ class DialDevice(ComPtr):
     Id = property(get_Id, None)
     Thumbnail = property(get_Thumbnail, None)
 class DialDeviceDisplayStatus(Enum, Int32):
+    _name_ = 'Windows.Media.DialProtocol.DialDeviceDisplayStatus'
     None_ = 0
     Connecting = 1
     Connected = 2

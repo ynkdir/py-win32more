@@ -749,6 +749,7 @@ class LearningModelDevice(ComPtr):
     AdapterId = property(get_AdapterId, None)
     Direct3D11Device = property(get_Direct3D11Device, None)
 class LearningModelDeviceKind(Enum, Int32):
+    _name_ = 'Windows.AI.MachineLearning.LearningModelDeviceKind'
     Default = 0
     Cpu = 1
     DirectX = 2
@@ -771,11 +772,13 @@ class LearningModelEvaluationResult(ComPtr):
     Outputs = property(get_Outputs, None)
     Succeeded = property(get_Succeeded, None)
 class LearningModelFeatureKind(Enum, Int32):
+    _name_ = 'Windows.AI.MachineLearning.LearningModelFeatureKind'
     Tensor = 0
     Sequence = 1
     Map = 2
     Image = 3
 class LearningModelPixelRange(Enum, Int32):
+    _name_ = 'Windows.AI.MachineLearning.LearningModelPixelRange'
     ZeroTo255 = 0
     ZeroToOne = 1
     MinusOneToOne = 2
@@ -1166,6 +1169,7 @@ class TensorInt8Bit(ComPtr):
     Shape = property(get_Shape, None)
     TensorKind = property(get_TensorKind, None)
 class TensorKind(Enum, Int32):
+    _name_ = 'Windows.AI.MachineLearning.TensorKind'
     Undefined = 0
     Float = 1
     UInt8 = 2

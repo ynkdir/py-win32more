@@ -125,6 +125,7 @@ class IMcpStdioConnectionInfo(ComPtr):
     Command = property(get_Command, None)
     Info = property(get_Info, None)
 class McpAuthorizationResponse(Enum, Int32):
+    _name_ = 'Windows.AI.Agents.Mcp.McpAuthorizationResponse'
     Denied = 0
     Approved = 1
 class McpHttpConnectionResult(ComPtr):

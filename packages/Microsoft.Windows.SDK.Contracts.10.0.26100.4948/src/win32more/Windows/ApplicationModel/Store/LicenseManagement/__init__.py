@@ -63,6 +63,7 @@ class LicenseManager(ComPtr):
     @winrt_classmethod
     def GetSatisfactionInfosAsync(cls: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseManagerStatics, contentIds: win32more.Windows.Foundation.Collections.IIterable[hstr], keyIds: win32more.Windows.Foundation.Collections.IIterable[hstr]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionResult]: ...
 class LicenseRefreshOption(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.LicenseManagement.LicenseRefreshOption'
     RunningLicenses = 0
     AllLicenses = 1
 class LicenseSatisfactionInfo(ComPtr):

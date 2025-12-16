@@ -55,6 +55,7 @@ class CortanaActionableInsightsOptions(ComPtr):
     ContentSourceWebLink = property(get_ContentSourceWebLink, put_ContentSourceWebLink)
     SurroundingText = property(get_SurroundingText, put_SurroundingText)
 class CortanaPermission(Enum, Int32):
+    _name_ = 'Windows.Services.Cortana.CortanaPermission'
     BrowsingHistory = 0
     Calendar = 1
     CallHistory = 2
@@ -67,6 +68,7 @@ class CortanaPermission(Enum, Int32):
     Personalization = 9
     PhoneCall = 10
 class CortanaPermissionsChangeResult(Enum, Int32):
+    _name_ = 'Windows.Services.Cortana.CortanaPermissionsChangeResult'
     Success = 0
     Unavailable = 1
     DisabledByPolicy = 2

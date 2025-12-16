@@ -132,27 +132,32 @@ class EasComplianceResults(ComPtr):
     RequireEncryptionResult = property(get_RequireEncryptionResult, None)
 EasContract: UInt32 = 65536
 class EasDisallowConvenienceLogonResult(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasDisallowConvenienceLogonResult'
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
     RequestedPolicyIsStricter = 3
 class EasEncryptionProviderType(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasEncryptionProviderType'
     NotEvaluated = 0
     WindowsEncryption = 1
     OtherEncryption = 2
 class EasMaxInactivityTimeLockResult(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasMaxInactivityTimeLockResult'
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
     RequestedPolicyIsStricter = 3
     InvalidParameter = 4
 class EasMaxPasswordFailedAttemptsResult(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasMaxPasswordFailedAttemptsResult'
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
     RequestedPolicyIsStricter = 3
     InvalidParameter = 4
 class EasMinPasswordComplexCharactersResult(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasMinPasswordComplexCharactersResult'
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
@@ -169,6 +174,7 @@ class EasMinPasswordComplexCharactersResult(Enum, Int32):
     ChangeConnectedAdminsPassword = 13
     ChangeConnectedUserPassword = 14
 class EasMinPasswordLengthResult(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasMinPasswordLengthResult'
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
@@ -185,6 +191,7 @@ class EasMinPasswordLengthResult(Enum, Int32):
     ChangeConnectedAdminsPassword = 13
     ChangeConnectedUserPassword = 14
 class EasPasswordExpirationResult(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasPasswordExpirationResult'
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
@@ -195,12 +202,14 @@ class EasPasswordExpirationResult(Enum, Int32):
     AdminsCannotChangePassword = 7
     LocalControlledUsersCannotChangePassword = 8
 class EasPasswordHistoryResult(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasPasswordHistoryResult'
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
     RequestedPolicyIsStricter = 3
     InvalidParameter = 4
 class EasRequireEncryptionResult(Enum, Int32):
+    _name_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasRequireEncryptionResult'
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2

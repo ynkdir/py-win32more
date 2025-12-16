@@ -73,9 +73,11 @@ class AudioEffectDefinition(ComPtr):
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
 class AudioEffectState(Enum, Int32):
+    _name_ = 'Windows.Media.Effects.AudioEffectState'
     Off = 0
     On = 1
 class AudioEffectType(Enum, Int32):
+    _name_ = 'Windows.Media.Effects.AudioEffectType'
     Other = 0
     AcousticEchoCancellation = 1
     NoiseSuppression = 2
@@ -432,11 +434,13 @@ class IVideoTransformSphericalProjection(ComPtr):
     ProjectionMode = property(get_ProjectionMode, put_ProjectionMode)
     ViewOrientation = property(get_ViewOrientation, put_ViewOrientation)
 class MediaEffectClosedReason(Enum, Int32):
+    _name_ = 'Windows.Media.Effects.MediaEffectClosedReason'
     Done = 0
     UnknownError = 1
     UnsupportedEncodingFormat = 2
     EffectCurrentlyUnloaded = 3
 class MediaMemoryTypes(Enum, Int32):
+    _name_ = 'Windows.Media.Effects.MediaMemoryTypes'
     Gpu = 0
     Cpu = 1
     GpuAndCpu = 2

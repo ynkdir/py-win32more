@@ -38,6 +38,7 @@ class CrossSlidingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class CrossSlidingState(Enum, Int32):
+    _name_ = 'Windows.UI.Input.CrossSlidingState'
     Started = 0
     Dragging = 1
     Selecting = 2
@@ -62,6 +63,7 @@ class DraggingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class DraggingState(Enum, Int32):
+    _name_ = 'Windows.UI.Input.DraggingState'
     Started = 0
     Continuing = 1
     Completed = 2
@@ -94,10 +96,12 @@ class EdgeGestureEventArgs(ComPtr):
     def get_Kind(self: win32more.Windows.UI.Input.IEdgeGestureEventArgs) -> win32more.Windows.UI.Input.EdgeGestureKind: ...
     Kind = property(get_Kind, None)
 class EdgeGestureKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.EdgeGestureKind'
     Touch = 0
     Keyboard = 1
     Mouse = 2
 class GazeInputAccessStatus(Enum, Int32):
+    _name_ = 'Windows.UI.Input.GazeInputAccessStatus'
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
@@ -299,6 +303,7 @@ class GestureRecognizer(ComPtr):
     RightTapped = event(add_RightTapped, remove_RightTapped)
     Tapped = event(add_Tapped, remove_Tapped)
 class GestureSettings(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.GestureSettings'
     None_ = 0
     Tap = 1
     DoubleTap = 2
@@ -337,6 +342,7 @@ class HoldingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class HoldingState(Enum, Int32):
+    _name_ = 'Windows.UI.Input.HoldingState'
     Started = 0
     Completed = 1
     Canceled = 2
@@ -1540,6 +1546,7 @@ class InputActivationListenerActivationChangedEventArgs(ComPtr):
     def get_State(self: win32more.Windows.UI.Input.IInputActivationListenerActivationChangedEventArgs) -> win32more.Windows.UI.Input.InputActivationState: ...
     State = property(get_State, None)
 class InputActivationState(Enum, Int32):
+    _name_ = 'Windows.UI.Input.InputActivationState'
     None_ = 0
     Deactivated = 1
     ActivatedNotForeground = 2
@@ -1899,6 +1906,7 @@ class PointerPointProperties(ComPtr):
     YTilt = property(get_YTilt, None)
     ZDistance = property(get_ZDistance, None)
 class PointerUpdateKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.PointerUpdateKind'
     Other = 0
     LeftButtonPressed = 1
     LeftButtonReleased = 2
@@ -2128,6 +2136,7 @@ class RadialControllerMenuItem(ComPtr):
     Tag = property(get_Tag, put_Tag)
     Invoked = event(add_Invoked, remove_Invoked)
 class RadialControllerMenuKnownIcon(Enum, Int32):
+    _name_ = 'Windows.UI.Input.RadialControllerMenuKnownIcon'
     Scroll = 0
     Zoom = 1
     UndoRedo = 2
@@ -2200,6 +2209,7 @@ class RadialControllerScreenContactStartedEventArgs(ComPtr):
     IsButtonPressed = property(get_IsButtonPressed, None)
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class RadialControllerSystemMenuItemKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.RadialControllerSystemMenuItemKind'
     Scroll = 0
     Zoom = 1
     UndoRedo = 2
@@ -2341,6 +2351,7 @@ class TouchpadGesturesController(ComPtr):
     PointerPressed = event(add_PointerPressed, remove_PointerPressed)
     PointerReleased = event(add_PointerReleased, remove_PointerReleased)
 class TouchpadGlobalAction(Enum, Int32):
+    _name_ = 'Windows.UI.Input.TouchpadGlobalAction'
     ThreeFingerTap = 0
     FourFingerTap = 1
     FiveFingerTap = 2
@@ -2361,6 +2372,7 @@ class TouchpadGlobalActionEventArgs(ComPtr):
     Action = property(get_Action, None)
     PointerDevice = property(get_PointerDevice, None)
 class TouchpadGlobalGestureKinds(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.TouchpadGlobalGestureKinds'
     None_ = 0
     ThreeFingerManipulations = 1
     FourFingerManipulations = 2

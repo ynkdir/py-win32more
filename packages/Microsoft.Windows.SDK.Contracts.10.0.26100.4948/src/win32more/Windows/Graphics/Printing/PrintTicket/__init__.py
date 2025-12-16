@@ -347,6 +347,7 @@ class PrintTicketFeature(ComPtr):
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
 class PrintTicketFeatureSelectionType(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketFeatureSelectionType'
     PickOne = 0
     PickMany = 1
 class PrintTicketOption(ComPtr):
@@ -374,6 +375,7 @@ class PrintTicketOption(ComPtr):
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
 class PrintTicketParameterDataType(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketParameterDataType'
     Integer = 0
     NumericString = 1
     String = 2
@@ -432,6 +434,7 @@ class PrintTicketValue(ComPtr):
     def GetValueAsString(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketValue) -> hstr: ...
     Type = property(get_Type, None)
 class PrintTicketValueType(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketValueType'
     Integer = 0
     String = 1
     Unknown = 2

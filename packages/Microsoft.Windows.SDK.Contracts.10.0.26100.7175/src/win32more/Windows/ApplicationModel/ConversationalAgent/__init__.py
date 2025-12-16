@@ -91,6 +91,7 @@ class ActivationSignalDetectionConfigurationCreationResult(ComPtr):
     Configuration = property(get_Configuration, None)
     Status = property(get_Status, None)
 class ActivationSignalDetectionConfigurationCreationStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationCreationStatus'
     Success = 0
     SignalIdNotAvailable = 1
     ModelIdNotSupported = 2
@@ -100,11 +101,13 @@ class ActivationSignalDetectionConfigurationCreationStatus(Enum, Int32):
     ConfigurationAlreadyExists = 6
     CreationNotSupported = 7
 class ActivationSignalDetectionConfigurationRemovalResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationRemovalResult'
     Success = 0
     NotFound = 1
     CurrentlyEnabled = 2
     RemovalNotSupported = 3
 class ActivationSignalDetectionConfigurationSetModelDataResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationSetModelDataResult'
     Success = 0
     EmptyModelData = 1
     UnsupportedFormat = 2
@@ -114,10 +117,12 @@ class ActivationSignalDetectionConfigurationSetModelDataResult(Enum, Int32):
     ConfigurationNotFound = 6
     UnknownError = 7
 class ActivationSignalDetectionConfigurationStateChangeResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationStateChangeResult'
     Success = 0
     NoModelData = 1
     ConfigurationNotFound = 2
 class ActivationSignalDetectionTrainingDataFormat(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionTrainingDataFormat'
     Voice8kHz8BitMono = 0
     Voice8kHz16BitMono = 1
     Voice16kHz8BitMono = 2
@@ -187,17 +192,21 @@ class ActivationSignalDetector(ComPtr):
     SupportedPowerStates = property(get_SupportedPowerStates, None)
     SupportedTrainingDataFormats = property(get_SupportedTrainingDataFormats, None)
 class ActivationSignalDetectorKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectorKind'
     AudioPattern = 0
     AudioImpulse = 1
     HardwareEvent = 2
 class ActivationSignalDetectorPowerState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectorPowerState'
     HighPower = 0
     ConnectedLowPower = 1
     DisconnectedLowPower = 2
 class ConversationalAgentActivationKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentActivationKind'
     VoiceActivationPreview = 0
     Foreground = 1
 class ConversationalAgentActivationResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentActivationResult'
     Success = 0
     AgentInactive = 1
     ScreenNotAvailable = 2
@@ -330,6 +339,7 @@ class ConversationalAgentSessionInterruptedEventArgs(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionInterruptedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionInterruptedEventArgs'
 class ConversationalAgentSessionUpdateResponse(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionUpdateResponse'
     Success = 0
     Failed = 1
 class ConversationalAgentSignal(ComPtr):
@@ -377,6 +387,7 @@ class ConversationalAgentSignalDetectedEventArgs(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignalDetectedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSignalDetectedEventArgs'
 class ConversationalAgentState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentState'
     Inactive = 0
     Detecting = 1
     Listening = 2
@@ -384,6 +395,7 @@ class ConversationalAgentState(Enum, Int32):
     Speaking = 4
     ListeningAndSpeaking = 5
 class ConversationalAgentSystemStateChangeType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSystemStateChangeType'
     UserAuthentication = 0
     ScreenAvailability = 1
     IndicatorLightAvailability = 2
@@ -396,6 +408,7 @@ class ConversationalAgentSystemStateChangedEventArgs(ComPtr):
     def get_SystemStateChangeType(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSystemStateChangedEventArgs) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSystemStateChangeType: ...
     SystemStateChangeType = property(get_SystemStateChangeType, None)
 class ConversationalAgentVoiceActivationPrerequisiteKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentVoiceActivationPrerequisiteKind'
     MicrophonePermission = 0
     KnownAgents = 1
     AgentAllowed = 2
@@ -403,6 +416,7 @@ class ConversationalAgentVoiceActivationPrerequisiteKind(Enum, Int32):
     BackgroundTaskRegistration = 4
     PolicyPermission = 5
 class DetectionConfigurationAvailabilityChangeKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.DetectionConfigurationAvailabilityChangeKind'
     SystemResourceAccess = 0
     Permission = 1
     LockScreenPermission = 2
@@ -433,6 +447,7 @@ class DetectionConfigurationAvailabilityInfo(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
     UnavailableSystemResources = property(get_UnavailableSystemResources, None)
 class DetectionConfigurationTrainingStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.DetectionConfigurationTrainingStatus'
     Success = 0
     FormatNotSupported = 1
     VoiceTooQuiet = 2
@@ -814,6 +829,7 @@ class IDetectionConfigurationAvailabilityInfo2(ComPtr):
     def get_UnavailableSystemResources(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.ConversationalAgent.SignalDetectorResourceKind]: ...
     UnavailableSystemResources = property(get_UnavailableSystemResources, None)
 class SignalDetectorResourceKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ConversationalAgent.SignalDetectorResourceKind'
     ParallelModelSupport = 0
     ParallelModelSupportForAgent = 1
     ParallelSignalSupport = 2

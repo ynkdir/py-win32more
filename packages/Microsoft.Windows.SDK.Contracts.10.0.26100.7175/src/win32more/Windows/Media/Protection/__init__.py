@@ -25,6 +25,7 @@ class ComponentRenewal(ComPtr):
     @winrt_classmethod
     def RenewSystemComponentsAsync(cls: win32more.Windows.Media.Protection.IComponentRenewalStatics, information: win32more.Windows.Media.Protection.RevocationAndRenewalInformation) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Media.Protection.RenewalStatus, UInt32]: ...
 class GraphicsTrustStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.GraphicsTrustStatus'
     TrustNotRequired = 0
     TrustEstablished = 1
     EnvironmentNotSupported = 2
@@ -32,6 +33,7 @@ class GraphicsTrustStatus(Enum, Int32):
     DriverSigningFailure = 4
     UnknownFailure = 5
 class HdcpProtection(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.HdcpProtection'
     Off = 0
     On = 1
     OnWithTypeEnforcement = 2
@@ -63,6 +65,7 @@ class HdcpSession(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     ProtectionChanged = event(add_ProtectionChanged, remove_ProtectionChanged)
 class HdcpSetProtectionResult(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.HdcpSetProtectionResult'
     Success = 0
     TimedOut = 1
     NotSupported = 2
@@ -268,6 +271,7 @@ class ProtectionCapabilities(ComPtr):
     @winrt_mixinmethod
     def IsTypeSupported(self: win32more.Windows.Media.Protection.IProtectionCapabilities, type: hstr, keySystem: hstr) -> win32more.Windows.Media.Protection.ProtectionCapabilityResult: ...
 class ProtectionCapabilityResult(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.ProtectionCapabilityResult'
     NotSupported = 0
     Maybe = 1
     Probably = 2
@@ -278,6 +282,7 @@ class RebootNeededEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Protection.MediaProtectionManager) -> Void: ...
 class RenewalStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.RenewalStatus'
     NotStarted = 0
     UpdatesInProgress = 1
     UserCancelled = 2
@@ -310,6 +315,7 @@ class RevocationAndRenewalItem(ComPtr):
     Reasons = property(get_Reasons, None)
     RenewalId = property(get_RenewalId, None)
 class RevocationAndRenewalReasons(Enum, UInt32):
+    _name_ = 'Windows.Media.Protection.RevocationAndRenewalReasons'
     UserModeComponentLoad = 1
     KernelModeComponentLoad = 2
     AppComponent = 4

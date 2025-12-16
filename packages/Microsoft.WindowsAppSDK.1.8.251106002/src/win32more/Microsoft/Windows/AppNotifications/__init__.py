@@ -118,6 +118,7 @@ class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
     _AppNotificationManager_Meta_.Default = property(get_Default, None)
     NotificationInvoked = event(add_NotificationInvoked, remove_NotificationInvoked)
 class AppNotificationPriority(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.AppNotificationPriority'
     Default = 0
     High = 1
 class AppNotificationProgressData(ComPtr):
@@ -159,10 +160,12 @@ class AppNotificationProgressData(ComPtr):
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
 class AppNotificationProgressResult(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.AppNotificationProgressResult'
     Succeeded = 0
     AppNotificationNotFound = 1
     Unsupported = 2
 class AppNotificationSetting(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.AppNotificationSetting'
     Enabled = 0
     DisabledForApplication = 1
     DisabledForUser = 2

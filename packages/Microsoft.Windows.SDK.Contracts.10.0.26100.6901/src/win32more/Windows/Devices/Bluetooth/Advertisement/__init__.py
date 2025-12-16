@@ -193,6 +193,7 @@ class BluetoothLEAdvertisementFilter(ComPtr):
     Advertisement = property(get_Advertisement, put_Advertisement)
     BytePatterns = property(get_BytePatterns, None)
 class BluetoothLEAdvertisementFlags(Enum, UInt32):
+    _name_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFlags'
     None_ = 0
     LimitedDiscoverableMode = 1
     GeneralDiscoverableMode = 2
@@ -200,6 +201,7 @@ class BluetoothLEAdvertisementFlags(Enum, UInt32):
     DualModeControllerCapable = 8
     DualModeHostCapable = 16
 class BluetoothLEAdvertisementPhyType(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType'
     Unspecified = 0
     Uncoded1MPhy = 1
     Uncoded2MPhy = 2
@@ -267,6 +269,7 @@ class BluetoothLEAdvertisementPublisher(ComPtr):
     UseExtendedAdvertisement = property(get_UseExtendedAdvertisement, put_UseExtendedAdvertisement)
     StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class BluetoothLEAdvertisementPublisherStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisherStatus'
     Created = 0
     Waiting = 1
     Started = 2
@@ -347,6 +350,7 @@ class BluetoothLEAdvertisementScanParameters(ComPtr):
     ScanInterval = property(get_ScanInterval, None)
     ScanWindow = property(get_ScanWindow, None)
 class BluetoothLEAdvertisementType(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementType'
     ConnectableUndirected = 0
     ConnectableDirected = 1
     ScannableUndirected = 2
@@ -440,6 +444,7 @@ class BluetoothLEAdvertisementWatcher(ComPtr):
     Received = event(add_Received, remove_Received)
     Stopped = event(add_Stopped, remove_Stopped)
 class BluetoothLEAdvertisementWatcherStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcherStatus'
     Created = 0
     Started = 1
     Stopping = 2
@@ -480,6 +485,7 @@ class BluetoothLEManufacturerData(ComPtr):
     CompanyId = property(get_CompanyId, put_CompanyId)
     Data = property(get_Data, put_Data)
 class BluetoothLEScanningMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEScanningMode'
     Passive = 0
     Active = 1
     None_ = 2

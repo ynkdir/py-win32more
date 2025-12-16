@@ -24,10 +24,12 @@ class CanvasActiveLayer(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class CanvasAlphaMode(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasAlphaMode'
     Premultiplied = 0
     Straight = 1
     Ignore = 2
 class CanvasAntialiasing(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasAntialiasing'
     Antialiased = 0
     Aliased = 1
 class CanvasBitmap(ComPtr):
@@ -154,6 +156,7 @@ class CanvasBitmap(ComPtr):
     Size = property(get_Size, None)
     SizeInPixels = property(get_SizeInPixels, None)
 class CanvasBitmapFileFormat(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasBitmapFileFormat'
     Auto = 0
     Bmp = 1
     Png = 2
@@ -162,17 +165,20 @@ class CanvasBitmapFileFormat(Enum, Int32):
     Gif = 5
     JpegXR = 6
 class CanvasBlend(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasBlend'
     SourceOver = 0
     Copy = 1
     Min = 2
     Add = 3
 class CanvasBufferPrecision(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasBufferPrecision'
     Precision8UIntNormalized = 0
     Precision8UIntNormalizedSrgb = 1
     Precision16UIntNormalized = 2
     Precision16Float = 3
     Precision32Float = 4
 class CanvasColorSpace(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasColorSpace'
     Custom = 0
     Srgb = 1
     ScRgb = 2
@@ -202,6 +208,7 @@ class CanvasCommandList(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Device = property(get_Device, None)
 class CanvasComposite(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasComposite'
     SourceOver = 0
     DestinationOver = 1
     SourceIn = 2
@@ -216,6 +223,7 @@ class CanvasComposite(Enum, Int32):
     BoundedCopy = 11
     MaskInvert = 12
 class CanvasDebugLevel(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasDebugLevel'
     None_ = 0
     Error = 1
     Warning = 2
@@ -294,6 +302,7 @@ class CanvasDevice(ComPtr, metaclass=_CanvasDevice_Meta_):
     _CanvasDevice_Meta_.DebugLevel = property(get_DebugLevel, put_DebugLevel)
     DeviceLost = event(add_DeviceLost, remove_DeviceLost)
 class CanvasDpiRounding(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasDpiRounding'
     Floor = 0
     Round = 1
     Ceiling = 2
@@ -693,6 +702,7 @@ class CanvasDrawingSession(ComPtr):
     Transform = property(get_Transform, put_Transform)
     Units = property(get_Units, put_Units)
 class CanvasEdgeBehavior(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasEdgeBehavior'
     Clamp = 0
     Wrap = 1
     Mirror = 2
@@ -710,6 +720,7 @@ class CanvasImage(ComPtr):
     @winrt_classmethod
     def IsHistogramSupported(cls: win32more.Microsoft.Graphics.Canvas.ICanvasImageStatics, device: win32more.Microsoft.Graphics.Canvas.CanvasDevice) -> Boolean: ...
 class CanvasImageInterpolation(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasImageInterpolation'
     NearestNeighbor = 0
     Linear = 1
     Cubic = 2
@@ -717,6 +728,7 @@ class CanvasImageInterpolation(Enum, Int32):
     Anisotropic = 4
     HighQualityCubic = 5
 class CanvasLayerOptions(Enum, UInt32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasLayerOptions'
     None_ = 0
     InitializeFromBackground = 1
     IgnoreAlpha = 2
@@ -816,14 +828,17 @@ class CanvasSpriteBatch(ComPtr):
     Device = property(get_Device, None)
     Dpi = property(get_Dpi, None)
 class CanvasSpriteFlip(Enum, UInt32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasSpriteFlip'
     None_ = 0
     Horizontal = 1
     Vertical = 2
     Both = 3
 class CanvasSpriteOptions(Enum, UInt32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasSpriteOptions'
     None_ = 0
     ClampToSourceRect = 1
 class CanvasSpriteSortMode(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasSpriteSortMode'
     None_ = 0
     Bitmap = 1
 class CanvasSwapChain(ComPtr):
@@ -919,11 +934,13 @@ class CanvasSwapChain(ComPtr):
     SourceSize = property(get_SourceSize, put_SourceSize)
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class CanvasSwapChainRotation(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasSwapChainRotation'
     None_ = 0
     Rotate90 = 1
     Rotate180 = 2
     Rotate270 = 3
 class CanvasUnits(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasUnits'
     Dips = 0
     Pixels = 1
 class CanvasVirtualBitmap(ComPtr):
@@ -971,6 +988,7 @@ class CanvasVirtualBitmap(ComPtr):
     Size = property(get_Size, None)
     SizeInPixels = property(get_SizeInPixels, None)
 class CanvasVirtualBitmapOptions(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.CanvasVirtualBitmapOptions'
     None_ = 0
     ReleaseSource = 1
     CacheOnDemand = 2

@@ -36,6 +36,7 @@ class IRemoteTextConnectionFactory2(ComPtr):
     @winrt_commethod(6)
     def CreateInstance(self, connectionId: Guid, pduForwarder: win32more.Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler, options: win32more.Windows.System.RemoteDesktop.Input.RemoteTextConnectionOptions) -> win32more.Windows.System.RemoteDesktop.Input.RemoteTextConnection: ...
 class RemoteKeyEventAttributes(Enum, UInt32):
+    _name_ = 'Windows.System.RemoteDesktop.Input.RemoteKeyEventAttributes'
     None_ = 0
     KeyUp = 1
     Repeat = 2
@@ -82,6 +83,7 @@ class RemoteTextConnectionDataHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, pduData: PassArray[Byte]) -> Boolean: ...
 class RemoteTextConnectionOptions(Enum, UInt32):
+    _name_ = 'Windows.System.RemoteDesktop.Input.RemoteTextConnectionOptions'
     None_ = 0
     EnablePredictedKeyReporting = 1
 

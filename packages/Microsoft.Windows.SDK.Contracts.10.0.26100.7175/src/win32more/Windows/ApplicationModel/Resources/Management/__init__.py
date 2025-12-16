@@ -86,6 +86,7 @@ class IndexedResourceQualifier(ComPtr):
     QualifierName = property(get_QualifierName, None)
     QualifierValue = property(get_QualifierValue, None)
 class IndexedResourceType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Resources.Management.IndexedResourceType'
     String = 0
     Path = 1
     EmbeddedData = 2

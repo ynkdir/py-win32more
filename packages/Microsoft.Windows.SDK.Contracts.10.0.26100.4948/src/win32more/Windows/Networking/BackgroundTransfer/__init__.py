@@ -103,6 +103,7 @@ class BackgroundDownloader(ComPtr):
     SuccessToastNotification = property(get_SuccessToastNotification, put_SuccessToastNotification)
     TransferGroup = property(get_TransferGroup, put_TransferGroup)
 class BackgroundTransferBehavior(Enum, Int32):
+    _name_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferBehavior'
     Parallel = 0
     Serialized = 1
 class BackgroundTransferCompletionGroup(ComPtr):
@@ -164,6 +165,7 @@ class BackgroundTransferContentPart(ComPtr):
     @winrt_mixinmethod
     def SetFile(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPart, value: win32more.Windows.Storage.IStorageFile) -> Void: ...
 class BackgroundTransferCostPolicy(Enum, Int32):
+    _name_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferCostPolicy'
     Default = 0
     UnrestrictedOnly = 1
     Always = 2
@@ -191,6 +193,7 @@ class BackgroundTransferGroup(ComPtr):
     Name = property(get_Name, None)
     TransferBehavior = property(get_TransferBehavior, put_TransferBehavior)
 class BackgroundTransferPriority(Enum, Int32):
+    _name_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferPriority'
     Default = 0
     High = 1
     Low = 2
@@ -207,6 +210,7 @@ class BackgroundTransferRangesDownloadedEventArgs(ComPtr):
     AddedRanges = property(get_AddedRanges, None)
     WasDownloadRestarted = property(get_WasDownloadRestarted, None)
 class BackgroundTransferStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferStatus'
     Idle = 0
     Running = 1
     PausedByApplication = 2

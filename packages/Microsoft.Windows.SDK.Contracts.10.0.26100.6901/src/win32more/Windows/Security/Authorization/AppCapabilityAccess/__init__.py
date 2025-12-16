@@ -41,6 +41,7 @@ class AppCapabilityAccessChangedEventArgs(ComPtr):
     default_interface: win32more.Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityAccessChangedEventArgs
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessChangedEventArgs'
 class AppCapabilityAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus'
     DeniedBySystem = 0
     NotDeclaredByApp = 1
     DeniedByUser = 2

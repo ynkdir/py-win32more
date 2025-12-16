@@ -9,6 +9,7 @@ import win32more.Windows.UI.Xaml.Automation.Provider
 import win32more.Windows.UI.Xaml.Controls
 import win32more.Windows.UI.Xaml.Controls.Primitives
 class AccessibilityView(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AccessibilityView'
     Raw = 0
     Control = 1
     Content = 2
@@ -110,6 +111,7 @@ class AutoSuggestBoxAutomationPeer(ComPtr):
     @winrt_mixinmethod
     def Invoke(self: win32more.Windows.UI.Xaml.Automation.Provider.IInvokeProvider) -> Void: ...
 class AutomationControlType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationControlType'
     Button = 0
     Calendar = 1
     CheckBox = 2
@@ -152,6 +154,7 @@ class AutomationControlType(Enum, Int32):
     SemanticZoom = 39
     AppBar = 40
 class AutomationEvents(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationEvents'
     ToolTipOpened = 0
     ToolTipClosed = 1
     MenuOpened = 2
@@ -183,6 +186,7 @@ class AutomationEvents(Enum, Int32):
     TextEditTextChanged = 28
     LayoutInvalidated = 29
 class AutomationHeadingLevel(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationHeadingLevel'
     None_ = 0
     Level1 = 1
     Level2 = 2
@@ -194,6 +198,7 @@ class AutomationHeadingLevel(Enum, Int32):
     Level8 = 8
     Level9 = 9
 class AutomationLandmarkType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationLandmarkType'
     None_ = 0
     Custom = 1
     Form = 2
@@ -201,28 +206,33 @@ class AutomationLandmarkType(Enum, Int32):
     Navigation = 4
     Search = 5
 class AutomationLiveSetting(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationLiveSetting'
     Off = 0
     Polite = 1
     Assertive = 2
 class AutomationNavigationDirection(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationNavigationDirection'
     Parent = 0
     NextSibling = 1
     PreviousSibling = 2
     FirstChild = 3
     LastChild = 4
 class AutomationNotificationKind(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationNotificationKind'
     ItemAdded = 0
     ItemRemoved = 1
     ActionCompleted = 2
     ActionAborted = 3
     Other = 4
 class AutomationNotificationProcessing(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationNotificationProcessing'
     ImportantAll = 0
     ImportantMostRecent = 1
     All = 2
     MostRecent = 3
     CurrentThenMostRecent = 4
 class AutomationOrientation(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationOrientation'
     None_ = 0
     Horizontal = 1
     Vertical = 2
@@ -492,6 +502,7 @@ class AutomationPeerAnnotation(ComPtr, metaclass=_AutomationPeerAnnotation_Meta_
     _AutomationPeerAnnotation_Meta_.PeerProperty = property(get_PeerProperty, None)
     _AutomationPeerAnnotation_Meta_.TypeProperty = property(get_TypeProperty, None)
 class AutomationStructureChangeType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.AutomationStructureChangeType'
     ChildAdded = 0
     ChildRemoved = 1
     ChildrenInvalidated = 2
@@ -2507,6 +2518,7 @@ class PasswordBoxAutomationPeer(ComPtr):
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IPasswordBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.PasswordBox, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer: ...
 class PatternInterface(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.Peers.PatternInterface'
     Invoke = 0
     Selection = 1
     Value = 2

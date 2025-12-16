@@ -8,11 +8,13 @@ import win32more.Windows.Storage.Search
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 class CachedFileOptions(Enum, UInt32):
+    _name_ = 'Windows.Storage.Provider.CachedFileOptions'
     None_ = 0
     RequireUpdateOnAccess = 1
     UseCachedFileWhenOffline = 2
     DenyAccessWhenOffline = 4
 class CachedFileTarget(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.CachedFileTarget'
     Local = 0
     Remote = 1
 class CachedFileUpdater(ComPtr):
@@ -89,6 +91,7 @@ class FileUpdateRequestedEventArgs(ComPtr):
     def get_Request(self: win32more.Windows.Storage.Provider.IFileUpdateRequestedEventArgs) -> win32more.Windows.Storage.Provider.FileUpdateRequest: ...
     Request = property(get_Request, None)
 class FileUpdateStatus(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.FileUpdateStatus'
     Incomplete = 0
     Complete = 1
     UserInputNeeded = 2
@@ -737,6 +740,7 @@ class IStorageProviderUriSource(ComPtr):
     @winrt_commethod(7)
     def GetContentInfoForPath(self, path: hstr, result: win32more.Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult) -> Void: ...
 class ReadActivationMode(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.ReadActivationMode'
     NotNeeded = 0
     BeforeAccess = 1
 class StorageProviderFileTypeInfo(ComPtr):
@@ -810,20 +814,24 @@ class StorageProviderGetPathForContentUriResult(ComPtr):
     Path = property(get_Path, put_Path)
     Status = property(get_Status, put_Status)
 class StorageProviderHardlinkPolicy(Enum, UInt32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderHardlinkPolicy'
     None_ = 0
     Allowed = 1
 class StorageProviderHydrationPolicy(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderHydrationPolicy'
     Partial = 0
     Progressive = 1
     Full = 2
     AlwaysFull = 3
 class StorageProviderHydrationPolicyModifier(Enum, UInt32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderHydrationPolicyModifier'
     None_ = 0
     ValidationRequired = 1
     StreamingAllowed = 2
     AutoDehydrationAllowed = 4
     AllowFullRestartHydration = 8
 class StorageProviderInSyncPolicy(Enum, UInt32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderInSyncPolicy'
     Default = 0
     FileCreationTime = 1
     FileReadOnlyAttribute = 2
@@ -957,6 +965,7 @@ class StorageProviderKnownFolderSyncRequestedHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, args: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs) -> Void: ...
 class StorageProviderKnownFolderSyncStatus(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderKnownFolderSyncStatus'
     Available = 0
     Enrolling = 1
     Enrolled = 2
@@ -984,9 +993,11 @@ class StorageProviderMoreInfoUI(ComPtr):
     Command = property(get_Command, put_Command)
     Message = property(get_Message, put_Message)
 class StorageProviderPopulationPolicy(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderPopulationPolicy'
     Full = 1
     AlwaysFull = 2
 class StorageProviderProtectionMode(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderProtectionMode'
     Unknown = 0
     Personal = 1
 class StorageProviderQueryResultSet(ComPtr):
@@ -1048,6 +1059,7 @@ class StorageProviderQuotaUI(ComPtr):
     QuotaUsedInBytes = property(get_QuotaUsedInBytes, put_QuotaUsedInBytes)
     QuotaUsedLabel = property(get_QuotaUsedLabel, put_QuotaUsedLabel)
 class StorageProviderResultKind(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderResultKind'
     Search = 0
     Recommended = 1
     Favorites = 2
@@ -1056,10 +1068,12 @@ class StorageProviderResultKind(Enum, Int32):
     RelatedFiles = 5
     RelatedConversations = 6
 class StorageProviderResultUsageKind(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderResultUsageKind'
     Rendered = 0
     Opened = 1
     SuggestionResponseReceived = 2
 class StorageProviderSearchMatchKind(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderSearchMatchKind'
     Lexical = 0
     Semantic = 1
 class StorageProviderSearchQueryOptions(ComPtr):
@@ -1091,6 +1105,7 @@ class StorageProviderSearchQueryOptions(ComPtr):
     SortOrder = property(get_SortOrder, None)
     UserQuery = property(get_UserQuery, None)
 class StorageProviderSearchQueryStatus(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderSearchQueryStatus'
     Success = 0
     Error = 1
     Timeout = 2
@@ -1151,9 +1166,11 @@ class StorageProviderSearchResult(ComPtr):
     RequestedProperties = property(get_RequestedProperties, None)
     ResultId = property(get_ResultId, put_ResultId)
 class StorageProviderShareLinkState(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderShareLinkState'
     Enabled = 0
     Disabled = 1
 class StorageProviderState(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderState'
     InSync = 0
     Syncing = 1
     Paused = 2
@@ -1383,19 +1400,23 @@ class StorageProviderSyncRootManager(ComPtr):
     @winrt_classmethod
     def GetCurrentSyncRoots(cls: win32more.Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.Provider.StorageProviderSyncRootInfo]: ...
 class StorageProviderUICommandState(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderUICommandState'
     Enabled = 0
     Disabled = 1
     Hidden = 2
 class StorageProviderUriSourceStatus(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.StorageProviderUriSourceStatus'
     Success = 0
     NoSyncRoot = 1
     FileNotFound = 2
 class UIStatus(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.UIStatus'
     Unavailable = 0
     Hidden = 1
     Visible = 2
     Complete = 3
 class WriteActivationMode(Enum, Int32):
+    _name_ = 'Windows.Storage.Provider.WriteActivationMode'
     ReadOnly = 0
     NotNeeded = 1
     AfterWrite = 2

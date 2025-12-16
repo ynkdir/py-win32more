@@ -191,6 +191,7 @@ class IWiFiWpsConfigurationResult(ComPtr):
     Status = property(get_Status, None)
     SupportedWpsKinds = property(get_SupportedWpsKinds, None)
 class WiFiAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiAccessStatus'
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
@@ -270,6 +271,7 @@ class WiFiAvailableNetwork(ComPtr):
     Ssid = property(get_Ssid, None)
     Uptime = property(get_Uptime, None)
 class WiFiConnectionMethod(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiConnectionMethod'
     Default = 0
     WpsPin = 1
     WpsPushButton = 2
@@ -281,6 +283,7 @@ class WiFiConnectionResult(ComPtr):
     def get_ConnectionStatus(self: win32more.Windows.Devices.WiFi.IWiFiConnectionResult) -> win32more.Windows.Devices.WiFi.WiFiConnectionStatus: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
 class WiFiConnectionStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiConnectionStatus'
     UnspecifiedFailure = 0
     Success = 1
     AccessRevoked = 2
@@ -289,6 +292,7 @@ class WiFiConnectionStatus(Enum, Int32):
     Timeout = 5
     UnsupportedAuthenticationProtocol = 6
 class WiFiNetworkKind(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiNetworkKind'
     Any = 0
     Infrastructure = 1
     Adhoc = 2
@@ -303,9 +307,11 @@ class WiFiNetworkReport(ComPtr):
     AvailableNetworks = property(get_AvailableNetworks, None)
     Timestamp = property(get_Timestamp, None)
 class WiFiOnDemandHotspotAvailability(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiOnDemandHotspotAvailability'
     Available = 0
     Unavailable = 1
 class WiFiOnDemandHotspotCellularBars(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiOnDemandHotspotCellularBars'
     ZeroBars = 0
     OneBar = 1
     TwoBars = 2
@@ -313,6 +319,7 @@ class WiFiOnDemandHotspotCellularBars(Enum, Int32):
     FourBars = 4
     FiveBars = 5
 class WiFiOnDemandHotspotConnectStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiOnDemandHotspotConnectStatus'
     UnspecifiedFailure = 0
     Success = 1
     AppTimedOut = 2
@@ -405,6 +412,7 @@ class WiFiOnDemandHotspotNetworkProperties(ComPtr):
     RemainingBatteryPercent = property(get_RemainingBatteryPercent, put_RemainingBatteryPercent)
     Ssid = property(get_Ssid, put_Ssid)
 class WiFiPhyKind(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiPhyKind'
     Unknown = 0
     Fhss = 1
     Dsss = 2
@@ -418,6 +426,7 @@ class WiFiPhyKind(Enum, Int32):
     HE = 10
     Eht = 11
 class WiFiReconnectionKind(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiReconnectionKind'
     Automatic = 0
     Manual = 1
 class WiFiWpsConfigurationResult(ComPtr):
@@ -431,10 +440,12 @@ class WiFiWpsConfigurationResult(ComPtr):
     Status = property(get_Status, None)
     SupportedWpsKinds = property(get_SupportedWpsKinds, None)
 class WiFiWpsConfigurationStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiWpsConfigurationStatus'
     UnspecifiedFailure = 0
     Success = 1
     Timeout = 2
 class WiFiWpsKind(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFi.WiFiWpsKind'
     Unknown = 0
     Pin = 1
     PushButton = 2

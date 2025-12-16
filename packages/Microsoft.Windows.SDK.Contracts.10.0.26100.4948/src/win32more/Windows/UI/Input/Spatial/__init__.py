@@ -660,6 +660,7 @@ class SpatialGestureRecognizer(ComPtr):
     RecognitionStarted = event(add_RecognitionStarted, remove_RecognitionStarted)
     Tapped = event(add_Tapped, remove_Tapped)
 class SpatialGestureSettings(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Spatial.SpatialGestureSettings'
     None_ = 0
     Tap = 1
     DoubleTap = 2
@@ -808,6 +809,7 @@ class SpatialInteractionManager(ComPtr):
     SourceReleased = event(add_SourceReleased, remove_SourceReleased)
     SourceUpdated = event(add_SourceUpdated, remove_SourceUpdated)
 class SpatialInteractionPressKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Spatial.SpatialInteractionPressKind'
     None_ = 0
     Select = 1
     Menu = 2
@@ -856,10 +858,12 @@ class SpatialInteractionSourceEventArgs(ComPtr):
     PressKind = property(get_PressKind, None)
     State = property(get_State, None)
 class SpatialInteractionSourceHandedness(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Spatial.SpatialInteractionSourceHandedness'
     Unspecified = 0
     Left = 1
     Right = 2
 class SpatialInteractionSourceKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Spatial.SpatialInteractionSourceKind'
     Other = 0
     Hand = 1
     Voice = 2
@@ -887,6 +891,7 @@ class SpatialInteractionSourceLocation(ComPtr):
     SourcePointerPose = property(get_SourcePointerPose, None)
     Velocity = property(get_Velocity, None)
 class SpatialInteractionSourcePositionAccuracy(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Spatial.SpatialInteractionSourcePositionAccuracy'
     High = 0
     Approximate = 1
 class SpatialInteractionSourceProperties(ComPtr):

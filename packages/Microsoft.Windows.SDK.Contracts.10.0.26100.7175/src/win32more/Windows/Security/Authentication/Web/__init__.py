@@ -41,6 +41,7 @@ class IWebAuthenticationResult(ComPtr):
     ResponseErrorDetail = property(get_ResponseErrorDetail, None)
     ResponseStatus = property(get_ResponseStatus, None)
 class TokenBindingKeyType(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.TokenBindingKeyType'
     Rsa2048 = 0
     EcdsaP256 = 1
     AnyExisting = 2
@@ -64,6 +65,7 @@ class WebAuthenticationBroker(ComPtr):
     @winrt_classmethod
     def GetCurrentApplicationCallbackUri(cls: win32more.Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics) -> win32more.Windows.Foundation.Uri: ...
 class WebAuthenticationOptions(Enum, UInt32):
+    _name_ = 'Windows.Security.Authentication.Web.WebAuthenticationOptions'
     None_ = 0
     SilentMode = 1
     UseTitle = 2
@@ -83,6 +85,7 @@ class WebAuthenticationResult(ComPtr):
     ResponseErrorDetail = property(get_ResponseErrorDetail, None)
     ResponseStatus = property(get_ResponseStatus, None)
 class WebAuthenticationStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.WebAuthenticationStatus'
     Success = 0
     UserCancel = 1
     ErrorHttp = 2

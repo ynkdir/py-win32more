@@ -5,6 +5,7 @@ import win32more.Microsoft.Windows.AppNotifications.Builder
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 class AppNotificationAudioLooping(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationAudioLooping'
     None_ = 0
     Loop = 1
 class AppNotificationBuilder(ComPtr):
@@ -166,6 +167,7 @@ class AppNotificationButton(ComPtr):
     TargetAppId = property(get_TargetAppId, put_TargetAppId)
     ToolTip = property(get_ToolTip, put_ToolTip)
 class AppNotificationButtonStyle(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationButtonStyle'
     Default = 0
     Success = 1
     Critical = 2
@@ -204,9 +206,11 @@ class AppNotificationComboBox(ComPtr):
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     Title = property(get_Title, put_Title)
 class AppNotificationDuration(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationDuration'
     Default = 0
     Long = 1
 class AppNotificationImageCrop(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationImageCrop'
     Default = 0
     Circle = 1
 class AppNotificationProgressBar(ComPtr):
@@ -259,12 +263,14 @@ class AppNotificationProgressBar(ComPtr):
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
 class AppNotificationScenario(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationScenario'
     Default = 0
     Reminder = 1
     Alarm = 2
     IncomingCall = 3
     Urgent = 4
 class AppNotificationSoundEvent(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationSoundEvent'
     Default = 0
     IM = 1
     Mail = 2

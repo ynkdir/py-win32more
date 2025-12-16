@@ -456,19 +456,23 @@ class IPhotoImportVideoSegment(ComPtr):
     Sidecars = property(get_Sidecars, None)
     SizeInBytes = property(get_SizeInBytes, None)
 class PhotoImportAccessMode(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportAccessMode'
     ReadWrite = 0
     ReadOnly = 1
     ReadAndDelete = 2
 class PhotoImportConnectionTransport(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportConnectionTransport'
     Unknown = 0
     Usb = 1
     IP = 2
     Bluetooth = 3
 class PhotoImportContentType(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportContentType'
     Unknown = 0
     Image = 1
     Video = 2
 class PhotoImportContentTypeFilter(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportContentTypeFilter'
     OnlyImages = 0
     OnlyVideos = 1
     ImagesAndVideos = 2
@@ -660,6 +664,7 @@ class PhotoImportImportItemsResult(ComPtr):
     VideosCount = property(get_VideosCount, None)
     VideosSizeInBytes = property(get_VideosSizeInBytes, None)
 class PhotoImportImportMode(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportImportMode'
     ImportEverything = 0
     IgnoreSidecars = 1
     IgnoreSiblings = 2
@@ -717,6 +722,7 @@ class PhotoImportItemImportedEventArgs(ComPtr):
     def get_ImportedItem(self: win32more.Windows.Media.Import.IPhotoImportItemImportedEventArgs) -> win32more.Windows.Media.Import.PhotoImportItem: ...
     ImportedItem = property(get_ImportedItem, None)
 class PhotoImportItemSelectionMode(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportItemSelectionMode'
     SelectAll = 0
     SelectNone = 1
     SelectNew = 2
@@ -749,6 +755,7 @@ class PhotoImportOperation(ComPtr):
     Session = property(get_Session, None)
     Stage = property(get_Stage, None)
 class PhotoImportPowerSource(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportPowerSource'
     Unknown = 0
     Battery = 1
     External = 2
@@ -883,6 +890,7 @@ class PhotoImportSource(ComPtr):
     Thumbnail = property(get_Thumbnail, None)
     Type = property(get_Type, None)
 class PhotoImportSourceType(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportSourceType'
     Generic = 0
     Camera = 1
     MediaPlayer = 2
@@ -891,6 +899,7 @@ class PhotoImportSourceType(Enum, Int32):
     PersonalInfoManager = 5
     AudioRecorder = 6
 class PhotoImportStage(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportStage'
     NotStarted = 0
     FindingItems = 1
     ImportingItems = 2
@@ -923,15 +932,18 @@ class PhotoImportStorageMedium(ComPtr):
     StorageMediumType = property(get_StorageMediumType, None)
     SupportedAccessMode = property(get_SupportedAccessMode, None)
 class PhotoImportStorageMediumType(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportStorageMediumType'
     Undefined = 0
     Fixed = 1
     Removable = 2
 class PhotoImportSubfolderCreationMode(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportSubfolderCreationMode'
     DoNotCreateSubfolders = 0
     CreateSubfoldersFromFileDate = 1
     CreateSubfoldersFromExifDate = 2
     KeepOriginalFolderStructure = 3
 class PhotoImportSubfolderDateFormat(Enum, Int32):
+    _name_ = 'Windows.Media.Import.PhotoImportSubfolderDateFormat'
     Year = 0
     YearMonth = 1
     YearMonthDay = 2

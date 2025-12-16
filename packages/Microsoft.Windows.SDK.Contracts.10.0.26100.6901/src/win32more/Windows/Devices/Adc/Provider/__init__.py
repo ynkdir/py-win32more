@@ -38,6 +38,7 @@ class IAdcProvider(ComPtr):
     @winrt_commethod(6)
     def GetControllers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Adc.Provider.IAdcControllerProvider]: ...
 class ProviderAdcChannelMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Adc.Provider.ProviderAdcChannelMode'
     SingleEnded = 0
     Differential = 1
 

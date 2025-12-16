@@ -175,6 +175,7 @@ class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     Consolidated = event(add_Consolidated, remove_Consolidated)
     VisibleBoundsChanged = event(add_VisibleBoundsChanged, remove_VisibleBoundsChanged)
 class ApplicationViewBoundsMode(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.ApplicationViewBoundsMode'
     UseVisible = 0
     UseCoreWindow = 1
 class ApplicationViewConsolidatedEventArgs(ComPtr):
@@ -188,9 +189,11 @@ class ApplicationViewConsolidatedEventArgs(ComPtr):
     IsAppInitiated = property(get_IsAppInitiated, None)
     IsUserInitiated = property(get_IsUserInitiated, None)
 class ApplicationViewMode(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.ApplicationViewMode'
     Default = 0
     CompactOverlay = 1
 class ApplicationViewOrientation(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.ApplicationViewOrientation'
     Landscape = 0
     Portrait = 1
 class _ApplicationViewScaling_Meta_(ComPtr.__class__):
@@ -205,6 +208,7 @@ class ApplicationViewScaling(ComPtr, metaclass=_ApplicationViewScaling_Meta_):
     def TrySetDisableLayoutScaling(cls: win32more.Windows.UI.ViewManagement.IApplicationViewScalingStatics, disableLayoutScaling: Boolean) -> Boolean: ...
     _ApplicationViewScaling_Meta_.DisableLayoutScaling = property(get_DisableLayoutScaling, None)
 class ApplicationViewState(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.ApplicationViewState'
     FullScreenLandscape = 0
     Filled = 1
     Snapped = 2
@@ -235,6 +239,7 @@ class ApplicationViewSwitcher(ComPtr):
     @winrt_classmethod
     def PrepareForCustomAnimatedSwitchAsync(cls: win32more.Windows.UI.ViewManagement.IApplicationViewSwitcherStatics, toViewId: Int32, fromViewId: Int32, options: win32more.Windows.UI.ViewManagement.ApplicationViewSwitchingOptions) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ApplicationViewSwitchingOptions(Enum, UInt32):
+    _name_ = 'Windows.UI.ViewManagement.ApplicationViewSwitchingOptions'
     Default = 0
     SkipAnimation = 1
     ConsolidateViews = 2
@@ -326,15 +331,18 @@ class ApplicationViewTransferContext(ComPtr, metaclass=_ApplicationViewTransferC
     ViewId = property(get_ViewId, put_ViewId)
     _ApplicationViewTransferContext_Meta_.DataPackageFormatId = property(get_DataPackageFormatId, None)
 class ApplicationViewWindowingMode(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.ApplicationViewWindowingMode'
     Auto = 0
     PreferredLaunchViewSize = 1
     FullScreen = 2
     CompactOverlay = 3
     Maximized = 4
 class FullScreenSystemOverlayMode(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.FullScreenSystemOverlayMode'
     Standard = 0
     Minimal = 1
 class HandPreference(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.HandPreference'
     LeftHanded = 0
     RightHanded = 1
 class IAccessibilitySettings(ComPtr):
@@ -998,9 +1006,11 @@ class ProjectionManager(ComPtr, metaclass=_ProjectionManager_Meta_):
     _ProjectionManager_Meta_.ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable, None)
     _ProjectionManager_Meta_.ProjectionDisplayAvailableChanged = event(add_ProjectionDisplayAvailableChanged, remove_ProjectionDisplayAvailableChanged)
 class ScreenCaptureDisabledBehavior(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.ScreenCaptureDisabledBehavior'
     DrawAsBlack = 0
     ExcludeFromCapture = 1
 class UIColorType(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.UIColorType'
     Background = 0
     Foreground = 1
     AccentDark3 = 2
@@ -1012,6 +1022,7 @@ class UIColorType(Enum, Int32):
     AccentLight3 = 8
     Complement = 9
 class UIElementType(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.UIElementType'
     ActiveCaption = 0
     Background = 1
     ButtonFace = 2
@@ -1159,6 +1170,7 @@ class UIViewSettings(ComPtr):
     UserInteractionMode = property(get_UserInteractionMode, None)
     PreferredInteractionModeChanged = event(add_PreferredInteractionModeChanged, remove_PreferredInteractionModeChanged)
 class UserInteractionMode(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.UserInteractionMode'
     Mouse = 0
     Touch = 1
 ViewManagementViewScalingContract: UInt32 = 65536
@@ -1179,6 +1191,7 @@ class ViewModePreferences(ComPtr):
     CustomSize = property(get_CustomSize, put_CustomSize)
     ViewSizePreference = property(get_ViewSizePreference, put_ViewSizePreference)
 class ViewSizePreference(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.ViewSizePreference'
     Default = 0
     UseLess = 1
     UseHalf = 2

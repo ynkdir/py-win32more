@@ -8,6 +8,7 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.System.UserProfile
 class AccountPictureKind(Enum, Int32):
+    _name_ = 'Windows.System.UserProfile.AccountPictureKind'
     SmallImage = 0
     LargeImage = 1
     Video = 2
@@ -362,6 +363,7 @@ class LockScreen(ComPtr, metaclass=_LockScreen_Meta_):
     def SetImageStreamAsync(cls: win32more.Windows.System.UserProfile.ILockScreenStatics, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncAction: ...
     _LockScreen_Meta_.OriginalImageFile = property(get_OriginalImageFile, None)
 class SetAccountPictureResult(Enum, Int32):
+    _name_ = 'Windows.System.UserProfile.SetAccountPictureResult'
     Success = 0
     ChangeDisabled = 1
     LargeOrDynamicError = 2
@@ -369,6 +371,7 @@ class SetAccountPictureResult(Enum, Int32):
     FileSizeError = 4
     Failure = 5
 class SetImageFeedResult(Enum, Int32):
+    _name_ = 'Windows.System.UserProfile.SetImageFeedResult'
     Success = 0
     ChangeDisabled = 1
     UserCanceled = 2

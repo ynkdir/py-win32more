@@ -128,6 +128,7 @@ class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr, metaclass=_Micros
     def get_Current(cls: win32more.Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticatorStatics) -> win32more.Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager: ...
     _MicrosoftAccountMultiFactorAuthenticationManager_Meta_.Current = property(get_Current, None)
 class MicrosoftAccountMultiFactorAuthenticationType(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationType'
     User = 0
     Device = 1
 class MicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
@@ -157,6 +158,7 @@ class MicrosoftAccountMultiFactorOneTimeCodedInfo(ComPtr):
     TimeInterval = property(get_TimeInterval, None)
     TimeToLive = property(get_TimeToLive, None)
 class MicrosoftAccountMultiFactorServiceResponse(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse'
     Success = 0
     Error = 1
     NoNetworkConnection = 2
@@ -180,10 +182,12 @@ class MicrosoftAccountMultiFactorServiceResponse(Enum, Int32):
     UIRequired = 20
     DeviceIdChanged = 21
 class MicrosoftAccountMultiFactorSessionApprovalStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionApprovalStatus'
     Pending = 0
     Approved = 1
     Denied = 2
 class MicrosoftAccountMultiFactorSessionAuthenticationStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionAuthenticationStatus'
     Authenticated = 0
     Unauthenticated = 1
 class MicrosoftAccountMultiFactorSessionInfo(ComPtr):

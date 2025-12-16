@@ -123,6 +123,7 @@ class MediaTranscoder(ComPtr):
     TrimStopTime = property(get_TrimStopTime, put_TrimStopTime)
     VideoProcessingAlgorithm = property(get_VideoProcessingAlgorithm, put_VideoProcessingAlgorithm)
 class MediaVideoProcessingAlgorithm(Enum, Int32):
+    _name_ = 'Windows.Media.Transcoding.MediaVideoProcessingAlgorithm'
     Default = 0
     MrfCrf444 = 1
 class PrepareTranscodeResult(ComPtr):
@@ -138,6 +139,7 @@ class PrepareTranscodeResult(ComPtr):
     CanTranscode = property(get_CanTranscode, None)
     FailureReason = property(get_FailureReason, None)
 class TranscodeFailureReason(Enum, Int32):
+    _name_ = 'Windows.Media.Transcoding.TranscodeFailureReason'
     None_ = 0
     Unknown = 1
     InvalidProfile = 2

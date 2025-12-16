@@ -49,6 +49,7 @@ class CastingConnectionErrorOccurredEventArgs(ComPtr):
     ErrorStatus = property(get_ErrorStatus, None)
     Message = property(get_Message, None)
 class CastingConnectionErrorStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Casting.CastingConnectionErrorStatus'
     Succeeded = 0
     DeviceDidNotRespond = 1
     DeviceError = 2
@@ -57,6 +58,7 @@ class CastingConnectionErrorStatus(Enum, Int32):
     InvalidCastingSource = 5
     Unknown = 6
 class CastingConnectionState(Enum, Int32):
+    _name_ = 'Windows.Media.Casting.CastingConnectionState'
     Disconnected = 0
     Connected = 1
     Rendering = 2
@@ -152,6 +154,7 @@ class CastingDeviceSelectedEventArgs(ComPtr):
     def get_SelectedCastingDevice(self: win32more.Windows.Media.Casting.ICastingDeviceSelectedEventArgs) -> win32more.Windows.Media.Casting.CastingDevice: ...
     SelectedCastingDevice = property(get_SelectedCastingDevice, None)
 class CastingPlaybackTypes(Enum, UInt32):
+    _name_ = 'Windows.Media.Casting.CastingPlaybackTypes'
     None_ = 0
     Audio = 1
     Video = 2

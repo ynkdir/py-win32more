@@ -68,6 +68,7 @@ class HidCollection(ComPtr):
     UsageId = property(get_UsageId, None)
     UsagePage = property(get_UsagePage, None)
 class HidCollectionType(Enum, Int32):
+    _name_ = 'Windows.Devices.HumanInterfaceDevice.HidCollectionType'
     Physical = 0
     Application = 1
     Logical = 2
@@ -286,6 +287,7 @@ class HidOutputReport(ComPtr):
     Data = property(get_Data, put_Data)
     Id = property(get_Id, None)
 class HidReportType(Enum, Int32):
+    _name_ = 'Windows.Devices.HumanInterfaceDevice.HidReportType'
     Input = 0
     Output = 1
     Feature = 2

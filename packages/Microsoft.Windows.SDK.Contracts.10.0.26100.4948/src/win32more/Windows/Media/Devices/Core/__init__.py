@@ -219,6 +219,7 @@ class FrameFlashControl(ComPtr):
     PowerPercent = property(get_PowerPercent, put_PowerPercent)
     RedEyeReduction = property(get_RedEyeReduction, put_RedEyeReduction)
 class FrameFlashMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.Core.FrameFlashMode'
     Disable = 0
     Enable = 1
     Global = 2

@@ -40,6 +40,7 @@ class ExecutionProviderCatalog(ComPtr):
     @winrt_classmethod
     def GetDefault(cls: win32more.Microsoft.Windows.AI.MachineLearning.IExecutionProviderCatalogStatics) -> win32more.Microsoft.Windows.AI.MachineLearning.ExecutionProviderCatalog: ...
 class ExecutionProviderCertification(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.MachineLearning.ExecutionProviderCertification'
     Unknown = 0
     Certified = 1
     Uncertified = 2
@@ -57,10 +58,12 @@ class ExecutionProviderReadyResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class ExecutionProviderReadyResultState(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.MachineLearning.ExecutionProviderReadyResultState'
     InProgress = 0
     Success = 1
     Failure = 2
 class ExecutionProviderReadyState(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.MachineLearning.ExecutionProviderReadyState'
     Ready = 0
     NotReady = 1
     NotPresent = 2

@@ -4,6 +4,7 @@ import win32more.Windows.Devices.Sensors
 import win32more.Windows.Foundation
 import win32more.Windows.System.Preview
 class HingeState(Enum, Int32):
+    _name_ = 'Windows.System.Preview.HingeState'
     Unknown = 0
     Closed = 1
     Concave = 2

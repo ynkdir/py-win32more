@@ -9,6 +9,7 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 class AddResourcePackageOptions(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.AddResourcePackageOptions'
     None_ = 0
     ForceTargetAppShutdown = 1
     ApplyUpdateIfAvailable = 2
@@ -25,6 +26,7 @@ class AppDisplayInfo(ComPtr):
     Description = property(get_Description, None)
     DisplayName = property(get_DisplayName, None)
 class AppExecutionContext(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.AppExecutionContext'
     Unknown = 0
     Host = 1
     Guest = 2
@@ -115,6 +117,7 @@ class AppInstallerInfo(ComPtr):
     Uri = property(get_Uri, None)
     Version = property(get_Version, None)
 class AppInstallerPolicySource(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.AppInstallerPolicySource'
     Default = 0
     System = 1
 class _AppInstance_Meta_(ComPtr.__class__):
@@ -199,6 +202,7 @@ class FindRelatedPackagesOptions(ComPtr):
     Relationship = property(get_Relationship, put_Relationship)
 FullTrustAppContract: UInt32 = 131072
 class FullTrustLaunchResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.FullTrustLaunchResult'
     Success = 0
     AccessDenied = 1
     FileNotFound = 2
@@ -1046,6 +1050,7 @@ class LimitedAccessFeatureRequestResult(ComPtr):
     FeatureId = property(get_FeatureId, None)
     Status = property(get_Status, None)
 class LimitedAccessFeatureStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.LimitedAccessFeatureStatus'
     Unavailable = 0
     Available = 1
     AvailableWithoutToken = 2
@@ -1317,6 +1322,7 @@ class PackageContentGroupStagingEventArgs(ComPtr):
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
 class PackageContentGroupState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.PackageContentGroupState'
     NotStaged = 0
     Queued = 1
     Staging = 2
@@ -1378,10 +1384,12 @@ class PackageInstallingEventArgs(ComPtr):
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
 class PackageRelationship(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.PackageRelationship'
     Dependencies = 0
     Dependents = 1
     All = 2
 class PackageSignatureKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.PackageSignatureKind'
     None_ = 0
     Developer = 1
     Enterprise = 2
@@ -1475,6 +1483,7 @@ class PackageUninstallingEventArgs(ComPtr):
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
 class PackageUpdateAvailability(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.PackageUpdateAvailability'
     Unknown = 0
     NoUpdates = 1
     Available = 2
@@ -1538,6 +1547,7 @@ class StartupTask(ComPtr):
     TaskId = property(get_TaskId, None)
 StartupTaskContract: UInt32 = 196608
 class StartupTaskState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.StartupTaskState'
     Disabled = 0
     DisabledByUser = 1
     Enabled = 2

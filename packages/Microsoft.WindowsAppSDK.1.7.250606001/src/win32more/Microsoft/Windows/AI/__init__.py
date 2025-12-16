@@ -20,10 +20,12 @@ class AIFeatureReadyResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class AIFeatureReadyResultState(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.AIFeatureReadyResultState'
     InProgress = 0
     Success = 1
     Failure = 2
 class AIFeatureReadyState(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.AIFeatureReadyState'
     Ready = 0
     NotReady = 1
     NotSupportedOnCurrentSystem = 2

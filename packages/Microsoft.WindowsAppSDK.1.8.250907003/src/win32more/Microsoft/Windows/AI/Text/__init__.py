@@ -259,6 +259,7 @@ class ITextToTableRow(ComPtr):
     @winrt_commethod(6)
     def GetColumns(self) -> ReceiveArray[hstr]: ...
 class InputKind(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.Text.InputKind'
     GeneralConversation = 0
     Email = 1
 class LanguageModel(ComPtr):
@@ -342,6 +343,7 @@ class LanguageModelResponseResult(ComPtr):
     Status = property(get_Status, None)
     Text = property(get_Text, None)
 class LanguageModelResponseStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.Text.LanguageModelResponseStatus'
     Complete = 0
     InProgress = 1
     BlockedByPolicy = 2
@@ -351,6 +353,7 @@ class LanguageModelResponseStatus(Enum, Int32):
     Error = 6
 TextIntelligenceContract: UInt32 = 393216
 class TextRewriteTone(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.Text.TextRewriteTone'
     Default = 0
     General = 1
     Casual = 2

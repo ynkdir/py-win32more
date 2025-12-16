@@ -149,6 +149,7 @@ class ImageContentFilterSeverity(ComPtr):
     RacyContentLevel = property(get_RacyContentLevel, put_RacyContentLevel)
     ViolentContentLevel = property(get_ViolentContentLevel, put_ViolentContentLevel)
 class SeverityLevel(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.ContentSafety.SeverityLevel'
     Minimum = 10
     Low = 11
     Medium = 12

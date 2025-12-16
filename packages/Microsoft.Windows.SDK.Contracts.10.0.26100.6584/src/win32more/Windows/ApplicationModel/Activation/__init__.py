@@ -27,6 +27,7 @@ import win32more.Windows.UI.ViewManagement
 ActivatedEventsContract: UInt32 = 65536
 ActivationCameraSettingsContract: UInt32 = 65536
 class ActivationKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Activation.ActivationKind'
     Launch = 0
     Search = 1
     ShareTarget = 2
@@ -73,6 +74,7 @@ class ActivationKind(Enum, Int32):
     VpnForeground = 1026
     PrintSupportEnterpriseManagementUI = 1027
 class ApplicationExecutionState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Activation.ApplicationExecutionState'
     NotRunning = 0
     Running = 1
     Suspended = 2

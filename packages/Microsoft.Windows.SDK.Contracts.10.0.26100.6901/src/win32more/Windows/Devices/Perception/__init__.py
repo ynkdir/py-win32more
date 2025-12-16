@@ -1270,6 +1270,7 @@ class PerceptionDepthFrameSourceWatcher(ComPtr):
     SourceRemoved = event(add_SourceRemoved, remove_SourceRemoved)
     Stopped = event(add_Stopped, remove_Stopped)
 class PerceptionFrameSourceAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Perception.PerceptionFrameSourceAccessStatus'
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
@@ -1295,6 +1296,7 @@ class PerceptionFrameSourcePropertyChangeResult(ComPtr):
     NewValue = property(get_NewValue, None)
     Status = property(get_Status, None)
 class PerceptionFrameSourcePropertyChangeStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeStatus'
     Unknown = 0
     Accepted = 1
     LostControl = 2

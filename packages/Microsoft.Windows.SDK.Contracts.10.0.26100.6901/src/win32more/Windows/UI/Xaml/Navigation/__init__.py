@@ -179,6 +179,7 @@ class NavigatingCancelEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs) -> Void: ...
 class NavigationCacheMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Navigation.NavigationCacheMode'
     Disabled = 0
     Required = 1
     Enabled = 2
@@ -227,6 +228,7 @@ class NavigationFailedEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigationFailedEventArgs) -> Void: ...
 class NavigationMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Navigation.NavigationMode'
     New = 0
     Back = 1
     Forward = 2

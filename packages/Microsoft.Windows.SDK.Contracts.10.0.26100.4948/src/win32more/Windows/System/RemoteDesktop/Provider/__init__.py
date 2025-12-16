@@ -123,6 +123,7 @@ class RemoteDesktopConnectionRemoteInfo(ComPtr):
     PerformLocalActionRequested = event(add_PerformLocalActionRequested, remove_PerformLocalActionRequested)
     SwitchToLocalSessionRequested = event(add_SwitchToLocalSessionRequested, remove_SwitchToLocalSessionRequested)
 class RemoteDesktopConnectionStatus(Enum, Int32):
+    _name_ = 'Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionStatus'
     Connecting = 0
     Connected = 1
     UserInputNeeded = 2
@@ -147,6 +148,7 @@ class RemoteDesktopInfo(ComPtr):
     DisplayName = property(get_DisplayName, None)
     Id = property(get_Id, None)
 class RemoteDesktopLocalAction(Enum, Int32):
+    _name_ = 'Windows.System.RemoteDesktop.Provider.RemoteDesktopLocalAction'
     ShowBluetoothSettings = 0
     ShowSystemSoundSettings = 1
     ShowSystemDisplaySettings = 2

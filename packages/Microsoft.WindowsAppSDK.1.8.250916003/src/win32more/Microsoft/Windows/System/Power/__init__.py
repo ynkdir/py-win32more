@@ -3,15 +3,18 @@ from win32more._prelude import *
 import win32more.Microsoft.Windows.System.Power
 import win32more.Windows.Foundation
 class BatteryStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.System.Power.BatteryStatus'
     NotPresent = 0
     Discharging = 1
     Idle = 2
     Charging = 3
 class DisplayStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.System.Power.DisplayStatus'
     Off = 0
     On = 1
     Dimmed = 2
 class EffectivePowerMode(Enum, Int32):
+    _name_ = 'Microsoft.Windows.System.Power.EffectivePowerMode'
     BatterySaver = 0
     BetterBattery = 1
     Balanced = 2
@@ -20,6 +23,7 @@ class EffectivePowerMode(Enum, Int32):
     GameMode = 5
     MixedReality = 6
 class EnergySaverStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.System.Power.EnergySaverStatus'
     Uninitialized = 0
     Disabled = 1
     Off = 2
@@ -215,18 +219,22 @@ class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     _PowerManager_Meta_.UserPresenceStatusChanged = event(add_UserPresenceStatusChanged, remove_UserPresenceStatusChanged)
 PowerNotificationsContract: UInt32 = 131072
 class PowerSourceKind(Enum, Int32):
+    _name_ = 'Microsoft.Windows.System.Power.PowerSourceKind'
     AC = 0
     DC = 1
 class PowerSupplyStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.System.Power.PowerSupplyStatus'
     NotPresent = 0
     Inadequate = 1
     Adequate = 2
 class SystemSuspendStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.System.Power.SystemSuspendStatus'
     Uninitialized = 0
     Entering = 1
     AutoResume = 2
     ManualResume = 3
 class UserPresenceStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.System.Power.UserPresenceStatus'
     Present = 0
     Absent = 1
 

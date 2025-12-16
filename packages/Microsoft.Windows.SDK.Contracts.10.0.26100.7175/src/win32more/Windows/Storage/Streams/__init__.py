@@ -31,6 +31,7 @@ class Buffer(ComPtr):
     Capacity = property(get_Capacity, None)
     Length = property(get_Length, put_Length)
 class ByteOrder(Enum, Int32):
+    _name_ = 'Windows.Storage.Streams.ByteOrder'
     LittleEndian = 0
     BigEndian = 1
 class DataReader(ComPtr):
@@ -244,6 +245,7 @@ class FileInputStream(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class FileOpenDisposition(Enum, Int32):
+    _name_ = 'Windows.Storage.Streams.FileOpenDisposition'
     OpenExisting = 0
     OpenAlways = 1
     CreateNew = 2
@@ -636,6 +638,7 @@ class InMemoryRandomAccessStream(ComPtr):
     Position = property(get_Position, None)
     Size = property(get_Size, put_Size)
 class InputStreamOptions(Enum, UInt32):
+    _name_ = 'Windows.Storage.Streams.InputStreamOptions'
     None_ = 0
     Partial = 1
     ReadAhead = 2
@@ -716,6 +719,7 @@ class RandomAccessStreamReference(ComPtr):
     @winrt_classmethod
     def CreateFromStream(cls: win32more.Windows.Storage.Streams.IRandomAccessStreamReferenceStatics, stream: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Storage.Streams.RandomAccessStreamReference: ...
 class UnicodeEncoding(Enum, Int32):
+    _name_ = 'Windows.Storage.Streams.UnicodeEncoding'
     Utf8 = 0
     Utf16LE = 1
     Utf16BE = 2

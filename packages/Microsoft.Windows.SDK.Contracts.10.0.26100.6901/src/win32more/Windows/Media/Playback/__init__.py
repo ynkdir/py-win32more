@@ -16,6 +16,7 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Composition
 class AutoLoadedDisplayPropertyKind(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.AutoLoadedDisplayPropertyKind'
     None_ = 0
     MusicOrVideo = 1
     Music = 2
@@ -60,6 +61,7 @@ class CurrentMediaPlaybackItemChangedEventArgs(ComPtr):
     OldItem = property(get_OldItem, None)
     Reason = property(get_Reason, None)
 class FailedMediaStreamKind(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.FailedMediaStreamKind'
     Unknown = 0
     Audio = 1
     Video = 2
@@ -1308,6 +1310,7 @@ class MediaBreakEndedEventArgs(ComPtr):
     def get_MediaBreak(self: win32more.Windows.Media.Playback.IMediaBreakEndedEventArgs) -> win32more.Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
 class MediaBreakInsertionMethod(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaBreakInsertionMethod'
     Interrupt = 0
     Replace = 1
 class MediaBreakManager(ComPtr):
@@ -1401,6 +1404,7 @@ class MediaBreakStartedEventArgs(ComPtr):
     def get_MediaBreak(self: win32more.Windows.Media.Playback.IMediaBreakStartedEventArgs) -> win32more.Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
 class MediaCommandEnablingRule(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaCommandEnablingRule'
     Auto = 0
     Always = 1
     Never = 2
@@ -1768,6 +1772,7 @@ class MediaPlaybackItem(ComPtr):
     TimedMetadataTracksChanged = event(add_TimedMetadataTracksChanged, remove_TimedMetadataTracksChanged)
     VideoTracksChanged = event(add_VideoTracksChanged, remove_VideoTracksChanged)
 class MediaPlaybackItemChangedReason(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaPlaybackItemChangedReason'
     InitialItem = 0
     EndOfStream = 1
     Error = 2
@@ -1783,6 +1788,7 @@ class MediaPlaybackItemError(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
     ExtendedError = property(get_ExtendedError, None)
 class MediaPlaybackItemErrorCode(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaPlaybackItemErrorCode'
     None_ = 0
     Aborted = 1
     NetworkError = 2
@@ -2041,6 +2047,7 @@ class MediaPlaybackSessionOutputDegradationPolicyState(ComPtr):
     def get_VideoConstrictionReason(self: win32more.Windows.Media.Playback.IMediaPlaybackSessionOutputDegradationPolicyState) -> win32more.Windows.Media.Playback.MediaPlaybackSessionVideoConstrictionReason: ...
     VideoConstrictionReason = property(get_VideoConstrictionReason, None)
 class MediaPlaybackSessionVideoConstrictionReason(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaPlaybackSessionVideoConstrictionReason'
     None_ = 0
     VirtualMachine = 1
     UnsupportedDisplayAdapter = 2
@@ -2078,6 +2085,7 @@ class MediaPlaybackSphericalVideoProjection(ComPtr):
     ProjectionMode = property(get_ProjectionMode, put_ProjectionMode)
     ViewOrientation = property(get_ViewOrientation, put_ViewOrientation)
 class MediaPlaybackState(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaPlaybackState'
     None_ = 0
     Opening = 1
     Buffering = 2
@@ -2380,6 +2388,7 @@ class MediaPlayer(ComPtr):
     VideoFrameAvailable = event(add_VideoFrameAvailable, remove_VideoFrameAvailable)
     VolumeChanged = event(add_VolumeChanged, remove_VolumeChanged)
 class MediaPlayerAudioCategory(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaPlayerAudioCategory'
     Other = 0
     Communications = 3
     Alerts = 4
@@ -2391,6 +2400,7 @@ class MediaPlayerAudioCategory(Enum, Int32):
     Movie = 10
     Media = 11
 class MediaPlayerAudioDeviceType(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaPlayerAudioDeviceType'
     Console = 0
     Multimedia = 1
     Communications = 2
@@ -2402,6 +2412,7 @@ class MediaPlayerDataReceivedEventArgs(ComPtr):
     def get_Data(self: win32more.Windows.Media.Playback.IMediaPlayerDataReceivedEventArgs) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     Data = property(get_Data, None)
 class MediaPlayerError(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaPlayerError'
     Unknown = 0
     Aborted = 1
     NetworkError = 2
@@ -2428,6 +2439,7 @@ class MediaPlayerRateChangedEventArgs(ComPtr):
     def get_NewRate(self: win32more.Windows.Media.Playback.IMediaPlayerRateChangedEventArgs) -> Double: ...
     NewRate = property(get_NewRate, None)
 class MediaPlayerState(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.MediaPlayerState'
     Closed = 0
     Opening = 1
     Buffering = 2
@@ -2498,9 +2510,11 @@ class PlaybackMediaMarkerSequence(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Playback.PlaybackMediaMarker]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Media.Playback.PlaybackMediaMarker]: ...
     Size = property(get_Size, None)
 class SphericalVideoProjectionMode(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.SphericalVideoProjectionMode'
     Spherical = 0
     Flat = 1
 class StereoscopicVideoRenderMode(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.StereoscopicVideoRenderMode'
     Mono = 0
     Stereo = 1
 class TimedMetadataPresentationModeChangedEventArgs(ComPtr):
@@ -2517,6 +2531,7 @@ class TimedMetadataPresentationModeChangedEventArgs(ComPtr):
     OldPresentationMode = property(get_OldPresentationMode, None)
     Track = property(get_Track, None)
 class TimedMetadataTrackPresentationMode(Enum, Int32):
+    _name_ = 'Windows.Media.Playback.TimedMetadataTrackPresentationMode'
     Disabled = 0
     Hidden = 1
     ApplicationPresented = 2

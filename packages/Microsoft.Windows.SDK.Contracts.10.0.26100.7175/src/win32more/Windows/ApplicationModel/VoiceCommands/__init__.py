@@ -210,6 +210,7 @@ class VoiceCommandCompletedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandCompletedEventArgs) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletionReason: ...
     Reason = property(get_Reason, None)
 class VoiceCommandCompletionReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletionReason'
     Unknown = 0
     CommunicationFailed = 1
     ResourceLimitsExceeded = 2
@@ -278,6 +279,7 @@ class VoiceCommandContentTile(ComPtr):
     TextLine3 = property(get_TextLine3, put_TextLine3)
     Title = property(get_Title, put_Title)
 class VoiceCommandContentTileType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTileType'
     TitleOnly = 0
     TitleWithText = 1
     TitleWith68x68Icon = 2

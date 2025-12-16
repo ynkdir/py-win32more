@@ -76,14 +76,17 @@ class DisplayMonitor(ComPtr):
     UsageKind = property(get_UsageKind, None)
     WhitePoint = property(get_WhitePoint, None)
 class DisplayMonitorConnectionKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.DisplayMonitorConnectionKind'
     Internal = 0
     Wired = 1
     Wireless = 2
     Virtual = 3
 class DisplayMonitorDescriptorKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.DisplayMonitorDescriptorKind'
     Edid = 0
     DisplayId = 1
 class DisplayMonitorPhysicalConnectorKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.DisplayMonitorPhysicalConnectorKind'
     Unknown = 0
     HD15 = 1
     AnalogTV = 2
@@ -93,6 +96,7 @@ class DisplayMonitorPhysicalConnectorKind(Enum, Int32):
     Sdi = 6
     DisplayPort = 7
 class DisplayMonitorUsageKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.DisplayMonitorUsageKind'
     Standard = 0
     HeadMounted = 1
     SpecialPurpose = 2

@@ -6,24 +6,29 @@ import win32more.Windows.Gaming.Input.Custom
 import win32more.Windows.Gaming.Input.Preview
 import win32more.Windows.System
 class DeviceCommand(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Preview.DeviceCommand'
     Reset = 0
 class GameControllerBatteryChargingState(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Preview.GameControllerBatteryChargingState'
     Unknown = 0
     Inactive = 1
     Active = 2
     Error = 3
 class GameControllerBatteryKind(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Preview.GameControllerBatteryKind'
     Unknown = 0
     None_ = 1
     Standard = 2
     Rechargeable = 3
 class GameControllerBatteryLevel(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Preview.GameControllerBatteryLevel'
     Unknown = 0
     Critical = 1
     Low = 2
     Medium = 3
     Full = 4
 class GameControllerFirmwareCorruptReason(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Preview.GameControllerFirmwareCorruptReason'
     Unknown = 0
     NotCorrupt = 1
     TwoUpCorrupt = 2
@@ -46,11 +51,13 @@ class HeadsetGeqGains(Structure):
     band4Gain: Int32
     band5Gain: Int32
 class HeadsetLevel(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Preview.HeadsetLevel'
     Off = 0
     Low = 1
     Medium = 2
     High = 3
 class HeadsetOperation(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Preview.HeadsetOperation'
     Geq = 0
     BassBoostGain = 1
     SmartMute = 2
@@ -180,6 +187,7 @@ class LegacyGipGameControllerProvider(ComPtr):
     IsSyntheticDevice = property(get_IsSyntheticDevice, None)
     PreferredTypes = property(get_PreferredTypes, None)
 class RemappingButtonCategory(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Preview.RemappingButtonCategory'
     ButtonSettings = 0
     AnalogSettings = 1
     VibrationSettings = 2

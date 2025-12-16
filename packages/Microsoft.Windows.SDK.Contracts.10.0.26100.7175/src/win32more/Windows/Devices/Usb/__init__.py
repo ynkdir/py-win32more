@@ -570,6 +570,7 @@ class UsbConfigurationDescriptor(ComPtr):
     RemoteWakeup = property(get_RemoteWakeup, None)
     SelfPowered = property(get_SelfPowered, None)
 class UsbControlRecipient(Enum, Int32):
+    _name_ = 'Windows.Devices.Usb.UsbControlRecipient'
     Device = 0
     SpecifiedInterface = 1
     Endpoint = 2
@@ -609,6 +610,7 @@ class UsbControlRequestType(ComPtr):
     Direction = property(get_Direction, put_Direction)
     Recipient = property(get_Recipient, put_Recipient)
 class UsbControlTransferType(Enum, Int32):
+    _name_ = 'Windows.Devices.Usb.UsbControlTransferType'
     Standard = 0
     Class = 1
     Vendor = 2
@@ -771,6 +773,7 @@ class UsbEndpointDescriptor(ComPtr):
     EndpointNumber = property(get_EndpointNumber, None)
     EndpointType = property(get_EndpointType, None)
 class UsbEndpointType(Enum, Int32):
+    _name_ = 'Windows.Devices.Usb.UsbEndpointType'
     Control = 0
     Isochronous = 1
     Bulk = 2
@@ -921,6 +924,7 @@ class UsbInterruptOutPipe(ComPtr):
     OutputStream = property(get_OutputStream, None)
     WriteOptions = property(get_WriteOptions, put_WriteOptions)
 class UsbReadOptions(Enum, UInt32):
+    _name_ = 'Windows.Devices.Usb.UsbReadOptions'
     None_ = 0
     AutoClearStall = 1
     OverrideAutomaticBufferManagement = 2
@@ -969,9 +973,11 @@ class UsbSetupPacket(ComPtr):
     RequestType = property(get_RequestType, put_RequestType)
     Value = property(get_Value, put_Value)
 class UsbTransferDirection(Enum, Int32):
+    _name_ = 'Windows.Devices.Usb.UsbTransferDirection'
     Out = 0
     In = 1
 class UsbWriteOptions(Enum, UInt32):
+    _name_ = 'Windows.Devices.Usb.UsbWriteOptions'
     None_ = 0
     AutoClearStall = 1
     ShortPacketTerminate = 2

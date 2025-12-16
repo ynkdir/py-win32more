@@ -261,6 +261,7 @@ class BlendEffect(ComPtr):
     Mode = property(get_Mode, put_Mode)
     Name = property(get_Name, put_Name)
 class BlendEffectMode(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.BlendEffectMode'
     Multiply = 0
     Screen = 1
     Darken = 2
@@ -557,10 +558,12 @@ class ColorManagementEffect(ComPtr):
     SourceColorProfile = property(get_SourceColorProfile, put_SourceColorProfile)
     SourceRenderingIntent = property(get_SourceRenderingIntent, put_SourceRenderingIntent)
 class ColorManagementEffectQuality(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.ColorManagementEffectQuality'
     Proof = 0
     Normal = 1
     Best = 2
 class ColorManagementGamma(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.ColorManagementGamma'
     G22 = 0
     G10 = 1
     G2084 = 2
@@ -604,10 +607,12 @@ class ColorManagementProfile(ComPtr):
     SimpleProfile = property(get_SimpleProfile, None)
     Type = property(get_Type, None)
 class ColorManagementProfileType(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.ColorManagementProfileType'
     Icc = 0
     Simple = 1
     Extended = 2
 class ColorManagementRenderingIntent(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.ColorManagementRenderingIntent'
     Perceptual = 0
     RelativeColorimetric = 1
     Saturation = 2
@@ -1615,20 +1620,25 @@ class EdgeDetectionEffect(ComPtr):
     OverlayEdges = property(get_OverlayEdges, put_OverlayEdges)
     Source = property(get_Source, put_Source)
 class EdgeDetectionEffectMode(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.EdgeDetectionEffectMode'
     Sobel = 0
     Prewitt = 1
 class EffectBorderMode(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.EffectBorderMode'
     Soft = 0
     Hard = 1
 class EffectChannelSelect(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.EffectChannelSelect'
     Red = 0
     Green = 1
     Blue = 2
     Alpha = 3
 class EffectHueColorSpace(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.EffectHueColorSpace'
     Hsv = 0
     Hsl = 1
 class EffectOptimization(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.EffectOptimization'
     Speed = 0
     Balanced = 1
     Quality = 2
@@ -1758,6 +1768,7 @@ class ExposureEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class ExtendedColorSpace(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.ExtendedColorSpace'
     FullG22P709 = 0
     FullG10P709 = 1
     StudioG22P709 = 2
@@ -4509,6 +4520,7 @@ class MorphologyEffect(ComPtr):
     Source = property(get_Source, put_Source)
     Width = property(get_Width, put_Width)
 class MorphologyEffectMode(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.MorphologyEffectMode'
     Erode = 0
     Dilate = 1
 class _OpacityEffect_Meta_(ComPtr.__class__):
@@ -5171,6 +5183,7 @@ class RgbToHueEffect(ComPtr):
     OutputColorSpace = property(get_OutputColorSpace, put_OutputColorSpace)
     Source = property(get_Source, put_Source)
 class SamplerCoordinateMapping(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.SamplerCoordinateMapping'
     Unknown = 0
     OneToOne = 1
     Offset = 2
@@ -6288,6 +6301,7 @@ class TurbulenceEffect(ComPtr):
     Size = property(get_Size, put_Size)
     Tileable = property(get_Tileable, put_Tileable)
 class TurbulenceEffectNoise(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Effects.TurbulenceEffectNoise'
     FractalSum = 0
     Turbulence = 1
 class UnPremultiplyEffect(ComPtr):

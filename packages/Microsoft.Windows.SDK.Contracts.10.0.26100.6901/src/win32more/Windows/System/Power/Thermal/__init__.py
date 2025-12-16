@@ -103,6 +103,7 @@ class IPowerThermalChannelFinderStatics(ComPtr):
     def FindChannels(self, channelInterfaceType: Guid) -> ReceiveArray[win32more.Windows.System.Power.Thermal.PowerThermalChannelId]: ...
 PowerThermalApiContract: UInt32 = 65536
 class PowerThermalBackEndStatus(Enum, Int32):
+    _name_ = 'Windows.System.Power.Thermal.PowerThermalBackEndStatus'
     Stopped = 0
     Started = 1
 class PowerThermalChannelConfiguration(ComPtr):

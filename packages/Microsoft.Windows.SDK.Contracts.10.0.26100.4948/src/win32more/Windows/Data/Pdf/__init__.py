@@ -218,6 +218,7 @@ class PdfPageRenderOptions(ComPtr):
     IsIgnoringHighContrast = property(get_IsIgnoringHighContrast, put_IsIgnoringHighContrast)
     SourceRect = property(get_SourceRect, put_SourceRect)
 class PdfPageRotation(Enum, Int32):
+    _name_ = 'Windows.Data.Pdf.PdfPageRotation'
     Normal = 0
     Rotate90 = 1
     Rotate180 = 2

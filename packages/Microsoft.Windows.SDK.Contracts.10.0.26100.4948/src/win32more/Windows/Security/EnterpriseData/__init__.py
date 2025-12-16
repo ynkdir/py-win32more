@@ -42,6 +42,7 @@ class DataProtectionManager(ComPtr):
     @winrt_classmethod
     def GetStreamProtectionInfoAsync(cls: win32more.Windows.Security.EnterpriseData.IDataProtectionManagerStatics, protectedStream: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.DataProtectionInfo]: ...
 class DataProtectionStatus(Enum, Int32):
+    _name_ = 'Windows.Security.EnterpriseData.DataProtectionStatus'
     ProtectedToOtherIdentity = 0
     Protected = 1
     Revoked = 2
@@ -49,6 +50,7 @@ class DataProtectionStatus(Enum, Int32):
     LicenseExpired = 4
     AccessSuspended = 5
 class EnforcementLevel(Enum, Int32):
+    _name_ = 'Windows.Security.EnterpriseData.EnforcementLevel'
     NoProtection = 0
     Silent = 1
     Override = 2
@@ -98,6 +100,7 @@ class FileProtectionManager(ComPtr):
     @winrt_classmethod
     def CreateProtectedAndOpenAsync(cls: win32more.Windows.Security.EnterpriseData.IFileProtectionManagerStatics, parentFolder: win32more.Windows.Storage.IStorageFolder, desiredName: hstr, identity: hstr, collisionOption: win32more.Windows.Storage.CreationCollisionOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectedFileCreateResult]: ...
 class FileProtectionStatus(Enum, Int32):
+    _name_ = 'Windows.Security.EnterpriseData.FileProtectionStatus'
     Undetermined = 0
     Unknown = 0
     Unprotected = 1
@@ -533,6 +536,7 @@ class ProtectedFileCreateResult(ComPtr):
     ProtectionInfo = property(get_ProtectionInfo, None)
     Stream = property(get_Stream, None)
 class ProtectedImportExportStatus(Enum, Int32):
+    _name_ = 'Windows.Security.EnterpriseData.ProtectedImportExportStatus'
     Ok = 0
     Undetermined = 1
     Unprotected = 2
@@ -542,6 +546,7 @@ class ProtectedImportExportStatus(Enum, Int32):
     LicenseExpired = 6
     AccessSuspended = 7
 class ProtectionPolicyAuditAction(Enum, Int32):
+    _name_ = 'Windows.Security.EnterpriseData.ProtectionPolicyAuditAction'
     Decrypt = 0
     CopyToLocation = 1
     SendToRecipient = 2
@@ -584,6 +589,7 @@ class ProtectionPolicyAuditInfo(ComPtr):
     SourceDescription = property(get_SourceDescription, put_SourceDescription)
     TargetDescription = property(get_TargetDescription, put_TargetDescription)
 class ProtectionPolicyEvaluationResult(Enum, Int32):
+    _name_ = 'Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult'
     Allowed = 0
     Blocked = 1
     ConsentRequired = 2
@@ -690,6 +696,7 @@ class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     _ProtectionPolicyManager_Meta_.ProtectedAccessSuspending = event(add_ProtectedAccessSuspending, remove_ProtectedAccessSuspending)
     _ProtectionPolicyManager_Meta_.ProtectedContentRevoked = event(add_ProtectedContentRevoked, remove_ProtectedContentRevoked)
 class ProtectionPolicyRequestAccessBehavior(Enum, Int32):
+    _name_ = 'Windows.Security.EnterpriseData.ProtectionPolicyRequestAccessBehavior'
     Decrypt = 0
     TreatOverridePolicyAsBlock = 1
 class ThreadNetworkContext(ComPtr):

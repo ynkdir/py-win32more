@@ -454,6 +454,7 @@ class IppAttributeError(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Reason = property(get_Reason, None)
 class IppAttributeErrorReason(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.IppAttributeErrorReason'
     RequestEntityTooLarge = 0
     AttributeNotSupported = 1
     AttributeValuesNotSupported = 2
@@ -581,6 +582,7 @@ class IppAttributeValue(ComPtr):
     def CreateMimeMediaArray(cls: win32more.Windows.Devices.Printers.IIppAttributeValueStatics, values: win32more.Windows.Foundation.Collections.IIterable[hstr]) -> win32more.Windows.Devices.Printers.IppAttributeValue: ...
     Kind = property(get_Kind, None)
 class IppAttributeValueKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.IppAttributeValueKind'
     Unsupported = 0
     Unknown = 1
     NoValue = 2
@@ -678,6 +680,7 @@ class IppPrintDevice(ComPtr):
     PrinterUri = property(get_PrinterUri, None)
     UserDefaultPrintTicket = property(get_UserDefaultPrintTicket, put_UserDefaultPrintTicket)
 class IppPrintDeviceKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.IppPrintDeviceKind'
     Printer = 0
     FaxOut = 1
     VirtualPrinter = 2
@@ -704,6 +707,7 @@ class IppResolution(ComPtr):
     Unit = property(get_Unit, None)
     Width = property(get_Width, None)
 class IppResolutionUnit(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.IppResolutionUnit'
     DotsPerInch = 0
     DotsPerCentimeter = 1
 class IppSetAttributesResult(ComPtr):
@@ -759,6 +763,7 @@ class PageConfigurationSettings(ComPtr):
     OrientationSource = property(get_OrientationSource, put_OrientationSource)
     SizeSource = property(get_SizeSource, put_SizeSource)
 class PageConfigurationSource(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.PageConfigurationSource'
     PrintJobConfiguration = 0
     PdlContent = 1
 class PdlPassthroughProvider(ComPtr):
@@ -819,6 +824,7 @@ class ReplaceDevicePropertiesResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class ReplaceDevicePropertiesStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.ReplaceDevicePropertiesStatus'
     Succeeded = 0
     AccessDenied = 1
     OtherFailure = 2
@@ -882,6 +888,7 @@ class VirtualPrinterInstallationResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class VirtualPrinterInstallationStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.VirtualPrinterInstallationStatus'
     InstallationSucceeded = 0
     PrinterAlreadyInstalled = 1
     PrinterInstallationAccessDenied = 2
@@ -906,6 +913,7 @@ class VirtualPrinterManager(ComPtr):
     @winrt_classmethod
     def RemoveVirtualPrinterForAllUsersAsync(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics, printerName: hstr) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class VirtualPrinterPreferredInputFormat(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.VirtualPrinterPreferredInputFormat'
     OpenXps = 0
     PostScript = 1
 class VirtualPrinterSupportedFormat(ComPtr):

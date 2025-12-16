@@ -9,6 +9,7 @@ import win32more.Windows.UI
 import win32more.Windows.UI.Popups
 import win32more.Windows.UI.StartScreen
 class ForegroundText(Enum, Int32):
+    _name_ = 'Windows.UI.StartScreen.ForegroundText'
     Dark = 0
     Light = 1
 class IJumpList(ComPtr):
@@ -421,9 +422,11 @@ class JumpListItem(ComPtr):
     Logo = property(get_Logo, put_Logo)
     RemovedByUser = property(get_RemovedByUser, None)
 class JumpListItemKind(Enum, Int32):
+    _name_ = 'Windows.UI.StartScreen.JumpListItemKind'
     Arguments = 0
     Separator = 1
 class JumpListSystemGroupKind(Enum, Int32):
+    _name_ = 'Windows.UI.StartScreen.JumpListSystemGroupKind'
     None_ = 0
     Frequent = 1
     Recent = 2
@@ -668,14 +671,17 @@ class TileMixedRealityModel(ComPtr):
     BoundingBox = property(get_BoundingBox, put_BoundingBox)
     Uri = property(get_Uri, put_Uri)
 class TileMixedRealityModelActivationBehavior(Enum, Int32):
+    _name_ = 'Windows.UI.StartScreen.TileMixedRealityModelActivationBehavior'
     Default = 0
     None_ = 1
 class TileOptions(Enum, UInt32):
+    _name_ = 'Windows.UI.StartScreen.TileOptions'
     None_ = 0
     ShowNameOnLogo = 1
     ShowNameOnWideLogo = 2
     CopyOnDeployment = 4
 class TileSize(Enum, Int32):
+    _name_ = 'Windows.UI.StartScreen.TileSize'
     Default = 0
     Square30x30 = 1
     Square70x70 = 2

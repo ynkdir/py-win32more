@@ -7,6 +7,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Graphics
 class CanvasArcSize(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasArcSize'
     Small = 0
     Large = 1
 class CanvasCachedGeometry(ComPtr):
@@ -30,27 +31,33 @@ class CanvasCachedGeometry(ComPtr):
     def CreateStrokeWithStrokeStyleAndFlatteningTolerance(cls: win32more.Microsoft.Graphics.Canvas.Geometry.ICanvasCachedGeometryStatics, geometry: win32more.Microsoft.Graphics.Canvas.Geometry.CanvasGeometry, strokeWidth: Single, strokeStyle: win32more.Microsoft.Graphics.Canvas.Geometry.CanvasStrokeStyle, flatteningTolerance: Single) -> win32more.Microsoft.Graphics.Canvas.Geometry.CanvasCachedGeometry: ...
     Device = property(get_Device, None)
 class CanvasCapStyle(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasCapStyle'
     Flat = 0
     Square = 1
     Round = 2
     Triangle = 3
 class CanvasDashStyle(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasDashStyle'
     Solid = 0
     Dash = 1
     Dot = 2
     DashDot = 3
     DashDotDot = 4
 class CanvasFigureFill(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasFigureFill'
     Default = 0
     DoesNotAffectFills = 1
 class CanvasFigureLoop(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasFigureLoop'
     Open = 0
     Closed = 1
 class CanvasFigureSegmentOptions(Enum, UInt32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasFigureSegmentOptions'
     None_ = 0
     ForceUnstroked = 1
     ForceRoundLineJoin = 2
 class CanvasFilledRegionDetermination(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasFilledRegionDetermination'
     Alternate = 0
     Winding = 1
 class _CanvasGeometry_Meta_(ComPtr.__class__):
@@ -165,16 +172,19 @@ class CanvasGeometry(ComPtr, metaclass=_CanvasGeometry_Meta_):
     Device = property(get_Device, None)
     _CanvasGeometry_Meta_.DefaultFlatteningTolerance = property(get_DefaultFlatteningTolerance, None)
 class CanvasGeometryCombine(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasGeometryCombine'
     Union = 0
     Intersect = 1
     Xor = 2
     Exclude = 3
 class CanvasGeometryRelation(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasGeometryRelation'
     Disjoint = 0
     Contained = 1
     Contains = 2
     Overlap = 3
 class CanvasGeometrySimplification(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasGeometrySimplification'
     CubicsAndLines = 0
     Lines = 1
 class CanvasGradientMesh(ComPtr):
@@ -234,10 +244,12 @@ class CanvasGradientMeshPatch(Structure):
     Edge33To30: win32more.Microsoft.Graphics.Canvas.Geometry.CanvasGradientMeshPatchEdge
     Edge30To00: win32more.Microsoft.Graphics.Canvas.Geometry.CanvasGradientMeshPatchEdge
 class CanvasGradientMeshPatchEdge(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasGradientMeshPatchEdge'
     Aliased = 0
     Antialiased = 1
     AliasedAndInflated = 2
 class CanvasLineJoin(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasLineJoin'
     Miter = 0
     Bevel = 1
     Round = 2
@@ -348,10 +360,12 @@ class CanvasStrokeStyle(ComPtr):
     StartCap = property(get_StartCap, put_StartCap)
     TransformBehavior = property(get_TransformBehavior, put_TransformBehavior)
 class CanvasStrokeTransformBehavior(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasStrokeTransformBehavior'
     Normal = 0
     Fixed = 1
     Hairline = 2
 class CanvasSweepDirection(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Geometry.CanvasSweepDirection'
     CounterClockwise = 0
     Clockwise = 1
 class CanvasTriangleVertices(Structure):

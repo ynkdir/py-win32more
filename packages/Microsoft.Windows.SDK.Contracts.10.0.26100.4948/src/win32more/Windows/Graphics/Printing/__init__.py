@@ -366,6 +366,7 @@ class IStandardPrintTaskOptionsStatic3(ComPtr):
     def get_CustomPageRanges(self) -> hstr: ...
     CustomPageRanges = property(get_CustomPageRanges, None)
 class PrintBinding(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintBinding'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -384,18 +385,21 @@ class PrintBinding(Enum, Int32):
     JogOffset = 15
     Trim = 16
 class PrintBordering(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintBordering'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
     Bordered = 3
     Borderless = 4
 class PrintCollation(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintCollation'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
     Collated = 3
     Uncollated = 4
 class PrintColorMode(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintColorMode'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -404,6 +408,7 @@ class PrintColorMode(Enum, Int32):
     Monochrome = 5
     AutoSelect = 6
 class PrintDuplex(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintDuplex'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -411,6 +416,7 @@ class PrintDuplex(Enum, Int32):
     TwoSidedShortEdge = 4
     TwoSidedLongEdge = 5
 class PrintHolePunch(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintHolePunch'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -435,6 +441,7 @@ class PrintManager(ComPtr):
     def ShowPrintUIAsync(cls: win32more.Windows.Graphics.Printing.IPrintManagerStatic) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     PrintTaskRequested = event(add_PrintTaskRequested, remove_PrintTaskRequested)
 class PrintMediaSize(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintMediaSize'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -609,6 +616,7 @@ class PrintMediaSize(Enum, Int32):
     Roll36Inch = 171
     Roll54Inch = 172
 class PrintMediaType(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintMediaType'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -642,6 +650,7 @@ class PrintMediaType(Enum, Int32):
     TShirtTransfer = 30
     None_ = 31
 class PrintOrientation(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintOrientation'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -736,6 +745,7 @@ class PrintPageRangeOptions(ComPtr):
     AllowCurrentPage = property(get_AllowCurrentPage, put_AllowCurrentPage)
     AllowCustomSetOfPages = property(get_AllowCustomSetOfPages, put_AllowCustomSetOfPages)
 class PrintQuality(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintQuality'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -747,6 +757,7 @@ class PrintQuality(Enum, Int32):
     Photographic = 8
     Text = 9
 class PrintStaple(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintStaple'
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -816,6 +827,7 @@ class PrintTaskCompletedEventArgs(ComPtr):
     def get_Completion(self: win32more.Windows.Graphics.Printing.IPrintTaskCompletedEventArgs) -> win32more.Windows.Graphics.Printing.PrintTaskCompletion: ...
     Completion = property(get_Completion, None)
 class PrintTaskCompletion(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintTaskCompletion'
     Abandoned = 0
     Canceled = 1
     Failed = 2

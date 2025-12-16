@@ -89,6 +89,7 @@ class CurrentAppSimulator(ComPtr, metaclass=_CurrentAppSimulator_Meta_):
     _CurrentAppSimulator_Meta_.LicenseInformation = property(get_LicenseInformation, None)
     _CurrentAppSimulator_Meta_.LinkUri = property(get_LinkUri, None)
 class FulfillmentResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.FulfillmentResult'
     Succeeded = 0
     NothingToFulfill = 1
     PurchasePending = 2
@@ -541,11 +542,13 @@ class ProductPurchaseDisplayProperties(ComPtr):
     Image = property(get_Image, put_Image)
     Name = property(get_Name, put_Name)
 class ProductPurchaseStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.ProductPurchaseStatus'
     Succeeded = 0
     AlreadyPurchased = 1
     NotFulfilled = 2
     NotPurchased = 3
 class ProductType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.ProductType'
     Unknown = 0
     Durable = 1
     Consumable = 2

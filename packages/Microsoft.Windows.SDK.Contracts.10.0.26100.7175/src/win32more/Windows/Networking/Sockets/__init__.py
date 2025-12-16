@@ -71,14 +71,17 @@ class ControlChannelTrigger(ComPtr):
     TransportObject = property(get_TransportObject, None)
 ControlChannelTriggerContract: UInt32 = 196608
 class ControlChannelTriggerResetReason(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.ControlChannelTriggerResetReason'
     FastUserSwitched = 0
     LowPowerExit = 1
     QuietHoursExit = 2
     ApplicationRestart = 3
 class ControlChannelTriggerResourceType(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.ControlChannelTriggerResourceType'
     RequestSoftwareSlot = 0
     RequestHardwareSlot = 1
 class ControlChannelTriggerStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.ControlChannelTriggerStatus'
     HardwareSlotRequested = 0
     SoftwareSlotAllocated = 1
     HardwareSlotAllocated = 2
@@ -1206,6 +1209,7 @@ class MessageWebSocketMessageReceivedEventArgs(ComPtr):
     IsMessageComplete = property(get_IsMessageComplete, None)
     MessageType = property(get_MessageType, None)
 class MessageWebSocketReceiveMode(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.MessageWebSocketReceiveMode'
     FullMessage = 0
     PartialMessage = 1
 class RoundTripTimeStatistics(Structure):
@@ -1301,6 +1305,7 @@ class ServerStreamWebSocketInformation(ComPtr):
     LocalAddress = property(get_LocalAddress, None)
     Protocol = property(get_Protocol, None)
 class SocketActivityConnectedStandbyAction(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.SocketActivityConnectedStandbyAction'
     DoNotWake = 0
     Wake = 1
 class SocketActivityContext(ComPtr):
@@ -1350,6 +1355,7 @@ class SocketActivityInformation(ComPtr, metaclass=_SocketActivityInformation_Met
     TaskId = property(get_TaskId, None)
     _SocketActivityInformation_Meta_.AllSockets = property(get_AllSockets, None)
 class SocketActivityKind(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.SocketActivityKind'
     None_ = 0
     StreamSocketListener = 1
     DatagramSocket = 2
@@ -1365,6 +1371,7 @@ class SocketActivityTriggerDetails(ComPtr):
     Reason = property(get_Reason, None)
     SocketInformation = property(get_SocketInformation, None)
 class SocketActivityTriggerReason(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.SocketActivityTriggerReason'
     None_ = 0
     SocketActivity = 1
     ConnectionAccepted = 2
@@ -1376,6 +1383,7 @@ class SocketError(ComPtr):
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Networking.Sockets.ISocketErrorStatics, hresult: Int32) -> win32more.Windows.Networking.Sockets.SocketErrorStatus: ...
 class SocketErrorStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.SocketErrorStatus'
     Unknown = 0
     OperationAborted = 1
     HttpInvalidServerResponse = 2
@@ -1408,9 +1416,11 @@ class SocketErrorStatus(Enum, Int32):
     CertificateRevocationServerOffline = 29
     CertificateIsInvalid = 30
 class SocketMessageType(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.SocketMessageType'
     Binary = 0
     Utf8 = 1
 class SocketProtectionLevel(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.SocketProtectionLevel'
     PlainSocket = 0
     Ssl = 1
     SslAllowNullEncryption = 2
@@ -1423,9 +1433,11 @@ class SocketProtectionLevel(Enum, Int32):
     Unspecified = 9
     Tls13 = 10
 class SocketQualityOfService(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.SocketQualityOfService'
     Normal = 0
     LowLatency = 1
 class SocketSslErrorSeverity(Enum, Int32):
+    _name_ = 'Windows.Networking.Sockets.SocketSslErrorSeverity'
     None_ = 0
     Ignorable = 1
     Fatal = 2

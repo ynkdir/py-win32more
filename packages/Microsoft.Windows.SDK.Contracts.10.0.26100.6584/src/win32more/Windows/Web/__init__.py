@@ -21,6 +21,7 @@ class WebError(ComPtr):
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Web.IWebErrorStatics, hresult: Int32) -> win32more.Windows.Web.WebErrorStatus: ...
 class WebErrorStatus(Enum, Int32):
+    _name_ = 'Windows.Web.WebErrorStatus'
     Unknown = 0
     CertificateCommonNameIsIncorrect = 1
     CertificateExpired = 2

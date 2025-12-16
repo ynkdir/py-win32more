@@ -105,6 +105,7 @@ class GameSaveContainerInfoQuery(ComPtr):
     @winrt_mixinmethod
     def GetItemCountAsync(self: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfoQuery) -> win32more.Windows.Foundation.IAsyncOperation[UInt32]: ...
 class GameSaveErrorStatus(Enum, Int32):
+    _name_ = 'Windows.Gaming.XboxLive.Storage.GameSaveErrorStatus'
     Ok = 0
     Abort = -2147467260
     InvalidContainerName = -2138898431

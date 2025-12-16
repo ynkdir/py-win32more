@@ -53,6 +53,7 @@ class CrossSlidingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class CrossSlidingState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.CrossSlidingState'
     Started = 0
     Dragging = 1
     Selecting = 2
@@ -74,6 +75,7 @@ class DraggingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class DraggingState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.DraggingState'
     Started = 0
     Continuing = 1
     Completed = 2
@@ -87,6 +89,7 @@ class FocusChangedEventArgs(ComPtr):
     def get_Handled(self: win32more.Microsoft.UI.Input.IFocusChangedEventArgs) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
 class FocusNavigationReason(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.FocusNavigationReason'
     Programmatic = 0
     Restore = 1
     First = 2
@@ -127,6 +130,7 @@ class FocusNavigationRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
     Result = property(get_Result, put_Result)
 class FocusNavigationResult(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.FocusNavigationResult'
     NotMoved = 0
     Moved = 1
     NoFocusableElements = 2
@@ -287,6 +291,7 @@ class GestureRecognizer(ComPtr):
     RightTapped = event(add_RightTapped, remove_RightTapped)
     Tapped = event(add_Tapped, remove_Tapped)
 class GestureSettings(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Input.GestureSettings'
     None_ = 0
     Tap = 1
     DoubleTap = 2
@@ -319,6 +324,7 @@ class HoldingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class HoldingState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.HoldingState'
     Started = 0
     Completed = 1
     Canceled = 2
@@ -1276,6 +1282,7 @@ class InputActivationListenerActivationChangedEventArgs(ComPtr):
     default_interface: win32more.Microsoft.UI.Input.IInputActivationListenerActivationChangedEventArgs
     _classid_ = 'Microsoft.UI.Input.InputActivationListenerActivationChangedEventArgs'
 class InputActivationState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.InputActivationState'
     None_ = 0
     Deactivated = 1
     Activated = 2
@@ -1545,6 +1552,7 @@ class InputPointerSource(ComPtr):
     PointerRoutedTo = event(add_PointerRoutedTo, remove_PointerRoutedTo)
     PointerWheelChanged = event(add_PointerWheelChanged, remove_PointerWheelChanged)
 class InputPointerSourceDeviceKinds(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Input.InputPointerSourceDeviceKinds'
     None_ = 0
     Touch = 1
     Pen = 2
@@ -1565,6 +1573,7 @@ class InputSystemCursor(ComPtr):
     def Create(cls: win32more.Microsoft.UI.Input.IInputSystemCursorStatics, type: win32more.Microsoft.UI.Input.InputSystemCursorShape) -> win32more.Microsoft.UI.Input.InputSystemCursor: ...
     CursorShape = property(get_CursorShape, None)
 class InputSystemCursorShape(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.InputSystemCursorShape'
     Arrow = 0
     Cross = 1
     Hand = 3
@@ -1728,6 +1737,7 @@ class NonClientPointerEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     RegionKind = property(get_RegionKind, None)
 class NonClientRegionKind(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.NonClientRegionKind'
     Close = 0
     Maximize = 1
     Minimize = 2
@@ -1754,6 +1764,7 @@ class PhysicalKeyStatus(Structure):
     WasKeyDown: Boolean
     IsKeyReleased: Boolean
 class PointerDeviceType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.PointerDeviceType'
     Touch = 0
     Pen = 1
     Mouse = 2
@@ -1888,6 +1899,7 @@ class PointerPredictor(ComPtr):
     def CreateForInputPointerSource(cls: win32more.Microsoft.UI.Input.IPointerPredictorStatics, inputPointerSource: win32more.Microsoft.UI.Input.InputPointerSource) -> win32more.Microsoft.UI.Input.PointerPredictor: ...
     PredictionTime = property(get_PredictionTime, put_PredictionTime)
 class PointerUpdateKind(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.PointerUpdateKind'
     Other = 0
     LeftButtonPressed = 1
     LeftButtonReleased = 2
@@ -1923,6 +1935,7 @@ class TappedEventArgs(ComPtr):
     Position = property(get_Position, None)
     TapCount = property(get_TapCount, None)
 class VirtualKeyStates(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Input.VirtualKeyStates'
     None_ = 0
     Down = 1
     Locked = 2

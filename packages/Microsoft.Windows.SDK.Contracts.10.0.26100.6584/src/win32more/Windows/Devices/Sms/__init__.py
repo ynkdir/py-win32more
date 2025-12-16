@@ -5,6 +5,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
 class CellularClass(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.CellularClass'
     None_ = 0
     Gsm = 1
     Cdma = 2
@@ -900,6 +901,7 @@ class SmsBroadcastMessage(ComPtr):
     To = property(get_To, None)
     UpdateNumber = property(get_UpdateNumber, None)
 class SmsBroadcastType(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsBroadcastType'
     Other = 0
     CmasPresidential = 1
     CmasExtreme = 2
@@ -916,6 +918,7 @@ class SmsBroadcastType(Enum, Int32):
     EtwsTsunamiAndEarthquake = 13
     LatAlertLocal = 14
 class SmsDataFormat(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsDataFormat'
     Unknown = 0
     CdmaSubmit = 1
     GsmSubmit = 2
@@ -1016,6 +1019,7 @@ class SmsDeviceMessageStore(ComPtr):
     def get_MaxMessages(self: win32more.Windows.Devices.Sms.ISmsDeviceMessageStore) -> UInt32: ...
     MaxMessages = property(get_MaxMessages, None)
 class SmsDeviceStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsDeviceStatus'
     Off = 0
     Ready = 1
     SimNotInserted = 2
@@ -1037,6 +1041,7 @@ class SmsEncodedLength(Structure):
     ByteCountLastSegment: UInt32
     BytesPerSegment: UInt32
 class SmsEncoding(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsEncoding'
     Unknown = 0
     Optimal = 1
     SevenBitAscii = 2
@@ -1049,6 +1054,7 @@ class SmsEncoding(Enum, Int32):
     ShiftJis = 9
     LatinHebrew = 10
 class SmsFilterActionType(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsFilterActionType'
     AcceptImmediately = 0
     Drop = 1
     Peek = 2
@@ -1127,18 +1133,21 @@ class SmsFilterRules(ComPtr):
     ActionType = property(get_ActionType, None)
     Rules = property(get_Rules, None)
 class SmsGeographicalScope(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsGeographicalScope'
     None_ = 0
     CellWithImmediateDisplay = 1
     LocationArea = 2
     Plmn = 3
     Cell = 4
 class SmsMessageClass(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsMessageClass'
     None_ = 0
     Class0 = 1
     Class1 = 2
     Class2 = 3
     Class3 = 4
 class SmsMessageFilter(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsMessageFilter'
     All = 0
     Unread = 1
     Read = 2
@@ -1210,6 +1219,7 @@ class SmsMessageRegistration(ComPtr, metaclass=_SmsMessageRegistration_Meta_):
     _SmsMessageRegistration_Meta_.AllRegistrations = property(get_AllRegistrations, None)
     MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class SmsMessageType(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsMessageType'
     Binary = 0
     Text = 1
     Wap = 2
@@ -1218,6 +1228,7 @@ class SmsMessageType(Enum, Int32):
     Voicemail = 5
     Status = 6
 class SmsModemErrorCode(Enum, Int32):
+    _name_ = 'Windows.Devices.Sms.SmsModemErrorCode'
     Other = 0
     MessagingNetworkError = 1
     SmsOperationNotSupportedByDevice = 2

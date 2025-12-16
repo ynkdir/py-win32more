@@ -26,6 +26,7 @@ class DragDropManager(ComPtr):
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
     TargetRequested = event(add_TargetRequested, remove_TargetRequested)
 class DragDropModifiers(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Input.DragDrop.DragDropModifiers'
     None_ = 0
     Shift = 1
     Control = 2
@@ -85,6 +86,7 @@ class DragOperation(ComPtr):
     Data = property(get_Data, None)
     DragUIContentMode = property(get_DragUIContentMode, put_DragUIContentMode)
 class DragUIContentMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Input.DragDrop.DragUIContentMode'
     Auto = 0
     Deferred = 1
 class DragUIOverride(ComPtr):

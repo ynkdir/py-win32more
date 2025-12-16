@@ -81,6 +81,7 @@ class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     GeofenceStateChanged = event(add_GeofenceStateChanged, remove_GeofenceStateChanged)
     StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class GeofenceMonitorStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.Geofencing.GeofenceMonitorStatus'
     Ready = 0
     Initializing = 1
     NoData = 2
@@ -88,9 +89,11 @@ class GeofenceMonitorStatus(Enum, Int32):
     NotInitialized = 4
     NotAvailable = 5
 class GeofenceRemovalReason(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.Geofencing.GeofenceRemovalReason'
     Used = 0
     Expired = 1
 class GeofenceState(Enum, UInt32):
+    _name_ = 'Windows.Devices.Geolocation.Geofencing.GeofenceState'
     None_ = 0
     Entered = 1
     Exited = 2
@@ -197,6 +200,7 @@ class IGeofenceStateChangeReport(ComPtr):
     NewState = property(get_NewState, None)
     RemovalReason = property(get_RemovalReason, None)
 class MonitoredGeofenceStates(Enum, UInt32):
+    _name_ = 'Windows.Devices.Geolocation.Geofencing.MonitoredGeofenceStates'
     None_ = 0
     Entered = 1
     Exited = 2

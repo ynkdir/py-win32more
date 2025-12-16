@@ -86,6 +86,7 @@ class DesktopAcrylicController(ComPtr):
     FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
     StateChanged = event(add_StateChanged, remove_StateChanged)
 class DesktopAcrylicKind(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicKind'
     Default = 0
     Base = 1
     Thin = 2
@@ -308,6 +309,7 @@ class MicaController(ComPtr):
     FrameworkClosed = event(add_FrameworkClosed, remove_FrameworkClosed)
     StateChanged = event(add_StateChanged, remove_StateChanged)
 class MicaKind(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.SystemBackdrops.MicaKind'
     Base = 0
     BaseAlt = 1
 class SystemBackdropConfiguration(ComPtr):
@@ -344,10 +346,12 @@ class SystemBackdropConfiguration(ComPtr):
     IsInputActive = property(get_IsInputActive, put_IsInputActive)
     Theme = property(get_Theme, put_Theme)
 class SystemBackdropState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.SystemBackdrops.SystemBackdropState'
     Active = 0
     Fallback = 1
     HighContrast = 2
 class SystemBackdropTheme(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.SystemBackdrops.SystemBackdropTheme'
     Default = 0
     Light = 1
     Dark = 2

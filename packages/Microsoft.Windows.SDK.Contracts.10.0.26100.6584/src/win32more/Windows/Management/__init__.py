@@ -124,11 +124,13 @@ class MdmAlert(ComPtr):
     Target = property(get_Target, put_Target)
     Type = property(get_Type, put_Type)
 class MdmAlertDataType(Enum, Int32):
+    _name_ = 'Windows.Management.MdmAlertDataType'
     String = 0
     Base64 = 1
     Boolean = 2
     Integer = 3
 class MdmAlertMark(Enum, Int32):
+    _name_ = 'Windows.Management.MdmAlertMark'
     None_ = 0
     Fatal = 1
     Critical = 2
@@ -173,6 +175,7 @@ class MdmSessionManager(ComPtr, metaclass=_MdmSessionManager_Meta_):
     def GetSessionById(cls: win32more.Windows.Management.IMdmSessionManagerStatics, sessionId: hstr) -> win32more.Windows.Management.MdmSession: ...
     _MdmSessionManager_Meta_.SessionIds = property(get_SessionIds, None)
 class MdmSessionState(Enum, Int32):
+    _name_ = 'Windows.Management.MdmSessionState'
     NotStarted = 0
     Starting = 1
     Connecting = 2

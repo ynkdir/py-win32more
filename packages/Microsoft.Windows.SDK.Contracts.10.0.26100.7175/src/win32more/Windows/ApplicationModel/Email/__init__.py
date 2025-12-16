@@ -77,15 +77,18 @@ class EmailAttachment(ComPtr):
     IsInline = property(get_IsInline, put_IsInline)
     MimeType = property(get_MimeType, put_MimeType)
 class EmailAttachmentDownloadState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailAttachmentDownloadState'
     NotDownloaded = 0
     Downloading = 1
     Downloaded = 2
     Failed = 3
 class EmailBatchStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailBatchStatus'
     Success = 0
     ServerSearchSyncManagerError = 1
     ServerSearchUnknownError = 2
 class EmailCertificateValidationStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailCertificateValidationStatus'
     Success = 0
     NoMatch = 1
     InvalidUsage = 2
@@ -161,6 +164,7 @@ class EmailConversationReader(ComPtr):
     @winrt_mixinmethod
     def ReadBatchAsync(self: win32more.Windows.ApplicationModel.Email.IEmailConversationReader) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Email.EmailConversationBatch]: ...
 class EmailFlagState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailFlagState'
     Unflagged = 0
     Flagged = 1
     Completed = 2
@@ -228,6 +232,7 @@ class EmailFolder(ComPtr):
     ParentFolderId = property(get_ParentFolderId, None)
     RemoteId = property(get_RemoteId, put_RemoteId)
 class EmailImportance(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailImportance'
     Normal = 0
     High = 1
     Low = 2
@@ -509,6 +514,7 @@ class EmailMailboxAction(ComPtr):
     ChangeNumber = property(get_ChangeNumber, None)
     Kind = property(get_Kind, None)
 class EmailMailboxActionKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxActionKind'
     MarkMessageAsSeen = 0
     MarkMessageRead = 1
     ChangeMessageFlagState = 2
@@ -521,6 +527,7 @@ class EmailMailboxActionKind(Enum, Int32):
     MoveFolder = 9
     MarkFolderForSyncEnabled = 10
 class EmailMailboxAllowedSmimeEncryptionAlgorithmNegotiation(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxAllowedSmimeEncryptionAlgorithmNegotiation'
     None_ = 0
     StrongAlgorithm = 1
     AnyAlgorithm = 2
@@ -539,6 +546,7 @@ class EmailMailboxAutoReply(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     Response = property(get_Response, put_Response)
 class EmailMailboxAutoReplyMessageResponseKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxAutoReplyMessageResponseKind'
     Html = 0
     PlainText = 1
 class EmailMailboxAutoReplySettings(ComPtr):
@@ -697,6 +705,7 @@ class EmailMailboxChangeTracker(ComPtr):
     def Reset(self: win32more.Windows.ApplicationModel.Email.IEmailMailboxChangeTracker) -> Void: ...
     IsTracking = property(get_IsTracking, None)
 class EmailMailboxChangeType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxChangeType'
     MessageCreated = 0
     MessageModified = 1
     MessageDeleted = 2
@@ -727,6 +736,7 @@ class EmailMailboxCreateFolderResult(ComPtr):
     Folder = property(get_Folder, None)
     Status = property(get_Status, None)
 class EmailMailboxCreateFolderStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxCreateFolderStatus'
     Success = 0
     NetworkError = 1
     PermissionsError = 2
@@ -735,6 +745,7 @@ class EmailMailboxCreateFolderStatus(Enum, Int32):
     NameCollision = 5
     ServerRejected = 6
 class EmailMailboxDeleteFolderStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxDeleteFolderStatus'
     Success = 0
     NetworkError = 1
     PermissionsError = 2
@@ -742,6 +753,7 @@ class EmailMailboxDeleteFolderStatus(Enum, Int32):
     UnknownFailure = 4
     CouldNotDeleteEverything = 5
 class EmailMailboxEmptyFolderStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxEmptyFolderStatus'
     Success = 0
     NetworkError = 1
     PermissionsError = 2
@@ -749,10 +761,12 @@ class EmailMailboxEmptyFolderStatus(Enum, Int32):
     UnknownFailure = 4
     CouldNotDeleteEverything = 5
 class EmailMailboxOtherAppReadAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxOtherAppReadAccess'
     SystemOnly = 0
     Full = 1
     None_ = 2
 class EmailMailboxOtherAppWriteAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxOtherAppWriteAccess'
     None_ = 0
     Limited = 1
 class EmailMailboxPolicies(ComPtr):
@@ -790,6 +804,7 @@ class EmailMailboxPolicies(ComPtr):
     RequiredSmimeEncryptionAlgorithm = property(get_RequiredSmimeEncryptionAlgorithm, put_RequiredSmimeEncryptionAlgorithm)
     RequiredSmimeSigningAlgorithm = property(get_RequiredSmimeSigningAlgorithm, put_RequiredSmimeSigningAlgorithm)
 class EmailMailboxSmimeEncryptionAlgorithm(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxSmimeEncryptionAlgorithm'
     Any = 0
     TripleDes = 1
     Des = 2
@@ -797,6 +812,7 @@ class EmailMailboxSmimeEncryptionAlgorithm(Enum, Int32):
     RC264Bit = 4
     RC240Bit = 5
 class EmailMailboxSmimeSigningAlgorithm(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxSmimeSigningAlgorithm'
     Any = 0
     Sha1 = 1
     MD5 = 2
@@ -827,6 +843,7 @@ class EmailMailboxSyncManager(ComPtr):
     Status = property(get_Status, put_Status)
     SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class EmailMailboxSyncStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMailboxSyncStatus'
     Idle = 0
     Syncing = 1
     UpToDate = 2
@@ -936,6 +953,7 @@ class EmailMeetingInfo(ComPtr):
     RemoteChangeNumber = property(get_RemoteChangeNumber, put_RemoteChangeNumber)
     StartTime = property(get_StartTime, put_StartTime)
 class EmailMeetingResponseType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMeetingResponseType'
     Accept = 0
     Decline = 1
     Tentative = 2
@@ -1120,9 +1138,11 @@ class EmailMessageBatch(ComPtr):
     Messages = property(get_Messages, None)
     Status = property(get_Status, None)
 class EmailMessageBodyKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMessageBodyKind'
     Html = 0
     PlainText = 1
 class EmailMessageDownloadState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMessageDownloadState'
     PartiallyDownloaded = 0
     Downloading = 1
     Downloaded = 2
@@ -1134,16 +1154,19 @@ class EmailMessageReader(ComPtr):
     @winrt_mixinmethod
     def ReadBatchAsync(self: win32more.Windows.ApplicationModel.Email.IEmailMessageReader) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Email.EmailMessageBatch]: ...
 class EmailMessageResponseKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMessageResponseKind'
     None_ = 0
     Reply = 1
     ReplyAll = 2
     Forward = 3
 class EmailMessageSmimeKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailMessageSmimeKind'
     None_ = 0
     ClearSigned = 1
     OpaqueSigned = 2
     Encrypted = 3
 class EmailQueryKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailQueryKind'
     All = 0
     Important = 1
     Flagged = 2
@@ -1193,6 +1216,7 @@ class EmailQueryOptions(ComPtr):
     SortProperty = property(get_SortProperty, put_SortProperty)
     TextSearch = property(get_TextSearch, None)
 class EmailQuerySearchFields(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailQuerySearchFields'
     None_ = 0
     Subject = 1
     Sender = 2
@@ -1200,12 +1224,15 @@ class EmailQuerySearchFields(Enum, UInt32):
     Recipients = 8
     All = 4294967295
 class EmailQuerySearchScope(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailQuerySearchScope'
     Local = 0
     Server = 1
 class EmailQuerySortDirection(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailQuerySortDirection'
     Descending = 0
     Ascending = 1
 class EmailQuerySortProperty(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailQuerySortProperty'
     Date = 0
 class EmailQueryTextSearch(ComPtr):
     extends: IInspectable
@@ -1281,6 +1308,7 @@ class EmailRecipientResolutionResult(ComPtr):
     PublicKeys = property(get_PublicKeys, None)
     Status = property(get_Status, put_Status)
 class EmailRecipientResolutionStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailRecipientResolutionStatus'
     Success = 0
     RecipientNotFound = 1
     AmbiguousRecipient = 2
@@ -1290,6 +1318,7 @@ class EmailRecipientResolutionStatus(Enum, Int32):
     ServerError = 6
     UnknownFailure = 7
 class EmailSpecialFolderKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailSpecialFolderKind'
     None_ = 0
     Root = 1
     Inbox = 2
@@ -1324,6 +1353,7 @@ class EmailStore(ComPtr):
     @winrt_mixinmethod
     def CreateMailboxInAccountAsync(self: win32more.Windows.ApplicationModel.Email.IEmailStore, accountName: hstr, accountAddress: hstr, userDataAccountId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Email.EmailMailbox]: ...
 class EmailStoreAccessType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Email.EmailStoreAccessType'
     AppMailboxesReadWrite = 0
     AllMailboxesLimitedReadWrite = 1
 class EmailStoreNotificationTriggerDetails(ComPtr):

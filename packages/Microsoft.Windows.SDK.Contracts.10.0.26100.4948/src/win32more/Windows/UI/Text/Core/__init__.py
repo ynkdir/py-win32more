@@ -154,18 +154,22 @@ class CoreTextFormatUpdatingEventArgs(ComPtr):
     UnderlineColor = property(get_UnderlineColor, None)
     UnderlineType = property(get_UnderlineType, None)
 class CoreTextFormatUpdatingReason(Enum, Int32):
+    _name_ = 'Windows.UI.Text.Core.CoreTextFormatUpdatingReason'
     None_ = 0
     CompositionUnconverted = 1
     CompositionConverted = 2
     CompositionTargetUnconverted = 3
     CompositionTargetConverted = 4
 class CoreTextFormatUpdatingResult(Enum, Int32):
+    _name_ = 'Windows.UI.Text.Core.CoreTextFormatUpdatingResult'
     Succeeded = 0
     Failed = 1
 class CoreTextInputPaneDisplayPolicy(Enum, Int32):
+    _name_ = 'Windows.UI.Text.Core.CoreTextInputPaneDisplayPolicy'
     Automatic = 0
     Manual = 1
 class CoreTextInputScope(Enum, Int32):
+    _name_ = 'Windows.UI.Text.Core.CoreTextInputScope'
     Default = 0
     Url = 1
     FilePath = 2
@@ -315,6 +319,7 @@ class CoreTextSelectionUpdatingEventArgs(ComPtr):
     Result = property(get_Result, put_Result)
     Selection = property(get_Selection, None)
 class CoreTextSelectionUpdatingResult(Enum, Int32):
+    _name_ = 'Windows.UI.Text.Core.CoreTextSelectionUpdatingResult'
     Succeeded = 0
     Failed = 1
 class _CoreTextServicesConstants_Meta_(ComPtr.__class__):
@@ -392,6 +397,7 @@ class CoreTextTextUpdatingEventArgs(ComPtr):
     Result = property(get_Result, put_Result)
     Text = property(get_Text, None)
 class CoreTextTextUpdatingResult(Enum, Int32):
+    _name_ = 'Windows.UI.Text.Core.CoreTextTextUpdatingResult'
     Succeeded = 0
     Failed = 1
 class ICoreTextCompositionCompletedEventArgs(ComPtr):

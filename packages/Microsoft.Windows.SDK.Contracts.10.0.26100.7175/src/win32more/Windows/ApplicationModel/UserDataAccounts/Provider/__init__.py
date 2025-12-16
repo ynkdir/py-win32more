@@ -82,10 +82,12 @@ class UserDataAccountProviderAddAccountOperation(ComPtr):
     Kind = property(get_Kind, None)
     PartnerAccountInfos = property(get_PartnerAccountInfos, None)
 class UserDataAccountProviderOperationKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderOperationKind'
     AddAccount = 0
     Settings = 1
     ResolveErrors = 2
 class UserDataAccountProviderPartnerAccountKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderPartnerAccountKind'
     Exchange = 0
     PopOrImap = 1
 class UserDataAccountProviderResolveErrorsOperation(ComPtr):

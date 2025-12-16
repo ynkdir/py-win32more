@@ -8,6 +8,7 @@ import win32more.Windows.Storage.FileProperties
 import win32more.Windows.Storage.Search
 import win32more.Windows.Storage.Streams
 class CommonFileQuery(Enum, Int32):
+    _name_ = 'Windows.Storage.Search.CommonFileQuery'
     DefaultQuery = 0
     OrderByName = 1
     OrderByTitle = 2
@@ -15,6 +16,7 @@ class CommonFileQuery(Enum, Int32):
     OrderBySearchRank = 4
     OrderByDate = 5
 class CommonFolderQuery(Enum, Int32):
+    _name_ = 'Windows.Storage.Search.CommonFolderQuery'
     DefaultQuery = 0
     GroupByYear = 100
     GroupByMonth = 101
@@ -75,10 +77,12 @@ class ContentIndexerQuery(ComPtr):
     def get_QueryFolder(self: win32more.Windows.Storage.Search.IContentIndexerQuery) -> win32more.Windows.Storage.StorageFolder: ...
     QueryFolder = property(get_QueryFolder, None)
 class DateStackOption(Enum, Int32):
+    _name_ = 'Windows.Storage.Search.DateStackOption'
     None_ = 0
     Year = 1
     Month = 2
 class FolderDepth(Enum, Int32):
+    _name_ = 'Windows.Storage.Search.FolderDepth'
     Shallow = 0
     Deep = 1
 class IContentIndexer(ComPtr):
@@ -379,11 +383,13 @@ class IndexableContent(ComPtr):
     Stream = property(get_Stream, put_Stream)
     StreamContentType = property(get_StreamContentType, put_StreamContentType)
 class IndexedState(Enum, Int32):
+    _name_ = 'Windows.Storage.Search.IndexedState'
     Unknown = 0
     NotIndexed = 1
     PartiallyIndexed = 2
     FullyIndexed = 3
 class IndexerOption(Enum, Int32):
+    _name_ = 'Windows.Storage.Search.IndexerOption'
     UseIndexerWhenAvailable = 0
     OnlyUseIndexer = 1
     DoNotUseIndexer = 2

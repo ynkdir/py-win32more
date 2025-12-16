@@ -852,10 +852,12 @@ class PrintMediaTypeOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintOptionStates(Enum, UInt32):
+    _name_ = 'Windows.Graphics.Printing.OptionDetails.PrintOptionStates'
     None_ = 0
     Enabled = 1
     Constrained = 2
 class PrintOptionType(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.OptionDetails.PrintOptionType'
     Unknown = 0
     Number = 1
     Text = 2

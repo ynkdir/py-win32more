@@ -342,9 +342,11 @@ class WebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     RoutingStage = property(get_RoutingStage, None)
     VirtualKey = property(get_VirtualKey, None)
 class WebViewControlAcceleratorKeyRoutingStage(Enum, Int32):
+    _name_ = 'Windows.Web.UI.Interop.WebViewControlAcceleratorKeyRoutingStage'
     Tunneling = 0
     Bubbling = 1
 class WebViewControlMoveFocusReason(Enum, Int32):
+    _name_ = 'Windows.Web.UI.Interop.WebViewControlMoveFocusReason'
     Programmatic = 0
     Next = 1
     Previous = 2
@@ -393,6 +395,7 @@ class WebViewControlProcess(ComPtr):
     ProcessId = property(get_ProcessId, None)
     ProcessExited = event(add_ProcessExited, remove_ProcessExited)
 class WebViewControlProcessCapabilityState(Enum, Int32):
+    _name_ = 'Windows.Web.UI.Interop.WebViewControlProcessCapabilityState'
     Default = 0
     Disabled = 1
     Enabled = 2

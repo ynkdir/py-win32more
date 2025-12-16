@@ -26,6 +26,7 @@ class AnnotationPatternIdentifiers(ComPtr, metaclass=_AnnotationPatternIdentifie
     _AnnotationPatternIdentifiers_Meta_.DateTimeProperty = property(get_DateTimeProperty, None)
     _AnnotationPatternIdentifiers_Meta_.TargetProperty = property(get_TargetProperty, None)
 class AnnotationType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AnnotationType'
     Unknown = 60000
     SpellingError = 60001
     GrammarError = 60002
@@ -50,10 +51,12 @@ class AnnotationType(Enum, Int32):
     DataValidationError = 60021
     CircularReferenceError = 60022
 class AutomationActiveEnd(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationActiveEnd'
     None_ = 0
     Start = 1
     End = 2
 class AutomationAnimationStyle(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationAnimationStyle'
     None_ = 0
     LasVegasLights = 1
     BlinkingBackground = 2
@@ -104,6 +107,7 @@ class AutomationAnnotation(ComPtr, metaclass=_AutomationAnnotation_Meta_):
     _AutomationAnnotation_Meta_.ElementProperty = property(get_ElementProperty, None)
     _AutomationAnnotation_Meta_.TypeProperty = property(get_TypeProperty, None)
 class AutomationBulletStyle(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationBulletStyle'
     None_ = 0
     HollowRoundBullet = 1
     FilledRoundBullet = 2
@@ -112,9 +116,11 @@ class AutomationBulletStyle(Enum, Int32):
     DashBullet = 5
     Other = 6
 class AutomationCaretBidiMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationCaretBidiMode'
     LTR = 0
     RTL = 1
 class AutomationCaretPosition(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationCaretPosition'
     Unknown = 0
     EndOfLine = 1
     BeginningOfLine = 2
@@ -242,11 +248,13 @@ class AutomationElementIdentifiers(ComPtr, metaclass=_AutomationElementIdentifie
     _AutomationElementIdentifiers_Meta_.PositionInSetProperty = property(get_PositionInSetProperty, None)
     _AutomationElementIdentifiers_Meta_.SizeOfSetProperty = property(get_SizeOfSetProperty, None)
 class AutomationFlowDirections(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationFlowDirections'
     Default = 0
     RightToLeft = 1
     BottomToTop = 2
     Vertical = 3
 class AutomationOutlineStyles(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationOutlineStyles'
     None_ = 0
     Outline = 1
     Shadow = 2
@@ -456,6 +464,7 @@ class AutomationProperty(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Automation.IAutomationProperty
     _classid_ = 'Windows.UI.Xaml.Automation.AutomationProperty'
 class AutomationStyleId(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationStyleId'
     Heading1 = 70001
     Heading2 = 70002
     Heading3 = 70003
@@ -472,6 +481,7 @@ class AutomationStyleId(Enum, Int32):
     Quote = 70014
     BulletedList = 70015
 class AutomationTextDecorationLineStyle(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationTextDecorationLineStyle'
     None_ = 0
     Single = 1
     WordsOnly = 2
@@ -492,6 +502,7 @@ class AutomationTextDecorationLineStyle(Enum, Int32):
     ThickLongDash = 17
     Other = 18
 class AutomationTextEditChangeType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.AutomationTextEditChangeType'
     None_ = 0
     AutoCorrect = 1
     Composition = 2
@@ -506,6 +517,7 @@ class DockPatternIdentifiers(ComPtr, metaclass=_DockPatternIdentifiers_Meta_):
     def get_DockPositionProperty(cls: win32more.Windows.UI.Xaml.Automation.IDockPatternIdentifiersStatics) -> win32more.Windows.UI.Xaml.Automation.AutomationProperty: ...
     _DockPatternIdentifiers_Meta_.DockPositionProperty = property(get_DockPositionProperty, None)
 class DockPosition(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.DockPosition'
     Top = 0
     Left = 1
     Bottom = 2
@@ -552,6 +564,7 @@ class ExpandCollapsePatternIdentifiers(ComPtr, metaclass=_ExpandCollapsePatternI
     def get_ExpandCollapseStateProperty(cls: win32more.Windows.UI.Xaml.Automation.IExpandCollapsePatternIdentifiersStatics) -> win32more.Windows.UI.Xaml.Automation.AutomationProperty: ...
     _ExpandCollapsePatternIdentifiers_Meta_.ExpandCollapseStateProperty = property(get_ExpandCollapseStateProperty, None)
 class ExpandCollapseState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.ExpandCollapseState'
     Collapsed = 0
     Expanded = 1
     PartiallyExpanded = 2
@@ -1423,10 +1436,12 @@ class RangeValuePatternIdentifiers(ComPtr, metaclass=_RangeValuePatternIdentifie
     _RangeValuePatternIdentifiers_Meta_.SmallChangeProperty = property(get_SmallChangeProperty, None)
     _RangeValuePatternIdentifiers_Meta_.ValueProperty = property(get_ValueProperty, None)
 class RowOrColumnMajor(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.RowOrColumnMajor'
     RowMajor = 0
     ColumnMajor = 1
     Indeterminate = 2
 class ScrollAmount(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.ScrollAmount'
     LargeDecrement = 0
     SmallDecrement = 1
     NoAmount = 2
@@ -1523,10 +1538,12 @@ class StylesPatternIdentifiers(ComPtr, metaclass=_StylesPatternIdentifiers_Meta_
     _StylesPatternIdentifiers_Meta_.StyleIdProperty = property(get_StyleIdProperty, None)
     _StylesPatternIdentifiers_Meta_.StyleNameProperty = property(get_StyleNameProperty, None)
 class SupportedTextSelection(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.SupportedTextSelection'
     None_ = 0
     Single = 1
     Multiple = 2
 class SynchronizedInputType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.SynchronizedInputType'
     KeyUp = 1
     KeyDown = 2
     LeftMouseUp = 4
@@ -1570,6 +1587,7 @@ class TogglePatternIdentifiers(ComPtr, metaclass=_TogglePatternIdentifiers_Meta_
     def get_ToggleStateProperty(cls: win32more.Windows.UI.Xaml.Automation.ITogglePatternIdentifiersStatics) -> win32more.Windows.UI.Xaml.Automation.AutomationProperty: ...
     _TogglePatternIdentifiers_Meta_.ToggleStateProperty = property(get_ToggleStateProperty, None)
 class ToggleState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.ToggleState'
     Off = 0
     On = 1
     Indeterminate = 2
@@ -1619,6 +1637,7 @@ class ValuePatternIdentifiers(ComPtr, metaclass=_ValuePatternIdentifiers_Meta_):
     _ValuePatternIdentifiers_Meta_.IsReadOnlyProperty = property(get_IsReadOnlyProperty, None)
     _ValuePatternIdentifiers_Meta_.ValueProperty = property(get_ValueProperty, None)
 class WindowInteractionState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.WindowInteractionState'
     Running = 0
     Closing = 1
     ReadyForUserInteraction = 2
@@ -1649,10 +1668,12 @@ class WindowPatternIdentifiers(ComPtr, metaclass=_WindowPatternIdentifiers_Meta_
     _WindowPatternIdentifiers_Meta_.WindowInteractionStateProperty = property(get_WindowInteractionStateProperty, None)
     _WindowPatternIdentifiers_Meta_.WindowVisualStateProperty = property(get_WindowVisualStateProperty, None)
 class WindowVisualState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.WindowVisualState'
     Normal = 0
     Maximized = 1
     Minimized = 2
 class ZoomUnit(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Automation.ZoomUnit'
     NoAmount = 0
     LargeDecrement = 1
     SmallDecrement = 2

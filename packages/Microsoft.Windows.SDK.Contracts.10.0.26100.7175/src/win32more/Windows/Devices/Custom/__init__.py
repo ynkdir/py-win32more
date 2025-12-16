@@ -23,10 +23,12 @@ class CustomDevice(ComPtr):
     OutputStream = property(get_OutputStream, None)
 CustomDeviceContract: UInt32 = 65536
 class DeviceAccessMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Custom.DeviceAccessMode'
     Read = 0
     Write = 1
     ReadWrite = 2
 class DeviceSharingMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Custom.DeviceSharingMode'
     Shared = 0
     Exclusive = 1
 class ICustomDevice(ComPtr):
@@ -84,11 +86,13 @@ class IKnownDeviceTypesStatics(ComPtr):
     def get_Unknown(self) -> UInt16: ...
     Unknown = property(get_Unknown, None)
 class IOControlAccessMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Custom.IOControlAccessMode'
     Any = 0
     Read = 1
     Write = 2
     ReadWrite = 3
 class IOControlBufferingMethod(Enum, Int32):
+    _name_ = 'Windows.Devices.Custom.IOControlBufferingMethod'
     Buffered = 0
     DirectInput = 1
     DirectOutput = 2

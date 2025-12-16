@@ -64,17 +64,20 @@ class Radio(ComPtr):
     State = property(get_State, None)
     StateChanged = event(add_StateChanged, remove_StateChanged)
 class RadioAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Radios.RadioAccessStatus'
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
     DeniedBySystem = 3
 class RadioKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Radios.RadioKind'
     Other = 0
     WiFi = 1
     MobileBroadband = 2
     Bluetooth = 3
     FM = 4
 class RadioState(Enum, Int32):
+    _name_ = 'Windows.Devices.Radios.RadioState'
     Unknown = 0
     On = 1
     Off = 2

@@ -39,6 +39,7 @@ class AppRecordingResult(ComPtr):
     IsFileTruncated = property(get_IsFileTruncated, None)
     Succeeded = property(get_Succeeded, None)
 class AppRecordingSaveScreenshotOption(Enum, Int32):
+    _name_ = 'Windows.Media.AppRecording.AppRecordingSaveScreenshotOption'
     None_ = 0
     HdrContentVisible = 1
 class AppRecordingSaveScreenshotResult(ComPtr):

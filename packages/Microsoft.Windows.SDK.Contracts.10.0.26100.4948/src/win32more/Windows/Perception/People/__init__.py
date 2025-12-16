@@ -25,6 +25,7 @@ class EyesPose(ComPtr):
     IsCalibrationValid = property(get_IsCalibrationValid, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class HandJointKind(Enum, Int32):
+    _name_ = 'Windows.Perception.People.HandJointKind'
     Palm = 0
     Wrist = 1
     ThumbMetacarpal = 2
@@ -209,6 +210,7 @@ class JointPose(Structure):
     Radius: Single
     Accuracy: win32more.Windows.Perception.People.JointPoseAccuracy
 class JointPoseAccuracy(Enum, Int32):
+    _name_ = 'Windows.Perception.People.JointPoseAccuracy'
     High = 0
     Approximate = 1
 

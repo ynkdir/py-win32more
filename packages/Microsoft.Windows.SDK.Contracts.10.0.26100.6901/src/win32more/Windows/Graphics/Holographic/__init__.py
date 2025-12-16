@@ -144,6 +144,7 @@ class HolographicCameraViewportParameters(ComPtr):
     HiddenAreaMesh = property(get_HiddenAreaMesh, None)
     VisibleAreaMesh = property(get_VisibleAreaMesh, None)
 class HolographicDepthReprojectionMethod(Enum, Int32):
+    _name_ = 'Windows.Graphics.Holographic.HolographicDepthReprojectionMethod'
     DepthReprojection = 0
     AutoPlanar = 1
 class HolographicDisplay(ComPtr):
@@ -220,9 +221,11 @@ class HolographicFramePrediction(ComPtr):
     CameraPoses = property(get_CameraPoses, None)
     Timestamp = property(get_Timestamp, None)
 class HolographicFramePresentResult(Enum, Int32):
+    _name_ = 'Windows.Graphics.Holographic.HolographicFramePresentResult'
     Success = 0
     DeviceRemoved = 1
 class HolographicFramePresentWaitBehavior(Enum, Int32):
+    _name_ = 'Windows.Graphics.Holographic.HolographicFramePresentWaitBehavior'
     WaitForFrameToFinish = 0
     DoNotWaitForFrameToFinish = 1
 class HolographicFramePresentationMonitor(ComPtr):
@@ -348,6 +351,7 @@ class HolographicQuadLayerUpdateParameters(ComPtr):
     def AcquireBufferToUpdateContentWithHardwareProtection(self: win32more.Windows.Graphics.Holographic.IHolographicQuadLayerUpdateParameters2) -> win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface: ...
     CanAcquireWithHardwareProtection = property(get_CanAcquireWithHardwareProtection, None)
 class HolographicReprojectionMode(Enum, Int32):
+    _name_ = 'Windows.Graphics.Holographic.HolographicReprojectionMode'
     PositionAndOrientation = 0
     OrientationOnly = 1
     Disabled = 2
@@ -423,6 +427,7 @@ class HolographicSpaceCameraRemovedEventArgs(ComPtr):
     def get_Camera(self: win32more.Windows.Graphics.Holographic.IHolographicSpaceCameraRemovedEventArgs) -> win32more.Windows.Graphics.Holographic.HolographicCamera: ...
     Camera = property(get_Camera, None)
 class HolographicSpaceUserPresence(Enum, Int32):
+    _name_ = 'Windows.Graphics.Holographic.HolographicSpaceUserPresence'
     Absent = 0
     PresentPassive = 1
     PresentActive = 2
@@ -471,6 +476,7 @@ class HolographicViewConfiguration(ComPtr):
     SupportedDepthReprojectionMethods = property(get_SupportedDepthReprojectionMethods, None)
     SupportedPixelFormats = property(get_SupportedPixelFormats, None)
 class HolographicViewConfigurationKind(Enum, Int32):
+    _name_ = 'Windows.Graphics.Holographic.HolographicViewConfigurationKind'
     Display = 0
     PhotoVideoCamera = 1
 class IHolographicCamera(ComPtr):

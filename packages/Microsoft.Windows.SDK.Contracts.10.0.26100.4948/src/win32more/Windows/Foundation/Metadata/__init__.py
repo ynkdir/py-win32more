@@ -25,6 +25,7 @@ class ApiInformation(ComPtr):
     @winrt_classmethod
     def IsApiContractPresentByMajorAndMinor(cls: win32more.Windows.Foundation.Metadata.IApiInformationStatics, contractName: hstr, majorVersion: UInt16, minorVersion: UInt16) -> Boolean: ...
 class AttributeTargets(Enum, UInt32):
+    _name_ = 'Windows.Foundation.Metadata.AttributeTargets'
     All = 4294967295
     Delegate = 1
     Enum = 2
@@ -39,17 +40,21 @@ class AttributeTargets(Enum, UInt32):
     InterfaceImpl = 2048
     ApiContract = 8192
 class CompositionType(Enum, Int32):
+    _name_ = 'Windows.Foundation.Metadata.CompositionType'
     Protected = 1
     Public = 2
 class DeprecationType(Enum, Int32):
+    _name_ = 'Windows.Foundation.Metadata.DeprecationType'
     Deprecate = 0
     Remove = 1
 class FeatureStage(Enum, Int32):
+    _name_ = 'Windows.Foundation.Metadata.FeatureStage'
     AlwaysDisabled = 0
     DisabledByDefault = 1
     EnabledByDefault = 2
     AlwaysEnabled = 3
 class GCPressureAmount(Enum, Int32):
+    _name_ = 'Windows.Foundation.Metadata.GCPressureAmount'
     Low = 0
     Medium = 1
     High = 2
@@ -78,14 +83,17 @@ class IApiInformationStatics(ComPtr):
     @winrt_commethod(15)
     def IsApiContractPresentByMajorAndMinor(self, contractName: hstr, majorVersion: UInt16, minorVersion: UInt16) -> Boolean: ...
 class MarshalingType(Enum, Int32):
+    _name_ = 'Windows.Foundation.Metadata.MarshalingType'
     None_ = 1
     Agile = 2
     Standard = 3
     InvalidMarshaling = 0
 class Platform(Enum, Int32):
+    _name_ = 'Windows.Foundation.Metadata.Platform'
     Windows = 0
     WindowsPhone = 1
 class ThreadingModel(Enum, Int32):
+    _name_ = 'Windows.Foundation.Metadata.ThreadingModel'
     STA = 1
     MTA = 2
     Both = 3

@@ -35,6 +35,7 @@ class IWalletManagerSystemStatics(ComPtr):
     @winrt_commethod(6)
     def RequestStoreAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Wallet.System.WalletItemSystemStore]: ...
 class WalletItemAppAssociation(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Wallet.System.WalletItemAppAssociation'
     None_ = 0
     AppInstalled = 1
     AppNotInstalled = 2

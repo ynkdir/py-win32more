@@ -2,6 +2,7 @@ from __future__ import annotations
 from win32more._prelude import *
 import win32more.Windows.Media.Render
 class AudioRenderCategory(Enum, Int32):
+    _name_ = 'Windows.Media.Render.AudioRenderCategory'
     Other = 0
     ForegroundOnlyMedia = 1
     BackgroundCapableMedia = 2

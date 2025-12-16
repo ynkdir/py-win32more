@@ -124,6 +124,7 @@ class PnpObjectCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Enumeration.Pnp.PnpObject]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Devices.Enumeration.Pnp.PnpObject]: ...
     Size = property(get_Size, None)
 class PnpObjectType(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.Pnp.PnpObjectType'
     Unknown = 0
     DeviceInterface = 1
     DeviceContainer = 2

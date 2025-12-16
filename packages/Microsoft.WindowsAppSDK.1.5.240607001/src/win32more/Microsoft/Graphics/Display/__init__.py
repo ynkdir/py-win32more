@@ -41,10 +41,12 @@ class DisplayAdvancedColorInfo(ComPtr):
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
     WhitePoint = property(get_WhitePoint, None)
 class DisplayAdvancedColorKind(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Display.DisplayAdvancedColorKind'
     StandardDynamicRange = 0
     WideColorGamut = 1
     HighDynamicRange = 2
 class DisplayHdrMetadataFormat(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Display.DisplayHdrMetadataFormat'
     Hdr10 = 0
     Hdr10Plus = 1
 class DisplayInformation(ComPtr):

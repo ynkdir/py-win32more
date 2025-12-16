@@ -26,6 +26,7 @@ class GameBar(ComPtr, metaclass=_GameBar_Meta_):
     _GameBar_Meta_.IsInputRedirectedChanged = event(add_IsInputRedirectedChanged, remove_IsInputRedirectedChanged)
     _GameBar_Meta_.VisibilityChanged = event(add_VisibilityChanged, remove_VisibilityChanged)
 class GameChatMessageOrigin(Enum, Int32):
+    _name_ = 'Windows.Gaming.UI.GameChatMessageOrigin'
     Voice = 0
     Text = 1
 class GameChatMessageReceivedEventArgs(ComPtr):
@@ -82,6 +83,7 @@ class GameChatOverlayMessageSource(ComPtr):
     def SetDelayBeforeClosingAfterMessageReceived(self: win32more.Windows.Gaming.UI.IGameChatOverlayMessageSource, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
     MessageReceived = event(add_MessageReceived, remove_MessageReceived)
 class GameChatOverlayPosition(Enum, Int32):
+    _name_ = 'Windows.Gaming.UI.GameChatOverlayPosition'
     BottomCenter = 0
     BottomLeft = 1
     BottomRight = 2

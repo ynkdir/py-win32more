@@ -56,20 +56,25 @@ class AnimationController(ComPtr, metaclass=_AnimationController_Meta_):
     _AnimationController_Meta_.MaxPlaybackRate = property(get_MaxPlaybackRate, None)
     _AnimationController_Meta_.MinPlaybackRate = property(get_MinPlaybackRate, None)
 class AnimationControllerProgressBehavior(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.AnimationControllerProgressBehavior'
     Default = 0
     IncludesDelayTime = 1
 class AnimationDelayBehavior(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.AnimationDelayBehavior'
     SetInitialValueAfterDelay = 0
     SetInitialValueBeforeDelay = 1
 class AnimationDirection(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.AnimationDirection'
     Normal = 0
     Reverse = 1
     Alternate = 2
     AlternateReverse = 3
 class AnimationIterationBehavior(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.AnimationIterationBehavior'
     Count = 0
     Forever = 1
 class AnimationPropertyAccessMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.AnimationPropertyAccessMode'
     None_ = 0
     ReadOnly = 1
     WriteOnly = 2
@@ -88,6 +93,7 @@ class AnimationPropertyInfo(ComPtr):
     def put_AccessMode(self: win32more.Microsoft.UI.Composition.IAnimationPropertyInfo, value: win32more.Microsoft.UI.Composition.AnimationPropertyAccessMode) -> Void: ...
     AccessMode = property(get_AccessMode, put_AccessMode)
 class AnimationStopBehavior(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.AnimationStopBehavior'
     LeaveCurrentValue = 0
     SetToInitialValue = 1
     SetToFinalValue = 2
@@ -249,6 +255,7 @@ class CompositionBackdropBrush(ComPtr):
     default_interface: win32more.Microsoft.UI.Composition.ICompositionBackdropBrush
     _classid_ = 'Microsoft.UI.Composition.CompositionBackdropBrush'
 class CompositionBackfaceVisibility(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionBackfaceVisibility'
     Inherit = 0
     Visible = 1
     Hidden = 2
@@ -257,12 +264,14 @@ class CompositionBatchCompletedEventArgs(ComPtr):
     default_interface: win32more.Microsoft.UI.Composition.ICompositionBatchCompletedEventArgs
     _classid_ = 'Microsoft.UI.Composition.CompositionBatchCompletedEventArgs'
 class CompositionBatchTypes(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Composition.CompositionBatchTypes'
     None_ = 0
     Animation = 1
     Effect = 2
     InfiniteAnimation = 4
     AllAnimations = 5
 class CompositionBitmapInterpolationMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionBitmapInterpolationMode'
     NearestNeighbor = 0
     Linear = 1
     MagLinearMinLinearMipLinear = 2
@@ -274,6 +283,7 @@ class CompositionBitmapInterpolationMode(Enum, Int32):
     MagNearestMinNearestMipLinear = 8
     MagNearestMinNearestMipNearest = 9
 class CompositionBorderMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionBorderMode'
     Inherit = 0
     Soft = 1
     Hard = 2
@@ -398,6 +408,7 @@ class CompositionColorGradientStopCollection(ComPtr):
     def GetMany(self: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Composition.CompositionColorGradientStop], startIndex: UInt32, items: FillArray[win32more.Microsoft.UI.Composition.CompositionColorGradientStop]) -> UInt32: ...
     Size = property(get_Size, None)
 class CompositionColorSpace(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionColorSpace'
     Auto = 0
     Hsl = 1
     Rgb = 2
@@ -419,6 +430,7 @@ class CompositionCommitBatch(ComPtr):
     IsEnded = property(get_IsEnded, None)
     Completed = event(add_Completed, remove_Completed)
 class CompositionCompositeMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionCompositeMode'
     Inherit = 0
     SourceOver = 1
     DestinationInvert = 2
@@ -457,6 +469,7 @@ class CompositionDrawingSurface(ComPtr):
     Size = property(get_Size, None)
     SizeInt32 = property(get_SizeInt32, None)
 class CompositionDropShadowSourcePolicy(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionDropShadowSourcePolicy'
     Default = 0
     InheritFromVisualContent = 1
 class CompositionEasingFunction(ComPtr):
@@ -486,6 +499,7 @@ class CompositionEasingFunction(ComPtr):
     @winrt_classmethod
     def CreateSineEasingFunction(cls: win32more.Microsoft.UI.Composition.ICompositionEasingFunctionStatics, owner: win32more.Microsoft.UI.Composition.Compositor, mode: win32more.Microsoft.UI.Composition.CompositionEasingFunctionMode) -> win32more.Microsoft.UI.Composition.SineEasingFunction: ...
 class CompositionEasingFunctionMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionEasingFunctionMode'
     In = 0
     Out = 1
     InOut = 2
@@ -510,6 +524,7 @@ class CompositionEffectFactory(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     LoadStatus = property(get_LoadStatus, None)
 class CompositionEffectFactoryLoadStatus(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionEffectFactoryLoadStatus'
     Success = 0
     EffectTooComplex = 1
     Pending = 2
@@ -578,6 +593,7 @@ class CompositionGeometry(ComPtr):
     TrimOffset = property(get_TrimOffset, put_TrimOffset)
     TrimStart = property(get_TrimStart, put_TrimStart)
 class CompositionGetValueStatus(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionGetValueStatus'
     Succeeded = 0
     TypeMismatch = 1
     NotFound = 2
@@ -639,6 +655,7 @@ class CompositionGradientBrush(ComPtr):
     Scale = property(get_Scale, put_Scale)
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class CompositionGradientExtendMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionGradientExtendMode'
     Clamp = 0
     Wrap = 1
     Mirror = 2
@@ -707,6 +724,7 @@ class CompositionLinearGradientBrush(ComPtr):
     EndPoint = property(get_EndPoint, put_EndPoint)
     StartPoint = property(get_StartPoint, put_StartPoint)
 class CompositionMappingMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionMappingMode'
     Absolute = 0
     Relative = 1
 class CompositionMaskBrush(ComPtr):
@@ -1211,11 +1229,13 @@ class CompositionSpriteShape(ComPtr):
     StrokeStartCap = property(get_StrokeStartCap, put_StrokeStartCap)
     StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
 class CompositionStretch(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionStretch'
     None_ = 0
     Fill = 1
     Uniform = 2
     UniformToFill = 3
 class CompositionStrokeCap(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionStrokeCap'
     Flat = 0
     Square = 1
     Round = 2
@@ -1253,6 +1273,7 @@ class CompositionStrokeDashArray(ComPtr):
     def InsertAt(self: win32more.Windows.Foundation.Collections.IVector[Single], index: UInt32, value: Single) -> Void: ...
     Size = property(get_Size, None)
 class CompositionStrokeLineJoin(Enum, Int32):
+    _name_ = 'Microsoft.UI.Composition.CompositionStrokeLineJoin'
     Miter = 0
     Bevel = 1
     Round = 2

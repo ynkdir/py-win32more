@@ -269,6 +269,7 @@ class WiFiDirectService(ComPtr):
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
     SessionDeferred = event(add_SessionDeferred, remove_SessionDeferred)
 class WiFiDirectServiceAdvertisementStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertisementStatus'
     Created = 0
     Started = 1
     Stopped = 2
@@ -365,16 +366,19 @@ class WiFiDirectServiceAutoAcceptSessionConnectedEventArgs(ComPtr):
     Session = property(get_Session, None)
     SessionInfo = property(get_SessionInfo, None)
 class WiFiDirectServiceConfigurationMethod(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceConfigurationMethod'
     Default = 0
     PinDisplay = 1
     PinEntry = 2
 class WiFiDirectServiceError(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceError'
     Success = 0
     RadioNotAvailable = 1
     ResourceInUse = 2
     UnsupportedHardware = 3
     NoHardware = 4
 class WiFiDirectServiceIPProtocol(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceIPProtocol'
     Tcp = 6
     Udp = 17
 class WiFiDirectServiceProvisioningInfo(ComPtr):
@@ -449,6 +453,7 @@ class WiFiDirectServiceSessionDeferredEventArgs(ComPtr):
     def get_DeferredSessionInfo(self: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionDeferredEventArgs) -> win32more.Windows.Storage.Streams.IBuffer: ...
     DeferredSessionInfo = property(get_DeferredSessionInfo, None)
 class WiFiDirectServiceSessionErrorStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionErrorStatus'
     Ok = 0
     Disassociated = 1
     LocalClose = 2
@@ -478,11 +483,13 @@ class WiFiDirectServiceSessionRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetSessionRequest(self: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionRequestedEventArgs) -> win32more.Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionRequest: ...
 class WiFiDirectServiceSessionStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionStatus'
     Closed = 0
     Initiated = 1
     Requested = 2
     Open = 3
 class WiFiDirectServiceStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceStatus'
     Available = 0
     Busy = 1
     Custom = 2

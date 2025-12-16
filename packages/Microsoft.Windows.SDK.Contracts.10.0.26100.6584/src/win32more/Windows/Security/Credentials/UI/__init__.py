@@ -4,6 +4,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Security.Credentials.UI
 import win32more.Windows.Storage.Streams
 class AuthenticationProtocol(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.UI.AuthenticationProtocol'
     Basic = 0
     Digest = 1
     Ntlm = 2
@@ -109,6 +110,7 @@ class CredentialPickerResults(ComPtr):
     CredentialUserName = property(get_CredentialUserName, None)
     ErrorCode = property(get_ErrorCode, None)
 class CredentialSaveOption(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.UI.CredentialSaveOption'
     Unselected = 0
     Selected = 1
     Hidden = 2
@@ -210,6 +212,7 @@ class IUserConsentVerifierStatics(ComPtr):
     @winrt_commethod(7)
     def RequestVerificationAsync(self, message: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerificationResult]: ...
 class UserConsentVerificationResult(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.UI.UserConsentVerificationResult'
     Verified = 0
     DeviceNotPresent = 1
     NotConfiguredForUser = 2
@@ -225,6 +228,7 @@ class UserConsentVerifier(ComPtr):
     @winrt_classmethod
     def RequestVerificationAsync(cls: win32more.Windows.Security.Credentials.UI.IUserConsentVerifierStatics, message: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerificationResult]: ...
 class UserConsentVerifierAvailability(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.UI.UserConsentVerifierAvailability'
     Available = 0
     DeviceNotPresent = 1
     NotConfiguredForUser = 2

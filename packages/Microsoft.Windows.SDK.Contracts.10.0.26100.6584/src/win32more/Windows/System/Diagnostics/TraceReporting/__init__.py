@@ -55,6 +55,7 @@ class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
     EtwRuntimeFileTime = property(get_EtwRuntimeFileTime, None)
     RuntimeFileTime = property(get_RuntimeFileTime, None)
 class PlatformDiagnosticActionState(Enum, Int32):
+    _name_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActionState'
     Success = 0
     FreeNetworkNotAvailable = 1
     ACPowerNotAvailable = 2
@@ -78,9 +79,11 @@ class PlatformDiagnosticActions(ComPtr):
     @winrt_classmethod
     def GetKnownTraceList(cls: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics, slotType: win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo]: ...
 class PlatformDiagnosticEscalationType(Enum, Int32):
+    _name_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticEscalationType'
     OnCompletion = 0
     OnFailure = 1
 class PlatformDiagnosticEventBufferLatencies(Enum, UInt32):
+    _name_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticEventBufferLatencies'
     Normal = 1
     CostDeferred = 2
     Realtime = 4
@@ -107,6 +110,7 @@ class PlatformDiagnosticTraceInfo(ComPtr):
     ProfileHash = property(get_ProfileHash, None)
     ScenarioId = property(get_ScenarioId, None)
 class PlatformDiagnosticTracePriority(Enum, Int32):
+    _name_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTracePriority'
     Normal = 0
     UserElevated = 1
 class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
@@ -120,10 +124,12 @@ class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
     EtwRuntimeFileTime = property(get_EtwRuntimeFileTime, None)
     RuntimeFileTime = property(get_RuntimeFileTime, None)
 class PlatformDiagnosticTraceSlotState(Enum, Int32):
+    _name_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotState'
     NotRunning = 0
     Running = 1
     Throttled = 2
 class PlatformDiagnosticTraceSlotType(Enum, Int32):
+    _name_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType'
     Alternative = 0
     AlwaysOn = 1
     Mini = 2

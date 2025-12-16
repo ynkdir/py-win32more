@@ -468,11 +468,13 @@ class WebViewControlPermissionRequestedEventArgs(ComPtr):
     def get_PermissionRequest(self: win32more.Windows.Web.UI.IWebViewControlPermissionRequestedEventArgs) -> win32more.Windows.Web.UI.WebViewControlPermissionRequest: ...
     PermissionRequest = property(get_PermissionRequest, None)
 class WebViewControlPermissionState(Enum, Int32):
+    _name_ = 'Windows.Web.UI.WebViewControlPermissionState'
     Unknown = 0
     Defer = 1
     Allow = 2
     Deny = 3
 class WebViewControlPermissionType(Enum, Int32):
+    _name_ = 'Windows.Web.UI.WebViewControlPermissionType'
     Geolocation = 0
     UnlimitedIndexedDBQuota = 1
     Media = 2

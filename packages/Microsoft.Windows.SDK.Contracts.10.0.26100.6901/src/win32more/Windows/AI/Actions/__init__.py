@@ -71,6 +71,7 @@ class ActionEntityFactory(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class ActionEntityKind(Enum, Int32):
+    _name_ = 'Windows.AI.Actions.ActionEntityKind'
     None_ = 0
     Document = 1
     File = 2
@@ -86,6 +87,7 @@ class ActionEntityKind(Enum, Int32):
     Date = 12
     CustomText = 13
 class ActionEntityTextFormat(Enum, Int32):
+    _name_ = 'Windows.AI.Actions.ActionEntityTextFormat'
     Plain = 0
     Markdown = 1
 class ActionFeedback(ComPtr):
@@ -99,6 +101,7 @@ class ActionFeedback(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     FeedbackKind = property(get_FeedbackKind, None)
 class ActionFeedbackKind(Enum, Int32):
+    _name_ = 'Windows.AI.Actions.ActionFeedbackKind'
     Positive = 0
     Negative = 1
 class ActionInvocationContext(ComPtr):
@@ -179,10 +182,12 @@ class ActionInvocationHelpDetails(ComPtr):
     Title = property(get_Title, put_Title)
     Changed = event(add_Changed, remove_Changed)
 class ActionInvocationHelpKind(Enum, Int32):
+    _name_ = 'Windows.AI.Actions.ActionInvocationHelpKind'
     None_ = 0
     Error = 1
     Warning = 2
 class ActionInvocationResult(Enum, Int32):
+    _name_ = 'Windows.AI.Actions.ActionInvocationResult'
     Success = 0
     UserCanceled = 1
     Unsupported = 2
@@ -848,6 +853,7 @@ class RemoteFileActionEntity(ComPtr):
     SourceId = property(get_SourceId, None)
     SourceUri = property(get_SourceUri, None)
 class RemoteFileKind(Enum, Int32):
+    _name_ = 'Windows.AI.Actions.RemoteFileKind'
     Document = 0
     Photo = 1
     File = 2

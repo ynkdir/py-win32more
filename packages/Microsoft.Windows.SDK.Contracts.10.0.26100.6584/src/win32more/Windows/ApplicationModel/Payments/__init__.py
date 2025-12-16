@@ -522,6 +522,7 @@ class PaymentCanMakePaymentResult(ComPtr):
     def get_Status(self: win32more.Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResult) -> win32more.Windows.ApplicationModel.Payments.PaymentCanMakePaymentResultStatus: ...
     Status = property(get_Status, None)
 class PaymentCanMakePaymentResultStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Payments.PaymentCanMakePaymentResultStatus'
     Unknown = 0
     Yes = 1
     No = 2
@@ -731,6 +732,7 @@ class PaymentMethodData(ComPtr):
     JsonData = property(get_JsonData, None)
     SupportedMethodIds = property(get_SupportedMethodIds, None)
 class PaymentOptionPresence(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Payments.PaymentOptionPresence'
     None_ = 0
     Optional = 1
     Required = 2
@@ -813,6 +815,7 @@ class PaymentRequest(ComPtr):
     MethodData = property(get_MethodData, None)
     Options = property(get_Options, None)
 class PaymentRequestChangeKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Payments.PaymentRequestChangeKind'
     ShippingOption = 0
     ShippingAddress = 1
 class PaymentRequestChangedArgs(ComPtr):
@@ -868,10 +871,12 @@ class PaymentRequestChangedResult(ComPtr):
     Message = property(get_Message, put_Message)
     UpdatedPaymentDetails = property(get_UpdatedPaymentDetails, put_UpdatedPaymentDetails)
 class PaymentRequestCompletionStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Payments.PaymentRequestCompletionStatus'
     Succeeded = 0
     Failed = 1
     Unknown = 2
 class PaymentRequestStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Payments.PaymentRequestStatus'
     Succeeded = 0
     Failed = 1
     Canceled = 2
@@ -951,6 +956,7 @@ class PaymentShippingOption(ComPtr):
     Label = property(get_Label, put_Label)
     Tag = property(get_Tag, put_Tag)
 class PaymentShippingType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Payments.PaymentShippingType'
     Shipping = 0
     Delivery = 1
     Pickup = 2

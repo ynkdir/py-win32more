@@ -596,12 +596,14 @@ class Print3DTaskCompletedEventArgs(ComPtr):
     Completion = property(get_Completion, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
 class Print3DTaskCompletion(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing3D.Print3DTaskCompletion'
     Abandoned = 0
     Canceled = 1
     Failed = 2
     Slicing = 3
     Submitted = 4
 class Print3DTaskDetail(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing3D.Print3DTaskDetail'
     Unknown = 0
     ModelExceedsPrintBed = 1
     UploadFailed = 2
@@ -739,6 +741,7 @@ class Printing3DBufferDescription(Structure):
     Format: win32more.Windows.Graphics.Printing3D.Printing3DBufferFormat
     Stride: UInt32
 class Printing3DBufferFormat(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing3D.Printing3DBufferFormat'
     Unknown = 0
     R32G32B32A32Float = 2
     R32G32B32A32UInt = 3
@@ -1020,6 +1023,7 @@ class Printing3DMesh(ComPtr):
     VertexNormalsDescription = property(get_VertexNormalsDescription, put_VertexNormalsDescription)
     VertexPositionsDescription = property(get_VertexPositionsDescription, put_VertexPositionsDescription)
 class Printing3DMeshVerificationMode(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing3D.Printing3DMeshVerificationMode'
     FindFirstError = 0
     FindAllErrors = 1
 class Printing3DMeshVerificationResult(ComPtr):
@@ -1128,6 +1132,7 @@ class Printing3DModelTexture(ComPtr):
     TileStyleU = property(get_TileStyleU, put_TileStyleU)
     TileStyleV = property(get_TileStyleV, put_TileStyleV)
 class Printing3DModelUnit(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing3D.Printing3DModelUnit'
     Meter = 0
     Micron = 1
     Millimeter = 2
@@ -1173,10 +1178,12 @@ class Printing3DMultiplePropertyMaterialGroup(ComPtr):
     MaterialGroupIndices = property(get_MaterialGroupIndices, None)
     MultipleProperties = property(get_MultipleProperties, None)
 class Printing3DObjectType(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing3D.Printing3DObjectType'
     Model = 0
     Support = 1
     Others = 2
 class Printing3DPackageCompression(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing3D.Printing3DPackageCompression'
     Low = 0
     Medium = 1
     High = 2
@@ -1233,6 +1240,7 @@ class Printing3DTexture2CoordMaterialGroup(ComPtr):
     Texture = property(get_Texture, put_Texture)
     Texture2Coords = property(get_Texture2Coords, None)
 class Printing3DTextureEdgeBehavior(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing3D.Printing3DTextureEdgeBehavior'
     None_ = 0
     Wrap = 1
     Mirror = 2

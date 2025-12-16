@@ -112,14 +112,17 @@ class HttpCacheControl(ComPtr):
     ReadBehavior = property(get_ReadBehavior, put_ReadBehavior)
     WriteBehavior = property(get_WriteBehavior, put_WriteBehavior)
 class HttpCacheReadBehavior(Enum, Int32):
+    _name_ = 'Windows.Web.Http.Filters.HttpCacheReadBehavior'
     Default = 0
     MostRecent = 1
     OnlyFromCache = 2
     NoCache = 3
 class HttpCacheWriteBehavior(Enum, Int32):
+    _name_ = 'Windows.Web.Http.Filters.HttpCacheWriteBehavior'
     Default = 0
     NoCache = 1
 class HttpCookieUsageBehavior(Enum, Int32):
+    _name_ = 'Windows.Web.Http.Filters.HttpCookieUsageBehavior'
     Default = 0
     NoCookies = 1
 class HttpServerCustomValidationRequestedEventArgs(ComPtr):

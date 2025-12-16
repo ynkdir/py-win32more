@@ -240,6 +240,7 @@ class PickFolderResult(ComPtr):
     def get_Path(self: win32more.Microsoft.Windows.Storage.Pickers.IPickFolderResult) -> hstr: ...
     Path = property(get_Path, None)
 class PickerLocationId(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Storage.Pickers.PickerLocationId'
     DocumentsLibrary = 0
     ComputerFolder = 1
     Desktop = 2
@@ -250,6 +251,7 @@ class PickerLocationId(Enum, Int32):
     Objects3D = 8
     Unspecified = 9
 class PickerViewMode(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Storage.Pickers.PickerViewMode'
     List = 0
     Thumbnail = 1
 StoragePickersContract: UInt32 = 65544

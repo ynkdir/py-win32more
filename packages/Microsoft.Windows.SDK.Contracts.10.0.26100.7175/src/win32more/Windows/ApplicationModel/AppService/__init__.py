@@ -19,6 +19,7 @@ class AppServiceClosedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.ApplicationModel.AppService.IAppServiceClosedEventArgs) -> win32more.Windows.ApplicationModel.AppService.AppServiceClosedStatus: ...
     Status = property(get_Status, None)
 class AppServiceClosedStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.AppService.AppServiceClosedStatus'
     Completed = 0
     Canceled = 1
     ResourceLimitsExceeded = 2
@@ -73,6 +74,7 @@ class AppServiceConnection(ComPtr):
     RequestReceived = event(add_RequestReceived, remove_RequestReceived)
     ServiceClosed = event(add_ServiceClosed, remove_ServiceClosed)
 class AppServiceConnectionStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.AppService.AppServiceConnectionStatus'
     Success = 0
     AppNotInstalled = 1
     AppUnavailable = 2
@@ -120,6 +122,7 @@ class AppServiceResponse(ComPtr):
     Message = property(get_Message, None)
     Status = property(get_Status, None)
 class AppServiceResponseStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.AppService.AppServiceResponseStatus'
     Success = 0
     Failure = 1
     ResourceLimitsExceeded = 2
@@ -298,6 +301,7 @@ class StatelessAppServiceResponse(ComPtr):
     Message = property(get_Message, None)
     Status = property(get_Status, None)
 class StatelessAppServiceResponseStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.AppService.StatelessAppServiceResponseStatus'
     Success = 0
     AppNotInstalled = 1
     AppUnavailable = 2

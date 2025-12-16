@@ -33,6 +33,7 @@ class AsyncOperationWithProgressCompletedHandler(Generic[TResult, TProgress], Mu
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncStatus(Enum, Int32):
+    _name_ = 'Windows.Foundation.AsyncStatus'
     Canceled = 2
     Completed = 1
     Error = 3
@@ -536,6 +537,7 @@ class Point(Structure):
     X: Single
     Y: Single
 class PropertyType(Enum, Int32):
+    _name_ = 'Windows.Foundation.PropertyType'
     Empty = 0
     UInt8 = 1
     Int16 = 2

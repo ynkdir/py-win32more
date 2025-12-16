@@ -61,10 +61,12 @@ class BluetoothAdapter(ComPtr):
     IsPeripheralRoleSupported = property(get_IsPeripheralRoleSupported, None)
     MaxAdvertisementDataLength = property(get_MaxAdvertisementDataLength, None)
 class BluetoothAddressType(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.BluetoothAddressType'
     Public = 0
     Random = 1
     Unspecified = 2
 class BluetoothCacheMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.BluetoothCacheMode'
     Cached = 0
     Uncached = 1
 class BluetoothClassOfDevice(ComPtr):
@@ -88,6 +90,7 @@ class BluetoothClassOfDevice(ComPtr):
     RawValue = property(get_RawValue, None)
     ServiceCapabilities = property(get_ServiceCapabilities, None)
 class BluetoothConnectionStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.BluetoothConnectionStatus'
     Disconnected = 0
     Connected = 1
 class BluetoothDevice(ComPtr):
@@ -192,6 +195,7 @@ class BluetoothDeviceId(ComPtr):
     IsClassicDevice = property(get_IsClassicDevice, None)
     IsLowEnergyDevice = property(get_IsLowEnergyDevice, None)
 class BluetoothError(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.BluetoothError'
     Success = 0
     RadioNotAvailable = 1
     ResourceInUse = 2
@@ -556,11 +560,13 @@ class BluetoothLEPreferredConnectionParametersRequest(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Status = property(get_Status, None)
 class BluetoothLEPreferredConnectionParametersRequestStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParametersRequestStatus'
     Unspecified = 0
     Success = 1
     DeviceNotAvailable = 2
     AccessDenied = 3
 class BluetoothMajorClass(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.BluetoothMajorClass'
     Miscellaneous = 0
     Computer = 1
     Phone = 2
@@ -572,6 +578,7 @@ class BluetoothMajorClass(Enum, Int32):
     Toy = 8
     Health = 9
 class BluetoothMinorClass(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.BluetoothMinorClass'
     Uncategorized = 0
     ComputerDesktop = 1
     ComputerServer = 2
@@ -644,6 +651,7 @@ class BluetoothMinorClass(Enum, Int32):
     HealthGenericHealthManager = 14
     HealthPersonalMobilityDevice = 15
 class BluetoothServiceCapabilities(Enum, UInt32):
+    _name_ = 'Windows.Devices.Bluetooth.BluetoothServiceCapabilities'
     None_ = 0
     LimitedDiscoverableMode = 1
     PositioningService = 8

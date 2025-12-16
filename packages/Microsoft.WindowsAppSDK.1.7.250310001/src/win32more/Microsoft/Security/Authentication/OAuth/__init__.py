@@ -158,6 +158,7 @@ class ClientAuthentication(ComPtr):
     Authorization = property(get_Authorization, put_Authorization)
     ProxyAuthorization = property(get_ProxyAuthorization, put_ProxyAuthorization)
 class CodeChallengeMethodKind(Enum, Int32):
+    _name_ = 'Microsoft.Security.Authentication.OAuth.CodeChallengeMethodKind'
     None_ = 0
     S256 = 1
     Plain = 2
@@ -479,6 +480,7 @@ class TokenFailure(ComPtr):
     ErrorUri = property(get_ErrorUri, None)
     Kind = property(get_Kind, None)
 class TokenFailureKind(Enum, Int32):
+    _name_ = 'Microsoft.Security.Authentication.OAuth.TokenFailureKind'
     ErrorResponse = 0
     HttpFailure = 1
     InvalidResponse = 2

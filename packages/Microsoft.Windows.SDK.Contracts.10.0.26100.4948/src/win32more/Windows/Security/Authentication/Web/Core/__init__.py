@@ -19,6 +19,7 @@ class FindAllAccountsResult(ComPtr):
     ProviderError = property(get_ProviderError, None)
     Status = property(get_Status, None)
 class FindAllWebAccountsStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.Core.FindAllWebAccountsStatus'
     Success = 0
     NotAllowedByProvider = 1
     NotSupportedByProvider = 2
@@ -349,6 +350,7 @@ class WebAuthenticationAddAccountResult(ComPtr):
     ResponseError = property(get_ResponseError, None)
     ResponseStatus = property(get_ResponseStatus, None)
 class WebAuthenticationAddAccountStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountStatus'
     Success = 0
     Error = 1
     NotSupportedByProvider = 2
@@ -491,6 +493,7 @@ class WebTokenRequest(ComPtr):
     Scope = property(get_Scope, None)
     WebAccountProvider = property(get_WebAccountProvider, None)
 class WebTokenRequestPromptType(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.Core.WebTokenRequestPromptType'
     Default = 0
     ForceAuthentication = 1
 class WebTokenRequestResult(ComPtr):
@@ -509,6 +512,7 @@ class WebTokenRequestResult(ComPtr):
     ResponseError = property(get_ResponseError, None)
     ResponseStatus = property(get_ResponseStatus, None)
 class WebTokenRequestStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.Core.WebTokenRequestStatus'
     Success = 0
     UserCancel = 1
     AccountSwitch = 2

@@ -366,6 +366,7 @@ class NewWebUIViewCreatedEventArgs(ComPtr):
     HasPendingNavigate = property(get_HasPendingNavigate, None)
     WebUIView = property(get_WebUIView, None)
 class PrintContent(Enum, Int32):
+    _name_ = 'Windows.UI.WebUI.PrintContent'
     AllPages = 0
     CurrentPage = 1
     CustomPageRange = 2

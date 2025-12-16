@@ -4,6 +4,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Storage.Compression
 import win32more.Windows.Storage.Streams
 class CompressAlgorithm(Enum, Int32):
+    _name_ = 'Windows.Storage.Compression.CompressAlgorithm'
     InvalidAlgorithm = 0
     NullAlgorithm = 1
     Mszip = 2

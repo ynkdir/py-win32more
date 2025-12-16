@@ -116,6 +116,7 @@ class SearchSuggestion(ComPtr):
     Tag = property(get_Tag, None)
     Text = property(get_Text, None)
 class SearchSuggestionKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Search.Core.SearchSuggestionKind'
     Query = 0
     Result = 1
     Separator = 2

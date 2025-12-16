@@ -238,29 +238,34 @@ class SerialDevice(ComPtr):
     ErrorReceived = event(add_ErrorReceived, remove_ErrorReceived)
     PinChanged = event(add_PinChanged, remove_PinChanged)
 class SerialError(Enum, Int32):
+    _name_ = 'Windows.Devices.SerialCommunication.SerialError'
     Frame = 0
     BufferOverrun = 1
     ReceiveFull = 2
     ReceiveParity = 3
     TransmitFull = 4
 class SerialHandshake(Enum, Int32):
+    _name_ = 'Windows.Devices.SerialCommunication.SerialHandshake'
     None_ = 0
     RequestToSend = 1
     XOnXOff = 2
     RequestToSendXOnXOff = 3
 class SerialParity(Enum, Int32):
+    _name_ = 'Windows.Devices.SerialCommunication.SerialParity'
     None_ = 0
     Odd = 1
     Even = 2
     Mark = 3
     Space = 4
 class SerialPinChange(Enum, Int32):
+    _name_ = 'Windows.Devices.SerialCommunication.SerialPinChange'
     BreakSignal = 0
     CarrierDetect = 1
     ClearToSend = 2
     DataSetReady = 3
     RingIndicator = 4
 class SerialStopBitCount(Enum, Int32):
+    _name_ = 'Windows.Devices.SerialCommunication.SerialStopBitCount'
     One = 0
     OnePointFive = 1
     Two = 2

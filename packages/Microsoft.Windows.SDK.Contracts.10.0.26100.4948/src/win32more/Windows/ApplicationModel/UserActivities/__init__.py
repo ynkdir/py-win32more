@@ -419,6 +419,7 @@ class UserActivitySessionHistoryItem(ComPtr):
     StartTime = property(get_StartTime, None)
     UserActivity = property(get_UserActivity, None)
 class UserActivityState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserActivities.UserActivityState'
     New = 0
     Published = 1
 class UserActivityVisualElements(ComPtr):

@@ -382,6 +382,7 @@ class SpatialAnchor(ComPtr):
     RemovedByUser = property(get_RemovedByUser, None)
     RawCoordinateSystemAdjusted = event(add_RawCoordinateSystemAdjusted, remove_RawCoordinateSystemAdjusted)
 class SpatialAnchorExportPurpose(Enum, Int32):
+    _name_ = 'Windows.Perception.Spatial.SpatialAnchorExportPurpose'
     Relocalization = 0
     Sharing = 1
 class SpatialAnchorExportSufficiency(ComPtr):
@@ -577,6 +578,7 @@ class SpatialEntityWatcher(ComPtr):
     Removed = event(add_Removed, remove_Removed)
     Updated = event(add_Updated, remove_Updated)
 class SpatialEntityWatcherStatus(Enum, Int32):
+    _name_ = 'Windows.Perception.Spatial.SpatialEntityWatcherStatus'
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -584,6 +586,7 @@ class SpatialEntityWatcherStatus(Enum, Int32):
     Stopped = 4
     Aborted = 5
 class SpatialLocatability(Enum, Int32):
+    _name_ = 'Windows.Perception.Spatial.SpatialLocatability'
     Unavailable = 0
     OrientationOnly = 1
     PositionalTrackingActivating = 2
@@ -684,12 +687,15 @@ class SpatialLocatorPositionalTrackingDeactivatingEventArgs(ComPtr):
     def put_Canceled(self: win32more.Windows.Perception.Spatial.ISpatialLocatorPositionalTrackingDeactivatingEventArgs, value: Boolean) -> Void: ...
     Canceled = property(get_Canceled, put_Canceled)
 class SpatialLookDirectionRange(Enum, Int32):
+    _name_ = 'Windows.Perception.Spatial.SpatialLookDirectionRange'
     ForwardOnly = 0
     Omnidirectional = 1
 class SpatialMovementRange(Enum, Int32):
+    _name_ = 'Windows.Perception.Spatial.SpatialMovementRange'
     NoMovement = 0
     Bounded = 1
 class SpatialPerceptionAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Perception.Spatial.SpatialPerceptionAccessStatus'
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2

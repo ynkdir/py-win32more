@@ -159,6 +159,7 @@ class AdaptiveMediaSourceCreationResult(ComPtr):
     MediaSource = property(get_MediaSource, None)
     Status = property(get_Status, None)
 class AdaptiveMediaSourceCreationStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCreationStatus'
     Success = 0
     ManifestDownloadFailure = 1
     ManifestParseFailure = 2
@@ -207,6 +208,7 @@ class AdaptiveMediaSourceDiagnosticAvailableEventArgs(ComPtr):
     ResourceUri = property(get_ResourceUri, None)
     SegmentId = property(get_SegmentId, None)
 class AdaptiveMediaSourceDiagnosticType(Enum, Int32):
+    _name_ = 'Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticType'
     ManifestUnchangedUponReload = 0
     ManifestMismatchUponReload = 1
     ManifestSignaledEndOfLiveEventUponReload = 2
@@ -239,6 +241,7 @@ class AdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     OldValue = property(get_OldValue, None)
     Reason = property(get_Reason, None)
 class AdaptiveMediaSourceDownloadBitrateChangedReason(Enum, Int32):
+    _name_ = 'Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadBitrateChangedReason'
     SufficientInboundBitsPerSecond = 0
     InsufficientInboundBitsPerSecond = 1
     LowBufferLevel = 2
@@ -425,6 +428,7 @@ class AdaptiveMediaSourcePlaybackBitrateChangedEventArgs(ComPtr):
     NewValue = property(get_NewValue, None)
     OldValue = property(get_OldValue, None)
 class AdaptiveMediaSourceResourceType(Enum, Int32):
+    _name_ = 'Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceResourceType'
     Manifest = 0
     InitializationSegment = 1
     MediaSegment = 2

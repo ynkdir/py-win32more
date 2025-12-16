@@ -469,9 +469,11 @@ class MediaOverlayLayer(ComPtr):
     CustomCompositorDefinition = property(get_CustomCompositorDefinition, None)
     Overlays = property(get_Overlays, None)
 class MediaTrimmingPreference(Enum, Int32):
+    _name_ = 'Windows.Media.Editing.MediaTrimmingPreference'
     Fast = 0
     Precise = 1
 class VideoFramePrecision(Enum, Int32):
+    _name_ = 'Windows.Media.Editing.VideoFramePrecision'
     NearestFrame = 0
     NearestKeyFrame = 1
 

@@ -249,10 +249,12 @@ class ImageScannerAutoConfiguration(ComPtr):
     DefaultFormat = property(get_DefaultFormat, None)
     Format = property(get_Format, put_Format)
 class ImageScannerAutoCroppingMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Scanners.ImageScannerAutoCroppingMode'
     Disabled = 0
     SingleRegion = 1
     MultipleRegion = 2
 class ImageScannerColorMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Scanners.ImageScannerColorMode'
     Color = 0
     Grayscale = 1
     Monochrome = 2
@@ -488,6 +490,7 @@ class ImageScannerFlatbedConfiguration(ComPtr):
     OpticalResolution = property(get_OpticalResolution, None)
     SelectedScanRegion = property(get_SelectedScanRegion, put_SelectedScanRegion)
 class ImageScannerFormat(Enum, Int32):
+    _name_ = 'Windows.Devices.Scanners.ImageScannerFormat'
     Jpeg = 0
     Png = 1
     DeviceIndependentBitmap = 2
@@ -517,6 +520,7 @@ class ImageScannerScanResult(ComPtr):
     def get_ScannedFiles(self: win32more.Windows.Devices.Scanners.IImageScannerScanResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.StorageFile]: ...
     ScannedFiles = property(get_ScannedFiles, None)
 class ImageScannerScanSource(Enum, Int32):
+    _name_ = 'Windows.Devices.Scanners.ImageScannerScanSource'
     Default = 0
     Flatbed = 1
     Feeder = 2

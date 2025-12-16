@@ -189,6 +189,7 @@ class ImageDescriptionGenerator(ComPtr):
     @winrt_classmethod
     def CreateAsync(cls: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionGeneratorStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionGenerator]: ...
 class ImageDescriptionKind(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.Imaging.ImageDescriptionKind'
     BriefDescription = 0
     DetailedDescription = 1
     DiagramDescription = 2
@@ -204,6 +205,7 @@ class ImageDescriptionResult(ComPtr):
     Description = property(get_Description, None)
     Status = property(get_Status, None)
 class ImageDescriptionResultStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.Imaging.ImageDescriptionResultStatus'
     Complete = 0
     InProgress = 1
     BlockedByPolicy = 2
@@ -313,6 +315,7 @@ class RecognizedLine(ComPtr):
     Text = property(get_Text, None)
     Words = property(get_Words, None)
 class RecognizedLineStyle(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.Imaging.RecognizedLineStyle'
     Handwritten = 0
 class RecognizedText(ComPtr):
     extends: IInspectable

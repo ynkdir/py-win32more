@@ -245,10 +245,12 @@ class TargetedContentAction(ComPtr):
     @winrt_mixinmethod
     def InvokeAsync(self: win32more.Windows.Services.TargetedContent.ITargetedContentAction) -> win32more.Windows.Foundation.IAsyncAction: ...
 class TargetedContentAppInstallationState(Enum, Int32):
+    _name_ = 'Windows.Services.TargetedContent.TargetedContentAppInstallationState'
     NotApplicable = 0
     NotInstalled = 1
     Installed = 2
 class TargetedContentAvailability(Enum, Int32):
+    _name_ = 'Windows.Services.TargetedContent.TargetedContentAvailability'
     None_ = 0
     Partial = 1
     All = 2
@@ -330,6 +332,7 @@ class TargetedContentImage(ComPtr):
     Height = property(get_Height, None)
     Width = property(get_Width, None)
 class TargetedContentInteraction(Enum, Int32):
+    _name_ = 'Windows.Services.TargetedContent.TargetedContentInteraction'
     Impression = 0
     ClickThrough = 1
     Hover = 2
@@ -390,6 +393,7 @@ class TargetedContentObject(ComPtr):
     ObjectKind = property(get_ObjectKind, None)
     Value = property(get_Value, None)
 class TargetedContentObjectKind(Enum, Int32):
+    _name_ = 'Windows.Services.TargetedContent.TargetedContentObjectKind'
     Collection = 0
     Item = 1
     Value = 2
@@ -500,6 +504,7 @@ class TargetedContentValue(ComPtr):
     Uris = property(get_Uris, None)
     ValueKind = property(get_ValueKind, None)
 class TargetedContentValueKind(Enum, Int32):
+    _name_ = 'Windows.Services.TargetedContent.TargetedContentValueKind'
     String = 0
     Uri = 1
     Number = 2

@@ -135,9 +135,11 @@ class MessageDialog(ComPtr):
     Options = property(get_Options, put_Options)
     Title = property(get_Title, put_Title)
 class MessageDialogOptions(Enum, UInt32):
+    _name_ = 'Windows.UI.Popups.MessageDialogOptions'
     None_ = 0
     AcceptUserInputAfterDelay = 1
 class Placement(Enum, Int32):
+    _name_ = 'Windows.UI.Popups.Placement'
     Default = 0
     Above = 1
     Below = 2

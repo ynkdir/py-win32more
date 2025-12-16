@@ -5,6 +5,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Authentication.OnlineId
 import win32more.Windows.System
 class CredentialPromptType(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.OnlineId.CredentialPromptType'
     PromptIfNeeded = 0
     RetypeCredentials = 1
     DoNotPrompt = 2
@@ -248,6 +249,7 @@ class OnlineIdSystemTicketResult(ComPtr):
     Identity = property(get_Identity, None)
     Status = property(get_Status, None)
 class OnlineIdSystemTicketStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketStatus'
     Success = 0
     Error = 1
     ServiceConnectionError = 2

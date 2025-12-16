@@ -329,6 +329,7 @@ class SpeechContinuousRecognitionCompletedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionCompletedEventArgs) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
     Status = property(get_Status, None)
 class SpeechContinuousRecognitionMode(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechRecognition.SpeechContinuousRecognitionMode'
     Default = 0
     PauseOnRecognition = 1
 class SpeechContinuousRecognitionResultGeneratedEventArgs(ComPtr):
@@ -370,6 +371,7 @@ class SpeechContinuousRecognitionSession(ComPtr):
     Completed = event(add_Completed, remove_Completed)
     ResultGenerated = event(add_ResultGenerated, remove_ResultGenerated)
 class SpeechRecognitionAudioProblem(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionAudioProblem'
     None_ = 0
     TooNoisy = 1
     NoSignal = 2
@@ -385,15 +387,18 @@ class SpeechRecognitionCompilationResult(ComPtr):
     def get_Status(self: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionCompilationResult) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
     Status = property(get_Status, None)
 class SpeechRecognitionConfidence(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionConfidence'
     High = 0
     Medium = 1
     Low = 2
     Rejected = 3
 class SpeechRecognitionConstraintProbability(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionConstraintProbability'
     Default = 0
     Min = 1
     Max = 2
 class SpeechRecognitionConstraintType(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionConstraintType'
     Topic = 0
     List = 1
     Grammar = 2
@@ -529,6 +534,7 @@ class SpeechRecognitionResult(ComPtr):
     Status = property(get_Status, None)
     Text = property(get_Text, None)
 class SpeechRecognitionResultStatus(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus'
     Success = 0
     TopicLanguageNotSupported = 1
     GrammarLanguageMismatch = 2
@@ -541,6 +547,7 @@ class SpeechRecognitionResultStatus(Enum, Int32):
     NetworkFailure = 9
     MicrophoneUnavailable = 10
 class SpeechRecognitionScenario(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionScenario'
     WebSearch = 0
     Dictation = 1
     FormFilling = 2
@@ -689,6 +696,7 @@ class SpeechRecognizer(ComPtr, metaclass=_SpeechRecognizer_Meta_):
     RecognitionQualityDegrading = event(add_RecognitionQualityDegrading, remove_RecognitionQualityDegrading)
     StateChanged = event(add_StateChanged, remove_StateChanged)
 class SpeechRecognizerState(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechRecognition.SpeechRecognizerState'
     Idle = 0
     Capturing = 1
     Processing = 2

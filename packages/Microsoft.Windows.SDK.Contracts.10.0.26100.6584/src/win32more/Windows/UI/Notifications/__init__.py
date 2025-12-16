@@ -7,6 +7,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.UI.Notifications
 class AdaptiveNotificationContentKind(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.AdaptiveNotificationContentKind'
     Text = 0
 class AdaptiveNotificationText(ComPtr):
     extends: IInspectable
@@ -59,6 +60,7 @@ class BadgeNotification(ComPtr):
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
 class BadgeTemplateType(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.BadgeTemplateType'
     BadgeGlyph = 0
     BadgeNumber = 1
 class BadgeUpdateManager(ComPtr):
@@ -1117,18 +1119,22 @@ class NotificationData(ComPtr):
     SequenceNumber = property(get_SequenceNumber, put_SequenceNumber)
     Values = property(get_Values, None)
 class NotificationKinds(Enum, UInt32):
+    _name_ = 'Windows.UI.Notifications.NotificationKinds'
     Unknown = 0
     Toast = 1
 class NotificationMirroring(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.NotificationMirroring'
     Allowed = 0
     Disabled = 1
 class NotificationSetting(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.NotificationSetting'
     Enabled = 0
     DisabledForApplication = 1
     DisabledForUser = 2
     DisabledByGroupPolicy = 3
     DisabledByManifest = 4
 class NotificationUpdateResult(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.NotificationUpdateResult'
     Succeeded = 0
     Failed = 1
     NotificationNotFound = 2
@@ -1147,6 +1153,7 @@ class NotificationVisual(ComPtr):
     Bindings = property(get_Bindings, None)
     Language = property(get_Language, put_Language)
 class PeriodicUpdateRecurrence(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.PeriodicUpdateRecurrence'
     HalfHour = 0
     Hour = 1
     SixHours = 2
@@ -1293,6 +1300,7 @@ class TileFlyoutNotification(ComPtr):
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
 class TileFlyoutTemplateType(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.TileFlyoutTemplateType'
     TileFlyoutTemplate01 = 0
 class TileFlyoutUpdateManager(ComPtr):
     extends: IInspectable
@@ -1349,6 +1357,7 @@ class TileNotification(ComPtr):
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Tag = property(get_Tag, put_Tag)
 class TileTemplateType(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.TileTemplateType'
     TileSquareImage = 0
     TileSquareBlock = 1
     TileSquareText01 = 2
@@ -1598,6 +1607,7 @@ class ToastCollectionManager(ComPtr):
     AppId = property(get_AppId, None)
     User = property(get_User, None)
 class ToastDismissalReason(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.ToastDismissalReason'
     UserCanceled = 0
     ApplicationHidden = 1
     TimedOut = 2
@@ -1616,6 +1626,7 @@ class ToastFailedEventArgs(ComPtr):
     def get_ErrorCode(self: win32more.Windows.UI.Notifications.IToastFailedEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ErrorCode = property(get_ErrorCode, None)
 class ToastHistoryChangedType(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.ToastHistoryChangedType'
     Cleared = 0
     Removed = 1
     Expired = 2
@@ -1789,10 +1800,12 @@ class ToastNotificationManagerForUser(ComPtr):
     User = property(get_User, None)
     NotificationModeChanged = event(add_NotificationModeChanged, remove_NotificationModeChanged)
 class ToastNotificationMode(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.ToastNotificationMode'
     Unrestricted = 0
     PriorityOnly = 1
     AlarmsOnly = 2
 class ToastNotificationPriority(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.ToastNotificationPriority'
     Default = 0
     High = 1
 class ToastNotifier(ComPtr):
@@ -1822,6 +1835,7 @@ class ToastNotifier(ComPtr):
     Setting = property(get_Setting, None)
     ScheduledToastNotificationShowing = event(add_ScheduledToastNotificationShowing, remove_ScheduledToastNotificationShowing)
 class ToastTemplateType(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.ToastTemplateType'
     ToastImageAndText01 = 0
     ToastImageAndText02 = 1
     ToastImageAndText03 = 2
@@ -1857,6 +1871,7 @@ class UserNotificationChangedEventArgs(ComPtr):
     ChangeKind = property(get_ChangeKind, None)
     UserNotificationId = property(get_UserNotificationId, None)
 class UserNotificationChangedKind(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.UserNotificationChangedKind'
     Added = 0
     Removed = 1
 

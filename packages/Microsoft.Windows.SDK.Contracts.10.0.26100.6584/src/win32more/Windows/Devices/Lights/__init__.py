@@ -295,6 +295,7 @@ class LampArray(ComPtr):
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
     AvailabilityChanged = event(add_AvailabilityChanged, remove_AvailabilityChanged)
 class LampArrayKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Lights.LampArrayKind'
     Undefined = 0
     Keyboard = 1
     Mouse = 2
@@ -350,6 +351,7 @@ class LampInfo(ComPtr):
     RedLevelCount = property(get_RedLevelCount, None)
     UpdateLatency = property(get_UpdateLatency, None)
 class LampPurposes(Enum, UInt32):
+    _name_ = 'Windows.Devices.Lights.LampPurposes'
     Undefined = 0
     Control = 1
     Accent = 2

@@ -250,6 +250,7 @@ class MessageTransmittedHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice, messageId: Int64) -> Void: ...
 class PeerDiscoveryTypes(Enum, UInt32):
+    _name_ = 'Windows.Networking.Proximity.PeerDiscoveryTypes'
     None_ = 0
     Browse = 1
     Triggered = 2
@@ -336,6 +337,7 @@ class PeerInformation(ComPtr):
     Id = property(get_Id, None)
     ServiceName = property(get_ServiceName, None)
 class PeerRole(Enum, Int32):
+    _name_ = 'Windows.Networking.Proximity.PeerRole'
     Peer = 0
     Host = 1
     Client = 2
@@ -376,6 +378,7 @@ class PeerWatcher(ComPtr):
     Stopped = event(add_Stopped, remove_Stopped)
     Updated = event(add_Updated, remove_Updated)
 class PeerWatcherStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.Proximity.PeerWatcherStatus'
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -446,6 +449,7 @@ class ProximityMessage(ComPtr):
     MessageType = property(get_MessageType, None)
     SubscriptionId = property(get_SubscriptionId, None)
 class TriggeredConnectState(Enum, Int32):
+    _name_ = 'Windows.Networking.Proximity.TriggeredConnectState'
     PeerFound = 0
     Listening = 1
     Connecting = 2

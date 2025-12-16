@@ -24,20 +24,24 @@ class AsyncCausalityTracer(ComPtr, metaclass=_AsyncCausalityTracer_Meta_):
     def remove_TracingStatusChanged(cls: win32more.Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _AsyncCausalityTracer_Meta_.TracingStatusChanged = event(add_TracingStatusChanged, remove_TracingStatusChanged)
 class CausalityRelation(Enum, Int32):
+    _name_ = 'Windows.Foundation.Diagnostics.CausalityRelation'
     AssignDelegate = 0
     Join = 1
     Choice = 2
     Cancel = 3
     Error = 4
 class CausalitySource(Enum, Int32):
+    _name_ = 'Windows.Foundation.Diagnostics.CausalitySource'
     Application = 0
     Library = 1
     System = 2
 class CausalitySynchronousWork(Enum, Int32):
+    _name_ = 'Windows.Foundation.Diagnostics.CausalitySynchronousWork'
     CompletionNotification = 0
     ProgressNotification = 1
     Execution = 2
 class CausalityTraceLevel(Enum, Int32):
+    _name_ = 'Windows.Foundation.Diagnostics.CausalityTraceLevel'
     Required = 0
     Important = 1
     Verbose = 2
@@ -57,6 +61,7 @@ class ErrorDetails(ComPtr):
     HelpUri = property(get_HelpUri, None)
     LongDescription = property(get_LongDescription, None)
 class ErrorOptions(Enum, UInt32):
+    _name_ = 'Windows.Foundation.Diagnostics.ErrorOptions'
     None_ = 0
     SuppressExceptions = 1
     ForceExceptions = 2
@@ -761,6 +766,7 @@ class LoggingChannelOptions(ComPtr):
     def put_Group(self: win32more.Windows.Foundation.Diagnostics.ILoggingChannelOptions, value: Guid) -> Void: ...
     Group = property(get_Group, put_Group)
 class LoggingFieldFormat(Enum, Int32):
+    _name_ = 'Windows.Foundation.Diagnostics.LoggingFieldFormat'
     Default = 0
     Hidden = 1
     String = 2
@@ -1024,12 +1030,14 @@ class LoggingFields(ComPtr):
     @winrt_mixinmethod
     def AddRectArrayWithFormatAndTags(self: win32more.Windows.Foundation.Diagnostics.ILoggingFields, name: hstr, value: PassArray[win32more.Windows.Foundation.Rect], format: win32more.Windows.Foundation.Diagnostics.LoggingFieldFormat, tags: Int32) -> Void: ...
 class LoggingLevel(Enum, Int32):
+    _name_ = 'Windows.Foundation.Diagnostics.LoggingLevel'
     Verbose = 0
     Information = 1
     Warning = 2
     Error = 3
     Critical = 4
 class LoggingOpcode(Enum, Int32):
+    _name_ = 'Windows.Foundation.Diagnostics.LoggingOpcode'
     Info = 0
     Start = 1
     Stop = 2

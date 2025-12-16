@@ -209,6 +209,7 @@ class IInputInjectorStatics2(ComPtr):
     @winrt_commethod(6)
     def TryCreateForAppBroadcastOnly(self) -> win32more.Windows.UI.Input.Preview.Injection.InputInjector: ...
 class InjectedInputButtonChangeKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputButtonChangeKind'
     None_ = 0
     FirstButtonDown = 1
     FirstButtonUp = 2
@@ -273,6 +274,7 @@ class InjectedInputGamepadInfo(ComPtr):
     RightThumbstickY = property(get_RightThumbstickY, put_RightThumbstickY)
     RightTrigger = property(get_RightTrigger, put_RightTrigger)
 class InjectedInputKeyOptions(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputKeyOptions'
     None_ = 0
     ExtendedKey = 1
     KeyUp = 2
@@ -345,6 +347,7 @@ class InjectedInputMouseInfo(ComPtr):
     MouseOptions = property(get_MouseOptions, put_MouseOptions)
     TimeOffsetInMilliseconds = property(get_TimeOffsetInMilliseconds, put_TimeOffsetInMilliseconds)
 class InjectedInputMouseOptions(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputMouseOptions'
     None_ = 0
     Move = 1
     LeftDown = 2
@@ -361,6 +364,7 @@ class InjectedInputMouseOptions(Enum, UInt32):
     VirtualDesk = 16384
     Absolute = 32768
 class InjectedInputPenButtons(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputPenButtons'
     None_ = 0
     Barrel = 1
     Inverted = 2
@@ -414,6 +418,7 @@ class InjectedInputPenInfo(ComPtr):
     TiltX = property(get_TiltX, put_TiltX)
     TiltY = property(get_TiltY, put_TiltY)
 class InjectedInputPenParameters(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputPenParameters'
     None_ = 0
     Pressure = 1
     Rotation = 2
@@ -431,6 +436,7 @@ class InjectedInputPointerInfo(Structure):
     TimeOffsetInMilliseconds: UInt32
     PerformanceCount: UInt64
 class InjectedInputPointerOptions(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputPointerOptions'
     None_ = 0
     New = 1
     InRange = 2
@@ -451,6 +457,7 @@ class InjectedInputRectangle(Structure):
     Bottom: Int32
     Right: Int32
 class InjectedInputShortcut(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputShortcut'
     Back = 0
     Start = 1
     Search = 2
@@ -493,11 +500,13 @@ class InjectedInputTouchInfo(ComPtr):
     Pressure = property(get_Pressure, put_Pressure)
     TouchParameters = property(get_TouchParameters, put_TouchParameters)
 class InjectedInputTouchParameters(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputTouchParameters'
     None_ = 0
     Contact = 1
     Orientation = 2
     Pressure = 4
 class InjectedInputVisualizationMode(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Preview.Injection.InjectedInputVisualizationMode'
     None_ = 0
     Default = 1
     Indirect = 2

@@ -105,6 +105,7 @@ class INotifyCollectionChangedEventArgsFactory(ComPtr):
     @winrt_commethod(6)
     def CreateInstanceWithAllParameters(self, action: win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedAction, newItems: win32more.Windows.UI.Xaml.Interop.IBindableVector, oldItems: win32more.Windows.UI.Xaml.Interop.IBindableVector, newIndex: Int32, oldIndex: Int32, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs: ...
 class NotifyCollectionChangedAction(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Interop.NotifyCollectionChangedAction'
     Add = 0
     Remove = 1
     Replace = 2
@@ -144,6 +145,7 @@ class NotifyCollectionChangedEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable, e: win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs) -> Void: ...
 class TypeKind(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Interop.TypeKind'
     Primitive = 0
     Metadata = 1
     Custom = 2

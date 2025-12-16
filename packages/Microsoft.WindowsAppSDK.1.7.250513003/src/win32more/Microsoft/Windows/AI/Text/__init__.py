@@ -183,6 +183,7 @@ class LanguageModelResponseResult(ComPtr):
     Status = property(get_Status, None)
     Text = property(get_Text, None)
 class LanguageModelResponseStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AI.Text.LanguageModelResponseStatus'
     Complete = 0
     InProgress = 1
     BlockedByPolicy = 2

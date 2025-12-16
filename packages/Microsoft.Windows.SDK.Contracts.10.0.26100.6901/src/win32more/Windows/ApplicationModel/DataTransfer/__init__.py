@@ -111,6 +111,7 @@ class ClipboardHistoryItemsResult(ComPtr):
     Items = property(get_Items, None)
     Status = property(get_Status, None)
 class ClipboardHistoryItemsResultStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResultStatus'
     Success = 0
     AccessDenied = 1
     ClipboardHistoryDisabled = 2
@@ -183,6 +184,7 @@ class DataPackage(ComPtr):
     ShareCanceled = event(add_ShareCanceled, remove_ShareCanceled)
     ShareCompleted = event(add_ShareCompleted, remove_ShareCompleted)
 class DataPackageOperation(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.DataTransfer.DataPackageOperation'
     None_ = 0
     Copy = 1
     Move = 2
@@ -1094,6 +1096,7 @@ class OperationCompletedEventArgs(ComPtr):
     AcceptedFormatId = property(get_AcceptedFormatId, None)
     Operation = property(get_Operation, None)
 class SetHistoryItemAsContentStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.DataTransfer.SetHistoryItemAsContentStatus'
     Success = 0
     AccessDenied = 1
     ItemDeleted = 2
@@ -1194,6 +1197,7 @@ class ShareUIOptions(ComPtr):
     SelectionRect = property(get_SelectionRect, put_SelectionRect)
     Theme = property(get_Theme, put_Theme)
 class ShareUITheme(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.DataTransfer.ShareUITheme'
     Default = 0
     Light = 1
     Dark = 2

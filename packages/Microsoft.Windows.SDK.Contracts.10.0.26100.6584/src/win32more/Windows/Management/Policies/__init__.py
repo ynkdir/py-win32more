@@ -94,6 +94,7 @@ class NamedPolicyData(ComPtr):
     User = property(get_User, None)
     Changed = event(add_Changed, remove_Changed)
 class NamedPolicyKind(Enum, Int32):
+    _name_ = 'Windows.Management.Policies.NamedPolicyKind'
     Invalid = 0
     Binary = 1
     Boolean = 2

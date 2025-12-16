@@ -350,6 +350,7 @@ class PlayToConnection(ComPtr):
     StateChanged = event(add_StateChanged, remove_StateChanged)
     Transferred = event(add_Transferred, remove_Transferred)
 class PlayToConnectionError(Enum, Int32):
+    _name_ = 'Windows.Media.PlayTo.PlayToConnectionError'
     None_ = 0
     DeviceNotResponding = 1
     DeviceError = 2
@@ -366,6 +367,7 @@ class PlayToConnectionErrorEventArgs(ComPtr):
     Code = property(get_Code, None)
     Message = property(get_Message, None)
 class PlayToConnectionState(Enum, Int32):
+    _name_ = 'Windows.Media.PlayTo.PlayToConnectionState'
     Disconnected = 0
     Connected = 1
     Rendering = 2

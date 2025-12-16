@@ -290,6 +290,7 @@ class WebAccountClientView(ComPtr):
     ApplicationCallbackUri = property(get_ApplicationCallbackUri, None)
     Type = property(get_Type, None)
 class WebAccountClientViewType(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.Provider.WebAccountClientViewType'
     IdOnly = 0
     IdAndProperties = 1
 class WebAccountManager(ComPtr):
@@ -405,6 +406,7 @@ class WebAccountProviderManageAccountOperation(ComPtr):
     Kind = property(get_Kind, None)
     WebAccount = property(get_WebAccount, None)
 class WebAccountProviderOperationKind(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderOperationKind'
     RequestToken = 0
     GetTokenSilently = 1
     AddAccount = 2
@@ -492,9 +494,11 @@ class WebAccountProviderTriggerDetails(ComPtr):
     Operation = property(get_Operation, None)
     User = property(get_User, None)
 class WebAccountScope(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Web.Provider.WebAccountScope'
     PerUser = 0
     PerApplication = 1
 class WebAccountSelectionOptions(Enum, UInt32):
+    _name_ = 'Windows.Security.Authentication.Web.Provider.WebAccountSelectionOptions'
     Default = 0
     New = 1
 class WebProviderTokenRequest(ComPtr):

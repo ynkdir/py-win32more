@@ -109,14 +109,17 @@ class DateTimeFormatter(ComPtr, metaclass=_DateTimeFormatter_Meta_):
     _DateTimeFormatter_Meta_.ShortDate = property(get_ShortDate, None)
     _DateTimeFormatter_Meta_.ShortTime = property(get_ShortTime, None)
 class DayFormat(Enum, Int32):
+    _name_ = 'Windows.Globalization.DateTimeFormatting.DayFormat'
     None_ = 0
     Default = 1
 class DayOfWeekFormat(Enum, Int32):
+    _name_ = 'Windows.Globalization.DateTimeFormatting.DayOfWeekFormat'
     None_ = 0
     Default = 1
     Abbreviated = 2
     Full = 3
 class HourFormat(Enum, Int32):
+    _name_ = 'Windows.Globalization.DateTimeFormatting.HourFormat'
     None_ = 0
     Default = 1
 class IDateTimeFormatter(ComPtr):
@@ -216,18 +219,22 @@ class IDateTimeFormatterStatics(ComPtr):
     ShortDate = property(get_ShortDate, None)
     ShortTime = property(get_ShortTime, None)
 class MinuteFormat(Enum, Int32):
+    _name_ = 'Windows.Globalization.DateTimeFormatting.MinuteFormat'
     None_ = 0
     Default = 1
 class MonthFormat(Enum, Int32):
+    _name_ = 'Windows.Globalization.DateTimeFormatting.MonthFormat'
     None_ = 0
     Default = 1
     Abbreviated = 2
     Full = 3
     Numeric = 4
 class SecondFormat(Enum, Int32):
+    _name_ = 'Windows.Globalization.DateTimeFormatting.SecondFormat'
     None_ = 0
     Default = 1
 class YearFormat(Enum, Int32):
+    _name_ = 'Windows.Globalization.DateTimeFormatting.YearFormat'
     None_ = 0
     Default = 1
     Abbreviated = 2

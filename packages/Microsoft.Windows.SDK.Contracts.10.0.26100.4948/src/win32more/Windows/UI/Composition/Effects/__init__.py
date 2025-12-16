@@ -89,6 +89,7 @@ class SceneLightingEffect(ComPtr):
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularShine = property(get_SpecularShine, put_SpecularShine)
 class SceneLightingEffectReflectanceModel(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Effects.SceneLightingEffectReflectanceModel'
     BlinnPhong = 0
     PhysicallyBasedBlinnPhong = 1
 

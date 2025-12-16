@@ -27,6 +27,7 @@ class ServiceDevice(ComPtr):
     @winrt_classmethod
     def GetDeviceSelectorFromServiceId(cls: win32more.Windows.Devices.Portable.IServiceDeviceStatics, serviceId: Guid) -> hstr: ...
 class ServiceDeviceType(Enum, Int32):
+    _name_ = 'Windows.Devices.Portable.ServiceDeviceType'
     CalendarService = 0
     ContactsService = 1
     DeviceStatusService = 2

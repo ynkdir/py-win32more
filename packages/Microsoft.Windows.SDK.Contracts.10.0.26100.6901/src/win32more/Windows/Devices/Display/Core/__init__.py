@@ -46,6 +46,7 @@ class DisplayAdapter(ComPtr):
     Properties = property(get_Properties, None)
     SourceCount = property(get_SourceCount, None)
 class DisplayBitsPerChannel(Enum, UInt32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayBitsPerChannel'
     None_ = 0
     Bpc6 = 1
     Bpc8 = 2
@@ -77,6 +78,7 @@ class DisplayDevice(ComPtr):
     def get_RenderAdapterId(self: win32more.Windows.Devices.Display.Core.IDisplayDeviceRenderAdapter) -> win32more.Windows.Graphics.DisplayAdapterId: ...
     RenderAdapterId = property(get_RenderAdapterId, None)
 class DisplayDeviceCapability(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayDeviceCapability'
     FlipOverride = 0
 class DisplayFence(ComPtr):
     extends: IInspectable
@@ -171,6 +173,7 @@ class DisplayManagerEnabledEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Devices.Display.Core.IDisplayManagerEnabledEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class DisplayManagerOptions(Enum, UInt32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayManagerOptions'
     None_ = 0
     EnforceSourceOwnership = 1
     VirtualRefreshRateAware = 2
@@ -186,6 +189,7 @@ class DisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Devices.Display.Core.IDisplayManagerPathsFailedOrInvalidatedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class DisplayManagerResult(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayManagerResult'
     Success = 0
     UnknownFailure = 1
     TargetAccessDenied = 2
@@ -237,6 +241,7 @@ class DisplayModeInfo(ComPtr):
     SourceResolution = property(get_SourceResolution, None)
     TargetResolution = property(get_TargetResolution, None)
 class DisplayModeQueryOptions(Enum, UInt32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayModeQueryOptions'
     None_ = 0
     OnlyPreferredResolution = 1
 class DisplayMuxDevice(ComPtr):
@@ -347,6 +352,7 @@ class DisplayPath(ComPtr):
     View = property(get_View, None)
     WireFormat = property(get_WireFormat, put_WireFormat)
 class DisplayPathScaling(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayPathScaling'
     Identity = 0
     Centered = 1
     Stretched = 2
@@ -354,6 +360,7 @@ class DisplayPathScaling(Enum, Int32):
     Custom = 4
     DriverPreferred = 5
 class DisplayPathStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayPathStatus'
     Unknown = 0
     Succeeded = 1
     Pending = 2
@@ -361,6 +368,7 @@ class DisplayPathStatus(Enum, Int32):
     FailedAsync = 4
     InvalidatedAsync = 5
 class DisplayPresentStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayPresentStatus'
     Success = 0
     SourceStatusPreventedPresent = 1
     ScanoutInvalid = 2
@@ -408,6 +416,7 @@ class DisplayPrimaryDescription(ComPtr):
     Properties = property(get_Properties, None)
     Width = property(get_Width, None)
 class DisplayRotation(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayRotation'
     None_ = 0
     Clockwise90Degrees = 1
     Clockwise180Degrees = 2
@@ -417,6 +426,7 @@ class DisplayScanout(ComPtr):
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayScanout
     _classid_ = 'Windows.Devices.Display.Core.DisplayScanout'
 class DisplayScanoutOptions(Enum, UInt32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayScanoutOptions'
     None_ = 0
     AllowTearing = 2
 class DisplaySource(ComPtr):
@@ -440,6 +450,7 @@ class DisplaySource(ComPtr):
     Status = property(get_Status, None)
     StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class DisplaySourceStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplaySourceStatus'
     Active = 0
     PoweredOff = 1
     Invalid = 2
@@ -483,11 +494,13 @@ class DisplayState(ComPtr):
     Targets = property(get_Targets, None)
     Views = property(get_Views, None)
 class DisplayStateApplyOptions(Enum, UInt32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayStateApplyOptions'
     None_ = 0
     FailIfStateChanged = 1
     ForceReapply = 2
     ForceModeEnumeration = 4
 class DisplayStateFunctionalizeOptions(Enum, UInt32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayStateFunctionalizeOptions'
     None_ = 0
     FailIfStateChanged = 1
     ValidateTopologyOnly = 2
@@ -502,6 +515,7 @@ class DisplayStateOperationResult(ComPtr):
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     Status = property(get_Status, None)
 class DisplayStateOperationStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayStateOperationStatus'
     Success = 0
     PartialFailure = 1
     UnknownFailure = 2
@@ -558,6 +572,7 @@ class DisplayTarget(ComPtr):
     StableMonitorId = property(get_StableMonitorId, None)
     UsageKind = property(get_UsageKind, None)
 class DisplayTargetPersistence(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayTargetPersistence'
     None_ = 0
     BootPersisted = 1
     TemporaryPersisted = 2
@@ -596,6 +611,7 @@ class DisplayTaskResult(ComPtr):
     PresentStatus = property(get_PresentStatus, None)
     SourceStatus = property(get_SourceStatus, None)
 class DisplayTaskSignalKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayTaskSignalKind'
     OnPresentFlipAway = 0
     OnPresentFlipTo = 1
 class DisplayView(ComPtr):
@@ -649,18 +665,22 @@ class DisplayWireFormat(ComPtr):
     PixelEncoding = property(get_PixelEncoding, None)
     Properties = property(get_Properties, None)
 class DisplayWireFormatColorSpace(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayWireFormatColorSpace'
     BT709 = 0
     BT2020 = 1
     ProfileDefinedWideColorGamut = 2
 class DisplayWireFormatEotf(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayWireFormatEotf'
     Sdr = 0
     HdrSmpte2084 = 1
 class DisplayWireFormatHdrMetadata(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata'
     None_ = 0
     Hdr10 = 1
     Hdr10Plus = 2
     DolbyVisionLowLatency = 3
 class DisplayWireFormatPixelEncoding(Enum, Int32):
+    _name_ = 'Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding'
     Rgb444 = 0
     Ycc444 = 1
     Ycc422 = 2

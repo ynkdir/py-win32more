@@ -108,11 +108,13 @@ class ProviderSpiConnectionSettings(ComPtr):
     Mode = property(get_Mode, put_Mode)
     SharingMode = property(get_SharingMode, put_SharingMode)
 class ProviderSpiMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Spi.Provider.ProviderSpiMode'
     Mode0 = 0
     Mode1 = 1
     Mode2 = 2
     Mode3 = 3
 class ProviderSpiSharingMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Spi.Provider.ProviderSpiSharingMode'
     Exclusive = 0
     Shared = 1
 

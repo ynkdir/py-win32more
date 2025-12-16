@@ -142,6 +142,7 @@ class IMcpStdioConnectionInfo(ComPtr):
     Command = property(get_Command, None)
     Info = property(get_Info, None)
 class McpAuthorizationResponse(Enum, Int32):
+    _name_ = 'Windows.AI.Agents.Mcp.McpAuthorizationResponse'
     Denied = 0
     Approved = 1
 class McpHttpConnectionResult(ComPtr):
@@ -157,9 +158,11 @@ class McpHttpConnectionResult(ComPtr):
     Headers = property(get_Headers, None)
     Uri = property(get_Uri, put_Uri)
 class McpMessageAction(Enum, Int32):
+    _name_ = 'Windows.AI.Agents.Mcp.McpMessageAction'
     Allow = 0
     Block = 1
 class McpMessageDirection(Enum, Int32):
+    _name_ = 'Windows.AI.Agents.Mcp.McpMessageDirection'
     Request = 0
     Response = 1
 class McpMessageFilterResponse(ComPtr):

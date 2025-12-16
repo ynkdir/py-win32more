@@ -109,6 +109,7 @@ class ISystemUpdateManagerStatics(ComPtr):
     UserActiveHoursStart = property(get_UserActiveHoursStart, None)
     StateChanged = event(add_StateChanged, remove_StateChanged)
 class SystemUpdateAttentionRequiredReason(Enum, Int32):
+    _name_ = 'Windows.System.Update.SystemUpdateAttentionRequiredReason'
     None_ = 0
     NetworkRequired = 1
     InsufficientDiskSpace = 2
@@ -143,6 +144,7 @@ class SystemUpdateItem(ComPtr):
     State = property(get_State, None)
     Title = property(get_Title, None)
 class SystemUpdateItemState(Enum, Int32):
+    _name_ = 'Windows.System.Update.SystemUpdateItemState'
     NotStarted = 0
     Initializing = 1
     Preparing = 2
@@ -231,6 +233,7 @@ class SystemUpdateManager(ComPtr, metaclass=_SystemUpdateManager_Meta_):
     _SystemUpdateManager_Meta_.UserActiveHoursStart = property(get_UserActiveHoursStart, None)
     _SystemUpdateManager_Meta_.StateChanged = event(add_StateChanged, remove_StateChanged)
 class SystemUpdateManagerState(Enum, Int32):
+    _name_ = 'Windows.System.Update.SystemUpdateManagerState'
     Idle = 0
     Detecting = 1
     ReadyToDownload = 2
@@ -244,6 +247,7 @@ class SystemUpdateManagerState(Enum, Int32):
     AttentionRequired = 10
     Error = 11
 class SystemUpdateStartInstallAction(Enum, Int32):
+    _name_ = 'Windows.System.Update.SystemUpdateStartInstallAction'
     UpToReboot = 0
     AllowReboot = 1
 

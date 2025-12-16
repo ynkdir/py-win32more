@@ -173,6 +173,7 @@ class SecondaryAuthenticationFactorAuthentication(ComPtr, metaclass=_SecondaryAu
     SessionNonce = property(get_SessionNonce, None)
     _SecondaryAuthenticationFactorAuthentication_Meta_.AuthenticationStageChanged = event(add_AuthenticationStageChanged, remove_AuthenticationStageChanged)
 class SecondaryAuthenticationFactorAuthenticationMessage(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationMessage'
     Invalid = 0
     SwipeUpWelcome = 1
     TapWelcome = 2
@@ -213,9 +214,11 @@ class SecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     Authentication = property(get_Authentication, None)
     Status = property(get_Status, None)
 class SecondaryAuthenticationFactorAuthenticationScenario(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationScenario'
     SignIn = 0
     CredentialPrompt = 1
 class SecondaryAuthenticationFactorAuthenticationStage(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStage'
     NotStarted = 0
     WaitingForUserConfirmation = 1
     CollectingCredential = 2
@@ -246,12 +249,14 @@ class SecondaryAuthenticationFactorAuthenticationStageInfo(ComPtr):
     Scenario = property(get_Scenario, None)
     Stage = property(get_Stage, None)
 class SecondaryAuthenticationFactorAuthenticationStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStatus'
     Failed = 0
     Started = 1
     UnknownDevice = 2
     DisabledByPolicy = 3
     InvalidAuthenticationStage = 4
 class SecondaryAuthenticationFactorDeviceCapabilities(Enum, UInt32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDeviceCapabilities'
     None_ = 0
     SecureStorage = 1
     StoreKeys = 2
@@ -261,20 +266,25 @@ class SecondaryAuthenticationFactorDeviceCapabilities(Enum, UInt32):
     HMacSha256 = 32
     CloseRangeDataTransmission = 64
 class SecondaryAuthenticationFactorDeviceFindScope(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDeviceFindScope'
     User = 0
     AllUsers = 1
 class SecondaryAuthenticationFactorDevicePresence(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDevicePresence'
     Absent = 0
     Present = 1
 class SecondaryAuthenticationFactorDevicePresenceMonitoringMode(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDevicePresenceMonitoringMode'
     Unsupported = 0
     AppManaged = 1
     SystemManaged = 2
 class SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus'
     Unsupported = 0
     Succeeded = 1
     DisabledByPolicy = 2
 class SecondaryAuthenticationFactorFinishAuthenticationStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorFinishAuthenticationStatus'
     Failed = 0
     Completed = 1
     NonceExpired = 2
@@ -337,6 +347,7 @@ class SecondaryAuthenticationFactorRegistrationResult(ComPtr):
     Registration = property(get_Registration, None)
     Status = property(get_Status, None)
 class SecondaryAuthenticationFactorRegistrationStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistrationStatus'
     Failed = 0
     Started = 1
     CanceledByUser = 2

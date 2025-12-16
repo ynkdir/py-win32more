@@ -128,9 +128,11 @@ class CallStateChangeEventArgs(ComPtr):
 CallsPhoneContract: UInt32 = 458752
 CallsVoipContract: UInt32 = 327680
 class CellularDtmfMode(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.CellularDtmfMode'
     Continuous = 0
     Burst = 1
 class DtmfKey(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.DtmfKey'
     D0 = 0
     D1 = 1
     D2 = 2
@@ -144,6 +146,7 @@ class DtmfKey(Enum, Int32):
     Star = 10
     Pound = 11
 class DtmfToneAudioPlayback(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.DtmfToneAudioPlayback'
     Play = 0
     DoNotPlay = 1
 class IAcceptedVoipPhoneCallOptions(ComPtr):
@@ -1336,6 +1339,7 @@ class OutgoingVoipPhoneCallOptions(ComPtr):
     Media = property(get_Media, put_Media)
     ServiceName = property(get_ServiceName, put_ServiceName)
 class PhoneAudioRoutingEndpoint(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneAudioRoutingEndpoint'
     Default = 0
     Bluetooth = 1
     Speakerphone = 2
@@ -1413,6 +1417,7 @@ class PhoneCall(ComPtr):
     IsMutedChanged = event(add_IsMutedChanged, remove_IsMutedChanged)
     StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class PhoneCallAudioDevice(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallAudioDevice'
     Unknown = 0
     LocalDevice = 1
     RemoteDevice = 2
@@ -1434,6 +1439,7 @@ class PhoneCallBlocking(ComPtr, metaclass=_PhoneCallBlocking_Meta_):
     _PhoneCallBlocking_Meta_.BlockPrivateNumbers = property(get_BlockPrivateNumbers, put_BlockPrivateNumbers)
     _PhoneCallBlocking_Meta_.BlockUnknownNumbers = property(get_BlockUnknownNumbers, put_BlockUnknownNumbers)
 class PhoneCallDirection(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallDirection'
     Unknown = 0
     Incoming = 1
     Outgoing = 2
@@ -1574,12 +1580,15 @@ class PhoneCallHistoryEntryAddress(ComPtr):
     RawAddress = property(get_RawAddress, put_RawAddress)
     RawAddressKind = property(get_RawAddressKind, put_RawAddressKind)
 class PhoneCallHistoryEntryMedia(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryMedia'
     Audio = 0
     Video = 1
 class PhoneCallHistoryEntryOtherAppReadAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryOtherAppReadAccess'
     Full = 0
     SystemOnly = 1
 class PhoneCallHistoryEntryQueryDesiredMedia(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryDesiredMedia'
     None_ = 0
     Audio = 1
     Video = 2
@@ -1606,6 +1615,7 @@ class PhoneCallHistoryEntryQueryOptions(ComPtr):
     DesiredMedia = property(get_DesiredMedia, put_DesiredMedia)
     SourceIds = property(get_SourceIds, None)
 class PhoneCallHistoryEntryRawAddressKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryRawAddressKind'
     PhoneNumber = 0
     Custom = 1
 class PhoneCallHistoryEntryReader(ComPtr):
@@ -1631,6 +1641,7 @@ class PhoneCallHistoryManagerForUser(ComPtr):
     def get_User(self: win32more.Windows.ApplicationModel.Calls.IPhoneCallHistoryManagerForUser) -> win32more.Windows.System.User: ...
     User = property(get_User, None)
 class PhoneCallHistorySourceIdKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallHistorySourceIdKind'
     CellularPhoneLineId = 0
     PackageFamilyName = 1
 class PhoneCallHistoryStore(ComPtr):
@@ -1662,6 +1673,7 @@ class PhoneCallHistoryStore(ComPtr):
     @winrt_mixinmethod
     def MarkSourcesAsSeenAsync(self: win32more.Windows.ApplicationModel.Calls.IPhoneCallHistoryStore, sourceIds: win32more.Windows.Foundation.Collections.IIterable[hstr]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class PhoneCallHistoryStoreAccessType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryStoreAccessType'
     AppEntriesReadWrite = 0
     AllEntriesLimitedReadWrite = 1
     AllEntriesReadWrite = 2
@@ -1710,16 +1722,19 @@ class PhoneCallManager(ComPtr, metaclass=_PhoneCallManager_Meta_):
     _PhoneCallManager_Meta_.IsCallIncoming = property(get_IsCallIncoming, None)
     _PhoneCallManager_Meta_.CallStateChanged = event(add_CallStateChanged, remove_CallStateChanged)
 class PhoneCallMedia(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallMedia'
     Audio = 0
     AudioAndVideo = 1
     AudioAndRealTimeText = 2
 class PhoneCallOperationStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallOperationStatus'
     Succeeded = 0
     OtherFailure = 1
     TimedOut = 2
     ConnectionLost = 3
     InvalidCallState = 4
 class PhoneCallStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneCallStatus'
     Lost = 0
     Incoming = 1
     Dialing = 2
@@ -1906,17 +1921,20 @@ class PhoneLineDialResult(ComPtr):
     DialCallStatus = property(get_DialCallStatus, None)
     DialedCall = property(get_DialedCall, None)
 class PhoneLineNetworkOperatorDisplayTextLocation(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneLineNetworkOperatorDisplayTextLocation'
     Default = 0
     Tile = 1
     Dialer = 2
     InCallUI = 3
 class PhoneLineOperationStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneLineOperationStatus'
     Succeeded = 0
     OtherFailure = 1
     TimedOut = 2
     ConnectionLost = 3
     InvalidCallState = 4
 class PhoneLineTransport(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneLineTransport'
     Cellular = 0
     VoipApp = 1
     Bluetooth = 2
@@ -2012,11 +2030,13 @@ class PhoneLineWatcherEventArgs(ComPtr):
     def get_LineId(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcherEventArgs) -> Guid: ...
     LineId = property(get_LineId, None)
 class PhoneLineWatcherStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneLineWatcherStatus'
     Created = 0
     Started = 1
     EnumerationCompleted = 2
     Stopped = 3
 class PhoneNetworkState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneNetworkState'
     Unknown = 0
     NoSignal = 1
     Deregistered = 2
@@ -2026,6 +2046,7 @@ class PhoneNetworkState(Enum, Int32):
     RoamingInternational = 6
     RoamingDomestic = 7
 class PhoneSimState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneSimState'
     Unknown = 0
     PinNotRequired = 1
     PinUnlocked = 2
@@ -2050,14 +2071,17 @@ class PhoneVoicemail(ComPtr):
     Number = property(get_Number, None)
     Type = property(get_Type, None)
 class PhoneVoicemailType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.PhoneVoicemailType'
     None_ = 0
     Traditional = 1
     Visual = 2
 class TransportDeviceAudioRoutingStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.TransportDeviceAudioRoutingStatus'
     Unknown = 0
     CanRouteToLocalDevice = 1
     CannotRouteToLocalDevice = 2
 class VoipCallControlDeviceKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.VoipCallControlDeviceKind'
     Bluetooth = 0
     Usb = 1
 class VoipCallCoordinator(ComPtr):
@@ -2179,19 +2203,23 @@ class VoipPhoneCall(ComPtr):
     RejectRequested = event(add_RejectRequested, remove_RejectRequested)
     ResumeRequested = event(add_ResumeRequested, remove_ResumeRequested)
 class VoipPhoneCallMedia(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Calls.VoipPhoneCallMedia'
     None_ = 0
     Audio = 1
     Video = 2
 class VoipPhoneCallRejectReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.VoipPhoneCallRejectReason'
     UserIgnored = 0
     TimedOut = 1
     OtherIncomingCall = 2
     EmergencyCallExists = 3
     InvalidCallState = 4
 class VoipPhoneCallResourceReservationStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.VoipPhoneCallResourceReservationStatus'
     Success = 0
     ResourcesNotAvailable = 1
 class VoipPhoneCallState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.VoipPhoneCallState'
     Ended = 0
     Held = 1
     Active = 2

@@ -25,6 +25,7 @@ class AttributedNetworkUsage(ComPtr):
     BytesReceived = property(get_BytesReceived, None)
     BytesSent = property(get_BytesSent, None)
 class CellularApnAuthenticationType(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.CellularApnAuthenticationType'
     None_ = 0
     Pap = 1
     Chap = 2
@@ -156,6 +157,7 @@ class ConnectionProfile(ComPtr):
     WlanConnectionProfileDetails = property(get_WlanConnectionProfileDetails, None)
     WwanConnectionProfileDetails = property(get_WwanConnectionProfileDetails, None)
 class ConnectionProfileDeleteStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.ConnectionProfileDeleteStatus'
     Success = 0
     DeniedByUser = 1
     DeniedBySystem = 2
@@ -293,15 +295,18 @@ class DataUsage(ComPtr):
     BytesReceived = property(get_BytesReceived, None)
     BytesSent = property(get_BytesSent, None)
 class DataUsageGranularity(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.DataUsageGranularity'
     PerMinute = 0
     PerHour = 1
     PerDay = 2
     Total = 3
 class DomainAuthenticationKind(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.DomainAuthenticationKind'
     None_ = 0
     Ldap = 1
     Tls = 2
 class DomainConnectivityLevel(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.DomainConnectivityLevel'
     None_ = 0
     Unauthenticated = 1
     Authenticated = 2
@@ -871,6 +876,7 @@ class NetworkAdapter(ComPtr):
     NetworkItem = property(get_NetworkItem, None)
     OutboundMaxBitsPerSecond = property(get_OutboundMaxBitsPerSecond, None)
 class NetworkAuthenticationType(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.NetworkAuthenticationType'
     None_ = 0
     Unknown = 1
     Open80211 = 2
@@ -887,16 +893,19 @@ class NetworkAuthenticationType(Enum, Int32):
     Owe = 12
     Wpa3Enterprise = 13
 class NetworkConnectivityLevel(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.NetworkConnectivityLevel'
     None_ = 0
     LocalAccess = 1
     ConstrainedInternetAccess = 2
     InternetAccess = 3
 class NetworkCostType(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.NetworkCostType'
     Unknown = 0
     Unrestricted = 1
     Fixed = 2
     Variable = 3
 class NetworkEncryptionType(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.NetworkEncryptionType'
     None_ = 0
     Unknown = 1
     Wep = 2
@@ -986,6 +995,7 @@ class NetworkStatusChangedEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable) -> Void: ...
 class NetworkTypes(Enum, UInt32):
+    _name_ = 'Windows.Networking.Connectivity.NetworkTypes'
     None_ = 0
     Internet = 1
     PrivateNetwork = 2
@@ -1030,6 +1040,7 @@ class ProxyConfiguration(ComPtr):
     CanConnectDirectly = property(get_CanConnectDirectly, None)
     ProxyUris = property(get_ProxyUris, None)
 class RoamingStates(Enum, UInt32):
+    _name_ = 'Windows.Networking.Connectivity.RoamingStates'
     None_ = 0
     NotRoaming = 1
     Roaming = 2
@@ -1056,6 +1067,7 @@ class RoutePolicy(ComPtr):
     HostName = property(get_HostName, None)
     HostNameType = property(get_HostNameType, None)
 class TriStates(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.TriStates'
     DoNotCare = 0
     No = 1
     Yes = 2
@@ -1087,6 +1099,7 @@ class WwanConnectionProfileDetails(ComPtr):
     PurposeGuids = property(get_PurposeGuids, None)
 WwanContract: UInt32 = 196608
 class WwanDataClass(Enum, UInt32):
+    _name_ = 'Windows.Networking.Connectivity.WwanDataClass'
     None_ = 0
     Gprs = 1
     Edge = 2
@@ -1105,12 +1118,14 @@ class WwanDataClass(Enum, UInt32):
     CdmaUmb = 4194304
     Custom = 2147483648
 class WwanNetworkIPKind(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.WwanNetworkIPKind'
     None_ = 0
     Ipv4 = 1
     Ipv6 = 2
     Ipv4v6 = 3
     Ipv4v6v4Xlat = 4
 class WwanNetworkRegistrationState(Enum, Int32):
+    _name_ = 'Windows.Networking.Connectivity.WwanNetworkRegistrationState'
     None_ = 0
     Deregistered = 1
     Searching = 2

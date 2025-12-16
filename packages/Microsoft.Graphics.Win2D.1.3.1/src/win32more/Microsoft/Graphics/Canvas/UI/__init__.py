@@ -23,6 +23,7 @@ class CanvasCreateResourcesEventArgs(ComPtr):
     def GetTrackedAction(self: win32more.Microsoft.Graphics.Canvas.UI.ICanvasCreateResourcesEventArgs) -> win32more.Windows.Foundation.IAsyncAction: ...
     Reason = property(get_Reason, None)
 class CanvasCreateResourcesReason(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesReason'
     FirstTime = 0
     NewDevice = 1
     DpiChanged = 2

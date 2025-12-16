@@ -27,6 +27,7 @@ class CameraCaptureUI(ComPtr):
     VideoSettings = property(get_VideoSettings, None)
 CameraCaptureUIContract: UInt32 = 65536
 class CameraCaptureUIMaxPhotoResolution(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Media.Capture.CameraCaptureUIMaxPhotoResolution'
     HighestAvailable = 0
     VerySmallQvga = 1
     SmallVga = 2
@@ -34,11 +35,13 @@ class CameraCaptureUIMaxPhotoResolution(Enum, Int32):
     Large3M = 4
     VeryLarge5M = 5
 class CameraCaptureUIMaxVideoResolution(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Media.Capture.CameraCaptureUIMaxVideoResolution'
     HighestAvailable = 0
     LowDefinition = 1
     StandardDefinition = 2
     HighDefinition = 3
 class CameraCaptureUIMode(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Media.Capture.CameraCaptureUIMode'
     PhotoOrVideo = 0
     Photo = 1
     Video = 2
@@ -81,6 +84,7 @@ class CameraCaptureUIPhotoCaptureSettings(ComPtr):
     Format = property(get_Format, put_Format)
     MaxResolution = property(get_MaxResolution, put_MaxResolution)
 class CameraCaptureUIPhotoFormat(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Media.Capture.CameraCaptureUIPhotoFormat'
     Jpeg = 0
     Png = 1
     JpegXR = 2
@@ -118,6 +122,7 @@ class CameraCaptureUIVideoCaptureSettings(ComPtr):
     MaxDurationInSeconds = property(get_MaxDurationInSeconds, put_MaxDurationInSeconds)
     MaxResolution = property(get_MaxResolution, put_MaxResolution)
 class CameraCaptureUIVideoFormat(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Media.Capture.CameraCaptureUIVideoFormat'
     Mp4 = 0
     Wmv = 1
 class ICameraCaptureUI(ComPtr):

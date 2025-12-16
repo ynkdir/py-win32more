@@ -43,6 +43,7 @@ class AdvancedPhotoControl(ComPtr):
     Supported = property(get_Supported, None)
     SupportedModes = property(get_SupportedModes, None)
 class AdvancedPhotoMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.AdvancedPhotoMode'
     Auto = 0
     Standard = 1
     Hdr = 2
@@ -124,9 +125,11 @@ class AudioDeviceModulesManager(ComPtr):
     def FindAll(self: win32more.Windows.Media.Devices.IAudioDeviceModulesManager) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
     ModuleNotificationReceived = event(add_ModuleNotificationReceived, remove_ModuleNotificationReceived)
 class AudioDeviceRole(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.AudioDeviceRole'
     Default = 0
     Communications = 1
 class AutoFocusRange(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.AutoFocusRange'
     FullRange = 0
     Macro = 1
     Normal = 2
@@ -199,6 +202,7 @@ class CameraOcclusionInfo(ComPtr):
     def remove_StateChanged(self: win32more.Windows.Media.Devices.ICameraOcclusionInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     StateChanged = event(add_StateChanged, remove_StateChanged)
 class CameraOcclusionKind(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.CameraOcclusionKind'
     Lid = 0
     CameraHardware = 1
 class CameraOcclusionState(ComPtr):
@@ -218,11 +222,13 @@ class CameraOcclusionStateChangedEventArgs(ComPtr):
     def get_State(self: win32more.Windows.Media.Devices.ICameraOcclusionStateChangedEventArgs) -> win32more.Windows.Media.Devices.CameraOcclusionState: ...
     State = property(get_State, None)
 class CameraStreamState(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.CameraStreamState'
     NotStreaming = 0
     Streaming = 1
     BlockedForPrivacy = 2
     Shutdown = 3
 class CaptureSceneMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.CaptureSceneMode'
     Auto = 0
     Manual = 1
     Macro = 2
@@ -237,10 +243,12 @@ class CaptureSceneMode(Enum, Int32):
     NightPortrait = 11
     Backlit = 12
 class CaptureUse(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.CaptureUse'
     None_ = 0
     Photo = 1
     Video = 2
 class ColorTemperaturePreset(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.ColorTemperaturePreset'
     Auto = 0
     Manual = 1
     Cloudy = 2
@@ -358,6 +366,7 @@ class DigitalWindowControl(ComPtr):
     SupportedCapabilities = property(get_SupportedCapabilities, None)
     SupportedModes = property(get_SupportedModes, None)
 class DigitalWindowMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.DigitalWindowMode'
     Off = 0
     On = 1
     Auto = 2
@@ -522,11 +531,13 @@ class FocusControl(ComPtr):
     Value = property(get_Value, None)
     WaitForFocusSupported = property(get_WaitForFocusSupported, None)
 class FocusMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.FocusMode'
     Auto = 0
     Single = 1
     Continuous = 2
     Manual = 3
 class FocusPreset(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.FocusPreset'
     Auto = 0
     Manual = 1
     AutoMacro = 2
@@ -592,6 +603,7 @@ class HdrVideoControl(ComPtr):
     Supported = property(get_Supported, None)
     SupportedModes = property(get_SupportedModes, None)
 class HdrVideoMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.HdrVideoMode'
     Off = 0
     On = 1
     Auto = 2
@@ -1755,6 +1767,7 @@ class InfraredTorchControl(ComPtr):
     PowerStep = property(get_PowerStep, None)
     SupportedModes = property(get_SupportedModes, None)
 class InfraredTorchMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.InfraredTorchMode'
     Off = 0
     On = 1
     AlternatingFrameIllumination = 2
@@ -1793,6 +1806,7 @@ class IsoSpeedControl(ComPtr):
     SupportedPresets = property(get_SupportedPresets, None)
     Value = property(get_Value, None)
 class IsoSpeedPreset(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.IsoSpeedPreset'
     Auto = 0
     Iso50 = 1
     Iso80 = 2
@@ -1889,16 +1903,19 @@ class LowLagPhotoSequenceControl(ComPtr):
     ThumbnailEnabled = property(get_ThumbnailEnabled, put_ThumbnailEnabled)
     ThumbnailFormat = property(get_ThumbnailFormat, put_ThumbnailFormat)
 class ManualFocusDistance(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.ManualFocusDistance'
     Infinity = 0
     Hyperfocal = 1
     Nearest = 2
 class MediaCaptureFocusState(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.MediaCaptureFocusState'
     Uninitialized = 0
     Lost = 1
     Searching = 2
     Focused = 3
     Failed = 4
 class MediaCaptureOptimization(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.MediaCaptureOptimization'
     Default = 0
     Quality = 1
     Latency = 2
@@ -1907,6 +1924,7 @@ class MediaCaptureOptimization(Enum, Int32):
     LatencyThenPower = 5
     PowerAndQuality = 6
 class MediaCapturePauseBehavior(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.MediaCapturePauseBehavior'
     RetainHardwareResources = 0
     ReleaseHardwareResources = 1
 class _MediaDevice_Meta_(ComPtr.__class__):
@@ -1997,6 +2015,7 @@ class OpticalImageStabilizationControl(ComPtr):
     Supported = property(get_Supported, None)
     SupportedModes = property(get_SupportedModes, None)
 class OpticalImageStabilizationMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.OpticalImageStabilizationMode'
     Off = 0
     On = 1
     Auto = 2
@@ -2089,6 +2108,7 @@ class RegionOfInterest(ComPtr):
     Type = property(get_Type, put_Type)
     Weight = property(get_Weight, put_Weight)
 class RegionOfInterestType(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.RegionOfInterestType'
     Unknown = 0
     Face = 1
 class RegionsOfInterestControl(ComPtr):
@@ -2126,9 +2146,11 @@ class SceneModeControl(ComPtr):
     SupportedModes = property(get_SupportedModes, None)
     Value = property(get_Value, None)
 class SendCommandStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.SendCommandStatus'
     Success = 0
     DeviceNotAvailable = 1
 class TelephonyKey(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.TelephonyKey'
     D0 = 0
     D1 = 1
     D2 = 2
@@ -2319,6 +2341,7 @@ class VideoDeviceControllerGetDevicePropertyResult(ComPtr):
     Status = property(get_Status, None)
     Value = property(get_Value, None)
 class VideoDeviceControllerGetDevicePropertyStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.VideoDeviceControllerGetDevicePropertyStatus'
     Success = 0
     UnknownFailure = 1
     BufferTooSmall = 2
@@ -2327,6 +2350,7 @@ class VideoDeviceControllerGetDevicePropertyStatus(Enum, Int32):
     MaxPropertyValueSizeTooSmall = 5
     MaxPropertyValueSizeRequired = 6
 class VideoDeviceControllerSetDevicePropertyStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.VideoDeviceControllerSetDevicePropertyStatus'
     Success = 0
     UnknownFailure = 1
     NotSupported = 2
@@ -2349,6 +2373,7 @@ class VideoTemporalDenoisingControl(ComPtr):
     Supported = property(get_Supported, None)
     SupportedModes = property(get_SupportedModes, None)
 class VideoTemporalDenoisingMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.VideoTemporalDenoisingMode'
     Off = 0
     On = 1
     Auto = 2
@@ -2431,6 +2456,7 @@ class ZoomSettings(ComPtr):
     Mode = property(get_Mode, put_Mode)
     Value = property(get_Value, put_Value)
 class ZoomTransitionMode(Enum, Int32):
+    _name_ = 'Windows.Media.Devices.ZoomTransitionMode'
     Auto = 0
     Direct = 1
     Smooth = 2

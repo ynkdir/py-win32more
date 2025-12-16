@@ -709,6 +709,7 @@ class PackageDeploymentProgress(Structure):
     Status: win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentProgressStatus
     Progress: Double
 class PackageDeploymentProgressStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Management.Deployment.PackageDeploymentProgressStatus'
     Queued = 0
     InProgress = 1
     CompletedSuccess = 2
@@ -733,6 +734,7 @@ class PackageDeploymentResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class PackageDeploymentStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Management.Deployment.PackageDeploymentStatus'
     InProgress = 0
     CompletedSuccess = 1
     CompletedFailure = 2
@@ -1106,6 +1108,7 @@ class StagePackageOptions(ComPtr):
     StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class StubPackageOption(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Management.Deployment.StubPackageOption'
     Default = 0
     InstallFull = 1
     InstallStub = 2

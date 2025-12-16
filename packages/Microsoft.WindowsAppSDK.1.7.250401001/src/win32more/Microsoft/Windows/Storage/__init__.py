@@ -87,9 +87,11 @@ class ApplicationDataContainer(ComPtr):
     Values = property(get_Values, None)
 ApplicationDataContract: UInt32 = 131072
 class ApplicationDataCreateDisposition(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Storage.ApplicationDataCreateDisposition'
     Always = 0
     Existing = 1
 class ApplicationDataLocality(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Storage.ApplicationDataLocality'
     Local = 0
     LocalCache = 3
     SharedLocal = 4

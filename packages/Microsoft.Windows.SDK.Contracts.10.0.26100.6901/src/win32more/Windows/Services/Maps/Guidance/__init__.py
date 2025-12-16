@@ -7,10 +7,12 @@ import win32more.Windows.Services.Maps
 import win32more.Windows.Services.Maps.Guidance
 import win32more.Windows.UI
 class GuidanceAudioMeasurementSystem(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.Guidance.GuidanceAudioMeasurementSystem'
     Meters = 0
     MilesAndYards = 1
     MilesAndFeet = 2
 class GuidanceAudioNotificationKind(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.Guidance.GuidanceAudioNotificationKind'
     Maneuver = 0
     Route = 1
     Gps = 2
@@ -31,6 +33,7 @@ class GuidanceAudioNotificationRequestedEventArgs(ComPtr):
     AudioNotification = property(get_AudioNotification, None)
     AudioText = property(get_AudioText, None)
 class GuidanceAudioNotifications(Enum, UInt32):
+    _name_ = 'Windows.Services.Maps.Guidance.GuidanceAudioNotifications'
     None_ = 0
     Maneuver = 1
     Route = 2
@@ -49,6 +52,7 @@ class GuidanceLaneInfo(ComPtr):
     IsOnRoute = property(get_IsOnRoute, None)
     LaneMarkers = property(get_LaneMarkers, None)
 class GuidanceLaneMarkers(Enum, UInt32):
+    _name_ = 'Windows.Services.Maps.Guidance.GuidanceLaneMarkers'
     None_ = 0
     LightRight = 1
     Right = 2
@@ -101,6 +105,7 @@ class GuidanceManeuver(ComPtr):
     StartAngle = property(get_StartAngle, None)
     StartLocation = property(get_StartLocation, None)
 class GuidanceManeuverKind(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.Guidance.GuidanceManeuverKind'
     None_ = 0
     GoStraight = 1
     UTurnRight = 2
@@ -169,6 +174,7 @@ class GuidanceMapMatchedCoordinate(ComPtr):
     Location = property(get_Location, None)
     Road = property(get_Road, None)
 class GuidanceMode(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.Guidance.GuidanceMode'
     None_ = 0
     Simulation = 1
     Navigation = 2

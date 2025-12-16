@@ -5,6 +5,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Text.Core
 class AlternateNormalizationFormat(Enum, Int32):
+    _name_ = 'Windows.Data.Text.AlternateNormalizationFormat'
     NotNormalized = 0
     Number = 1
     Currency = 3
@@ -362,6 +363,7 @@ class TextPredictionGenerator(ComPtr):
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
     ResolvedLanguage = property(get_ResolvedLanguage, None)
 class TextPredictionOptions(Enum, UInt32):
+    _name_ = 'Windows.Data.Text.TextPredictionOptions'
     None_ = 0
     Predictions = 1
     Corrections = 2
@@ -430,6 +432,7 @@ class UnicodeCharacters(ComPtr):
     @winrt_classmethod
     def GetGeneralCategory(cls: win32more.Windows.Data.Text.IUnicodeCharactersStatics, codepoint: UInt32) -> win32more.Windows.Data.Text.UnicodeGeneralCategory: ...
 class UnicodeGeneralCategory(Enum, Int32):
+    _name_ = 'Windows.Data.Text.UnicodeGeneralCategory'
     UppercaseLetter = 0
     LowercaseLetter = 1
     TitlecaseLetter = 2
@@ -461,6 +464,7 @@ class UnicodeGeneralCategory(Enum, Int32):
     OtherSymbol = 28
     NotAssigned = 29
 class UnicodeNumericType(Enum, Int32):
+    _name_ = 'Windows.Data.Text.UnicodeNumericType'
     None_ = 0
     Decimal = 1
     Digit = 2

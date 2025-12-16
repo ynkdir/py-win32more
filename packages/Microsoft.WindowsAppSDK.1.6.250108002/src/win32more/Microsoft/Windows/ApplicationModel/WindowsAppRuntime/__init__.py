@@ -57,6 +57,7 @@ class DeploymentResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class DeploymentStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.DeploymentStatus'
     Unknown = 0
     Ok = 1
     PackageInstallRequired = 2

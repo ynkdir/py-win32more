@@ -6,9 +6,11 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.UI.Text
 class CaretType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.CaretType'
     Normal = 0
     Null = 1
 class FindOptions(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Text.FindOptions'
     None_ = 0
     Word = 2
     Case = 4
@@ -52,11 +54,13 @@ class FontWeights(ComPtr, metaclass=_FontWeights_Meta_):
     _FontWeights_Meta_.SemiLight = property(get_SemiLight, None)
     _FontWeights_Meta_.Thin = property(get_Thin, None)
 class FormatEffect(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.FormatEffect'
     Off = 0
     On = 1
     Toggle = 2
     Undefined = 3
 class HorizontalCharacterAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.HorizontalCharacterAlignment'
     Left = 0
     Right = 1
     Center = 2
@@ -611,9 +615,11 @@ class ITextSelection(ComPtr):
     Options = property(get_Options, put_Options)
     Type = property(get_Type, None)
 class LetterCase(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.LetterCase'
     Lower = 0
     Upper = 1
 class LineSpacingRule(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.LineSpacingRule'
     Undefined = 0
     Single = 1
     OneAndHalf = 2
@@ -623,6 +629,7 @@ class LineSpacingRule(Enum, Int32):
     Multiple = 6
     Percent = 7
 class LinkType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.LinkType'
     Undefined = 0
     NotALink = 1
     ClientLink = 2
@@ -633,11 +640,13 @@ class LinkType(Enum, Int32):
     AutoLinkPhone = 7
     AutoLinkPath = 8
 class MarkerAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.MarkerAlignment'
     Undefined = 0
     Left = 1
     Center = 2
     Right = 3
 class MarkerStyle(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.MarkerStyle'
     Undefined = 0
     Parenthesis = 1
     Parentheses = 2
@@ -646,6 +655,7 @@ class MarkerStyle(Enum, Int32):
     Minus = 5
     NoNumber = 6
 class MarkerType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.MarkerType'
     Undefined = 0
     None_ = 1
     Bullet = 2
@@ -672,12 +682,14 @@ class MarkerType(Enum, Int32):
     DevanagariConsonant = 23
     DevanagariNumeric = 24
 class ParagraphAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.ParagraphAlignment'
     Undefined = 0
     Left = 1
     Center = 2
     Right = 3
     Justify = 4
 class ParagraphStyle(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.ParagraphStyle'
     Undefined = 0
     None_ = 1
     Normal = 2
@@ -691,6 +703,7 @@ class ParagraphStyle(Enum, Int32):
     Heading8 = 10
     Heading9 = 11
 class PointOptions(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Text.PointOptions'
     None_ = 0
     IncludeInset = 1
     Start = 32
@@ -700,12 +713,14 @@ class PointOptions(Enum, UInt32):
     NoHorizontalScroll = 65536
     NoVerticalScroll = 262144
 class RangeGravity(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.RangeGravity'
     UIBehavior = 0
     Backward = 1
     Forward = 2
     Inward = 3
     Outward = 4
 class RichEditMathMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.RichEditMathMode'
     NoMath = 0
     MathOnly = 1
 class RichEditTextDocument(ComPtr):
@@ -910,24 +925,28 @@ class RichEditTextRange(ComPtr):
     StoryLength = property(get_StoryLength, None)
     Text = property(get_Text, put_Text)
 class SelectionOptions(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Text.SelectionOptions'
     StartActive = 1
     AtEndOfLine = 2
     Overtype = 4
     Active = 8
     Replace = 16
 class SelectionType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.SelectionType'
     None_ = 0
     InsertionPoint = 1
     Normal = 2
     InlineShape = 7
     Shape = 8
 class TabAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.TabAlignment'
     Left = 0
     Center = 1
     Right = 2
     Decimal = 3
     Bar = 4
 class TabLeader(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.TabLeader'
     Spaces = 0
     Dots = 1
     Dashes = 2
@@ -965,6 +984,7 @@ class TextConstants(ComPtr, metaclass=_TextConstants_Meta_):
     _TextConstants_Meta_.UndefinedFontStyle = property(get_UndefinedFontStyle, None)
     _TextConstants_Meta_.UndefinedInt32Value = property(get_UndefinedInt32Value, None)
 class TextGetOptions(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Text.TextGetOptions'
     None_ = 0
     AdjustCrlf = 1
     UseCrlf = 2
@@ -975,6 +995,7 @@ class TextGetOptions(Enum, UInt32):
     FormatRtf = 8192
     UseLf = 16777216
 class TextRangeUnit(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.TextRangeUnit'
     Character = 0
     Word = 1
     Sentence = 2
@@ -1009,6 +1030,7 @@ class TextRangeUnit(Enum, Int32):
     LinkProtected = 31
     ContentLink = 32
 class TextScript(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.TextScript'
     Undefined = 0
     Ansi = 1
     EastEurope = 2
@@ -1074,6 +1096,7 @@ class TextScript(Enum, Int32):
     Deseret = 62
     Tifinagh = 63
 class TextSetOptions(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Text.TextSetOptions'
     None_ = 0
     UnicodeBidi = 1
     Unlink = 8
@@ -1082,6 +1105,7 @@ class TextSetOptions(Enum, UInt32):
     FormatRtf = 8192
     ApplyRtfDocumentDefaults = 16384
 class UnderlineType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.UnderlineType'
     Undefined = 0
     None_ = 1
     Single = 2
@@ -1103,6 +1127,7 @@ class UnderlineType(Enum, Int32):
     ThickDotted = 18
     ThickLongDash = 19
 class VerticalCharacterAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Text.VerticalCharacterAlignment'
     Top = 0
     Baseline = 1
     Bottom = 2

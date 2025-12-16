@@ -68,6 +68,7 @@ class PlatformTelemetryRegistrationSettings(ComPtr):
     StorageSize = property(get_StorageSize, put_StorageSize)
     UploadQuotaSize = property(get_UploadQuotaSize, put_UploadQuotaSize)
 class PlatformTelemetryRegistrationStatus(Enum, Int32):
+    _name_ = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationStatus'
     Success = 0
     SettingsOutOfRange = 1
     UnknownFailure = 2

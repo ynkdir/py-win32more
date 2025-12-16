@@ -9,6 +9,7 @@ import win32more.Windows.UI.Core
 import win32more.Windows.UI.Input
 import win32more.Windows.UI.Input.Inking
 class HandwritingLineHeight(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.HandwritingLineHeight'
     Small = 0
     Medium = 1
     Large = 2
@@ -755,6 +756,7 @@ class InkDrawingAttributes(ComPtr):
     PencilProperties = property(get_PencilProperties, None)
     Size = property(get_Size, put_Size)
 class InkDrawingAttributesKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkDrawingAttributesKind'
     Default = 0
     Pencil = 1
 class InkDrawingAttributesPencilProperties(ComPtr):
@@ -767,6 +769,7 @@ class InkDrawingAttributesPencilProperties(ComPtr):
     def put_Opacity(self: win32more.Windows.UI.Input.Inking.IInkDrawingAttributesPencilProperties, value: Double) -> Void: ...
     Opacity = property(get_Opacity, put_Opacity)
 class InkHighContrastAdjustment(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkHighContrastAdjustment'
     UseSystemColorsWhenNecessary = 0
     UseSystemColors = 1
     UseOriginalColors = 2
@@ -804,10 +807,12 @@ class InkInputProcessingConfiguration(ComPtr):
     Mode = property(get_Mode, put_Mode)
     RightDragAction = property(get_RightDragAction, put_RightDragAction)
 class InkInputProcessingMode(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkInputProcessingMode'
     None_ = 0
     Inking = 1
     Erasing = 2
 class InkInputRightDragAction(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkInputRightDragAction'
     LeaveUnprocessed = 0
     AllowProcessing = 1
 class InkManager(ComPtr):
@@ -874,6 +879,7 @@ class InkManager(ComPtr):
     BoundingRect = property(get_BoundingRect, None)
     Mode = property(get_Mode, put_Mode)
 class InkManipulationMode(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkManipulationMode'
     Inking = 0
     Erasing = 1
     Selecting = 2
@@ -897,6 +903,7 @@ class InkModelerAttributes(ComPtr):
     ScalingFactor = property(get_ScalingFactor, put_ScalingFactor)
     UseVelocityBasedPressure = property(get_UseVelocityBasedPressure, put_UseVelocityBasedPressure)
 class InkPersistenceFormat(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkPersistenceFormat'
     GifWithEmbeddedIsf = 0
     Isf = 1
 class InkPoint(ComPtr):
@@ -986,6 +993,7 @@ class InkPresenter(ComPtr):
     StrokesCollected = event(add_StrokesCollected, remove_StrokesCollected)
     StrokesErased = event(add_StrokesErased, remove_StrokesErased)
 class InkPresenterPredefinedConfiguration(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkPresenterPredefinedConfiguration'
     SimpleSinglePointer = 0
     SimpleMultiplePointer = 1
 class InkPresenterProtractor(ComPtr):
@@ -1116,6 +1124,7 @@ class InkPresenterRuler(ComPtr):
     Transform = property(get_Transform, put_Transform)
     Width = property(get_Width, put_Width)
 class InkPresenterStencilKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkPresenterStencilKind'
     Other = 0
     Ruler = 1
     Protractor = 2
@@ -1131,6 +1140,7 @@ class InkRecognitionResult(ComPtr):
     def GetStrokes(self: win32more.Windows.UI.Input.Inking.IInkRecognitionResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Inking.InkStroke]: ...
     BoundingRect = property(get_BoundingRect, None)
 class InkRecognitionTarget(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.InkRecognitionTarget'
     All = 0
     Selected = 1
     Recent = 2
@@ -1429,9 +1439,11 @@ class PenAndInkSettings(ComPtr):
     PenHandedness = property(get_PenHandedness, None)
     UserConsentsToHandwritingTelemetryCollection = property(get_UserConsentsToHandwritingTelemetryCollection, None)
 class PenHandedness(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.PenHandedness'
     Right = 0
     Left = 1
 class PenTipShape(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.PenTipShape'
     Circle = 0
     Rectangle = 1
 

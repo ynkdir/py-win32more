@@ -4,6 +4,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Display.Core
 class HdmiDisplayColorSpace(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.Core.HdmiDisplayColorSpace'
     RgbLimited = 0
     RgbFull = 1
     BT2020 = 2
@@ -23,6 +24,7 @@ class HdmiDisplayHdr2086Metadata(Structure):
     MaxContentLightLevel: UInt16
     MaxFrameAverageLightLevel: UInt16
 class HdmiDisplayHdrOption(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.Core.HdmiDisplayHdrOption'
     None_ = 0
     EotfSdr = 1
     Eotf2084 = 2
@@ -90,6 +92,7 @@ class HdmiDisplayMode(ComPtr):
     ResolutionWidthInRawPixels = property(get_ResolutionWidthInRawPixels, None)
     StereoEnabled = property(get_StereoEnabled, None)
 class HdmiDisplayPixelEncoding(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.Core.HdmiDisplayPixelEncoding'
     Rgb444 = 0
     Ycc444 = 1
     Ycc422 = 2

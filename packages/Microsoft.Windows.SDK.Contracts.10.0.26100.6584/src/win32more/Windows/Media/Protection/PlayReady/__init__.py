@@ -661,6 +661,7 @@ class IPlayReadyStatics5(ComPtr):
     HardwareDRMDisabledAtTime = property(get_HardwareDRMDisabledAtTime, None)
     HardwareDRMDisabledUntilTime = property(get_HardwareDRMDisabledUntilTime, None)
 class NDCertificateFeature(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.NDCertificateFeature'
     Transmitter = 1
     Receiver = 2
     SharedCertificate = 3
@@ -669,6 +670,7 @@ class NDCertificateFeature(Enum, Int32):
     CRLS = 9
     PlayReady3Features = 13
 class NDCertificatePlatformID(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.NDCertificatePlatformID'
     Windows = 0
     OSX = 1
     WindowsOnARM = 2
@@ -682,6 +684,7 @@ class NDCertificatePlatformID(Enum, Int32):
     WindowsPhone81OnARM = 12
     WindowsPhone81OnX86 = 13
 class NDCertificateType(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.NDCertificateType'
     Unknown = 0
     PC = 1
     Device = 2
@@ -742,10 +745,12 @@ class NDClient(ComPtr):
     ReRegistrationNeeded = event(add_ReRegistrationNeeded, remove_ReRegistrationNeeded)
     RegistrationCompleted = event(add_RegistrationCompleted, remove_RegistrationCompleted)
 class NDClosedCaptionFormat(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.NDClosedCaptionFormat'
     ATSC = 0
     SCTE20 = 1
     Unknown = 2
 class NDContentIDType(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.NDContentIDType'
     KeyID = 1
     PlayReadyObject = 2
     Custom = 3
@@ -818,13 +823,16 @@ class NDLicenseFetchDescriptor(ComPtr):
     ContentIDType = property(get_ContentIDType, None)
     LicenseFetchChallengeCustomData = property(get_LicenseFetchChallengeCustomData, put_LicenseFetchChallengeCustomData)
 class NDMediaStreamType(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.NDMediaStreamType'
     Audio = 1
     Video = 2
 class NDProximityDetectionType(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.NDProximityDetectionType'
     UDP = 1
     TCP = 2
     TransportAgnostic = 4
 class NDStartAsyncOptions(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.NDStartAsyncOptions'
     MutualAuthentication = 1
     WaitForLicenseDescriptor = 2
 class NDStorageFileHelper(ComPtr):
@@ -950,6 +958,7 @@ class PlayReadyContentResolver(ComPtr):
     @winrt_classmethod
     def ServiceRequest(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentResolver, contentHeader: win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader) -> win32more.Windows.Media.Protection.PlayReady.IPlayReadyServiceRequest: ...
 class PlayReadyDecryptorSetup(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.PlayReadyDecryptorSetup'
     Uninitialized = 0
     OnDemand = 1
 class PlayReadyDomain(ComPtr):
@@ -1107,6 +1116,7 @@ class PlayReadyDomainLeaveServiceRequest(ComPtr):
     Type = property(get_Type, None)
     Uri = property(get_Uri, put_Uri)
 class PlayReadyEncryptionAlgorithm(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.PlayReadyEncryptionAlgorithm'
     Unprotected = 0
     Aes128Ctr = 1
     Cocktail = 4
@@ -1114,10 +1124,12 @@ class PlayReadyEncryptionAlgorithm(Enum, Int32):
     Unspecified = 65535
     Uninitialized = 2147483647
 class PlayReadyHardwareDRMFeatures(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.PlayReadyHardwareDRMFeatures'
     HardwareDRM = 1
     HEVC = 2
     Aes128Cbc = 3
 class PlayReadyITADataFormat(Enum, Int32):
+    _name_ = 'Windows.Media.Protection.PlayReady.PlayReadyITADataFormat'
     SerializedProperties = 0
     SerializedProperties_WithContentProtectionWrapper = 1
 class PlayReadyITADataGenerator(ComPtr):

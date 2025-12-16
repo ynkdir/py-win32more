@@ -43,11 +43,13 @@ class DeviceAccessInformation(ComPtr):
     UserPromptRequired = property(get_UserPromptRequired, None)
     AccessChanged = event(add_AccessChanged, remove_AccessChanged)
 class DeviceAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DeviceAccessStatus'
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
     DeniedBySystem = 3
 class DeviceClass(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DeviceClass'
     All = 0
     AudioCapture = 1
     AudioRender = 2
@@ -176,6 +178,7 @@ class DeviceInformationCustomPairing(ComPtr):
     PairingRequested = event(add_PairingRequested, remove_PairingRequested)
     PairingSetMembersRequested = event(add_PairingSetMembersRequested, remove_PairingSetMembersRequested)
 class DeviceInformationKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DeviceInformationKind'
     Unknown = 0
     DeviceInterface = 1
     DeviceContainer = 2
@@ -228,6 +231,7 @@ class DeviceInformationUpdate(ComPtr):
     Kind = property(get_Kind, None)
     Properties = property(get_Properties, None)
 class DevicePairingAddPairingSetMemberStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DevicePairingAddPairingSetMemberStatus'
     AddedToSet = 0
     CouldNotBeAddedToSet = 1
     SetDiscoveryNotAttemptedByProtocol = 2
@@ -235,6 +239,7 @@ class DevicePairingAddPairingSetMemberStatus(Enum, Int32):
     SetDiscoveryPartiallyCompletedByProtocol = 4
     Failed = 5
 class DevicePairingKinds(Enum, UInt32):
+    _name_ = 'Windows.Devices.Enumeration.DevicePairingKinds'
     None_ = 0
     ConfirmOnly = 1
     DisplayPin = 2
@@ -243,6 +248,7 @@ class DevicePairingKinds(Enum, UInt32):
     ProvidePasswordCredential = 16
     ProvideAddress = 32
 class DevicePairingProtectionLevel(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DevicePairingProtectionLevel'
     Default = 0
     None_ = 1
     Encryption = 2
@@ -281,6 +287,7 @@ class DevicePairingResult(ComPtr):
     ProtectionLevelUsed = property(get_ProtectionLevelUsed, None)
     Status = property(get_Status, None)
 class DevicePairingResultStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DevicePairingResultStatus'
     Paired = 0
     NotReadyToPair = 1
     NotPaired = 2
@@ -403,6 +410,7 @@ class DevicePickerAppearance(ComPtr):
     SelectedForegroundColor = property(get_SelectedForegroundColor, put_SelectedForegroundColor)
     Title = property(get_Title, put_Title)
 class DevicePickerDisplayStatusOptions(Enum, UInt32):
+    _name_ = 'Windows.Devices.Enumeration.DevicePickerDisplayStatusOptions'
     None_ = 0
     ShowProgress = 1
     ShowDisconnectButton = 2
@@ -470,6 +478,7 @@ class DeviceUnpairingResult(ComPtr):
     def get_Status(self: win32more.Windows.Devices.Enumeration.IDeviceUnpairingResult) -> win32more.Windows.Devices.Enumeration.DeviceUnpairingResultStatus: ...
     Status = property(get_Status, None)
 class DeviceUnpairingResultStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DeviceUnpairingResultStatus'
     Unpaired = 0
     AlreadyUnpaired = 1
     OperationAlreadyInProgress = 2
@@ -527,10 +536,12 @@ class DeviceWatcherEvent(ComPtr):
     DeviceInformationUpdate = property(get_DeviceInformationUpdate, None)
     Kind = property(get_Kind, None)
 class DeviceWatcherEventKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DeviceWatcherEventKind'
     Add = 0
     Update = 1
     Remove = 2
 class DeviceWatcherStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.DeviceWatcherStatus'
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -1039,6 +1050,7 @@ class IEnclosureLocation2(ComPtr):
     def get_RotationAngleInDegreesClockwise(self) -> UInt32: ...
     RotationAngleInDegreesClockwise = property(get_RotationAngleInDegreesClockwise, None)
 class Panel(Enum, Int32):
+    _name_ = 'Windows.Devices.Enumeration.Panel'
     Unknown = 0
     Front = 1
     Back = 2

@@ -63,6 +63,7 @@ class AudioDeviceInputNode(ComPtr):
     OutgoingConnections = property(get_OutgoingConnections, None)
     OutgoingGain = property(get_OutgoingGain, put_OutgoingGain)
 class AudioDeviceNodeCreationStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioDeviceNodeCreationStatus'
     Success = 0
     DeviceNotAvailable = 1
     FormatNotSupported = 2
@@ -132,6 +133,7 @@ class AudioEffectsPackConfiguration(ComPtr):
     Status = property(get_Status, None)
     StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class AudioEffectsPackStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioEffectsPackStatus'
     NotEnabled = 0
     Enabled = 1
     NotSupported = 2
@@ -217,6 +219,7 @@ class AudioFileInputNode(ComPtr):
     StartTime = property(get_StartTime, put_StartTime)
     FileCompleted = event(add_FileCompleted, remove_FileCompleted)
 class AudioFileNodeCreationStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioFileNodeCreationStatus'
     Success = 0
     FileNotFound = 1
     InvalidFileType = 2
@@ -480,6 +483,7 @@ class AudioGraphConnection(ComPtr):
     Destination = property(get_Destination, None)
     Gain = property(get_Gain, put_Gain)
 class AudioGraphCreationStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioGraphCreationStatus'
     Success = 0
     DeviceNotAvailable = 1
     FormatNotSupported = 2
@@ -533,6 +537,7 @@ class AudioGraphSettings(ComPtr):
     PrimaryRenderDevice = property(get_PrimaryRenderDevice, put_PrimaryRenderDevice)
     QuantumSizeSelectionMode = property(get_QuantumSizeSelectionMode, put_QuantumSizeSelectionMode)
 class AudioGraphUnrecoverableError(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioGraphUnrecoverableError'
     None_ = 0
     AudioDeviceLost = 1
     AudioSessionDisconnected = 2
@@ -619,6 +624,7 @@ class AudioNodeEmitterConeProperties(ComPtr):
     OuterAngle = property(get_OuterAngle, None)
     OuterAngleGain = property(get_OuterAngleGain, None)
 class AudioNodeEmitterDecayKind(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioNodeEmitterDecayKind'
     Natural = 0
     Custom = 1
 class AudioNodeEmitterDecayModel(ComPtr):
@@ -652,6 +658,7 @@ class AudioNodeEmitterNaturalDecayModelProperties(ComPtr):
     CutoffDistance = property(get_CutoffDistance, None)
     UnityGainDistance = property(get_UnityGainDistance, None)
 class AudioNodeEmitterSettings(Enum, UInt32):
+    _name_ = 'Windows.Media.Audio.AudioNodeEmitterSettings'
     None_ = 0
     DisableDoppler = 1
 class AudioNodeEmitterShape(ComPtr):
@@ -669,6 +676,7 @@ class AudioNodeEmitterShape(ComPtr):
     ConeProperties = property(get_ConeProperties, None)
     Kind = property(get_Kind, None)
 class AudioNodeEmitterShapeKind(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioNodeEmitterShapeKind'
     Omnidirectional = 0
     Cone = 1
 class AudioNodeListener(ComPtr):
@@ -745,11 +753,13 @@ class AudioPlaybackConnectionOpenResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class AudioPlaybackConnectionOpenResultStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioPlaybackConnectionOpenResultStatus'
     Success = 0
     RequestTimedOut = 1
     DeniedBySystem = 2
     UnknownFailure = 3
 class AudioPlaybackConnectionState(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.AudioPlaybackConnectionState'
     Closed = 0
     Opened = 1
 class AudioStateMonitor(ComPtr):
@@ -2121,14 +2131,17 @@ class MediaSourceAudioInputNode(ComPtr):
     StartTime = property(get_StartTime, put_StartTime)
     MediaSourceCompleted = event(add_MediaSourceCompleted, remove_MediaSourceCompleted)
 class MediaSourceAudioInputNodeCreationStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.MediaSourceAudioInputNodeCreationStatus'
     Success = 0
     FormatNotSupported = 1
     NetworkError = 2
     UnknownFailure = 3
 class MixedRealitySpatialAudioFormatPolicy(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.MixedRealitySpatialAudioFormatPolicy'
     UseMixedRealityDefaultSpatialAudioFormat = 0
     UseDeviceConfigurationDefaultSpatialAudioFormat = 1
 class QuantumSizeSelectionMode(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.QuantumSizeSelectionMode'
     SystemDefault = 0
     LowestLatency = 1
     ClosestToDesired = 2
@@ -2274,6 +2287,7 @@ class SetDefaultSpatialAudioFormatResult(ComPtr):
     def get_Status(self: win32more.Windows.Media.Audio.ISetDefaultSpatialAudioFormatResult) -> win32more.Windows.Media.Audio.SetDefaultSpatialAudioFormatStatus: ...
     Status = property(get_Status, None)
 class SetDefaultSpatialAudioFormatStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.SetDefaultSpatialAudioFormatStatus'
     Succeeded = 0
     AccessDenied = 1
     LicenseExpired = 2
@@ -2349,6 +2363,7 @@ class SpatialAudioFormatSubtype(ComPtr, metaclass=_SpatialAudioFormatSubtype_Met
     _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForSpeakers = property(get_DolbyAtmosForSpeakers, None)
     _SpatialAudioFormatSubtype_Meta_.WindowsSonic = property(get_WindowsSonic, None)
 class SpatialAudioModel(Enum, Int32):
+    _name_ = 'Windows.Media.Audio.SpatialAudioModel'
     ObjectBased = 0
     FoldDown = 1
 

@@ -543,6 +543,7 @@ class IXmlText(ComPtr):
     @winrt_commethod(6)
     def SplitText(self, offset: UInt32) -> win32more.Windows.Data.Xml.Dom.IXmlText: ...
 class NodeType(Enum, Int32):
+    _name_ = 'Windows.Data.Xml.Dom.NodeType'
     Invalid = 0
     ElementNode = 1
     AttributeNode = 2

@@ -11,6 +11,7 @@ import win32more.Windows.UI.Xaml.Controls.Primitives
 import win32more.Windows.UI.Xaml.Media
 import win32more.Windows.UI.Xaml.Media.Media3D
 class AcrylicBackgroundSource(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.AcrylicBackgroundSource'
     HostBackdrop = 0
     Backdrop = 1
 class _AcrylicBrush_Meta_(ComPtr.__class__):
@@ -77,10 +78,12 @@ class AcrylicBrush(ComPtr, metaclass=_AcrylicBrush_Meta_):
     _AcrylicBrush_Meta_.TintOpacityProperty = property(get_TintOpacityProperty, None)
     _AcrylicBrush_Meta_.TintTransitionDurationProperty = property(get_TintTransitionDurationProperty, None)
 class AlignmentX(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.AlignmentX'
     Left = 0
     Center = 1
     Right = 2
 class AlignmentY(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.AlignmentY'
     Top = 0
     Center = 1
     Bottom = 2
@@ -140,6 +143,7 @@ class ArcSegment(ComPtr, metaclass=_ArcSegment_Meta_):
     _ArcSegment_Meta_.SizeProperty = property(get_SizeProperty, None)
     _ArcSegment_Meta_.SweepDirectionProperty = property(get_SweepDirectionProperty, None)
 class AudioCategory(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.AudioCategory'
     Other = 0
     ForegroundOnlyMedia = 1
     BackgroundCapableMedia = 2
@@ -153,6 +157,7 @@ class AudioCategory(Enum, Int32):
     Movie = 10
     Media = 11
 class AudioDeviceType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.AudioDeviceType'
     Console = 0
     Multimedia = 1
     Communications = 2
@@ -293,6 +298,7 @@ class BrushCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Xaml.Media.Brush]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Xaml.Media.Brush]: ...
     Size = property(get_Size, None)
 class BrushMappingMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.BrushMappingMode'
     Absolute = 0
     RelativeToBoundingBox = 1
 class CacheMode(ComPtr):
@@ -309,6 +315,7 @@ class CacheMode(ComPtr):
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.ICacheModeFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Media.CacheMode: ...
 class ColorInterpolationMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.ColorInterpolationMode'
     ScRgbLinearInterpolation = 0
     SRgbLinearInterpolation = 1
 class _CompositeTransform_Meta_(ComPtr.__class__):
@@ -461,6 +468,7 @@ class DoubleCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[Double]) -> win32more.Windows.Foundation.Collections.IIterator[Double]: ...
     Size = property(get_Size, None)
 class ElementCompositeMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.ElementCompositeMode'
     Inherit = 0
     SourceOver = 1
     MinBlend = 2
@@ -504,10 +512,12 @@ class EllipseGeometry(ComPtr, metaclass=_EllipseGeometry_Meta_):
     _EllipseGeometry_Meta_.RadiusXProperty = property(get_RadiusXProperty, None)
     _EllipseGeometry_Meta_.RadiusYProperty = property(get_RadiusYProperty, None)
 class FastPlayFallbackBehaviour(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.FastPlayFallbackBehaviour'
     Skip = 0
     Hide = 1
     Disable = 2
 class FillRule(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.FillRule'
     EvenOdd = 0
     Nonzero = 1
 class _FontFamily_Meta_(ComPtr.__class__):
@@ -703,6 +713,7 @@ class GradientBrush(ComPtr, metaclass=_GradientBrush_Meta_):
     _GradientBrush_Meta_.MappingModeProperty = property(get_MappingModeProperty, None)
     _GradientBrush_Meta_.SpreadMethodProperty = property(get_SpreadMethodProperty, None)
 class GradientSpreadMethod(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.GradientSpreadMethod'
     Pad = 0
     Reflect = 1
     Repeat = 2
@@ -2408,6 +2419,7 @@ class LoadedImageSourceLoadCompletedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.UI.Xaml.Media.ILoadedImageSourceLoadCompletedEventArgs) -> win32more.Windows.UI.Xaml.Media.LoadedImageSourceLoadStatus: ...
     Status = property(get_Status, None)
 class LoadedImageSourceLoadStatus(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.LoadedImageSourceLoadStatus'
     Success = 0
     NetworkError = 1
     InvalidFormat = 2
@@ -2511,10 +2523,12 @@ class MatrixTransform(ComPtr, metaclass=_MatrixTransform_Meta_):
     Matrix = property(get_Matrix, put_Matrix)
     _MatrixTransform_Meta_.MatrixProperty = property(get_MatrixProperty, None)
 class MediaCanPlayResponse(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.MediaCanPlayResponse'
     NotSupported = 0
     Maybe = 1
     Probably = 2
 class MediaElementState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.MediaElementState'
     Closed = 0
     Opening = 1
     Buffering = 2
@@ -2713,11 +2727,13 @@ class PathSegmentCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Xaml.Media.PathSegment]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Xaml.Media.PathSegment]: ...
     Size = property(get_Size, None)
 class PenLineCap(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.PenLineCap'
     Flat = 0
     Square = 1
     Round = 2
     Triangle = 3
 class PenLineJoin(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.PenLineJoin'
     Miter = 0
     Bevel = 1
     Round = 2
@@ -3120,6 +3136,7 @@ class RevealBrush(ComPtr, metaclass=_RevealBrush_Meta_):
     _RevealBrush_Meta_.StateProperty = property(get_StateProperty, None)
     _RevealBrush_Meta_.TargetThemeProperty = property(get_TargetThemeProperty, None)
 class RevealBrushState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.RevealBrushState'
     Normal = 0
     PointerOver = 1
     Pressed = 2
@@ -3288,23 +3305,28 @@ class SolidColorBrush(ComPtr, metaclass=_SolidColorBrush_Meta_):
     Color = property(get_Color, put_Color)
     _SolidColorBrush_Meta_.ColorProperty = property(get_ColorProperty, None)
 class Stereo3DVideoPackingMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Stereo3DVideoPackingMode'
     None_ = 0
     SideBySide = 1
     TopBottom = 2
 class Stereo3DVideoRenderMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Stereo3DVideoRenderMode'
     Mono = 0
     Stereo = 1
 class Stretch(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Stretch'
     None_ = 0
     Fill = 1
     Uniform = 2
     UniformToFill = 3
 class StyleSimulations(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.StyleSimulations'
     None_ = 0
     BoldSimulation = 1
     ItalicSimulation = 2
     BoldItalicSimulation = 3
 class SweepDirection(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.SweepDirection'
     Counterclockwise = 0
     Clockwise = 1
 class ThemeShadow(ComPtr):

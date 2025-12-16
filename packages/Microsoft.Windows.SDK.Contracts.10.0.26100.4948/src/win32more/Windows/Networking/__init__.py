@@ -4,6 +4,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Networking
 import win32more.Windows.Networking.Connectivity
 class DomainNameType(Enum, Int32):
+    _name_ = 'Windows.Networking.DomainNameType'
     Suffix = 0
     FullyQualified = 1
 class EndpointPair(ComPtr):
@@ -74,9 +75,11 @@ class HostName(ComPtr):
     RawName = property(get_RawName, None)
     Type = property(get_Type, None)
 class HostNameSortOptions(Enum, UInt32):
+    _name_ = 'Windows.Networking.HostNameSortOptions'
     None_ = 0
     OptimizeForLongConnections = 2
 class HostNameType(Enum, Int32):
+    _name_ = 'Windows.Networking.HostNameType'
     DomainName = 0
     Ipv4 = 1
     Ipv6 = 2

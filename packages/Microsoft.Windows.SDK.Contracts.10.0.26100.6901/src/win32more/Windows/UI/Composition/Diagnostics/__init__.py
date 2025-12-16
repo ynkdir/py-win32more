@@ -15,6 +15,7 @@ class CompositionDebugHeatMaps(ComPtr):
     @winrt_mixinmethod
     def ShowRedraw(self: win32more.Windows.UI.Composition.Diagnostics.ICompositionDebugHeatMaps, subtree: win32more.Windows.UI.Composition.Visual) -> Void: ...
 class CompositionDebugOverdrawContentKinds(Enum, UInt32):
+    _name_ = 'Windows.UI.Composition.Diagnostics.CompositionDebugOverdrawContentKinds'
     None_ = 0
     OffscreenRendered = 1
     Colors = 2

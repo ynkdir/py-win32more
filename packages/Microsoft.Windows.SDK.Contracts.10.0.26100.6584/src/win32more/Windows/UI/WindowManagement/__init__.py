@@ -134,6 +134,7 @@ class AppWindowClosedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.UI.WindowManagement.IAppWindowClosedEventArgs) -> win32more.Windows.UI.WindowManagement.AppWindowClosedReason: ...
     Reason = property(get_Reason, None)
 class AppWindowClosedReason(Enum, Int32):
+    _name_ = 'Windows.UI.WindowManagement.AppWindowClosedReason'
     Other = 0
     AppInitiated = 1
     UserInitiated = 2
@@ -149,6 +150,7 @@ class AppWindowFrame(ComPtr):
     def get_DragRegionVisuals(self: win32more.Windows.UI.WindowManagement.IAppWindowFrame) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Composition.IVisualElement]: ...
     DragRegionVisuals = property(get_DragRegionVisuals, None)
 class AppWindowFrameStyle(Enum, Int32):
+    _name_ = 'Windows.UI.WindowManagement.AppWindowFrameStyle'
     Default = 0
     NoFrame = 1
 class AppWindowPlacement(ComPtr):
@@ -172,6 +174,7 @@ class AppWindowPresentationConfiguration(ComPtr):
     def get_Kind(self: win32more.Windows.UI.WindowManagement.IAppWindowPresentationConfiguration) -> win32more.Windows.UI.WindowManagement.AppWindowPresentationKind: ...
     Kind = property(get_Kind, None)
 class AppWindowPresentationKind(Enum, Int32):
+    _name_ = 'Windows.UI.WindowManagement.AppWindowPresentationKind'
     Default = 0
     CompactOverlay = 1
     FullScreen = 2
@@ -273,6 +276,7 @@ class AppWindowTitleBarOcclusion(ComPtr):
     def get_OccludingRect(self: win32more.Windows.UI.WindowManagement.IAppWindowTitleBarOcclusion) -> win32more.Windows.Foundation.Rect: ...
     OccludingRect = property(get_OccludingRect, None)
 class AppWindowTitleBarVisibility(Enum, Int32):
+    _name_ = 'Windows.UI.WindowManagement.AppWindowTitleBarVisibility'
     Default = 0
     AlwaysHidden = 1
 class CompactOverlayPresentationConfiguration(ComPtr):
@@ -742,6 +746,7 @@ class WindowingEnvironmentChangedEventArgs(ComPtr):
     default_interface: win32more.Windows.UI.WindowManagement.IWindowingEnvironmentChangedEventArgs
     _classid_ = 'Windows.UI.WindowManagement.WindowingEnvironmentChangedEventArgs'
 class WindowingEnvironmentKind(Enum, Int32):
+    _name_ = 'Windows.UI.WindowManagement.WindowingEnvironmentKind'
     Unknown = 0
     Overlapped = 1
     Tiled = 2

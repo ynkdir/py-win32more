@@ -10,6 +10,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking.Sockets
 import win32more.Windows.Storage.Streams
 class BluetoothEventTriggeringMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.Background.BluetoothEventTriggeringMode'
     Serial = 0
     Batch = 1
     KeepLatest = 2

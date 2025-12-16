@@ -32,6 +32,7 @@ class AnimationDescription(ComPtr):
     StaggerDelayFactor = property(get_StaggerDelayFactor, None)
     ZOrder = property(get_ZOrder, None)
 class AnimationEffect(Enum, Int32):
+    _name_ = 'Windows.UI.Core.AnimationMetrics.AnimationEffect'
     Expand = 0
     Collapse = 1
     Reposition = 2
@@ -69,6 +70,7 @@ class AnimationEffect(Enum, Int32):
     Peek = 34
     UpdateBadge = 35
 class AnimationEffectTarget(Enum, Int32):
+    _name_ = 'Windows.UI.Core.AnimationMetrics.AnimationEffectTarget'
     Primary = 0
     Added = 1
     Affected = 2
@@ -208,6 +210,7 @@ class PropertyAnimation(ComPtr):
     Duration = property(get_Duration, None)
     Type = property(get_Type, None)
 class PropertyAnimationType(Enum, Int32):
+    _name_ = 'Windows.UI.Core.AnimationMetrics.PropertyAnimationType'
     Scale = 0
     Translation = 1
     Opacity = 2

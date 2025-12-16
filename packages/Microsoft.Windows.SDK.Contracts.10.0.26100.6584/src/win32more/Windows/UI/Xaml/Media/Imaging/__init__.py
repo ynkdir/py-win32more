@@ -8,6 +8,7 @@ import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Media
 import win32more.Windows.UI.Xaml.Media.Imaging
 class BitmapCreateOptions(Enum, UInt32):
+    _name_ = 'Windows.UI.Xaml.Media.Imaging.BitmapCreateOptions'
     None_ = 0
     IgnoreImageCache = 8
 class _BitmapImage_Meta_(ComPtr.__class__):
@@ -140,6 +141,7 @@ class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
     _BitmapSource_Meta_.PixelHeightProperty = property(get_PixelHeightProperty, None)
     _BitmapSource_Meta_.PixelWidthProperty = property(get_PixelWidthProperty, None)
 class DecodePixelType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Imaging.DecodePixelType'
     Physical = 0
     Logical = 1
 class DownloadProgressEventArgs(ComPtr):
@@ -585,6 +587,7 @@ class SvgImageSourceFailedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSourceLoadStatus: ...
     Status = property(get_Status, None)
 class SvgImageSourceLoadStatus(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Imaging.SvgImageSourceLoadStatus'
     Success = 0
     NetworkError = 1
     InvalidFormat = 2

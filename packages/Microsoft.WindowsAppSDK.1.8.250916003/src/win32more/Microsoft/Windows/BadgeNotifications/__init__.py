@@ -2,6 +2,7 @@ from __future__ import annotations
 from win32more._prelude import *
 import win32more.Microsoft.Windows.BadgeNotifications
 class BadgeNotificationGlyph(Enum, Int32):
+    _name_ = 'Microsoft.Windows.BadgeNotifications.BadgeNotificationGlyph'
     None_ = 0
     Activity = 1
     Alarm = 2

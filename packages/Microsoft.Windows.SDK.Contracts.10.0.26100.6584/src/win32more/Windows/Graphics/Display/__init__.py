@@ -41,6 +41,7 @@ class AdvancedColorInfo(ComPtr):
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
     WhitePoint = property(get_WhitePoint, None)
 class AdvancedColorKind(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.AdvancedColorKind'
     StandardDynamicRange = 0
     WideColorGamut = 1
     HighDynamicRange = 2
@@ -114,18 +115,22 @@ class ColorOverrideSettings(ComPtr):
     def CreateFromDisplayColorOverrideScenario(cls: win32more.Windows.Graphics.Display.IColorOverrideSettingsStatics, overrideScenario: win32more.Windows.Graphics.Display.DisplayColorOverrideScenario) -> win32more.Windows.Graphics.Display.ColorOverrideSettings: ...
     DesiredDisplayColorOverrideScenario = property(get_DesiredDisplayColorOverrideScenario, None)
 class DisplayBrightnessOverrideOptions(Enum, UInt32):
+    _name_ = 'Windows.Graphics.Display.DisplayBrightnessOverrideOptions'
     None_ = 0
     UseDimmedPolicyWhenBatteryIsLow = 1
 class DisplayBrightnessOverrideScenario(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.DisplayBrightnessOverrideScenario'
     IdleBrightness = 0
     BarcodeReadingBrightness = 1
     FullBrightness = 2
 class DisplayBrightnessScenario(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.DisplayBrightnessScenario'
     DefaultBrightness = 0
     IdleBrightness = 1
     BarcodeReadingBrightness = 2
     FullBrightness = 3
 class DisplayColorOverrideScenario(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.DisplayColorOverrideScenario'
     Accurate = 0
 class DisplayEnhancementOverride(ComPtr):
     extends: IInspectable
@@ -270,6 +275,7 @@ class DisplayInformation(ComPtr, metaclass=_DisplayInformation_Meta_):
     StereoEnabledChanged = event(add_StereoEnabledChanged, remove_StereoEnabledChanged)
     _DisplayInformation_Meta_.DisplayContentsInvalidated = event(add_DisplayContentsInvalidated, remove_DisplayContentsInvalidated)
 class DisplayOrientations(Enum, UInt32):
+    _name_ = 'Windows.Graphics.Display.DisplayOrientations'
     None_ = 0
     Landscape = 1
     Portrait = 2
@@ -339,6 +345,7 @@ class DisplayServices(ComPtr):
     @winrt_classmethod
     def FindAll(cls: win32more.Windows.Graphics.Display.IDisplayServicesStatics) -> ReceiveArray[win32more.Windows.Graphics.DisplayId]: ...
 class HdrMetadataFormat(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.HdrMetadataFormat'
     Hdr10 = 0
     Hdr10Plus = 1
 class IAdvancedColorInfo(ComPtr):
@@ -688,6 +695,7 @@ class NitRange(Structure):
     MaxNits: Single
     StepSizeNits: Single
 class ResolutionScale(Enum, Int32):
+    _name_ = 'Windows.Graphics.Display.ResolutionScale'
     Invalid = 0
     Scale100Percent = 100
     Scale120Percent = 120

@@ -137,11 +137,13 @@ class ChatConversationThreadingInfo(ComPtr):
     Kind = property(get_Kind, put_Kind)
     Participants = property(get_Participants, None)
 class ChatConversationThreadingKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatConversationThreadingKind'
     Participants = 0
     ContactId = 1
     ConversationId = 2
     Custom = 3
 class ChatItemKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatItemKind'
     Message = 0
     Conversation = 1
 class ChatMessage(ComPtr):
@@ -368,6 +370,7 @@ class ChatMessageChangeTracker(ComPtr):
     @winrt_mixinmethod
     def Reset(self: win32more.Windows.ApplicationModel.Chat.IChatMessageChangeTracker) -> Void: ...
 class ChatMessageChangeType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatMessageChangeType'
     MessageCreated = 0
     MessageModified = 1
     MessageDeleted = 2
@@ -385,6 +388,7 @@ class ChatMessageChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.ApplicationModel.Chat.IChatMessageChangedEventArgs) -> win32more.Windows.ApplicationModel.Chat.ChatMessageChangedDeferral: ...
 class ChatMessageKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatMessageKind'
     Standard = 0
     FileTransferRequest = 1
     TransportCustom = 2
@@ -429,6 +433,7 @@ class ChatMessageNotificationTriggerDetails(ComPtr):
     ShouldUpdateBadge = property(get_ShouldUpdateBadge, None)
     ShouldUpdateDetailText = property(get_ShouldUpdateDetailText, None)
 class ChatMessageOperatorKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatMessageOperatorKind'
     Unspecified = 0
     Sms = 1
     Mms = 2
@@ -442,6 +447,7 @@ class ChatMessageReader(ComPtr):
     @winrt_mixinmethod
     def ReadBatchWithCountAsync(self: win32more.Windows.ApplicationModel.Chat.IChatMessageReader2, count: Int32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Chat.ChatMessage]]: ...
 class ChatMessageStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatMessageStatus'
     Draft = 0
     Sending = 1
     Sent = 2
@@ -577,6 +583,7 @@ class ChatMessageTransportConfiguration(ComPtr):
     MaxRecipientCount = property(get_MaxRecipientCount, None)
     SupportedVideoFormat = property(get_SupportedVideoFormat, None)
 class ChatMessageTransportKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatMessageTransportKind'
     Text = 0
     Untriaged = 1
     Blocked = 2
@@ -598,6 +605,7 @@ class ChatMessageValidationResult(ComPtr):
     RemainingCharacterCountInPart = property(get_RemainingCharacterCountInPart, None)
     Status = property(get_Status, None)
 class ChatMessageValidationStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatMessageValidationStatus'
     Valid = 0
     NoRecipients = 1
     InvalidData = 2
@@ -674,6 +682,7 @@ class ChatRecipientDeliveryInfo(ComPtr):
     TransportErrorCodeCategory = property(get_TransportErrorCodeCategory, None)
     TransportInterpretedErrorCode = property(get_TransportInterpretedErrorCode, None)
 class ChatRestoreHistorySpan(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatRestoreHistorySpan'
     LastMonth = 0
     LastYear = 1
     AnyTime = 2
@@ -686,6 +695,7 @@ class ChatSearchReader(ComPtr):
     @winrt_mixinmethod
     def ReadBatchWithCountAsync(self: win32more.Windows.ApplicationModel.Chat.IChatSearchReader, count: Int32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Chat.IChatItem]]: ...
 class ChatStoreChangedEventKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatStoreChangedEventKind'
     NotificationsMissed = 0
     StoreModified = 1
     MessageCreated = 2
@@ -726,11 +736,13 @@ class ChatSyncManager(ComPtr):
     def SetConfigurationAsync(self: win32more.Windows.ApplicationModel.Chat.IChatSyncManager, configuration: win32more.Windows.ApplicationModel.Chat.ChatSyncConfiguration) -> win32more.Windows.Foundation.IAsyncAction: ...
     Configuration = property(get_Configuration, None)
 class ChatTransportErrorCodeCategory(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatTransportErrorCodeCategory'
     None_ = 0
     Http = 1
     Network = 2
     MmsServer = 3
 class ChatTransportInterpretedErrorCode(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.ChatTransportInterpretedErrorCode'
     None_ = 0
     Unknown = 1
     InvalidRecipientAddress = 2
@@ -1636,6 +1648,7 @@ class RcsManager(ComPtr, metaclass=_RcsManager_Meta_):
     def LeaveConversationAsync(cls: win32more.Windows.ApplicationModel.Chat.IRcsManagerStatics, conversation: win32more.Windows.ApplicationModel.Chat.ChatConversation) -> win32more.Windows.Foundation.IAsyncAction: ...
     _RcsManager_Meta_.TransportListChanged = event(add_TransportListChanged, remove_TransportListChanged)
 class RcsServiceKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Chat.RcsServiceKind'
     Chat = 0
     GroupChat = 1
     FileTransfer = 2

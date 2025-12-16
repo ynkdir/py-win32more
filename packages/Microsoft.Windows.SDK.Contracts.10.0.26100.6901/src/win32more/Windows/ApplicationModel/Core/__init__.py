@@ -25,6 +25,7 @@ class AppListEntry(ComPtr):
     AppUserModelId = property(get_AppUserModelId, None)
     DisplayInfo = property(get_DisplayInfo, None)
 class AppRestartFailureReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Core.AppRestartFailureReason'
     RestartPending = 0
     NotInForeground = 1
     InvalidUser = 2

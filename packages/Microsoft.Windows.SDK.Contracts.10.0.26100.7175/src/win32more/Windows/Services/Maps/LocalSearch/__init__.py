@@ -199,6 +199,7 @@ class LocalLocationFinderResult(ComPtr):
     LocalLocations = property(get_LocalLocations, None)
     Status = property(get_Status, None)
 class LocalLocationFinderStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.LocalSearch.LocalLocationFinderStatus'
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2

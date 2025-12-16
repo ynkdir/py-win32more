@@ -538,6 +538,7 @@ class IPrintWorkflowXpsObjectModelProvider(ComPtr):
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowXpsObjectModelProvider'
     _iid_ = Guid('{97d8c1ad-96d7-56cc-b660-a71495632ceb}')
 class PdlConversionHostBasedProcessingOperations(Enum, UInt32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PdlConversionHostBasedProcessingOperations'
     None_ = 0
     PageRotation = 1
     PageOrdering = 2
@@ -545,6 +546,7 @@ class PdlConversionHostBasedProcessingOperations(Enum, UInt32):
     BlankPageInsertion = 8
     All = 4294967295
 class PrintWorkflowAttributesMergePolicy(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy'
     MergePreferPrintTicketOnConflict = 0
     MergePreferPsaOnConflict = 1
     DoNotMergeWithPrintTicket = 2
@@ -626,6 +628,7 @@ class PrintWorkflowForegroundSetupRequestedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSetupRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Configuration = property(get_Configuration, None)
 class PrintWorkflowJobAbortReason(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowJobAbortReason'
     JobFailed = 0
     UserCanceled = 1
 class PrintWorkflowJobActivatedEventArgs(ComPtr):
@@ -703,6 +706,7 @@ class PrintWorkflowJobIssueDetectedEventArgs(ComPtr):
     SkipSystemErrorToast = property(get_SkipSystemErrorToast, put_SkipSystemErrorToast)
     UILauncher = property(get_UILauncher, None)
 class PrintWorkflowJobIssueKind(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowJobIssueKind'
     Other = 0
     AttentionRequired = 1
     DoorOpen = 2
@@ -799,6 +803,7 @@ class PrintWorkflowObjectModelTargetPackage(ComPtr):
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelTargetPackage
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelTargetPackage'
 class PrintWorkflowPdlConversionType(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConversionType'
     XpsToPdf = 0
     XpsToPwgr = 1
     XpsToPclm = 2
@@ -910,6 +915,7 @@ class PrintWorkflowPrinterJob(ComPtr):
     JobId = property(get_JobId, None)
     Printer = property(get_Printer, None)
 class PrintWorkflowPrinterJobStatus(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJobStatus'
     Error = 0
     Aborted = 1
     InProgress = 2
@@ -927,6 +933,7 @@ class PrintWorkflowPrinterJobStatusChangedEventArgs(ComPtr):
     Configuration = property(get_Configuration, None)
     PrinterJob = property(get_PrinterJob, None)
 class PrintWorkflowSessionStatus(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowSessionStatus'
     Started = 0
     Completed = 1
     Aborted = 2
@@ -978,6 +985,7 @@ class PrintWorkflowSubmittedOperation(ComPtr):
     Configuration = property(get_Configuration, None)
     XpsContent = property(get_XpsContent, None)
 class PrintWorkflowSubmittedStatus(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedStatus'
     Succeeded = 0
     Canceled = 1
     Failed = 2
@@ -1018,6 +1026,7 @@ class PrintWorkflowUIActivatedEventArgs(ComPtr):
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
 class PrintWorkflowUICompletionStatus(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowUICompletionStatus'
     Completed = 0
     LaunchFailed = 1
     JobFailed = 2

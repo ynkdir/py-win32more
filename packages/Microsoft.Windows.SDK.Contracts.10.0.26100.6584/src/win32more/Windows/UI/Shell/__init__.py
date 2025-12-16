@@ -338,6 +338,7 @@ class IWindowTabThumbnailRequestedEventArgs(ComPtr):
     RequestedSize = property(get_RequestedSize, None)
     Tab = property(get_Tab, None)
 class SecurityAppKind(Enum, Int32):
+    _name_ = 'Windows.UI.Shell.SecurityAppKind'
     WebProtection = 0
 class SecurityAppManager(ComPtr):
     extends: IInspectable
@@ -360,14 +361,17 @@ class SecurityAppManager(ComPtr):
     def UpdateState(self: win32more.Windows.UI.Shell.ISecurityAppManager, kind: win32more.Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid, state: win32more.Windows.UI.Shell.SecurityAppState, substatus: win32more.Windows.UI.Shell.SecurityAppSubstatus, detailsUri: win32more.Windows.Foundation.Uri) -> Void: ...
 SecurityAppManagerContract: UInt32 = 65536
 class SecurityAppState(Enum, Int32):
+    _name_ = 'Windows.UI.Shell.SecurityAppState'
     Disabled = 0
     Enabled = 1
 class SecurityAppSubstatus(Enum, Int32):
+    _name_ = 'Windows.UI.Shell.SecurityAppSubstatus'
     Undetermined = 0
     NoActionNeeded = 1
     ActionRecommended = 2
     ActionNeeded = 3
 class ShareWindowCommand(Enum, Int32):
+    _name_ = 'Windows.UI.Shell.ShareWindowCommand'
     None_ = 0
     StartSharing = 1
     StopSharing = 2

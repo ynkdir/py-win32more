@@ -138,6 +138,7 @@ class IInkAnalyzerFactory(ComPtr):
     @winrt_commethod(6)
     def CreateAnalyzer(self) -> win32more.Windows.UI.Input.Inking.Analysis.InkAnalyzer: ...
 class InkAnalysisDrawingKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisDrawingKind'
     Drawing = 0
     Circle = 1
     Ellipse = 2
@@ -325,6 +326,7 @@ class InkAnalysisNode(ComPtr):
     Parent = property(get_Parent, None)
     RotatedBoundingRect = property(get_RotatedBoundingRect, None)
 class InkAnalysisNodeKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisNodeKind'
     UnclassifiedInk = 0
     Root = 1
     WritingRegion = 2
@@ -398,9 +400,11 @@ class InkAnalysisRoot(ComPtr):
     RecognizedText = property(get_RecognizedText, None)
     RotatedBoundingRect = property(get_RotatedBoundingRect, None)
 class InkAnalysisStatus(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisStatus'
     Updated = 0
     Unchanged = 1
 class InkAnalysisStrokeKind(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.Analysis.InkAnalysisStrokeKind'
     Auto = 0
     Writing = 1
     Drawing = 2

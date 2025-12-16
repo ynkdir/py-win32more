@@ -40,6 +40,7 @@ class DevicePortalConnectionClosedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionClosedEventArgs) -> win32more.Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedReason: ...
     Reason = property(get_Reason, None)
 class DevicePortalConnectionClosedReason(Enum, Int32):
+    _name_ = 'Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedReason'
     Unknown = 0
     ResourceLimitsExceeded = 1
     ProtocolError = 2

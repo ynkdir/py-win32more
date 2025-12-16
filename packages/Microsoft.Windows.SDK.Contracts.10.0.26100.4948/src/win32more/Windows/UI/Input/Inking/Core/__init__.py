@@ -104,6 +104,7 @@ class CoreInkPresenterHost(ComPtr):
     InkPresenter = property(get_InkPresenter, None)
     RootVisual = property(get_RootVisual, put_RootVisual)
 class CoreWetStrokeDisposition(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Inking.Core.CoreWetStrokeDisposition'
     Inking = 0
     Completed = 1
     Canceled = 2

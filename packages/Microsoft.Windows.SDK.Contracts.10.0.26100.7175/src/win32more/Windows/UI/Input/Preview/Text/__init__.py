@@ -386,6 +386,7 @@ class InputDelegationModeChangedEventArgs(ComPtr):
     def get_DelegationOn(self: win32more.Windows.UI.Input.Preview.Text.IInputDelegationModeChangedEventArgs) -> Boolean: ...
     DelegationOn = property(get_DelegationOn, None)
 class KeyEventDeviceType(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Preview.Text.KeyEventDeviceType'
     Undefined = 0
     HardwareKeyboard = 1
     SoftwareKeyboard = 2
@@ -502,6 +503,7 @@ class KeyboardInputProcessor(ComPtr):
     TextBoxContentChanged = event(add_TextBoxContentChanged, remove_TextBoxContentChanged)
     TextBoxInfoChanged = event(add_TextBoxInfoChanged, remove_TextBoxInfoChanged)
 class PayloadResult(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Preview.Text.PayloadResult'
     InEditing = 0
     Pending = 1
     Completed = 2
@@ -518,6 +520,7 @@ class ReconversionRequestedEventArgs(ComPtr):
     def get_Range(self: win32more.Windows.UI.Input.Preview.Text.IReconversionRequestedEventArgs) -> win32more.Windows.UI.Text.Core.CoreTextRange: ...
     Range = property(get_Range, None)
 class TextBoxContentAttribute(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextBoxContentAttribute'
     None_ = 0
     Selection = 1
     Text = 2
@@ -539,6 +542,7 @@ class TextBoxContentChangedEventArgs(ComPtr):
     Source = property(get_Source, None)
     TextBoxId = property(get_TextBoxId, None)
 class TextBoxFeatures(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextBoxFeatures'
     None_ = 0
     ReadText = 1
     WriteText = 2
@@ -576,11 +580,13 @@ class TextBoxInfoChangedEventArgs(ComPtr):
     def get_TextBoxInfo(self: win32more.Windows.UI.Input.Preview.Text.ITextBoxInfoChangedEventArgs) -> win32more.Windows.UI.Input.Preview.Text.TextBoxInfo: ...
     TextBoxInfo = property(get_TextBoxInfo, None)
 class TextBoxSettings(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextBoxSettings'
     None_ = 0
     Private = 1
     Multiline = 2
     VerticalWriting = 4
 class TextChangeSource(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextChangeSource'
     External = 0
     HardwareKeyTyped = 1
     SoftwareKeyTyped = 2
@@ -653,6 +659,7 @@ class TextCompositionSegment(ComPtr):
     Text = property(get_Text, put_Text)
     UnconvertedText = property(get_UnconvertedText, put_UnconvertedText)
 class TextConversionMode(Enum, Int32):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextConversionMode'
     Undefined = 0
     AlphanumericHalfWidth = 1
     AlphanumericFullWidth = 2
@@ -785,6 +792,7 @@ class TextStyle(Structure):
     underlineColor: win32more.Windows.UI.Color
     underlineType: win32more.Windows.UI.Text.UnderlineType
 class TextStyleAttributes(Enum, UInt32):
+    _name_ = 'Windows.UI.Input.Preview.Text.TextStyleAttributes'
     None_ = 0
     TextColor = 1
     BackgroundColor = 2

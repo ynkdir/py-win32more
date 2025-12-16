@@ -315,10 +315,12 @@ class ISceneVisualStatics(ComPtr):
     @winrt_commethod(6)
     def Create(self, compositor: win32more.Windows.UI.Composition.Compositor) -> win32more.Windows.UI.Composition.Scenes.SceneVisual: ...
 class SceneAlphaMode(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Scenes.SceneAlphaMode'
     Opaque = 0
     AlphaTest = 1
     Blend = 2
 class SceneAttributeSemantic(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Scenes.SceneAttributeSemantic'
     Index = 0
     Vertex = 1
     Normal = 2
@@ -385,6 +387,7 @@ class SceneComponentCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Composition.Scenes.SceneComponent]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Composition.Scenes.SceneComponent]: ...
     Size = property(get_Size, None)
 class SceneComponentType(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Scenes.SceneComponentType'
     MeshRendererComponent = 0
 class SceneMaterial(ComPtr):
     extends: win32more.Windows.UI.Composition.Scenes.SceneObject
@@ -663,6 +666,7 @@ class SceneVisual(ComPtr):
     def Create(cls: win32more.Windows.UI.Composition.Scenes.ISceneVisualStatics, compositor: win32more.Windows.UI.Composition.Compositor) -> win32more.Windows.UI.Composition.Scenes.SceneVisual: ...
     Root = property(get_Root, put_Root)
 class SceneWrappingMode(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Scenes.SceneWrappingMode'
     ClampToEdge = 0
     MirroredRepeat = 1
     Repeat = 2

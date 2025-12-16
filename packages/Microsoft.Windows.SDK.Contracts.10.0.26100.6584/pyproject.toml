@@ -1,7 +1,7 @@
 [project]
 name = "win32more-Microsoft.Windows.SDK.Contracts"
-version = "0.7.10.0.26100.6584"
-dependencies = ["win32more-core==0.7.*"]
+version = "0.8.10.0.26100.6584"
+dependencies = ["win32more-core==0.8.*"]
 
 [build-system]
 requires = ["hatchling >= 1.26"]

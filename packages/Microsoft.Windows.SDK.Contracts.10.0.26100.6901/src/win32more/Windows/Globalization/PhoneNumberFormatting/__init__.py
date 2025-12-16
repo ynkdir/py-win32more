@@ -65,6 +65,7 @@ class IPhoneNumberInfoStatics(ComPtr):
     @winrt_commethod(7)
     def TryParseWithRegion(self, input: hstr, regionCode: hstr, phoneNumber: POINTER(win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo)) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult: ...
 class PhoneNumberFormat(Enum, Int32):
+    _name_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormat'
     E164 = 0
     International = 1
     National = 2
@@ -138,17 +139,20 @@ class PhoneNumberInfo(ComPtr):
     CountryCode = property(get_CountryCode, None)
     PhoneNumber = property(get_PhoneNumber, None)
 class PhoneNumberMatchResult(Enum, Int32):
+    _name_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberMatchResult'
     NoMatch = 0
     ShortNationalSignificantNumberMatch = 1
     NationalSignificantNumberMatch = 2
     ExactMatch = 3
 class PhoneNumberParseResult(Enum, Int32):
+    _name_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult'
     Valid = 0
     NotANumber = 1
     InvalidCountryCode = 2
     TooShort = 3
     TooLong = 4
 class PredictedPhoneNumberKind(Enum, Int32):
+    _name_ = 'Windows.Globalization.PhoneNumberFormatting.PredictedPhoneNumberKind'
     FixedLine = 0
     Mobile = 1
     FixedLineOrMobile = 2

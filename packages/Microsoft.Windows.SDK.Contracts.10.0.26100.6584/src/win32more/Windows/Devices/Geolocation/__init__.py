@@ -4,6 +4,7 @@ import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 class AltitudeReferenceSystem(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.AltitudeReferenceSystem'
     Unspecified = 0
     Terrain = 1
     Ellipsoid = 2
@@ -183,6 +184,7 @@ class GeocoordinateSatelliteData(ComPtr):
     TimeDilutionOfPrecision = property(get_TimeDilutionOfPrecision, None)
     VerticalDilutionOfPrecision = property(get_VerticalDilutionOfPrecision, None)
 class GeolocationAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.GeolocationAccessStatus'
     Unspecified = 0
     Allowed = 1
     Denied = 2
@@ -334,6 +336,7 @@ class Geoposition(ComPtr):
     Coordinate = property(get_Coordinate, None)
     VenueData = property(get_VenueData, None)
 class GeoshapeType(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.GeoshapeType'
     Geopoint = 0
     Geocircle = 1
     Geopath = 2
@@ -761,6 +764,7 @@ class IVenueData(ComPtr):
     Id = property(get_Id, None)
     Level = property(get_Level, None)
 class PositionAccuracy(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.PositionAccuracy'
     Default = 0
     High = 1
 class PositionChangedEventArgs(ComPtr):
@@ -771,6 +775,7 @@ class PositionChangedEventArgs(ComPtr):
     def get_Position(self: win32more.Windows.Devices.Geolocation.IPositionChangedEventArgs) -> win32more.Windows.Devices.Geolocation.Geoposition: ...
     Position = property(get_Position, None)
 class PositionSource(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.PositionSource'
     Cellular = 0
     Satellite = 1
     WiFi = 2
@@ -779,6 +784,7 @@ class PositionSource(Enum, Int32):
     Default = 5
     Obfuscated = 6
 class PositionStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.PositionStatus'
     Ready = 0
     Initializing = 1
     NoData = 2
@@ -803,9 +809,11 @@ class VenueData(ComPtr):
     Id = property(get_Id, None)
     Level = property(get_Level, None)
 class VisitMonitoringScope(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.VisitMonitoringScope'
     Venue = 0
     City = 1
 class VisitStateChange(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.VisitStateChange'
     TrackingLost = 0
     Arrived = 1
     Departed = 2

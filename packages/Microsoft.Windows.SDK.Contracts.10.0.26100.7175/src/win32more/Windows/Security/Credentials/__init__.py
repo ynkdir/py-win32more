@@ -13,6 +13,7 @@ class AttestationChallengeHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, challenge: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Storage.Streams.IBuffer: ...
 class ChallengeResponseKind(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.ChallengeResponseKind'
     VirtualizationBasedSecurityEnclave = 0
 class ICredentialFactory(ComPtr):
     extends: IInspectable
@@ -268,6 +269,7 @@ class KeyCredentialAttestationResult(ComPtr):
     CertificateChainBuffer = property(get_CertificateChainBuffer, None)
     Status = property(get_Status, None)
 class KeyCredentialAttestationStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.KeyCredentialAttestationStatus'
     Success = 0
     UnknownError = 1
     NotSupported = 2
@@ -295,9 +297,11 @@ class KeyCredentialCacheConfiguration(ComPtr):
     Timeout = property(get_Timeout, None)
     UsageCount = property(get_UsageCount, None)
 class KeyCredentialCacheOption(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.KeyCredentialCacheOption'
     NoCache = 0
     CacheWhenUnlocked = 1
 class KeyCredentialCreationOption(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.KeyCredentialCreationOption'
     ReplaceExisting = 0
     FailIfExists = 1
 class KeyCredentialManager(ComPtr):
@@ -342,6 +346,7 @@ class KeyCredentialRetrievalResult(ComPtr):
     Credential = property(get_Credential, None)
     Status = property(get_Status, None)
 class KeyCredentialStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.KeyCredentialStatus'
     Success = 0
     UnknownError = 1
     NotFound = 2
@@ -483,6 +488,7 @@ class WebAccount(ComPtr):
     UserName = property(get_UserName, None)
     WebAccountProvider = property(get_WebAccountProvider, None)
 class WebAccountPictureSize(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.WebAccountPictureSize'
     Size64x64 = 64
     Size208x208 = 208
     Size424x424 = 424
@@ -522,6 +528,7 @@ class WebAccountProvider(ComPtr):
     IsSystemProvider = property(get_IsSystemProvider, None)
     User = property(get_User, None)
 class WebAccountState(Enum, Int32):
+    _name_ = 'Windows.Security.Credentials.WebAccountState'
     None_ = 0
     Connected = 1
     Error = 2

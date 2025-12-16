@@ -193,6 +193,7 @@ class FindNextElementOptions(ComPtr):
     SearchRoot = property(get_SearchRoot, put_SearchRoot)
     XYFocusNavigationStrategyOverride = property(get_XYFocusNavigationStrategyOverride, put_XYFocusNavigationStrategyOverride)
 class FocusInputDeviceKind(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.FocusInputDeviceKind'
     None_ = 0
     Mouse = 1
     Touch = 2
@@ -281,6 +282,7 @@ class FocusMovementResult(ComPtr):
     def get_Succeeded(self: win32more.Windows.UI.Xaml.Input.IFocusMovementResult) -> Boolean: ...
     Succeeded = property(get_Succeeded, None)
 class FocusNavigationDirection(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.FocusNavigationDirection'
     Next = 0
     Previous = 1
     Up = 2
@@ -1332,6 +1334,7 @@ class InputScopeName(ComPtr):
     def put_NameValue(self: win32more.Windows.UI.Xaml.Input.IInputScopeName, value: win32more.Windows.UI.Xaml.Input.InputScopeNameValue) -> Void: ...
     NameValue = property(get_NameValue, put_NameValue)
 class InputScopeNameValue(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.InputScopeNameValue'
     Default = 0
     Url = 1
     EmailSmtpAddress = 5
@@ -1403,6 +1406,7 @@ class KeyRoutedEventArgs(ComPtr):
     KeyStatus = property(get_KeyStatus, None)
     OriginalKey = property(get_OriginalKey, None)
 class KeyTipPlacementMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.KeyTipPlacementMode'
     Auto = 0
     Bottom = 1
     Top = 2
@@ -1478,9 +1482,11 @@ class KeyboardAcceleratorInvokedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     KeyboardAccelerator = property(get_KeyboardAccelerator, None)
 class KeyboardAcceleratorPlacementMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.KeyboardAcceleratorPlacementMode'
     Auto = 0
     Hidden = 1
 class KeyboardNavigationMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.KeyboardNavigationMode'
     Local = 0
     Cycle = 1
     Once = 2
@@ -1663,6 +1669,7 @@ class ManipulationInertiaStartingRoutedEventArgs(ComPtr):
     TranslationBehavior = property(get_TranslationBehavior, put_TranslationBehavior)
     Velocities = property(get_Velocities, None)
 class ManipulationModes(Enum, UInt32):
+    _name_ = 'Windows.UI.Xaml.Input.ManipulationModes'
     None_ = 0
     TranslateX = 1
     TranslateY = 2
@@ -1906,6 +1913,7 @@ class StandardUICommand(ComPtr, metaclass=_StandardUICommand_Meta_):
     Kind = property(get_Kind, put_Kind)
     _StandardUICommand_Meta_.KindProperty = property(get_KindProperty, None)
 class StandardUICommandKind(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.StandardUICommandKind'
     None_ = 0
     Cut = 1
     Copy = 2
@@ -1952,15 +1960,18 @@ class TappedRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     PointerDeviceType = property(get_PointerDeviceType, None)
 class XYFocusKeyboardNavigationMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.XYFocusKeyboardNavigationMode'
     Auto = 0
     Enabled = 1
     Disabled = 2
 class XYFocusNavigationStrategy(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.XYFocusNavigationStrategy'
     Auto = 0
     Projection = 1
     NavigationDirectionDistance = 2
     RectilinearDistance = 3
 class XYFocusNavigationStrategyOverride(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Input.XYFocusNavigationStrategyOverride'
     None_ = 0
     Auto = 1
     Projection = 2

@@ -23,11 +23,13 @@ import win32more.Windows.Storage.FileProperties
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 class AudioDecoderDegradation(Enum, Int32):
+    _name_ = 'Windows.Media.Core.AudioDecoderDegradation'
     None_ = 0
     DownmixTo2Channels = 1
     DownmixTo6Channels = 2
     DownmixTo8Channels = 3
 class AudioDecoderDegradationReason(Enum, Int32):
+    _name_ = 'Windows.Media.Core.AudioDecoderDegradationReason'
     None_ = 0
     LicensingRequirement = 1
     SpatialAudioNotSupported = 2
@@ -168,6 +170,7 @@ class ChapterCue(ComPtr):
     StartTime = property(get_StartTime, put_StartTime)
     Title = property(get_Title, put_Title)
 class CodecCategory(Enum, Int32):
+    _name_ = 'Windows.Media.Core.CodecCategory'
     Encoder = 0
     Decoder = 1
 class CodecInfo(ComPtr):
@@ -190,6 +193,7 @@ class CodecInfo(ComPtr):
     Kind = property(get_Kind, None)
     Subtypes = property(get_Subtypes, None)
 class CodecKind(Enum, Int32):
+    _name_ = 'Windows.Media.Core.CodecKind'
     Audio = 0
     Video = 1
 class CodecQuery(ComPtr):
@@ -498,6 +502,7 @@ class FaceDetectionEffectFrame(ComPtr):
     SystemRelativeTime = property(get_SystemRelativeTime, put_SystemRelativeTime)
     Type = property(get_Type, None)
 class FaceDetectionMode(Enum, Int32):
+    _name_ = 'Windows.Media.Core.FaceDetectionMode'
     HighPerformance = 0
     Balanced = 1
     HighQuality = 2
@@ -2295,6 +2300,7 @@ class MediaCueEventArgs(ComPtr):
     def get_Cue(self: win32more.Windows.Media.Core.IMediaCueEventArgs) -> win32more.Windows.Media.Core.IMediaCue: ...
     Cue = property(get_Cue, None)
 class MediaDecoderStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MediaDecoderStatus'
     FullySupported = 0
     UnsupportedSubtype = 1
     UnsupportedEncoderProperties = 2
@@ -2410,6 +2416,7 @@ class MediaSourceOpenOperationCompletedEventArgs(ComPtr):
     def get_Error(self: win32more.Windows.Media.Core.IMediaSourceOpenOperationCompletedEventArgs) -> win32more.Windows.Media.Core.MediaSourceError: ...
     Error = property(get_Error, None)
 class MediaSourceState(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MediaSourceState'
     Initial = 0
     Opening = 1
     Opened = 2
@@ -2426,6 +2433,7 @@ class MediaSourceStateChangedEventArgs(ComPtr):
     NewState = property(get_NewState, None)
     OldState = property(get_OldState, None)
 class MediaSourceStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MediaSourceStatus'
     FullySupported = 0
     Unknown = 1
 class MediaStreamSample(ComPtr):
@@ -2620,6 +2628,7 @@ class MediaStreamSourceClosedEventArgs(ComPtr):
     def get_Request(self: win32more.Windows.Media.Core.IMediaStreamSourceClosedEventArgs) -> win32more.Windows.Media.Core.MediaStreamSourceClosedRequest: ...
     Request = property(get_Request, None)
 class MediaStreamSourceClosedReason(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MediaStreamSourceClosedReason'
     Done = 0
     UnknownError = 1
     AppReportedError = 2
@@ -2635,6 +2644,7 @@ class MediaStreamSourceClosedRequest(ComPtr):
     def get_Reason(self: win32more.Windows.Media.Core.IMediaStreamSourceClosedRequest) -> win32more.Windows.Media.Core.MediaStreamSourceClosedReason: ...
     Reason = property(get_Reason, None)
 class MediaStreamSourceErrorStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MediaStreamSourceErrorStatus'
     Other = 0
     OutOfMemory = 1
     FailedToOpenFile = 2
@@ -2729,18 +2739,22 @@ class MediaStreamSourceSwitchStreamsRequestedEventArgs(ComPtr):
     def get_Request(self: win32more.Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequestedEventArgs) -> win32more.Windows.Media.Core.MediaStreamSourceSwitchStreamsRequest: ...
     Request = property(get_Request, None)
 class MediaTrackKind(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MediaTrackKind'
     Audio = 0
     Video = 1
     TimedMetadata = 2
 class MseAppendMode(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MseAppendMode'
     Segments = 0
     Sequence = 1
 class MseEndOfStreamStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MseEndOfStreamStatus'
     Success = 0
     NetworkError = 1
     DecodeError = 2
     UnknownError = 3
 class MseReadyState(Enum, Int32):
+    _name_ = 'Windows.Media.Core.MseReadyState'
     Closed = 0
     Open = 1
     Ended = 2
@@ -2969,6 +2983,7 @@ class SceneAnalysisEffectFrame(ComPtr):
     SystemRelativeTime = property(get_SystemRelativeTime, put_SystemRelativeTime)
     Type = property(get_Type, None)
 class SceneAnalysisRecommendation(Enum, Int32):
+    _name_ = 'Windows.Media.Core.SceneAnalysisRecommendation'
     Standard = 0
     Hdr = 1
     LowLight = 2
@@ -3023,6 +3038,7 @@ class SpeechCue(ComPtr):
     StartTime = property(get_StartTime, put_StartTime)
     Text = property(get_Text, put_Text)
 class TimedMetadataKind(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedMetadataKind'
     Caption = 0
     Chapter = 1
     Custom = 2
@@ -3142,6 +3158,7 @@ class TimedMetadataTrackError(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
     ExtendedError = property(get_ExtendedError, None)
 class TimedMetadataTrackErrorCode(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedMetadataTrackErrorCode'
     None_ = 0
     DataFormatError = 1
     NetworkError = 2
@@ -3173,10 +3190,12 @@ class TimedTextBouten(ComPtr):
     Position = property(get_Position, put_Position)
     Type = property(get_Type, put_Type)
 class TimedTextBoutenPosition(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextBoutenPosition'
     Before = 0
     After = 1
     Outside = 2
 class TimedTextBoutenType(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextBoutenType'
     None_ = 0
     Auto = 1
     FilledCircle = 2
@@ -3227,6 +3246,7 @@ class TimedTextCue(ComPtr):
     Lines = property(get_Lines, None)
     StartTime = property(get_StartTime, put_StartTime)
 class TimedTextDisplayAlignment(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextDisplayAlignment'
     Before = 0
     After = 1
     Center = 2
@@ -3235,9 +3255,11 @@ class TimedTextDouble(Structure):
     Value: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit
 class TimedTextFlowDirection(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextFlowDirection'
     LeftToRight = 0
     RightToLeft = 1
 class TimedTextFontStyle(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextFontStyle'
     Normal = 0
     Oblique = 1
     Italic = 2
@@ -3263,6 +3285,7 @@ class TimedTextLine(ComPtr):
     Subformats = property(get_Subformats, None)
     Text = property(get_Text, put_Text)
 class TimedTextLineAlignment(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextLineAlignment'
     Start = 0
     End = 1
     Center = 2
@@ -3376,6 +3399,7 @@ class TimedTextRuby(ComPtr):
     Reserve = property(get_Reserve, put_Reserve)
     Text = property(get_Text, put_Text)
 class TimedTextRubyAlign(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextRubyAlign'
     Center = 0
     Start = 1
     End = 2
@@ -3383,16 +3407,19 @@ class TimedTextRubyAlign(Enum, Int32):
     SpaceBetween = 4
     WithBase = 5
 class TimedTextRubyPosition(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextRubyPosition'
     Before = 0
     After = 1
     Outside = 2
 class TimedTextRubyReserve(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextRubyReserve'
     None_ = 0
     Before = 1
     After = 2
     Both = 3
     Outside = 4
 class TimedTextScrollMode(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextScrollMode'
     Popon = 0
     Rollup = 1
 class TimedTextSize(Structure):
@@ -3573,15 +3600,19 @@ class TimedTextSubformat(ComPtr):
     StartIndex = property(get_StartIndex, put_StartIndex)
     SubformatStyle = property(get_SubformatStyle, put_SubformatStyle)
 class TimedTextUnit(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextUnit'
     Pixels = 0
     Percentage = 1
 class TimedTextWeight(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextWeight'
     Normal = 400
     Bold = 700
 class TimedTextWrapping(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextWrapping'
     NoWrap = 0
     Wrap = 1
 class TimedTextWritingMode(Enum, Int32):
+    _name_ = 'Windows.Media.Core.TimedTextWritingMode'
     LeftRightTopBottom = 0
     RightLeftTopBottom = 1
     TopBottomRightLeft = 2
@@ -3634,6 +3665,7 @@ class VideoStabilizationEffectEnabledChangedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.Media.Core.IVideoStabilizationEffectEnabledChangedEventArgs) -> win32more.Windows.Media.Core.VideoStabilizationEffectEnabledChangedReason: ...
     Reason = property(get_Reason, None)
 class VideoStabilizationEffectEnabledChangedReason(Enum, Int32):
+    _name_ = 'Windows.Media.Core.VideoStabilizationEffectEnabledChangedReason'
     Programmatic = 0
     PixelRateTooHigh = 1
     RunningSlowly = 2

@@ -117,9 +117,11 @@ class IVoiceInformation(ComPtr):
     Id = property(get_Id, None)
     Language = property(get_Language, None)
 class SpeechAppendedSilence(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechSynthesis.SpeechAppendedSilence'
     Default = 0
     Min = 1
 class SpeechPunctuationSilence(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechSynthesis.SpeechPunctuationSilence'
     Default = 0
     Min = 1
 class SpeechSynthesisStream(ComPtr):
@@ -244,6 +246,7 @@ class SpeechSynthesizerOptions(ComPtr):
     PunctuationSilence = property(get_PunctuationSilence, put_PunctuationSilence)
     SpeakingRate = property(get_SpeakingRate, put_SpeakingRate)
 class VoiceGender(Enum, Int32):
+    _name_ = 'Windows.Media.SpeechSynthesis.VoiceGender'
     Male = 0
     Female = 1
 class VoiceInformation(ComPtr):

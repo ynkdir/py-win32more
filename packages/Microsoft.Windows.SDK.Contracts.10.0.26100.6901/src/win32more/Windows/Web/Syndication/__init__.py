@@ -681,6 +681,7 @@ class SyndicationError(ComPtr):
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Web.Syndication.ISyndicationErrorStatics, hresult: Int32) -> win32more.Windows.Web.Syndication.SyndicationErrorStatus: ...
 class SyndicationErrorStatus(Enum, Int32):
+    _name_ = 'Windows.Web.Syndication.SyndicationErrorStatus'
     Unknown = 0
     MissingRequiredElement = 1
     MissingRequiredAttribute = 2
@@ -812,6 +813,7 @@ class SyndicationFeed(ComPtr):
     Subtitle = property(get_Subtitle, put_Subtitle)
     Title = property(get_Title, put_Title)
 class SyndicationFormat(Enum, Int32):
+    _name_ = 'Windows.Web.Syndication.SyndicationFormat'
     Atom10 = 0
     Rss20 = 1
     Rss10 = 2
@@ -1279,6 +1281,7 @@ class SyndicationText(ComPtr):
     Type = property(get_Type, put_Type)
     Xml = property(get_Xml, put_Xml)
 class SyndicationTextType(Enum, Int32):
+    _name_ = 'Windows.Web.Syndication.SyndicationTextType'
     Text = 0
     Html = 1
     Xhtml = 2

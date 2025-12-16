@@ -5,6 +5,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Pickers.Provider
 class AddFileResult(Enum, Int32):
+    _name_ = 'Windows.Storage.Pickers.Provider.AddFileResult'
     Added = 0
     AlreadyAdded = 1
     NotAllowed = 2
@@ -83,6 +84,7 @@ class FileSavePickerUI(ComPtr):
     FileNameChanged = event(add_FileNameChanged, remove_FileNameChanged)
     TargetFileRequested = event(add_TargetFileRequested, remove_TargetFileRequested)
 class FileSelectionMode(Enum, Int32):
+    _name_ = 'Windows.Storage.Pickers.Provider.FileSelectionMode'
     Single = 0
     Multiple = 1
 class IFileOpenPickerUI(ComPtr):
@@ -233,6 +235,7 @@ class PickerClosingOperation(ComPtr):
     def get_Deadline(self: win32more.Windows.Storage.Pickers.Provider.IPickerClosingOperation) -> win32more.Windows.Foundation.DateTime: ...
     Deadline = property(get_Deadline, None)
 class SetFileNameResult(Enum, Int32):
+    _name_ = 'Windows.Storage.Pickers.Provider.SetFileNameResult'
     Succeeded = 0
     NotAllowed = 1
     Unavailable = 2

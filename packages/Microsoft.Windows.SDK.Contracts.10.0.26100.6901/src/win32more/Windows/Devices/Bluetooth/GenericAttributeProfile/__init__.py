@@ -71,6 +71,7 @@ class GattCharacteristic(ComPtr):
     Uuid = property(get_Uuid, None)
     ValueChanged = event(add_ValueChanged, remove_ValueChanged)
 class GattCharacteristicProperties(Enum, UInt32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicProperties'
     None_ = 0
     Broadcast = 1
     Read = 2
@@ -344,6 +345,7 @@ class GattCharacteristicsResult(ComPtr):
     ProtocolError = property(get_ProtocolError, None)
     Status = property(get_Status, None)
 class GattClientCharacteristicConfigurationDescriptorValue(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue'
     None_ = 0
     Notify = 1
     Indicate = 2
@@ -364,6 +366,7 @@ class GattClientNotificationResult(ComPtr):
     Status = property(get_Status, None)
     SubscribedClient = property(get_SubscribedClient, None)
 class GattCommunicationStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus'
     Success = 0
     Unreachable = 1
     ProtocolError = 2
@@ -699,6 +702,7 @@ class GattLocalService(ComPtr):
     Characteristics = property(get_Characteristics, None)
     Uuid = property(get_Uuid, None)
 class GattOpenStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattOpenStatus'
     Unspecified = 0
     Success = 1
     AlreadyOpened = 2
@@ -818,6 +822,7 @@ class GattPresentationFormatTypes(ComPtr, metaclass=_GattPresentationFormatTypes
     _GattPresentationFormatTypes_Meta_.Utf16 = property(get_Utf16, None)
     _GattPresentationFormatTypes_Meta_.Utf8 = property(get_Utf8, None)
 class GattProtectionLevel(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtectionLevel'
     Plain = 0
     AuthenticationRequired = 1
     EncryptionRequired = 2
@@ -957,6 +962,7 @@ class GattReliableWriteTransaction(ComPtr):
     @winrt_mixinmethod
     def CommitWithResultAsync(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReliableWriteTransaction2) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult]: ...
 class GattRequestState(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattRequestState'
     Pending = 0
     Completed = 1
     Canceled = 2
@@ -996,6 +1002,7 @@ class GattServiceProvider(ComPtr):
     Service = property(get_Service, None)
     AdvertisementStatusChanged = event(add_AdvertisementStatusChanged, remove_AdvertisementStatusChanged)
 class GattServiceProviderAdvertisementStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisementStatus'
     Created = 0
     Stopped = 1
     Started = 2
@@ -1167,6 +1174,7 @@ class GattSession(ComPtr):
     MaxPduSizeChanged = event(add_MaxPduSizeChanged, remove_MaxPduSizeChanged)
     SessionStatusChanged = event(add_SessionStatusChanged, remove_SessionStatusChanged)
 class GattSessionStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattSessionStatus'
     Closed = 0
     Active = 1
 class GattSessionStatusChangedEventArgs(ComPtr):
@@ -1180,6 +1188,7 @@ class GattSessionStatusChangedEventArgs(ComPtr):
     Error = property(get_Error, None)
     Status = property(get_Status, None)
 class GattSharingMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattSharingMode'
     Unspecified = 0
     Exclusive = 1
     SharedReadOnly = 2
@@ -1210,6 +1219,7 @@ class GattValueChangedEventArgs(ComPtr):
     CharacteristicValue = property(get_CharacteristicValue, None)
     Timestamp = property(get_Timestamp, None)
 class GattWriteOption(Enum, Int32):
+    _name_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteOption'
     WriteWithResponse = 0
     WriteWithoutResponse = 1
 class GattWriteRequest(ComPtr):

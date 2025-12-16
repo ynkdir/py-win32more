@@ -72,6 +72,7 @@ class CoreDragOperation(ComPtr):
     Data = property(get_Data, None)
     DragUIContentMode = property(get_DragUIContentMode, put_DragUIContentMode)
 class CoreDragUIContentMode(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragUIContentMode'
     Auto = 0
     Deferred = 1
 class CoreDragUIOverride(ComPtr):

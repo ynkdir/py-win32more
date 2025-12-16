@@ -30,6 +30,7 @@ class AcceleratorKeyEventArgs(ComPtr):
     KeyStatus = property(get_KeyStatus, None)
     VirtualKey = property(get_VirtualKey, None)
 class AppViewBackButtonVisibility(Enum, Int32):
+    _name_ = 'Windows.UI.Core.AppViewBackButtonVisibility'
     Visible = 0
     Collapsed = 1
     Disabled = 2
@@ -87,6 +88,7 @@ class ClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     PointerPosition = property(get_PointerPosition, None)
     SearchBounds = property(get_SearchBounds, None)
 class CoreAcceleratorKeyEventType(Enum, Int32):
+    _name_ = 'Windows.UI.Core.CoreAcceleratorKeyEventType'
     Character = 2
     DeadCharacter = 3
     KeyDown = 0
@@ -237,6 +239,7 @@ class CoreCursor(ComPtr):
     Id = property(get_Id, None)
     Type = property(get_Type, None)
 class CoreCursorType(Enum, Int32):
+    _name_ = 'Windows.UI.Core.CoreCursorType'
     Arrow = 0
     Cross = 1
     Custom = 2
@@ -287,11 +290,13 @@ class CoreDispatcher(ComPtr):
     HasThreadAccess = property(get_HasThreadAccess, None)
     AcceleratorKeyActivated = event(add_AcceleratorKeyActivated, remove_AcceleratorKeyActivated)
 class CoreDispatcherPriority(Enum, Int32):
+    _name_ = 'Windows.UI.Core.CoreDispatcherPriority'
     Idle = -2
     Low = -1
     Normal = 0
     High = 1
 class CoreIndependentInputFilters(Enum, UInt32):
+    _name_ = 'Windows.UI.Core.CoreIndependentInputFilters'
     None_ = 0
     MouseButton = 1
     MouseWheel = 2
@@ -412,6 +417,7 @@ class CoreIndependentInputSourceController(ComPtr):
     IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     Source = property(get_Source, None)
 class CoreInputDeviceTypes(Enum, UInt32):
+    _name_ = 'Windows.UI.Core.CoreInputDeviceTypes'
     None_ = 0
     Touch = 1
     Pen = 2
@@ -425,6 +431,7 @@ class CorePhysicalKeyStatus(Structure):
     WasKeyDown: Boolean
     IsKeyReleased: Boolean
 class CoreProcessEventsOption(Enum, Int32):
+    _name_ = 'Windows.UI.Core.CoreProcessEventsOption'
     ProcessOneAndAllPending = 0
     ProcessOneIfPresent = 1
     ProcessUntilQuit = 2
@@ -434,9 +441,11 @@ class CoreProximityEvaluation(Structure):
     Score: Int32
     AdjustedPoint: win32more.Windows.Foundation.Point
 class CoreProximityEvaluationScore(Enum, Int32):
+    _name_ = 'Windows.UI.Core.CoreProximityEvaluationScore'
     Closest = 0
     Farthest = 2147483647
 class CoreVirtualKeyStates(Enum, UInt32):
+    _name_ = 'Windows.UI.Core.CoreVirtualKeyStates'
     None_ = 0
     Down = 1
     Locked = 2
@@ -620,11 +629,13 @@ class CoreWindow(ComPtr):
     TouchHitTesting = event(add_TouchHitTesting, remove_TouchHitTesting)
     VisibilityChanged = event(add_VisibilityChanged, remove_VisibilityChanged)
 class CoreWindowActivationMode(Enum, Int32):
+    _name_ = 'Windows.UI.Core.CoreWindowActivationMode'
     None_ = 0
     Deactivated = 1
     ActivatedNotForeground = 2
     ActivatedInForeground = 3
 class CoreWindowActivationState(Enum, Int32):
+    _name_ = 'Windows.UI.Core.CoreWindowActivationState'
     CodeActivated = 0
     Deactivated = 1
     PointerActivated = 2
@@ -697,6 +708,7 @@ class CoreWindowEventArgs(ComPtr):
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
 class CoreWindowFlowDirection(Enum, Int32):
+    _name_ = 'Windows.UI.Core.CoreWindowFlowDirection'
     LeftToRight = 0
     RightToLeft = 1
 class CoreWindowFlyout(ComPtr):

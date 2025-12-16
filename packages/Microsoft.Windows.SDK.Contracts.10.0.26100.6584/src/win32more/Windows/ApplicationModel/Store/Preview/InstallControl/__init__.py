@@ -293,6 +293,7 @@ class AppInstallOptions(ComPtr):
     StageButDoNotInstall = property(get_StageButDoNotInstall, put_StageButDoNotInstall)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class AppInstallState(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallState'
     Pending = 0
     Starting = 1
     AcquiringLicense = 2
@@ -336,10 +337,12 @@ class AppInstallStatus(ComPtr):
     ReadyForLaunch = property(get_ReadyForLaunch, None)
     User = property(get_User, None)
 class AppInstallType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallType'
     Install = 0
     Update = 1
     Repair = 2
 class AppInstallationToastNotificationMode(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallationToastNotificationMode'
     Default = 0
     Toast = 1
     ToastWithoutPopup = 2
@@ -373,6 +376,7 @@ class AppUpdateOptions(ComPtr):
     AutomaticallyDownloadAndInstallUpdateIfFound = property(get_AutomaticallyDownloadAndInstallUpdateIfFound, put_AutomaticallyDownloadAndInstallUpdateIfFound)
     CatalogId = property(get_CatalogId, put_CatalogId)
 class AutoUpdateSetting(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AutoUpdateSetting'
     Disabled = 0
     Enabled = 1
     DisabledByPolicy = 2
@@ -397,6 +401,7 @@ class GetEntitlementResult(ComPtr):
     SkuId = property(get_SkuId, None)
     Status = property(get_Status, None)
 class GetEntitlementStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementStatus'
     Succeeded = 0
     NoStoreAccount = 1
     NetworkError = 2

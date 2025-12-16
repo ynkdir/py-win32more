@@ -126,6 +126,7 @@ class Application(ComPtr, metaclass=_Application_Meta_):
     ResourceManagerRequested = event(add_ResourceManagerRequested, remove_ResourceManagerRequested)
     UnhandledException = event(add_UnhandledException, remove_UnhandledException)
 class ApplicationHighContrastAdjustment(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Xaml.ApplicationHighContrastAdjustment'
     None_ = 0
     Auto = 4294967295
 class ApplicationInitializationCallback(MulticastDelegate):
@@ -138,12 +139,15 @@ class ApplicationInitializationCallbackParams(ComPtr):
     default_interface: win32more.Microsoft.UI.Xaml.IApplicationInitializationCallbackParams
     _classid_ = 'Microsoft.UI.Xaml.ApplicationInitializationCallbackParams'
 class ApplicationRequiresPointerMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.ApplicationRequiresPointerMode'
     Auto = 0
     WhenRequested = 1
 class ApplicationTheme(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.ApplicationTheme'
     Light = 0
     Dark = 1
 class AutomationTextAttributesEnum(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.AutomationTextAttributesEnum'
     AnimationStyleAttribute = 40000
     BackgroundColorAttribute = 40001
     BulletStyleAttribute = 40002
@@ -693,6 +697,7 @@ class DependencyPropertyChangedEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable, e: win32more.Microsoft.UI.Xaml.DependencyPropertyChangedEventArgs) -> Void: ...
 class DispatcherShutdownMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.DispatcherShutdownMode'
     OnLastWindowClose = 0
     OnExplicitShutdown = 1
 class DispatcherTimer(ComPtr):
@@ -879,6 +884,7 @@ class DurationHelper(ComPtr, metaclass=_DurationHelper_Meta_):
     _DurationHelper_Meta_.Automatic = property(get_Automatic, None)
     _DurationHelper_Meta_.Forever = property(get_Forever, None)
 class DurationType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.DurationType'
     Automatic = 0
     TimeSpan = 1
     Forever = 2
@@ -945,10 +951,12 @@ class ElementFactoryRecycleArgs(ComPtr):
     Element = property(get_Element, put_Element)
     Parent = property(get_Parent, put_Parent)
 class ElementHighContrastAdjustment(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Xaml.ElementHighContrastAdjustment'
     None_ = 0
     Application = 2147483648
     Auto = 4294967295
 class ElementSoundKind(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.ElementSoundKind'
     Focus = 0
     Invoke = 1
     Show = 2
@@ -957,6 +965,7 @@ class ElementSoundKind(Enum, Int32):
     MoveNext = 5
     GoBack = 6
 class ElementSoundMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.ElementSoundMode'
     Default = 0
     FocusOnly = 1
     Off = 2
@@ -984,14 +993,17 @@ class ElementSoundPlayer(ComPtr, metaclass=_ElementSoundPlayer_Meta_):
     _ElementSoundPlayer_Meta_.State = property(get_State, put_State)
     _ElementSoundPlayer_Meta_.Volume = property(get_Volume, put_Volume)
 class ElementSoundPlayerState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.ElementSoundPlayerState'
     Auto = 0
     Off = 1
     On = 2
 class ElementSpatialAudioMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.ElementSpatialAudioMode'
     Auto = 0
     Off = 1
     On = 2
 class ElementTheme(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.ElementTheme'
     Default = 0
     Light = 1
     Dark = 2
@@ -1034,18 +1046,22 @@ class ExceptionRoutedEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable, e: win32more.Microsoft.UI.Xaml.ExceptionRoutedEventArgs) -> Void: ...
 class FlowDirection(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FlowDirection'
     LeftToRight = 0
     RightToLeft = 1
 class FocusState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FocusState'
     Unfocused = 0
     Pointer = 1
     Keyboard = 2
     Programmatic = 3
 class FocusVisualKind(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FocusVisualKind'
     DottedLine = 0
     HighVisibility = 1
     Reveal = 2
 class FontCapitals(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FontCapitals'
     Normal = 0
     AllSmallCaps = 1
     SmallCaps = 2
@@ -1054,6 +1070,7 @@ class FontCapitals(Enum, Int32):
     Unicase = 5
     Titling = 6
 class FontEastAsianLanguage(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FontEastAsianLanguage'
     Normal = 0
     HojoKanji = 1
     Jis04 = 2
@@ -1065,6 +1082,7 @@ class FontEastAsianLanguage(Enum, Int32):
     Traditional = 8
     TraditionalNames = 9
 class FontEastAsianWidths(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FontEastAsianWidths'
     Normal = 0
     Full = 1
     Half = 2
@@ -1072,18 +1090,22 @@ class FontEastAsianWidths(Enum, Int32):
     Quarter = 4
     Third = 5
 class FontFraction(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FontFraction'
     Normal = 0
     Stacked = 1
     Slashed = 2
 class FontNumeralAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FontNumeralAlignment'
     Normal = 0
     Proportional = 1
     Tabular = 2
 class FontNumeralStyle(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FontNumeralStyle'
     Normal = 0
     Lining = 1
     OldStyle = 2
 class FontVariants(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.FontVariants'
     Normal = 0
     Superscript = 1
     Subscript = 2
@@ -1459,10 +1481,12 @@ class GridLengthHelper(ComPtr, metaclass=_GridLengthHelper_Meta_):
     def Equals(cls: win32more.Microsoft.UI.Xaml.IGridLengthHelperStatics, target: win32more.Microsoft.UI.Xaml.GridLength, value: win32more.Microsoft.UI.Xaml.GridLength) -> Boolean: ...
     _GridLengthHelper_Meta_.Auto = property(get_Auto, None)
 class GridUnitType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.GridUnitType'
     Auto = 0
     Pixel = 1
     Star = 2
 class HorizontalAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.HorizontalAlignment'
     Left = 0
     Center = 1
     Right = 2
@@ -4199,10 +4223,12 @@ class LaunchActivatedEventArgs(ComPtr):
     Arguments = property(get_Arguments, None)
     UWPLaunchActivatedEventArgs = property(get_UWPLaunchActivatedEventArgs, None)
 class LayoutCycleDebugBreakLevel(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.LayoutCycleDebugBreakLevel'
     None_ = 0
     Low = 1
     High = 2
 class LayoutCycleTracingLevel(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.LayoutCycleTracingLevel'
     None_ = 0
     Low = 1
     High = 2
@@ -4212,6 +4238,7 @@ class LeavingBackgroundEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable, e: win32more.Windows.ApplicationModel.LeavingBackgroundEventArgs) -> Void: ...
 class LineStackingStrategy(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.LineStackingStrategy'
     MaxHeight = 0
     BlockLineHeight = 1
     BaselineToBaseline = 2
@@ -4223,6 +4250,7 @@ class MediaFailedRoutedEventArgs(ComPtr):
     def get_ErrorTrace(self: win32more.Microsoft.UI.Xaml.IMediaFailedRoutedEventArgs) -> hstr: ...
     ErrorTrace = property(get_ErrorTrace, None)
 class OpticalMarginAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.OpticalMarginAlignment'
     None_ = 0
     TrimSideBearings = 1
 class PointHelper(ComPtr):
@@ -4637,6 +4665,7 @@ class TargetPropertyPath(ComPtr):
     Path = property(get_Path, put_Path)
     Target = property(get_Target, put_Target)
 class TextAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.TextAlignment'
     Center = 0
     Left = 1
     Start = 1
@@ -4645,20 +4674,24 @@ class TextAlignment(Enum, Int32):
     Justify = 3
     DetectFromContent = 4
 class TextLineBounds(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.TextLineBounds'
     Full = 0
     TrimToCapHeight = 1
     TrimToBaseline = 2
     Tight = 3
 class TextReadingOrder(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.TextReadingOrder'
     Default = 0
     UseFlowDirection = 0
     DetectFromContent = 1
 class TextTrimming(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.TextTrimming'
     None_ = 0
     CharacterEllipsis = 1
     WordEllipsis = 2
     Clip = 3
 class TextWrapping(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.TextWrapping'
     NoWrap = 1
     Wrap = 2
     WrapWholeWords = 3
@@ -5669,15 +5702,18 @@ class Vector3Transition(ComPtr):
     Components = property(get_Components, put_Components)
     Duration = property(get_Duration, put_Duration)
 class Vector3TransitionComponents(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Xaml.Vector3TransitionComponents'
     X = 1
     Y = 2
     Z = 4
 class VerticalAlignment(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.VerticalAlignment'
     Top = 0
     Center = 1
     Bottom = 2
     Stretch = 3
 class Visibility(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.Visibility'
     Visible = 0
     Collapsed = 1
 class VisualState(ComPtr):
@@ -5944,6 +5980,7 @@ class WindowActivatedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     WindowActivationState = property(get_WindowActivationState, None)
 class WindowActivationState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.WindowActivationState'
     CodeActivated = 0
     Deactivated = 1
     PointerActivated = 2

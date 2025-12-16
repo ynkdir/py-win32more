@@ -4,6 +4,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Media.ClosedCaptioning
 import win32more.Windows.UI
 class ClosedCaptionColor(Enum, Int32):
+    _name_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionColor'
     Default = 0
     White = 1
     Black = 2
@@ -14,6 +15,7 @@ class ClosedCaptionColor(Enum, Int32):
     Magenta = 7
     Cyan = 8
 class ClosedCaptionEdgeEffect(Enum, Int32):
+    _name_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionEdgeEffect'
     Default = 0
     None_ = 1
     Raised = 2
@@ -21,6 +23,7 @@ class ClosedCaptionEdgeEffect(Enum, Int32):
     Uniform = 4
     DropShadow = 5
 class ClosedCaptionOpacity(Enum, Int32):
+    _name_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionOpacity'
     Default = 0
     OneHundredPercent = 1
     SeventyFivePercent = 2
@@ -73,12 +76,14 @@ class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
     _ClosedCaptionProperties_Meta_.RegionOpacity = property(get_RegionOpacity, None)
     _ClosedCaptionProperties_Meta_.PropertiesChanged = event(add_PropertiesChanged, remove_PropertiesChanged)
 class ClosedCaptionSize(Enum, Int32):
+    _name_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionSize'
     Default = 0
     FiftyPercent = 1
     OneHundredPercent = 2
     OneHundredFiftyPercent = 3
     TwoHundredPercent = 4
 class ClosedCaptionStyle(Enum, Int32):
+    _name_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionStyle'
     Default = 0
     MonospacedWithSerifs = 1
     ProportionalWithSerifs = 2

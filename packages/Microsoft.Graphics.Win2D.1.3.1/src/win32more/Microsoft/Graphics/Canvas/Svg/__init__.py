@@ -8,6 +8,7 @@ import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 class CanvasSvgAspectAlignment(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgAspectAlignment'
     None_ = 0
     XMinYMin = 1
     XMidYMin = 2
@@ -19,9 +20,11 @@ class CanvasSvgAspectAlignment(Enum, Int32):
     XMidYMax = 8
     XMaxYMax = 9
 class CanvasSvgAspectScaling(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgAspectScaling'
     Meet = 0
     Slice = 1
 class CanvasSvgDisplay(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgDisplay'
     Inline = 0
     None_ = 1
 class CanvasSvgDocument(ComPtr):
@@ -81,6 +84,7 @@ class CanvasSvgDocument(ComPtr):
     Device = property(get_Device, None)
     Root = property(get_Root, put_Root)
 class CanvasSvgLengthUnits(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgLengthUnits'
     Number = 0
     Percentage = 1
 class CanvasSvgNamedElement(ComPtr):
@@ -205,6 +209,7 @@ class CanvasSvgNamedElement(ComPtr):
     SpecifiedAttributes = property(get_SpecifiedAttributes, None)
     Tag = property(get_Tag, None)
 class CanvasSvgOverflow(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgOverflow'
     DoNotClipToViewport = 0
     ClipToViewport = 1
 class CanvasSvgPaintAttribute(ComPtr):
@@ -237,6 +242,7 @@ class CanvasSvgPaintAttribute(ComPtr):
     Id = property(get_Id, put_Id)
     PaintType = property(get_PaintType, put_PaintType)
 class CanvasSvgPaintType(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgPaintType'
     None_ = 0
     Color = 1
     CurrentColor = 2
@@ -281,6 +287,7 @@ class CanvasSvgPathAttribute(ComPtr):
     Device = property(get_Device, None)
     SegmentData = property(get_SegmentData, None)
 class CanvasSvgPathCommand(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgPathCommand'
     ClosePath = 0
     MoveAbsolute = 1
     MoveRelative = 2
@@ -362,9 +369,11 @@ class CanvasSvgTextElement(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Text = property(get_Text, put_Text)
 class CanvasSvgUnits(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgUnits'
     UserSpaceOnUse = 0
     ObjectBoundingBox = 1
 class CanvasSvgVisibility(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgVisibility'
     Visible = 0
     Hidden = 1
 class ICanvasSvgAttribute(ComPtr):

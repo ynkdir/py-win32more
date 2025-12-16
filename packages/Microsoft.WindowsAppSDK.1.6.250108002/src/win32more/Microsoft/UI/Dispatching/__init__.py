@@ -81,6 +81,7 @@ class DispatcherQueueHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class DispatcherQueuePriority(Enum, Int32):
+    _name_ = 'Microsoft.UI.Dispatching.DispatcherQueuePriority'
     Low = -10
     Normal = 0
     High = 10
@@ -117,6 +118,7 @@ class DispatcherQueueTimer(ComPtr):
     IsRunning = property(get_IsRunning, None)
     Tick = event(add_Tick, remove_Tick)
 class DispatcherRunOptions(Enum, UInt32):
+    _name_ = 'Microsoft.UI.Dispatching.DispatcherRunOptions'
     None_ = 0
     ContinueOnQuit = 1
     QuitOnlyLocalLoop = 2

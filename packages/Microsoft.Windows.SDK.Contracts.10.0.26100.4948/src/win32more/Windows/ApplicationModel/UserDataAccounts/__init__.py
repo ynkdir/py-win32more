@@ -224,6 +224,7 @@ class UserDataAccount(ComPtr):
     ProviderProperties = property(get_ProviderProperties, None)
     UserDisplayName = property(get_UserDisplayName, put_UserDisplayName)
 class UserDataAccountContentKinds(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountContentKinds'
     Email = 1
     Contact = 2
     Appointment = 4
@@ -250,6 +251,7 @@ class UserDataAccountManagerForUser(ComPtr):
     def get_User(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser) -> win32more.Windows.System.User: ...
     User = property(get_User, None)
 class UserDataAccountOtherAppReadAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountOtherAppReadAccess'
     SystemOnly = 0
     Full = 1
     None_ = 2
@@ -273,6 +275,7 @@ class UserDataAccountStore(ComPtr):
     def CreateAccountWithPackageRelativeAppIdAndEnterpriseIdAsync(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3, userDisplayName: hstr, packageRelativeAppId: hstr, enterpriseId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
     StoreChanged = event(add_StoreChanged, remove_StoreChanged)
 class UserDataAccountStoreAccessType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreAccessType'
     AllAccountsReadOnly = 0
     AppAccountsReadWrite = 1
 class UserDataAccountStoreChangedEventArgs(ComPtr):

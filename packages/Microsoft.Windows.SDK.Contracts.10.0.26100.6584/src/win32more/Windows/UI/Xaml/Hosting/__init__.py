@@ -64,6 +64,7 @@ class DesignerAppView(ComPtr):
     ViewSize = property(get_ViewSize, None)
     ViewState = property(get_ViewState, None)
 class DesignerAppViewState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Hosting.DesignerAppViewState'
     Visible = 0
     Hidden = 1
 class DesktopWindowXamlSource(ComPtr):
@@ -388,6 +389,7 @@ class WindowsXamlManager(ComPtr):
     @winrt_classmethod
     def InitializeForCurrentThread(cls: win32more.Windows.UI.Xaml.Hosting.IWindowsXamlManagerStatics) -> win32more.Windows.UI.Xaml.Hosting.WindowsXamlManager: ...
 class XamlSourceFocusNavigationReason(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationReason'
     Programmatic = 0
     Restore = 1
     First = 3

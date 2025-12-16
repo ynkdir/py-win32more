@@ -298,6 +298,7 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     Label = property(get_Label, put_Label)
     _SettingsCommand_Meta_.AccountsCommand = property(get_AccountsCommand, None)
 class SettingsEdgeLocation(Enum, Int32):
+    _name_ = 'Windows.UI.ApplicationSettings.SettingsEdgeLocation'
     Right = 0
     Left = 1
 class _SettingsPane_Meta_(ComPtr.__class__):
@@ -333,6 +334,7 @@ class SettingsPaneCommandsRequestedEventArgs(ComPtr):
     def get_Request(self: win32more.Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequestedEventArgs) -> win32more.Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest: ...
     Request = property(get_Request, None)
 class SupportedWebAccountActions(Enum, UInt32):
+    _name_ = 'Windows.UI.ApplicationSettings.SupportedWebAccountActions'
     None_ = 0
     Reconnect = 1
     Remove = 2
@@ -340,6 +342,7 @@ class SupportedWebAccountActions(Enum, UInt32):
     Manage = 8
     More = 16
 class WebAccountAction(Enum, Int32):
+    _name_ = 'Windows.UI.ApplicationSettings.WebAccountAction'
     Reconnect = 0
     Remove = 1
     ViewDetails = 2

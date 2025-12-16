@@ -5,6 +5,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Management.Deployment
 class AddPackageByAppInstallerOptions(Enum, UInt32):
+    _name_ = 'Windows.Management.Deployment.AddPackageByAppInstallerOptions'
     None_ = 0
     InstallAllResources = 32
     ForceTargetAppShutdown = 64
@@ -267,6 +268,7 @@ class DeleteSharedPackageContainerResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class DeploymentOptions(Enum, UInt32):
+    _name_ = 'Windows.Management.Deployment.DeploymentOptions'
     None_ = 0
     ForceApplicationShutdown = 1
     DevelopmentMode = 2
@@ -281,6 +283,7 @@ class DeploymentProgress(Structure):
     state: win32more.Windows.Management.Deployment.DeploymentProgressState
     percentage: UInt32
 class DeploymentProgressState(Enum, Int32):
+    _name_ = 'Windows.Management.Deployment.DeploymentProgressState'
     Queued = 0
     Processing = 1
 class DeploymentResult(ComPtr):
@@ -1135,6 +1138,7 @@ class PackageAllUserProvisioningOptions(ComPtr):
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     ProjectionOrderPackageFamilyNames = property(get_ProjectionOrderPackageFamilyNames, None)
 class PackageInstallState(Enum, Int32):
+    _name_ = 'Windows.Management.Deployment.PackageInstallState'
     NotInstalled = 0
     Staged = 1
     Installed = 2
@@ -1296,20 +1300,24 @@ class PackageManagerDebugSettings(ComPtr):
     @winrt_mixinmethod
     def SetContentGroupStateWithPercentageAsync(self: win32more.Windows.Management.Deployment.IPackageManagerDebugSettings, package: win32more.Windows.ApplicationModel.Package, contentGroupName: hstr, state: win32more.Windows.ApplicationModel.PackageContentGroupState, completionPercentage: Double) -> win32more.Windows.Foundation.IAsyncAction: ...
 class PackageState(Enum, Int32):
+    _name_ = 'Windows.Management.Deployment.PackageState'
     Normal = 0
     LicenseInvalid = 1
     Modified = 2
     Tampered = 3
 class PackageStatus(Enum, UInt32):
+    _name_ = 'Windows.Management.Deployment.PackageStatus'
     OK = 0
     LicenseIssue = 1
     Modified = 2
     Tampered = 4
     Disabled = 8
 class PackageStubPreference(Enum, Int32):
+    _name_ = 'Windows.Management.Deployment.PackageStubPreference'
     Full = 0
     Stub = 1
 class PackageTypes(Enum, UInt32):
+    _name_ = 'Windows.Management.Deployment.PackageTypes'
     None_ = 0
     Main = 1
     Framework = 2
@@ -1459,6 +1467,7 @@ class RegisterPackageOptions(ComPtr):
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
 class RemovalOptions(Enum, UInt32):
+    _name_ = 'Windows.Management.Deployment.RemovalOptions'
     None_ = 0
     PreserveApplicationData = 4096
     PreserveRoamableApplicationData = 128
@@ -1515,6 +1524,7 @@ class SharedPackageContainer(ComPtr):
     Name = property(get_Name, None)
 SharedPackageContainerContract: UInt32 = 65536
 class SharedPackageContainerCreationCollisionOptions(Enum, Int32):
+    _name_ = 'Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions'
     FailIfExists = 0
     MergeWithExisting = 1
     ReplaceExisting = 2
@@ -1555,6 +1565,7 @@ class SharedPackageContainerMember(ComPtr):
     def get_PackageFamilyName(self: win32more.Windows.Management.Deployment.ISharedPackageContainerMember) -> hstr: ...
     PackageFamilyName = property(get_PackageFamilyName, None)
 class SharedPackageContainerOperationStatus(Enum, Int32):
+    _name_ = 'Windows.Management.Deployment.SharedPackageContainerOperationStatus'
     Success = 0
     BlockedByPolicy = 1
     AlreadyExists = 2
@@ -1635,6 +1646,7 @@ class StagePackageOptions(ComPtr):
     StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class StubPackageOption(Enum, Int32):
+    _name_ = 'Windows.Management.Deployment.StubPackageOption'
     Default = 0
     InstallFull = 1
     InstallStub = 2

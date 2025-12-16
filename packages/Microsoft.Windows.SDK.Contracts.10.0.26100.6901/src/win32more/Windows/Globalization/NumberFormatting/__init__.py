@@ -97,6 +97,7 @@ class CurrencyFormatter(ComPtr):
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
 class CurrencyFormatterMode(Enum, Int32):
+    _name_ = 'Windows.Globalization.NumberFormatting.CurrencyFormatterMode'
     UseSymbol = 0
     UseCurrencyCode = 1
 class DecimalFormatter(ComPtr):
@@ -619,6 +620,7 @@ class PermilleFormatter(ComPtr):
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
 class RoundingAlgorithm(Enum, Int32):
+    _name_ = 'Windows.Globalization.NumberFormatting.RoundingAlgorithm'
     None_ = 0
     RoundDown = 1
     RoundUp = 2

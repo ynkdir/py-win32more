@@ -2129,6 +2129,7 @@ class MapActualCameraChangingEventArgs(ComPtr):
     Camera = property(get_Camera, None)
     ChangeReason = property(get_ChangeReason, None)
 class MapAnimationKind(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapAnimationKind'
     Default = 0
     None_ = 1
     Linear = 2
@@ -2231,10 +2232,12 @@ class MapCamera(ComPtr):
     Pitch = property(get_Pitch, put_Pitch)
     Roll = property(get_Roll, put_Roll)
 class MapCameraChangeReason(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason'
     System = 0
     UserInteraction = 1
     Programmatic = 2
 class MapColorScheme(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapColorScheme'
     Light = 0
     Dark = 1
 class MapContextRequestedEventArgs(ComPtr):
@@ -3128,6 +3131,7 @@ class MapElementClickEventArgs(ComPtr):
     MapElements = property(get_MapElements, None)
     Position = property(get_Position, None)
 class MapElementCollisionBehavior(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapElementCollisionBehavior'
     Hide = 0
     RemainVisible = 1
 class MapElementPointerEnteredEventArgs(ComPtr):
@@ -3377,6 +3381,7 @@ class MapInputEventArgs(ComPtr):
     Location = property(get_Location, None)
     Position = property(get_Position, None)
 class MapInteractionMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapInteractionMode'
     Auto = 0
     Disabled = 1
     GestureOnly = 2
@@ -3462,6 +3467,7 @@ class MapLayer(ComPtr, metaclass=_MapLayer_Meta_):
     _MapLayer_Meta_.VisibleProperty = property(get_VisibleProperty, None)
     _MapLayer_Meta_.ZIndexProperty = property(get_ZIndexProperty, None)
 class MapLoadingStatus(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapLoadingStatus'
     Loading = 0
     Loaded = 1
     DataUnavailable = 2
@@ -3484,10 +3490,12 @@ class MapModel3D(ComPtr):
     @winrt_classmethod
     def CreateFrom3MFWithShadingOptionAsync(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics, source: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, shadingOption: win32more.Windows.UI.Xaml.Controls.Maps.MapModel3DShadingOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
 class MapModel3DShadingOption(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapModel3DShadingOption'
     Default = 0
     Flat = 1
     Smooth = 2
 class MapPanInteractionMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapPanInteractionMode'
     Auto = 0
     Disabled = 1
 class _MapPolygon_Meta_(ComPtr.__class__):
@@ -3584,6 +3592,7 @@ class MapPolyline(ComPtr, metaclass=_MapPolyline_Meta_):
     _MapPolyline_Meta_.PathProperty = property(get_PathProperty, None)
     _MapPolyline_Meta_.StrokeDashedProperty = property(get_StrokeDashedProperty, None)
 class MapProjection(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapProjection'
     WebMercator = 0
     Globe = 1
 class MapRightTappedEventArgs(ComPtr):
@@ -3662,6 +3671,7 @@ class MapScene(ComPtr):
     TargetCamera = property(get_TargetCamera, None)
     TargetCameraChanged = event(add_TargetCameraChanged, remove_TargetCameraChanged)
 class MapStyle(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapStyle'
     None_ = 0
     Road = 1
     Aerial = 2
@@ -3923,6 +3933,7 @@ class MapTargetCameraChangedEventArgs(ComPtr):
     Camera = property(get_Camera, None)
     ChangeReason = property(get_ChangeReason, None)
 class MapTileAnimationState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapTileAnimationState'
     Stopped = 0
     Paused = 1
     Playing = 2
@@ -4003,6 +4014,7 @@ class MapTileDataSource(ComPtr):
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileDataSourceFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
 class MapTileLayer(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapTileLayer'
     LabelOverlay = 0
     RoadOverlay = 1
     AreaOverlay = 2
@@ -4227,9 +4239,11 @@ class MapTileUriRequestedEventArgs(ComPtr):
     Y = property(get_Y, None)
     ZoomLevel = property(get_ZoomLevel, None)
 class MapVisibleRegionKind(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapVisibleRegionKind'
     Near = 0
     Full = 1
 class MapWatermarkMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Controls.Maps.MapWatermarkMode'
     Automatic = 0
     On = 1
 class MapZoomLevelRange(Structure):

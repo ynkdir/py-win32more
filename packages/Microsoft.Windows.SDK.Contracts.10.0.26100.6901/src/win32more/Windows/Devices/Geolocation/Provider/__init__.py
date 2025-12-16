@@ -45,6 +45,7 @@ class IGeolocationProvider(ComPtr):
     IsOverridden = property(get_IsOverridden, None)
     IsOverriddenChanged = event(add_IsOverriddenChanged, remove_IsOverriddenChanged)
 class LocationOverrideStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Geolocation.Provider.LocationOverrideStatus'
     Success = 0
     AccessDenied = 1
     AlreadyStarted = 2

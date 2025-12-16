@@ -3,6 +3,7 @@ from win32more._prelude import *
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 class CollectionChange(Enum, Int32):
+    _name_ = 'Windows.Foundation.Collections.CollectionChange'
     Reset = 0
     ItemInserted = 1
     ItemRemoved = 2

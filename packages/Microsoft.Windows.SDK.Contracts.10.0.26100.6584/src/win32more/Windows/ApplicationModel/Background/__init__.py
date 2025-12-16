@@ -45,6 +45,7 @@ class ActivitySensorTrigger(ComPtr):
     SubscribedActivities = property(get_SubscribedActivities, None)
     SupportedActivities = property(get_SupportedActivities, None)
 class AlarmAccessStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.AlarmAccessStatus'
     Unspecified = 0
     AllowedWithWakeupCapability = 1
     AllowedWithoutWakeupCapability = 2
@@ -133,6 +134,7 @@ class ApplicationTriggerDetails(ComPtr):
     def get_Arguments(self: win32more.Windows.ApplicationModel.Background.IApplicationTriggerDetails) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     Arguments = property(get_Arguments, None)
 class ApplicationTriggerResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.ApplicationTriggerResult'
     Allowed = 0
     CurrentlyRunning = 1
     DisabledByPolicy = 2
@@ -151,9 +153,11 @@ class AppointmentStoreNotificationTrigger(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger: ...
 class BackgroundAccessRequestKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.BackgroundAccessRequestKind'
     AlwaysAllowed = 0
     AllowedSubjectToSystemPolicy = 1
 class BackgroundAccessStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.BackgroundAccessStatus'
     Unspecified = 0
     AllowedWithAlwaysOnRealTimeConnectivity = 1
     AllowedMayUseActiveRealTimeConnectivity = 2
@@ -254,6 +258,7 @@ class BackgroundTaskCanceledEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.ApplicationModel.Background.IBackgroundTaskInstance, reason: win32more.Windows.ApplicationModel.Background.BackgroundTaskCancellationReason) -> Void: ...
 class BackgroundTaskCancellationReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.BackgroundTaskCancellationReason'
     Abort = 0
     Terminating = 1
     LoggingOff = 2
@@ -377,6 +382,7 @@ class BackgroundTaskRegistrationGroup(ComPtr):
     Name = property(get_Name, None)
     BackgroundActivated = event(add_BackgroundActivated, remove_BackgroundActivated)
 class BackgroundTaskThrottleCounter(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.BackgroundTaskThrottleCounter'
     All = 0
     Cpu = 1
     Network = 2
@@ -398,6 +404,7 @@ class BackgroundWorkCost(ComPtr, metaclass=_BackgroundWorkCost_Meta_):
     _BackgroundWorkCost_Meta_.AppLastThrottledInStandbyTimestamp = property(get_AppLastThrottledInStandbyTimestamp, None)
     _BackgroundWorkCost_Meta_.CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost, None)
 class BackgroundWorkCostValue(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.BackgroundWorkCostValue'
     Low = 0
     Medium = 1
     High = 2
@@ -633,6 +640,7 @@ class CustomSystemEventTrigger(ComPtr):
     Recurrence = property(get_Recurrence, None)
     TriggerId = property(get_TriggerId, None)
 class CustomSystemEventTriggerRecurrence(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.CustomSystemEventTriggerRecurrence'
     Once = 0
     Always = 1
 class DeviceConnectionChangeTrigger(ComPtr):
@@ -689,6 +697,7 @@ class DeviceServicingTrigger(ComPtr):
     @winrt_mixinmethod
     def RequestAsyncWithArguments(self: win32more.Windows.ApplicationModel.Background.IDeviceServicingTrigger, deviceId: hstr, expectedDuration: win32more.Windows.Foundation.TimeSpan, arguments: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
 class DeviceTriggerResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.DeviceTriggerResult'
     Allowed = 0
     DeniedByUser = 1
     DeniedBySystem = 2
@@ -728,6 +737,7 @@ class EmailStoreNotificationTrigger(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.EmailStoreNotificationTrigger: ...
 class EnergyUseLevel(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.EnergyUseLevel'
     Unknown = 0
     UnderHalfOfBudget = 1
     OverHalfOfBudget = 2
@@ -1722,6 +1732,7 @@ class LocationTrigger(ComPtr):
     def get_TriggerType(self: win32more.Windows.ApplicationModel.Background.ILocationTrigger) -> win32more.Windows.ApplicationModel.Background.LocationTriggerType: ...
     TriggerType = property(get_TriggerType, None)
 class LocationTriggerType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.LocationTriggerType'
     Geofence = 0
 class MaintenanceTrigger(ComPtr):
     extends: IInspectable
@@ -1760,6 +1771,7 @@ class MediaProcessingTrigger(ComPtr):
     @winrt_mixinmethod
     def RequestAsyncWithArguments(self: win32more.Windows.ApplicationModel.Background.IMediaProcessingTrigger, arguments: win32more.Windows.Foundation.Collections.ValueSet) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Background.MediaProcessingTriggerResult]: ...
 class MediaProcessingTriggerResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.MediaProcessingTriggerResult'
     Allowed = 0
     CurrentlyRunning = 1
     DisabledByPolicy = 2
@@ -2076,6 +2088,7 @@ class SystemCondition(ComPtr):
     def get_ConditionType(self: win32more.Windows.ApplicationModel.Background.ISystemCondition) -> win32more.Windows.ApplicationModel.Background.SystemConditionType: ...
     ConditionType = property(get_ConditionType, None)
 class SystemConditionType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.SystemConditionType'
     Invalid = 0
     UserPresent = 1
     UserNotPresent = 2
@@ -2105,6 +2118,7 @@ class SystemTrigger(ComPtr):
     OneShot = property(get_OneShot, None)
     TriggerType = property(get_TriggerType, None)
 class SystemTriggerType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Background.SystemTriggerType'
     Invalid = 0
     SmsReceived = 1
     UserPresent = 2

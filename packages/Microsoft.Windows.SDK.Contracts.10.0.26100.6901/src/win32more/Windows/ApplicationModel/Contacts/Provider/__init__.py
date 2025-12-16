@@ -5,6 +5,7 @@ import win32more.Windows.ApplicationModel.Contacts.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 class AddContactResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.Provider.AddContactResult'
     Added = 0
     AlreadyAdded = 1
     Unavailable = 2

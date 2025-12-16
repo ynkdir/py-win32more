@@ -84,6 +84,7 @@ class IPhoneNewVoicemailMessageTriggerDetails(ComPtr):
     OperatorMessage = property(get_OperatorMessage, None)
     VoicemailCount = property(get_VoicemailCount, None)
 class PhoneCallBlockedReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.Background.PhoneCallBlockedReason'
     InCallBlockingList = 0
     PrivateNumber = 1
     UnknownNumber = 2
@@ -111,6 +112,7 @@ class PhoneCallOriginDataRequestTriggerDetails(ComPtr):
     PhoneNumber = property(get_PhoneNumber, None)
     RequestId = property(get_RequestId, None)
 class PhoneIncomingCallDismissedReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.Background.PhoneIncomingCallDismissedReason'
     Unknown = 0
     CallRejected = 1
     TextReply = 2
@@ -148,6 +150,7 @@ class PhoneIncomingCallNotificationTriggerDetails(ComPtr):
     CallId = property(get_CallId, None)
     LineId = property(get_LineId, None)
 class PhoneLineChangeKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.Background.PhoneLineChangeKind'
     Added = 0
     Removed = 1
     PropertiesChanged = 2
@@ -164,6 +167,7 @@ class PhoneLineChangedTriggerDetails(ComPtr):
     ChangeType = property(get_ChangeType, None)
     LineId = property(get_LineId, None)
 class PhoneLineProperties(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Calls.Background.PhoneLineProperties'
     None_ = 0
     BrandingOptions = 1
     CanDial = 2
@@ -188,6 +192,7 @@ class PhoneNewVoicemailMessageTriggerDetails(ComPtr):
     OperatorMessage = property(get_OperatorMessage, None)
     VoicemailCount = property(get_VoicemailCount, None)
 class PhoneTriggerType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Calls.Background.PhoneTriggerType'
     NewVoicemailMessage = 0
     CallHistoryChanged = 1
     LineChanged = 2

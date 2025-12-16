@@ -9,6 +9,7 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.UI.Xaml
 class DeliveryOptimizationDownloadMode(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.DeliveryOptimizationDownloadMode'
     Simple = 0
     HttpOnly = 1
     Lan = 2
@@ -16,6 +17,7 @@ class DeliveryOptimizationDownloadMode(Enum, Int32):
     Internet = 4
     Bypass = 5
 class DeliveryOptimizationDownloadModeSource(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.DeliveryOptimizationDownloadModeSource'
     Default = 0
     Policy = 1
 class DeliveryOptimizationSettings(ComPtr):
@@ -293,6 +295,7 @@ class StoreHardwareManufacturerInfo(ComPtr):
     ModelName = property(get_ModelName, None)
     StoreContentModifierId = property(get_StoreContentModifierId, None)
 class StoreLogOptions(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.StoreLogOptions'
     None_ = 0
     TryElevate = 1
 class StorePreview(ComPtr):
@@ -322,6 +325,7 @@ class StorePreviewProductInfo(ComPtr):
     SkuInfoList = property(get_SkuInfoList, None)
     Title = property(get_Title, None)
 class StorePreviewProductPurchaseStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.StorePreviewProductPurchaseStatus'
     Succeeded = 0
     AlreadyPurchased = 1
     NotFulfilled = 2
@@ -365,6 +369,7 @@ class StorePreviewSkuInfo(ComPtr):
     SkuType = property(get_SkuType, None)
     Title = property(get_Title, None)
 class StoreSystemFeature(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Store.Preview.StoreSystemFeature'
     ArchitectureX86 = 0
     ArchitectureX64 = 1
     ArchitectureArm = 2

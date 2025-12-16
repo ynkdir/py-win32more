@@ -19,6 +19,7 @@ class AdcChannel(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Controller = property(get_Controller, None)
 class AdcChannelMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Adc.AdcChannelMode'
     SingleEnded = 0
     Differential = 1
 class AdcController(ComPtr):

@@ -27,6 +27,7 @@ class AutomationRemoteOperationResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class AutomationRemoteOperationStatus(Enum, Int32):
+    _name_ = 'Windows.UI.UIAutomation.Core.AutomationRemoteOperationStatus'
     Success = 0
     MalformedBytecode = 1
     InstructionLimitExceeded = 2

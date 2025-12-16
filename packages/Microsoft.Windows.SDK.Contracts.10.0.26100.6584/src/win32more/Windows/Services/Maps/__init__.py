@@ -468,6 +468,7 @@ class ManeuverWarning(ComPtr):
     Kind = property(get_Kind, None)
     Severity = property(get_Severity, None)
 class ManeuverWarningKind(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.ManeuverWarningKind'
     None_ = 0
     Accident = 1
     AdministrativeDivisionChange = 2
@@ -505,6 +506,7 @@ class ManeuverWarningKind(Enum, Int32):
     UnscheduledConstruction = 34
     Weather = 35
 class ManeuverWarningSeverity(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.ManeuverWarningSeverity'
     None_ = 0
     LowImpact = 1
     Minor = 2
@@ -579,6 +581,7 @@ class MapLocation(ComPtr):
     DisplayName = property(get_DisplayName, None)
     Point = property(get_Point, None)
 class MapLocationDesiredAccuracy(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.MapLocationDesiredAccuracy'
     High = 0
     Low = 1
 class MapLocationFinder(ComPtr):
@@ -603,6 +606,7 @@ class MapLocationFinderResult(ComPtr):
     Locations = property(get_Locations, None)
     Status = property(get_Status, None)
 class MapLocationFinderStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.MapLocationFinderStatus'
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2
@@ -618,6 +622,7 @@ class MapManager(ComPtr):
     @winrt_classmethod
     def ShowMapsUpdateUI(cls: win32more.Windows.Services.Maps.IMapManagerStatics) -> Void: ...
 class MapManeuverNotices(Enum, UInt32):
+    _name_ = 'Windows.Services.Maps.MapManeuverNotices'
     None_ = 0
     Toll = 1
     Unpaved = 2
@@ -739,6 +744,7 @@ class MapRouteFinderResult(ComPtr):
     Route = property(get_Route, None)
     Status = property(get_Status, None)
 class MapRouteFinderStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.MapRouteFinderStatus'
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2
@@ -809,6 +815,7 @@ class MapRouteManeuver(ComPtr):
     StreetName = property(get_StreetName, None)
     Warnings = property(get_Warnings, None)
 class MapRouteManeuverKind(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.MapRouteManeuverKind'
     None_ = 0
     Start = 1
     Stopover = 2
@@ -835,11 +842,13 @@ class MapRouteManeuverKind(Enum, Int32):
     TrafficCircleRight = 23
     TakeFerry = 24
 class MapRouteOptimization(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.MapRouteOptimization'
     Time = 0
     Distance = 1
     TimeWithTraffic = 2
     Scenic = 3
 class MapRouteRestrictions(Enum, UInt32):
+    _name_ = 'Windows.Services.Maps.MapRouteRestrictions'
     None_ = 0
     Highways = 1
     TollRoads = 2
@@ -869,6 +878,7 @@ class MapService(ComPtr, metaclass=_MapService_Meta_):
     _MapService_Meta_.ServiceToken = property(get_ServiceToken, put_ServiceToken)
     _MapService_Meta_.WorldViewRegionCode = property(get_WorldViewRegionCode, None)
 class MapServiceDataUsagePreference(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.MapServiceDataUsagePreference'
     Default = 0
     OfflineMapDataOnly = 1
 class _PlaceInfo_Meta_(ComPtr.__class__):
@@ -934,12 +944,14 @@ class PlaceInfoCreateOptions(ComPtr):
     DisplayAddress = property(get_DisplayAddress, put_DisplayAddress)
     DisplayName = property(get_DisplayName, put_DisplayName)
 class TrafficCongestion(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.TrafficCongestion'
     Unknown = 0
     Light = 1
     Mild = 2
     Medium = 3
     Heavy = 4
 class WaypointKind(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.WaypointKind'
     Stop = 0
     Via = 1
 

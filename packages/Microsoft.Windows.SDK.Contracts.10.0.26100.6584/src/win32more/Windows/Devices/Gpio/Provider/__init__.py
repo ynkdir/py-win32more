@@ -78,6 +78,7 @@ class IGpioProvider(ComPtr):
     @winrt_commethod(6)
     def GetControllers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Gpio.Provider.IGpioControllerProvider]: ...
 class ProviderGpioPinDriveMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.Provider.ProviderGpioPinDriveMode'
     Input = 0
     Output = 1
     InputPullUp = 2
@@ -87,12 +88,15 @@ class ProviderGpioPinDriveMode(Enum, Int32):
     OutputOpenSource = 6
     OutputOpenSourcePullDown = 7
 class ProviderGpioPinEdge(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.Provider.ProviderGpioPinEdge'
     FallingEdge = 0
     RisingEdge = 1
 class ProviderGpioPinValue(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.Provider.ProviderGpioPinValue'
     Low = 0
     High = 1
 class ProviderGpioSharingMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.Provider.ProviderGpioSharingMode'
     Exclusive = 0
     SharedReadOnly = 1
 

@@ -390,6 +390,7 @@ class MidiMessageReceivedEventArgs(ComPtr):
     def get_Message(self: win32more.Windows.Devices.Midi.IMidiMessageReceivedEventArgs) -> win32more.Windows.Devices.Midi.IMidiMessage: ...
     Message = property(get_Message, None)
 class MidiMessageType(Enum, Int32):
+    _name_ = 'Windows.Devices.Midi.MidiMessageType'
     None_ = 0
     NoteOff = 128
     NoteOn = 144

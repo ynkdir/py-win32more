@@ -74,6 +74,7 @@ class AudioEncodingProperties(ComPtr):
     Subtype = property(get_Subtype, put_Subtype)
     Type = property(get_Type, None)
 class AudioEncodingQuality(Enum, Int32):
+    _name_ = 'Windows.Media.MediaProperties.AudioEncodingQuality'
     Auto = 0
     High = 1
     Medium = 2
@@ -1232,10 +1233,12 @@ class MediaEncodingSubtypes(ComPtr, metaclass=_MediaEncodingSubtypes_Meta_):
     _MediaEncodingSubtypes_Meta_.Yuy2 = property(get_Yuy2, None)
     _MediaEncodingSubtypes_Meta_.Yv12 = property(get_Yv12, None)
 class MediaMirroringOptions(Enum, UInt32):
+    _name_ = 'Windows.Media.MediaProperties.MediaMirroringOptions'
     None_ = 0
     Horizontal = 1
     Vertical = 2
 class MediaPixelFormat(Enum, Int32):
+    _name_ = 'Windows.Media.MediaProperties.MediaPixelFormat'
     Nv12 = 0
     Bgra8 = 1
     P010 = 2
@@ -1285,11 +1288,13 @@ class MediaRatio(ComPtr):
     Denominator = property(get_Denominator, put_Denominator)
     Numerator = property(get_Numerator, put_Numerator)
 class MediaRotation(Enum, Int32):
+    _name_ = 'Windows.Media.MediaProperties.MediaRotation'
     None_ = 0
     Clockwise90Degrees = 1
     Clockwise180Degrees = 2
     Clockwise270Degrees = 3
 class MediaThumbnailFormat(Enum, Int32):
+    _name_ = 'Windows.Media.MediaProperties.MediaThumbnailFormat'
     Bmp = 0
     Bgra8 = 1
 class _Mpeg2ProfileIds_Meta_(ComPtr.__class__):
@@ -1313,10 +1318,12 @@ class Mpeg2ProfileIds(ComPtr, metaclass=_Mpeg2ProfileIds_Meta_):
     _Mpeg2ProfileIds_Meta_.Simple = property(get_Simple, None)
     _Mpeg2ProfileIds_Meta_.SpatiallyScalable = property(get_SpatiallyScalable, None)
 class SphericalVideoFrameFormat(Enum, Int32):
+    _name_ = 'Windows.Media.MediaProperties.SphericalVideoFrameFormat'
     None_ = 0
     Unsupported = 1
     Equirectangular = 2
 class StereoscopicVideoPackingMode(Enum, Int32):
+    _name_ = 'Windows.Media.MediaProperties.StereoscopicVideoPackingMode'
     None_ = 0
     SideBySide = 1
     TopBottom = 2
@@ -1433,6 +1440,7 @@ class VideoEncodingProperties(ComPtr):
     Type = property(get_Type, None)
     Width = property(get_Width, put_Width)
 class VideoEncodingQuality(Enum, Int32):
+    _name_ = 'Windows.Media.MediaProperties.VideoEncodingQuality'
     Auto = 0
     HD1080p = 1
     HD720p = 2

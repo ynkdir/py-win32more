@@ -308,6 +308,7 @@ class BarcodeScannerStopSoftwareTriggerRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerStopSoftwareTriggerRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class BarcodeScannerTriggerState(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerTriggerState'
     Released = 0
     Pressed = 1
 class BarcodeScannerVideoFrame(ComPtr):

@@ -3,10 +3,12 @@ from win32more._prelude import *
 import win32more.Windows.ApplicationModel.ExtendedExecution
 import win32more.Windows.Foundation
 class ExtendedExecutionReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionReason'
     Unspecified = 0
     LocationTracking = 1
     SavingData = 2
 class ExtendedExecutionResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionResult'
     Allowed = 0
     Denied = 1
 class ExtendedExecutionRevokedEventArgs(ComPtr):
@@ -17,6 +19,7 @@ class ExtendedExecutionRevokedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionRevokedEventArgs) -> win32more.Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedReason: ...
     Reason = property(get_Reason, None)
 class ExtendedExecutionRevokedReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedReason'
     Resumed = 0
     SystemPolicy = 1
 class ExtendedExecutionSession(ComPtr):

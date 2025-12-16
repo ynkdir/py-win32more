@@ -81,6 +81,7 @@ class PushNotificationChannel(ComPtr):
     ExpirationTime = property(get_ExpirationTime, None)
     Uri = property(get_Uri, None)
 class PushNotificationChannelStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.PushNotifications.PushNotificationChannelStatus'
     InProgress = 0
     InProgressRetry = 1
     CompletedSuccess = 2

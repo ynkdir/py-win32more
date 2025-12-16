@@ -307,6 +307,7 @@ class IWalletVerbFactory(ComPtr):
     @winrt_commethod(6)
     def CreateWalletVerb(self, name: hstr) -> win32more.Windows.ApplicationModel.Wallet.WalletVerb: ...
 class WalletActionKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Wallet.WalletActionKind'
     OpenItem = 0
     Transaction = 1
     MoreTransactions = 2
@@ -338,6 +339,7 @@ class WalletBarcode(ComPtr):
     Symbology = property(get_Symbology, None)
     Value = property(get_Value, None)
 class WalletBarcodeSymbology(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Wallet.WalletBarcodeSymbology'
     Invalid = 0
     Upca = 1
     Upce = 2
@@ -352,6 +354,7 @@ class WalletBarcodeSymbology(Enum, Int32):
     Custom = 100000
 WalletContract: UInt32 = 131072
 class WalletDetailViewPosition(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Wallet.WalletDetailViewPosition'
     Hidden = 0
     HeaderField1 = 1
     HeaderField2 = 2
@@ -552,6 +555,7 @@ class WalletItemCustomProperty(ComPtr):
     SummaryViewPosition = property(get_SummaryViewPosition, put_SummaryViewPosition)
     Value = property(get_Value, put_Value)
 class WalletItemKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Wallet.WalletItemKind'
     Invalid = 0
     Deal = 1
     General = 2
@@ -612,6 +616,7 @@ class WalletRelevantLocation(ComPtr):
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
     Position = property(get_Position, put_Position)
 class WalletSummaryViewPosition(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Wallet.WalletSummaryViewPosition'
     Hidden = 0
     Field1 = 1
     Field2 = 2

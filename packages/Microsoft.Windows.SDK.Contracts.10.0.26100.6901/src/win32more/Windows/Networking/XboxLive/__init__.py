@@ -354,6 +354,7 @@ class XboxLiveEndpointPair(ComPtr):
     Template = property(get_Template, None)
     StateChanged = event(add_StateChanged, remove_StateChanged)
 class XboxLiveEndpointPairCreationBehaviors(Enum, UInt32):
+    _name_ = 'Windows.Networking.XboxLive.XboxLiveEndpointPairCreationBehaviors'
     None_ = 0
     ReevaluatePath = 1
 class XboxLiveEndpointPairCreationResult(ComPtr):
@@ -373,6 +374,7 @@ class XboxLiveEndpointPairCreationResult(ComPtr):
     IsExistingPathEvaluation = property(get_IsExistingPathEvaluation, None)
     Status = property(get_Status, None)
 class XboxLiveEndpointPairCreationStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.XboxLive.XboxLiveEndpointPairCreationStatus'
     Succeeded = 0
     NoLocalNetworks = 1
     NoCompatibleNetworkPaths = 2
@@ -383,6 +385,7 @@ class XboxLiveEndpointPairCreationStatus(Enum, Int32):
     RefusedDueToConfiguration = 7
     UnexpectedInternalError = 8
 class XboxLiveEndpointPairState(Enum, Int32):
+    _name_ = 'Windows.Networking.XboxLive.XboxLiveEndpointPairState'
     Invalid = 0
     CreatingOutbound = 1
     CreatingInbound = 2
@@ -453,6 +456,7 @@ class XboxLiveInboundEndpointPairCreatedEventArgs(ComPtr):
     def get_EndpointPair(self: win32more.Windows.Networking.XboxLive.IXboxLiveInboundEndpointPairCreatedEventArgs) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
     EndpointPair = property(get_EndpointPair, None)
 class XboxLiveNetworkAccessKind(Enum, Int32):
+    _name_ = 'Windows.Networking.XboxLive.XboxLiveNetworkAccessKind'
     Open = 0
     Moderate = 1
     Strict = 2
@@ -539,6 +543,7 @@ class XboxLiveQualityOfServiceMeasurement(ComPtr, metaclass=_XboxLiveQualityOfSe
     _XboxLiveQualityOfServiceMeasurement_Meta_.MaxSimultaneousProbeConnections = property(get_MaxSimultaneousProbeConnections, put_MaxSimultaneousProbeConnections)
     _XboxLiveQualityOfServiceMeasurement_Meta_.PublishedPrivatePayload = property(get_PublishedPrivatePayload, put_PublishedPrivatePayload)
 class XboxLiveQualityOfServiceMeasurementStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurementStatus'
     NotStarted = 0
     InProgress = 1
     InProgressWithProvisionalResults = 2
@@ -552,6 +557,7 @@ class XboxLiveQualityOfServiceMeasurementStatus(Enum, Int32):
     RefusedDueToConfiguration = 10
     UnexpectedInternalError = 11
 class XboxLiveQualityOfServiceMetric(Enum, Int32):
+    _name_ = 'Windows.Networking.XboxLive.XboxLiveQualityOfServiceMetric'
     AverageLatencyInMilliseconds = 0
     MinLatencyInMilliseconds = 1
     MaxLatencyInMilliseconds = 2
@@ -592,6 +598,7 @@ class XboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     Value = property(get_Value, None)
 XboxLiveSecureSocketsContract: UInt32 = 65536
 class XboxLiveSocketKind(Enum, Int32):
+    _name_ = 'Windows.Networking.XboxLive.XboxLiveSocketKind'
     None_ = 0
     Datagram = 1
     Stream = 2

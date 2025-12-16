@@ -39,6 +39,7 @@ class GipFirmwareUpdateResult(ComPtr):
     FinalComponentId = property(get_FinalComponentId, None)
     Status = property(get_Status, None)
 class GipFirmwareUpdateStatus(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Custom.GipFirmwareUpdateStatus'
     Completed = 0
     UpToDate = 1
     Failed = 2
@@ -68,6 +69,7 @@ class GipGameControllerProvider(ComPtr):
     HardwareVersionInfo = property(get_HardwareVersionInfo, None)
     IsConnected = property(get_IsConnected, None)
 class GipMessageClass(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Custom.GipMessageClass'
     Command = 0
     LowLatency = 1
     StandardLatency = 2
@@ -221,6 +223,7 @@ class IXusbGameControllerProvider(ComPtr):
     @winrt_commethod(6)
     def SetVibration(self, lowFrequencyMotorSpeed: Double, highFrequencyMotorSpeed: Double) -> Void: ...
 class XusbDeviceSubtype(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Custom.XusbDeviceSubtype'
     Unknown = 0
     Gamepad = 1
     ArcadePad = 2
@@ -233,6 +236,7 @@ class XusbDeviceSubtype(Enum, Int32):
     DrumKit = 9
     DancePad = 10
 class XusbDeviceType(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.Custom.XusbDeviceType'
     Unknown = 0
     Gamepad = 1
 class XusbGameControllerProvider(ComPtr):

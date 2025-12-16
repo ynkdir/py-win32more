@@ -6,6 +6,7 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.AccessCache
 import win32more.Windows.System
 class AccessCacheOptions(Enum, UInt32):
+    _name_ = 'Windows.Storage.AccessCache.AccessCacheOptions'
     None_ = 0
     DisallowUserInput = 1
     FastLocationsOnly = 2
@@ -119,6 +120,7 @@ class ItemRemovedEventArgs(ComPtr):
     def get_RemovedEntry(self: win32more.Windows.Storage.AccessCache.IItemRemovedEventArgs) -> win32more.Windows.Storage.AccessCache.AccessListEntry: ...
     RemovedEntry = property(get_RemovedEntry, None)
 class RecentStorageItemVisibility(Enum, Int32):
+    _name_ = 'Windows.Storage.AccessCache.RecentStorageItemVisibility'
     AppOnly = 0
     AppAndSystem = 1
 class _StorageApplicationPermissions_Meta_(ComPtr.__class__):

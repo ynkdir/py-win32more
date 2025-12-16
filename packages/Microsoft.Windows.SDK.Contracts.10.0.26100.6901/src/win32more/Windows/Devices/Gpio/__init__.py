@@ -41,6 +41,7 @@ class GpioChangeCounter(ComPtr):
     IsStarted = property(get_IsStarted, None)
     Polarity = property(get_Polarity, put_Polarity)
 class GpioChangePolarity(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.GpioChangePolarity'
     Falling = 0
     Rising = 1
     Both = 2
@@ -122,6 +123,7 @@ class GpioController(ComPtr):
     def GetDefault(cls: win32more.Windows.Devices.Gpio.IGpioControllerStatics) -> win32more.Windows.Devices.Gpio.GpioController: ...
     PinCount = property(get_PinCount, None)
 class GpioOpenStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.GpioOpenStatus'
     PinOpened = 0
     PinUnavailable = 1
     SharingViolation = 2
@@ -161,6 +163,7 @@ class GpioPin(ComPtr):
     SharingMode = property(get_SharingMode, None)
     ValueChanged = event(add_ValueChanged, remove_ValueChanged)
 class GpioPinDriveMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.GpioPinDriveMode'
     Input = 0
     Output = 1
     InputPullUp = 2
@@ -170,9 +173,11 @@ class GpioPinDriveMode(Enum, Int32):
     OutputOpenSource = 6
     OutputOpenSourcePullDown = 7
 class GpioPinEdge(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.GpioPinEdge'
     FallingEdge = 0
     RisingEdge = 1
 class GpioPinValue(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.GpioPinValue'
     Low = 0
     High = 1
 class GpioPinValueChangedEventArgs(ComPtr):
@@ -183,6 +188,7 @@ class GpioPinValueChangedEventArgs(ComPtr):
     def get_Edge(self: win32more.Windows.Devices.Gpio.IGpioPinValueChangedEventArgs) -> win32more.Windows.Devices.Gpio.GpioPinEdge: ...
     Edge = property(get_Edge, None)
 class GpioSharingMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Gpio.GpioSharingMode'
     Exclusive = 0
     SharedReadOnly = 1
 class IGpioChangeCounter(ComPtr):

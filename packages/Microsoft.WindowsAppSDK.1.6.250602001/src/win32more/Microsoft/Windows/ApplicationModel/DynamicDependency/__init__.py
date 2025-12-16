@@ -221,10 +221,12 @@ class PackageDependencyContextId(Structure):
     _name_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContextId'
     Id: UInt64
 class PackageDependencyLifetimeArtifactKind(Enum, Int32):
+    _name_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyLifetimeArtifactKind'
     Process = 0
     FilePath = 1
     RegistryKey = 2
 class PackageDependencyProcessorArchitectures(Enum, UInt32):
+    _name_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyProcessorArchitectures'
     None_ = 0
     Neutral = 1
     X86 = 2

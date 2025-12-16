@@ -193,6 +193,7 @@ class GlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     PlaybackStatus = property(get_PlaybackStatus, None)
     PlaybackType = property(get_PlaybackType, None)
 class GlobalSystemMediaTransportControlsSessionPlaybackStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackStatus'
     Closed = 0
     Opened = 1
     Changing = 2

@@ -426,6 +426,7 @@ class LampArrayCustomEffect(ComPtr):
     ZIndex = property(get_ZIndex, put_ZIndex)
     UpdateRequested = event(add_UpdateRequested, remove_UpdateRequested)
 class LampArrayEffectCompletionBehavior(Enum, Int32):
+    _name_ = 'Windows.Devices.Lights.Effects.LampArrayEffectCompletionBehavior'
     ClearState = 0
     KeepState = 1
 class LampArrayEffectPlaylist(ComPtr):
@@ -485,9 +486,11 @@ class LampArrayEffectPlaylist(ComPtr):
     RepetitionMode = property(get_RepetitionMode, put_RepetitionMode)
     Size = property(get_Size, None)
 class LampArrayEffectStartMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Lights.Effects.LampArrayEffectStartMode'
     Sequential = 0
     Simultaneous = 1
 class LampArrayRepetitionMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Lights.Effects.LampArrayRepetitionMode'
     Occurrences = 0
     Forever = 1
 class LampArraySolidEffect(ComPtr):

@@ -188,9 +188,11 @@ class ApplicationDataContainerSettings(ComPtr):
     Size = property(get_Size, None)
     MapChanged = event(add_MapChanged, remove_MapChanged)
 class ApplicationDataCreateDisposition(Enum, Int32):
+    _name_ = 'Windows.Storage.ApplicationDataCreateDisposition'
     Always = 0
     Existing = 1
 class ApplicationDataLocality(Enum, Int32):
+    _name_ = 'Windows.Storage.ApplicationDataLocality'
     Local = 0
     Roaming = 1
     Temporary = 2
@@ -209,6 +211,7 @@ class CachedFileManager(ComPtr):
     @winrt_classmethod
     def CompleteUpdatesAsync(cls: win32more.Windows.Storage.ICachedFileManagerStatics, file: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Provider.FileUpdateStatus]: ...
 class CreationCollisionOption(Enum, Int32):
+    _name_ = 'Windows.Storage.CreationCollisionOption'
     GenerateUniqueName = 0
     ReplaceExisting = 1
     FailIfExists = 2
@@ -233,9 +236,11 @@ class DownloadsFolder(ComPtr):
     @winrt_classmethod
     def CreateFolderWithCollisionOptionAsync(cls: win32more.Windows.Storage.IDownloadsFolderStatics, desiredName: hstr, option: win32more.Windows.Storage.CreationCollisionOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFolder]: ...
 class FileAccessMode(Enum, Int32):
+    _name_ = 'Windows.Storage.FileAccessMode'
     Read = 0
     ReadWrite = 1
 class FileAttributes(Enum, UInt32):
+    _name_ = 'Windows.Storage.FileAttributes'
     Normal = 0
     ReadOnly = 1
     Directory = 16
@@ -1217,6 +1222,7 @@ class IUserDataPathsStatics(ComPtr):
     @winrt_commethod(7)
     def GetDefault(self) -> win32more.Windows.Storage.UserDataPaths: ...
 class KnownFolderId(Enum, Int32):
+    _name_ = 'Windows.Storage.KnownFolderId'
     AppCaptures = 0
     CameraRoll = 1
     DocumentsLibrary = 2
@@ -1287,6 +1293,7 @@ class KnownFolders(ComPtr, metaclass=_KnownFolders_Meta_):
     _KnownFolders_Meta_.SavedPictures = property(get_SavedPictures, None)
     _KnownFolders_Meta_.VideosLibrary = property(get_VideosLibrary, None)
 class KnownFoldersAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Storage.KnownFoldersAccessStatus'
     DeniedBySystem = 0
     NotDeclaredByApp = 1
     DeniedByUser = 2
@@ -1294,11 +1301,13 @@ class KnownFoldersAccessStatus(Enum, Int32):
     Allowed = 4
     AllowedPerAppFolder = 5
 class KnownLibraryId(Enum, Int32):
+    _name_ = 'Windows.Storage.KnownLibraryId'
     Music = 0
     Pictures = 1
     Videos = 2
     Documents = 3
 class NameCollisionOption(Enum, Int32):
+    _name_ = 'Windows.Storage.NameCollisionOption'
     GenerateUniqueName = 0
     ReplaceExisting = 1
     FailIfExists = 2
@@ -1354,6 +1363,7 @@ class SetVersionRequest(ComPtr):
     CurrentVersion = property(get_CurrentVersion, None)
     DesiredVersion = property(get_DesiredVersion, None)
 class StorageDeleteOption(Enum, Int32):
+    _name_ = 'Windows.Storage.StorageDeleteOption'
     Default = 0
     PermanentDelete = 1
 class StorageFile(ComPtr):
@@ -1588,6 +1598,7 @@ class StorageFolder(ComPtr):
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
 class StorageItemTypes(Enum, UInt32):
+    _name_ = 'Windows.Storage.StorageItemTypes'
     None_ = 0
     File = 1
     Folder = 2
@@ -1679,6 +1690,7 @@ class StorageLibraryChangeTrackerOptions(ComPtr):
     def put_TrackChangeDetails(self: win32more.Windows.Storage.IStorageLibraryChangeTrackerOptions, value: Boolean) -> Void: ...
     TrackChangeDetails = property(get_TrackChangeDetails, put_TrackChangeDetails)
 class StorageLibraryChangeType(Enum, Int32):
+    _name_ = 'Windows.Storage.StorageLibraryChangeType'
     Created = 0
     Deleted = 1
     MovedOrRenamed = 2
@@ -1699,6 +1711,7 @@ class StorageLibraryLastChangeId(ComPtr, metaclass=_StorageLibraryLastChangeId_M
     def get_Unknown(cls: win32more.Windows.Storage.IStorageLibraryLastChangeIdStatics) -> UInt64: ...
     _StorageLibraryLastChangeId_Meta_.Unknown = property(get_Unknown, None)
 class StorageOpenOptions(Enum, UInt32):
+    _name_ = 'Windows.Storage.StorageOpenOptions'
     None_ = 0
     AllowOnlyReaders = 1
     AllowReadersAndWriters = 2
@@ -1745,6 +1758,7 @@ class StreamedFileDataRequestedHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, stream: win32more.Windows.Storage.StreamedFileDataRequest) -> Void: ...
 class StreamedFileFailureMode(Enum, Int32):
+    _name_ = 'Windows.Storage.StreamedFileFailureMode'
     Failed = 0
     CurrentlyUnavailable = 1
     Incomplete = 2

@@ -213,6 +213,7 @@ class ResourceCandidate(ComPtr):
     ValueAsBytes = property(get_ValueAsBytes, None)
     ValueAsString = property(get_ValueAsString, None)
 class ResourceCandidateKind(Enum, Int32):
+    _name_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceCandidateKind'
     Unknown = 0
     String = 1
     FilePath = 2

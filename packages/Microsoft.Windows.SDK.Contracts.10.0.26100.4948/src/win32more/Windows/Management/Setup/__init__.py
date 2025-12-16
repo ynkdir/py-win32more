@@ -50,6 +50,7 @@ class AgentProvisioningProgressReport(ComPtr):
     ProgressPercentage = property(get_ProgressPercentage, put_ProgressPercentage)
     State = property(get_State, put_State)
 class DeploymentAgentProgressState(Enum, Int32):
+    _name_ = 'Windows.Management.Setup.DeploymentAgentProgressState'
     NotStarted = 0
     Initializing = 1
     InProgress = 2
@@ -58,6 +59,7 @@ class DeploymentAgentProgressState(Enum, Int32):
     RebootRequired = 5
     Canceled = 6
 class DeploymentSessionConnectionChange(Enum, Int32):
+    _name_ = 'Windows.Management.Setup.DeploymentSessionConnectionChange'
     NoChange = 0
     HostConnectionLost = 1
     HostConnectionRestored = 2
@@ -90,6 +92,7 @@ class DeploymentSessionHeartbeatRequestedEventArgs(ComPtr):
     def put_Handled(self: win32more.Windows.Management.Setup.IDeploymentSessionHeartbeatRequestedEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
 class DeploymentSessionStateChange(Enum, Int32):
+    _name_ = 'Windows.Management.Setup.DeploymentSessionStateChange'
     NoChange = 0
     CancelRequestedByUser = 1
     RetryRequestedByUser = 2
@@ -189,6 +192,7 @@ class DeploymentWorkloadBatch(ComPtr):
     DisplayCategoryTitle = property(get_DisplayCategoryTitle, put_DisplayCategoryTitle)
     Id = property(get_Id, None)
 class DeploymentWorkloadState(Enum, Int32):
+    _name_ = 'Windows.Management.Setup.DeploymentWorkloadState'
     NotStarted = 0
     InProgress = 1
     Completed = 2

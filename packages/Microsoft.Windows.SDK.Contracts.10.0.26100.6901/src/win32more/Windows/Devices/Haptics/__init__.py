@@ -215,6 +215,7 @@ class SimpleHapticsControllerFeedback(ComPtr):
     Duration = property(get_Duration, None)
     Waveform = property(get_Waveform, None)
 class VibrationAccessStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Haptics.VibrationAccessStatus'
     Allowed = 0
     DeniedByUser = 1
     DeniedBySystem = 2

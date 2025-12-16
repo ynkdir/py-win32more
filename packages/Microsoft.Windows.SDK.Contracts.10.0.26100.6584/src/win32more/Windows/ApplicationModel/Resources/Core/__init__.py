@@ -226,6 +226,7 @@ class ResourceCandidate(ComPtr):
     Qualifiers = property(get_Qualifiers, None)
     ValueAsString = property(get_ValueAsString, None)
 class ResourceCandidateKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Resources.Core.ResourceCandidateKind'
     String = 0
     File = 1
     EmbeddedData = 2
@@ -473,6 +474,7 @@ class ResourceQualifierObservableMap(ComPtr):
     Size = property(get_Size, None)
     MapChanged = event(add_MapChanged, remove_MapChanged)
 class ResourceQualifierPersistence(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierPersistence'
     None_ = 0
     LocalMachine = 1
 class ResourceQualifierVectorView(ComPtr):

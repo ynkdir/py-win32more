@@ -125,6 +125,7 @@ class HttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     Message = property(get_Message, None)
     Timestamp = property(get_Timestamp, None)
 class HttpDiagnosticRequestInitiator(Enum, Int32):
+    _name_ = 'Windows.Web.Http.Diagnostics.HttpDiagnosticRequestInitiator'
     ParsedElement = 0
     Script = 1
     Image = 2

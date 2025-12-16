@@ -861,6 +861,7 @@ class CurrencyIdentifiers(ComPtr, metaclass=_CurrencyIdentifiers_Meta_):
     _CurrencyIdentifiers_Meta_.ZMW = property(get_ZMW, None)
     _CurrencyIdentifiers_Meta_.ZWL = property(get_ZWL, None)
 class DayOfWeek(Enum, Int32):
+    _name_ = 'Windows.Globalization.DayOfWeek'
     Sunday = 0
     Monday = 1
     Tuesday = 2
@@ -2113,6 +2114,7 @@ class Language(ComPtr, metaclass=_Language_Meta_):
     Script = property(get_Script, None)
     _Language_Meta_.CurrentInputMethodLanguageTag = property(get_CurrentInputMethodLanguageTag, None)
 class LanguageLayoutDirection(Enum, Int32):
+    _name_ = 'Windows.Globalization.LanguageLayoutDirection'
     Ltr = 0
     Rtl = 1
     TtbLtr = 2

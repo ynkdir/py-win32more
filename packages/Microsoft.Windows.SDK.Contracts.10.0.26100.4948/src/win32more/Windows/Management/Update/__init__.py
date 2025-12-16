@@ -563,11 +563,13 @@ class WindowsUpdateAdministrator(ComPtr):
     @winrt_classmethod
     def CancelRestartRequest(cls: win32more.Windows.Management.Update.IWindowsUpdateAdministratorStatics, requestRestartToken: hstr) -> Void: ...
 class WindowsUpdateAdministratorOptions(Enum, UInt32):
+    _name_ = 'Windows.Management.Update.WindowsUpdateAdministratorOptions'
     None_ = 0
     RequireAdministratorApprovalForScans = 1
     RequireAdministratorApprovalForUpdates = 2
     RequireAdministratorApprovalForActions = 4
 class WindowsUpdateAdministratorStatus(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsUpdateAdministratorStatus'
     Succeeded = 0
     NoAdministratorRegistered = 1
     OtherAdministratorIsRegistered = 2
@@ -620,6 +622,7 @@ class WindowsUpdateAttentionRequiredInfo(ComPtr):
     Reason = property(get_Reason, None)
     Timestamp = property(get_Timestamp, None)
 class WindowsUpdateAttentionRequiredReason(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsUpdateAttentionRequiredReason'
     None_ = 0
     SeekerUpdate = 1
     ReadyToReboot = 2

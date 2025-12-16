@@ -210,6 +210,7 @@ class PushNotificationReceivedEventArgs(ComPtr):
     TileNotification = property(get_TileNotification, None)
     ToastNotification = property(get_ToastNotification, None)
 class PushNotificationType(Enum, Int32):
+    _name_ = 'Windows.Networking.PushNotifications.PushNotificationType'
     Toast = 0
     Tile = 1
     Badge = 2

@@ -81,9 +81,11 @@ class WorkItemHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, operation: win32more.Windows.Foundation.IAsyncAction) -> Void: ...
 class WorkItemOptions(Enum, UInt32):
+    _name_ = 'Windows.System.Threading.WorkItemOptions'
     None_ = 0
     TimeSliced = 1
 class WorkItemPriority(Enum, Int32):
+    _name_ = 'Windows.System.Threading.WorkItemPriority'
     Low = -1
     Normal = 0
     High = 1

@@ -396,10 +396,12 @@ class PlatformAutomaticAppSignInManager(ComPtr, metaclass=_PlatformAutomaticAppS
     def get_Policy(cls: win32more.Windows.System.Profile.IPlatformAutomaticAppSignInManagerStatics) -> win32more.Windows.System.Profile.PlatformAutomaticAppSignInPolicy: ...
     _PlatformAutomaticAppSignInManager_Meta_.Policy = property(get_Policy, None)
 class PlatformAutomaticAppSignInPolicy(Enum, Int32):
+    _name_ = 'Windows.System.Profile.PlatformAutomaticAppSignInPolicy'
     Unknown = 0
     PermissionRequired = 1
     AlwaysAllowed = 2
 class PlatformDataCollectionLevel(Enum, Int32):
+    _name_ = 'Windows.System.Profile.PlatformDataCollectionLevel'
     Security = 0
     Basic = 1
     Enhanced = 2
@@ -475,11 +477,13 @@ class SystemIdentificationInfo(ComPtr):
     Id = property(get_Id, None)
     Source = property(get_Source, None)
 class SystemIdentificationSource(Enum, Int32):
+    _name_ = 'Windows.System.Profile.SystemIdentificationSource'
     None_ = 0
     Tpm = 1
     Uefi = 2
     Registry = 3
 class SystemOutOfBoxExperienceState(Enum, Int32):
+    _name_ = 'Windows.System.Profile.SystemOutOfBoxExperienceState'
     NotStarted = 0
     InProgress = 1
     Completed = 2
@@ -507,6 +511,7 @@ class UnsupportedAppRequirement(ComPtr):
     Reasons = property(get_Reasons, None)
     Requirement = property(get_Requirement, None)
 class UnsupportedAppRequirementReasons(Enum, UInt32):
+    _name_ = 'Windows.System.Profile.UnsupportedAppRequirementReasons'
     Unknown = 0
     DeniedBySystem = 1
 class _WindowsIntegrityPolicy_Meta_(ComPtr.__class__):

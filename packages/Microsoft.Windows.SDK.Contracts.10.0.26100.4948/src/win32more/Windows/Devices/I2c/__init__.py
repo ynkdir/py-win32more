@@ -5,6 +5,7 @@ import win32more.Windows.Devices.I2c.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 class I2cBusSpeed(Enum, Int32):
+    _name_ = 'Windows.Devices.I2c.I2cBusSpeed'
     StandardMode = 0
     FastMode = 1
 class I2cConnectionSettings(ComPtr):
@@ -77,6 +78,7 @@ class I2cDevice(ComPtr):
     ConnectionSettings = property(get_ConnectionSettings, None)
     DeviceId = property(get_DeviceId, None)
 class I2cSharingMode(Enum, Int32):
+    _name_ = 'Windows.Devices.I2c.I2cSharingMode'
     Exclusive = 0
     Shared = 1
 class I2cTransferResult(Structure):
@@ -84,6 +86,7 @@ class I2cTransferResult(Structure):
     Status: win32more.Windows.Devices.I2c.I2cTransferStatus
     BytesTransferred: UInt32
 class I2cTransferStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.I2c.I2cTransferStatus'
     FullTransfer = 0
     PartialTransfer = 1
     SlaveAddressNotAcknowledged = 2

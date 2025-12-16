@@ -140,6 +140,7 @@ class PaginateEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: IInspectable, e: win32more.Microsoft.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...
 class PreviewPageCountType(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.Printing.PreviewPageCountType'
     Final = 0
     Intermediate = 1
 class _PrintDocument_Meta_(ComPtr.__class__):

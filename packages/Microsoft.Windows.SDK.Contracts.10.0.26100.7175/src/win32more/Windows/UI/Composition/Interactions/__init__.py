@@ -549,11 +549,13 @@ class IVisualInteractionSourceStatics2(ComPtr):
     @winrt_commethod(6)
     def CreateFromIVisualElement(self, source: win32more.Windows.UI.Composition.IVisualElement) -> win32more.Windows.UI.Composition.Interactions.VisualInteractionSource: ...
 class InteractionBindingAxisModes(Enum, UInt32):
+    _name_ = 'Windows.UI.Composition.Interactions.InteractionBindingAxisModes'
     None_ = 0
     PositionX = 1
     PositionY = 2
     Scale = 4
 class InteractionChainingMode(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Interactions.InteractionChainingMode'
     Auto = 0
     Always = 1
     Never = 2
@@ -577,10 +579,12 @@ class InteractionSourceConfiguration(ComPtr):
     PositionYSourceMode = property(get_PositionYSourceMode, put_PositionYSourceMode)
     ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
 class InteractionSourceMode(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Interactions.InteractionSourceMode'
     Disabled = 0
     EnabledWithInertia = 1
     EnabledWithoutInertia = 2
 class InteractionSourceRedirectionMode(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Interactions.InteractionSourceRedirectionMode'
     Disabled = 0
     Enabled = 1
 class InteractionTracker(ComPtr):
@@ -694,6 +698,7 @@ class InteractionTracker(ComPtr):
     ScaleInertiaDecayRate = property(get_ScaleInertiaDecayRate, put_ScaleInertiaDecayRate)
     ScaleVelocityInPercentPerSecond = property(get_ScaleVelocityInPercentPerSecond, None)
 class InteractionTrackerClampingOption(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Interactions.InteractionTrackerClampingOption'
     Auto = 0
     Disabled = 1
 class InteractionTrackerCustomAnimationStateEnteredArgs(ComPtr):
@@ -810,6 +815,7 @@ class InteractionTrackerInteractingStateEnteredArgs(ComPtr):
     IsFromBinding = property(get_IsFromBinding, None)
     RequestId = property(get_RequestId, None)
 class InteractionTrackerPositionUpdateOption(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Interactions.InteractionTrackerPositionUpdateOption'
     Default = 0
     AllowActiveCustomScaleAnimation = 1
 class InteractionTrackerRequestIgnoredArgs(ComPtr):
@@ -942,6 +948,7 @@ class VisualInteractionSource(ComPtr):
     ScaleVelocity = property(get_ScaleVelocity, None)
     Source = property(get_Source, None)
 class VisualInteractionSourceRedirectionMode(Enum, Int32):
+    _name_ = 'Windows.UI.Composition.Interactions.VisualInteractionSourceRedirectionMode'
     Off = 0
     CapableTouchpadOnly = 1
     PointerWheelOnly = 2

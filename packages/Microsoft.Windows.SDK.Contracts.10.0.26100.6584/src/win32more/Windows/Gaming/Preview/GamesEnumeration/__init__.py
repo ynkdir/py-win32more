@@ -34,6 +34,7 @@ class GameList(ComPtr, metaclass=_GameList_Meta_):
     _GameList_Meta_.GameRemoved = event(add_GameRemoved, remove_GameRemoved)
     _GameList_Meta_.GameUpdated = event(add_GameUpdated, remove_GameUpdated)
 class GameListCategory(Enum, Int32):
+    _name_ = 'Windows.Gaming.Preview.GamesEnumeration.GameListCategory'
     Candidate = 0
     ConfirmedBySystem = 1
     ConfirmedByUser = 2
@@ -81,6 +82,7 @@ class GameListEntry(ComPtr):
     Properties = property(get_Properties, None)
     TitleId = property(get_TitleId, None)
 class GameListEntryLaunchableState(Enum, Int32):
+    _name_ = 'Windows.Gaming.Preview.GamesEnumeration.GameListEntryLaunchableState'
     NotLaunchable = 0
     ByLastRunningFullPath = 1
     ByUserProvidedPath = 2

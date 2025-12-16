@@ -377,6 +377,7 @@ class PointerDevice(ComPtr):
     ScreenRect = property(get_ScreenRect, None)
     SupportedUsages = property(get_SupportedUsages, None)
 class PointerDeviceType(Enum, Int32):
+    _name_ = 'Windows.Devices.Input.PointerDeviceType'
     Touch = 0
     Pen = 1
     Mouse = 2

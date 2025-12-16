@@ -67,6 +67,7 @@ class ImageBuffer(ComPtr):
     RowStride = property(get_RowStride, None)
 ImageBufferContract: UInt32 = 65536
 class ImageBufferPixelFormat(Enum, Int32):
+    _name_ = 'Microsoft.Graphics.Imaging.ImageBufferPixelFormat'
     Rgb8 = 137224
     Rgba8 = 30
     Argb8 = 2498570

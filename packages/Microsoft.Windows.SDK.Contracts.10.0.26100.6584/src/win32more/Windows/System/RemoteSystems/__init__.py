@@ -732,6 +732,7 @@ class RemoteSystem(ComPtr):
     Status = property(get_Status, None)
     User = property(get_User, None)
 class RemoteSystemAccessStatus(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemAccessStatus'
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
@@ -785,6 +786,7 @@ class RemoteSystemAppRegistration(ComPtr):
     Attributes = property(get_Attributes, None)
     User = property(get_User, None)
 class RemoteSystemAuthorizationKind(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemAuthorizationKind'
     SameUser = 0
     Anonymous = 1
 class RemoteSystemAuthorizationKindFilter(ComPtr):
@@ -841,6 +843,7 @@ class RemoteSystemConnectionRequest(ComPtr):
     RemoteSystem = property(get_RemoteSystem, None)
     RemoteSystemApp = property(get_RemoteSystemApp, None)
 class RemoteSystemDiscoveryType(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemDiscoveryType'
     Any = 0
     Proximal = 1
     Cloud = 2
@@ -911,6 +914,7 @@ class RemoteSystemKinds(ComPtr, metaclass=_RemoteSystemKinds_Meta_):
     _RemoteSystemKinds_Meta_.Tablet = property(get_Tablet, None)
     _RemoteSystemKinds_Meta_.Xbox = property(get_Xbox, None)
 class RemoteSystemPlatform(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemPlatform'
     Unknown = 0
     Windows = 1
     Android = 2
@@ -994,6 +998,7 @@ class RemoteSystemSessionCreationResult(ComPtr):
     Session = property(get_Session, None)
     Status = property(get_Status, None)
 class RemoteSystemSessionCreationStatus(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemSessionCreationStatus'
     Success = 0
     SessionLimitsExceeded = 1
     OperationAborted = 2
@@ -1005,6 +1010,7 @@ class RemoteSystemSessionDisconnectedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionDisconnectedEventArgs) -> win32more.Windows.System.RemoteSystems.RemoteSystemSessionDisconnectedReason: ...
     Reason = property(get_Reason, None)
 class RemoteSystemSessionDisconnectedReason(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemSessionDisconnectedReason'
     SessionUnavailable = 0
     RemovedByController = 1
     SessionClosed = 2
@@ -1084,6 +1090,7 @@ class RemoteSystemSessionJoinResult(ComPtr):
     Session = property(get_Session, None)
     Status = property(get_Status, None)
 class RemoteSystemSessionJoinStatus(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemSessionJoinStatus'
     Success = 0
     SessionLimitsExceeded = 1
     OperationAborted = 2
@@ -1121,6 +1128,7 @@ class RemoteSystemSessionMessageChannel(ComPtr):
     Session = property(get_Session, None)
     ValueSetReceived = event(add_ValueSetReceived, remove_ValueSetReceived)
 class RemoteSystemSessionMessageChannelReliability(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemSessionMessageChannelReliability'
     Reliable = 0
     Unreliable = 1
 class RemoteSystemSessionOptions(ComPtr):
@@ -1191,6 +1199,7 @@ class RemoteSystemSessionParticipantWatcher(ComPtr):
     EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
     Removed = event(add_Removed, remove_Removed)
 class RemoteSystemSessionParticipantWatcherStatus(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcherStatus'
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -1248,6 +1257,7 @@ class RemoteSystemSessionWatcher(ComPtr):
     Removed = event(add_Removed, remove_Removed)
     Updated = event(add_Updated, remove_Updated)
 class RemoteSystemSessionWatcherStatus(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemSessionWatcherStatus'
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -1255,11 +1265,13 @@ class RemoteSystemSessionWatcherStatus(Enum, Int32):
     Stopped = 4
     Aborted = 5
 class RemoteSystemStatus(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemStatus'
     Unavailable = 0
     DiscoveringAvailability = 1
     Available = 2
     Unknown = 3
 class RemoteSystemStatusType(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemStatusType'
     Any = 0
     Available = 1
 class RemoteSystemStatusTypeFilter(ComPtr):
@@ -1322,6 +1334,7 @@ class RemoteSystemWatcher(ComPtr):
     RemoteSystemRemoved = event(add_RemoteSystemRemoved, remove_RemoteSystemRemoved)
     RemoteSystemUpdated = event(add_RemoteSystemUpdated, remove_RemoteSystemUpdated)
 class RemoteSystemWatcherError(Enum, Int32):
+    _name_ = 'Windows.System.RemoteSystems.RemoteSystemWatcherError'
     Unknown = 0
     InternetNotAvailable = 1
     AuthenticationError = 2

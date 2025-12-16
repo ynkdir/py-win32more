@@ -5,6 +5,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.ContentRestrictions
 import win32more.Windows.Storage.Streams
 class ContentAccessRestrictionLevel(Enum, Int32):
+    _name_ = 'Windows.Media.ContentRestrictions.ContentAccessRestrictionLevel'
     Allow = 0
     Warn = 1
     Block = 2
@@ -92,6 +93,7 @@ class IRatedContentRestrictionsFactory(ComPtr):
     @winrt_commethod(6)
     def CreateWithMaxAgeRating(self, maxAgeRating: UInt32) -> win32more.Windows.Media.ContentRestrictions.RatedContentRestrictions: ...
 class RatedContentCategory(Enum, Int32):
+    _name_ = 'Windows.Media.ContentRestrictions.RatedContentCategory'
     General = 0
     Application = 1
     Game = 2

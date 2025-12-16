@@ -59,6 +59,7 @@ class DeploymentResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class DeploymentStatus(Enum, Int32):
+    _name_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.DeploymentStatus'
     Unknown = 0
     Ok = 1
     PackageInstallRequired = 2
@@ -180,6 +181,7 @@ class ReleaseInfo(ComPtr, metaclass=_ReleaseInfo_Meta_):
     _ReleaseInfo_Meta_.Patch = property(get_Patch, None)
     _ReleaseInfo_Meta_.VersionTag = property(get_VersionTag, None)
 class RuntimeCompatibilityChange(Enum, Int32):
+    _name_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.RuntimeCompatibilityChange'
     None_ = 0
     EnsurePackageReadyVersionSupercedence = 56439870
     FixPopupClosingReentrancyCrash = 56870998

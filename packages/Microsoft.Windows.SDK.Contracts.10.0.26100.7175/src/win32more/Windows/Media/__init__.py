@@ -27,6 +27,7 @@ class AudioBuffer(ComPtr):
     Capacity = property(get_Capacity, None)
     Length = property(get_Length, put_Length)
 class AudioBufferAccessMode(Enum, Int32):
+    _name_ = 'Windows.Media.AudioBufferAccessMode'
     Read = 0
     ReadWrite = 1
     Write = 2
@@ -78,6 +79,7 @@ class AudioFrame(ComPtr):
     SystemRelativeTime = property(get_SystemRelativeTime, put_SystemRelativeTime)
     Type = property(get_Type, None)
 class AudioProcessing(Enum, Int32):
+    _name_ = 'Windows.Media.AudioProcessing'
     Default = 0
     Raw = 1
 class AutoRepeatModeChangeRequestedEventArgs(ComPtr):
@@ -881,16 +883,19 @@ class MediaMarkerTypes(ComPtr, metaclass=_MediaMarkerTypes_Meta_):
     def get_Bookmark(cls: win32more.Windows.Media.IMediaMarkerTypesStatics) -> hstr: ...
     _MediaMarkerTypes_Meta_.Bookmark = property(get_Bookmark, None)
 class MediaPlaybackAutoRepeatMode(Enum, Int32):
+    _name_ = 'Windows.Media.MediaPlaybackAutoRepeatMode'
     None_ = 0
     Track = 1
     List = 2
 class MediaPlaybackStatus(Enum, Int32):
+    _name_ = 'Windows.Media.MediaPlaybackStatus'
     Closed = 0
     Changing = 1
     Stopped = 2
     Playing = 3
     Paused = 4
 class MediaPlaybackType(Enum, Int32):
+    _name_ = 'Windows.Media.MediaPlaybackType'
     Unknown = 0
     Music = 1
     Video = 2
@@ -976,6 +981,7 @@ class MediaTimelineControllerFailedEventArgs(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.IMediaTimelineControllerFailedEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class MediaTimelineControllerState(Enum, Int32):
+    _name_ = 'Windows.Media.MediaTimelineControllerState'
     Paused = 0
     Running = 1
     Stalled = 2
@@ -1039,6 +1045,7 @@ class ShuffleEnabledChangeRequestedEventArgs(ComPtr):
     def get_RequestedShuffleEnabled(self: win32more.Windows.Media.IShuffleEnabledChangeRequestedEventArgs) -> Boolean: ...
     RequestedShuffleEnabled = property(get_RequestedShuffleEnabled, None)
 class SoundLevel(Enum, Int32):
+    _name_ = 'Windows.Media.SoundLevel'
     Muted = 0
     Low = 1
     Full = 2
@@ -1162,6 +1169,7 @@ class SystemMediaTransportControls(ComPtr):
     PropertyChanged = event(add_PropertyChanged, remove_PropertyChanged)
     ShuffleEnabledChangeRequested = event(add_ShuffleEnabledChangeRequested, remove_ShuffleEnabledChangeRequested)
 class SystemMediaTransportControlsButton(Enum, Int32):
+    _name_ = 'Windows.Media.SystemMediaTransportControlsButton'
     Play = 0
     Pause = 1
     Stop = 2
@@ -1214,6 +1222,7 @@ class SystemMediaTransportControlsDisplayUpdater(ComPtr):
     Type = property(get_Type, put_Type)
     VideoProperties = property(get_VideoProperties, None)
 class SystemMediaTransportControlsProperty(Enum, Int32):
+    _name_ = 'Windows.Media.SystemMediaTransportControlsProperty'
     SoundLevel = 0
 class SystemMediaTransportControlsPropertyChangedEventArgs(ComPtr):
     extends: IInspectable

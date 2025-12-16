@@ -782,6 +782,7 @@ class StoreCanAcquireLicenseResult(ComPtr):
     LicensableSku = property(get_LicensableSku, None)
     Status = property(get_Status, None)
 class StoreCanLicenseStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StoreCanLicenseStatus'
     NotLicensableToUser = 0
     Licensable = 1
     LicenseActionNotApplicableToProduct = 2
@@ -832,6 +833,7 @@ class StoreConsumableResult(ComPtr):
     Status = property(get_Status, None)
     TrackingId = property(get_TrackingId, None)
 class StoreConsumableStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StoreConsumableStatus'
     Succeeded = 0
     InsufficentQuantity = 1
     NetworkError = 2
@@ -931,6 +933,7 @@ class StoreContext(ComPtr):
     OfflineLicensesChanged = event(add_OfflineLicensesChanged, remove_OfflineLicensesChanged)
 StoreContract: UInt32 = 262144
 class StoreDurationUnit(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StoreDurationUnit'
     Minute = 0
     Hour = 1
     Day = 2
@@ -1037,6 +1040,7 @@ class StorePackageUpdateResult(ComPtr):
     StorePackageUpdateStatuses = property(get_StorePackageUpdateStatuses, None)
     StoreQueueItems = property(get_StoreQueueItems, None)
 class StorePackageUpdateState(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StorePackageUpdateState'
     Pending = 0
     Downloading = 1
     Deploying = 2
@@ -1229,6 +1233,7 @@ class StorePurchaseResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class StorePurchaseStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StorePurchaseStatus'
     Succeeded = 0
     AlreadyPurchased = 1
     NotPurchased = 2
@@ -1273,6 +1278,7 @@ class StoreQueueItemCompletedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.Services.Store.IStoreQueueItemCompletedEventArgs) -> win32more.Windows.Services.Store.StoreQueueItemStatus: ...
     Status = property(get_Status, None)
 class StoreQueueItemExtendedState(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StoreQueueItemExtendedState'
     ActivePending = 0
     ActiveStarting = 1
     ActiveAcquiringLicense = 2
@@ -1289,10 +1295,12 @@ class StoreQueueItemExtendedState(Enum, Int32):
     PausedWiFiRequired = 13
     PausedReadyToInstall = 14
 class StoreQueueItemKind(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StoreQueueItemKind'
     Install = 0
     Update = 1
     Repair = 2
 class StoreQueueItemState(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StoreQueueItemState'
     Active = 0
     Completed = 1
     Canceled = 2
@@ -1331,6 +1339,7 @@ class StoreRateAndReviewResult(ComPtr):
     Status = property(get_Status, None)
     WasUpdated = property(get_WasUpdated, None)
 class StoreRateAndReviewStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StoreRateAndReviewStatus'
     Succeeded = 0
     CanceledByUser = 1
     NetworkError = 2
@@ -1441,6 +1450,7 @@ class StoreUninstallStorePackageResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class StoreUninstallStorePackageStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Store.StoreUninstallStorePackageStatus'
     Succeeded = 0
     CanceledByUser = 1
     NetworkError = 2

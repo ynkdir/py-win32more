@@ -154,6 +154,7 @@ class AppWindowPresenter(ComPtr):
     def get_Kind(self: win32more.Microsoft.UI.Windowing.IAppWindowPresenter) -> win32more.Microsoft.UI.Windowing.AppWindowPresenterKind: ...
     Kind = property(get_Kind, None)
 class AppWindowPresenterKind(Enum, Int32):
+    _name_ = 'Microsoft.UI.Windowing.AppWindowPresenterKind'
     Default = 0
     CompactOverlay = 1
     FullScreen = 2
@@ -264,6 +265,7 @@ class CompactOverlayPresenter(ComPtr):
     def Create(cls: win32more.Microsoft.UI.Windowing.ICompactOverlayPresenterStatics) -> win32more.Microsoft.UI.Windowing.CompactOverlayPresenter: ...
     InitialSize = property(get_InitialSize, put_InitialSize)
 class CompactOverlaySize(Enum, Int32):
+    _name_ = 'Microsoft.UI.Windowing.CompactOverlaySize'
     Small = 0
     Medium = 1
     Large = 2
@@ -301,6 +303,7 @@ class DisplayArea(ComPtr, metaclass=_DisplayArea_Meta_):
     WorkArea = property(get_WorkArea, None)
     _DisplayArea_Meta_.Primary = property(get_Primary, None)
 class DisplayAreaFallback(Enum, Int32):
+    _name_ = 'Microsoft.UI.Windowing.DisplayAreaFallback'
     None_ = 0
     Primary = 1
     Nearest = 2
@@ -341,6 +344,7 @@ class DisplayAreaWatcher(ComPtr):
     Stopped = event(add_Stopped, remove_Stopped)
     Updated = event(add_Updated, remove_Updated)
 class DisplayAreaWatcherStatus(Enum, Int32):
+    _name_ = 'Microsoft.UI.Windowing.DisplayAreaWatcherStatus'
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -799,6 +803,7 @@ class IOverlappedPresenterStatics2(ComPtr):
     def get_RequestedStartupState(self) -> win32more.Microsoft.UI.Windowing.OverlappedPresenterState: ...
     RequestedStartupState = property(get_RequestedStartupState, None)
 class IconShowOptions(Enum, Int32):
+    _name_ = 'Microsoft.UI.Windowing.IconShowOptions'
     ShowIconAndSystemMenu = 0
     HideIconAndSystemMenu = 1
 class _OverlappedPresenter_Meta_(ComPtr.__class__):
@@ -865,10 +870,12 @@ class OverlappedPresenter(ComPtr, metaclass=_OverlappedPresenter_Meta_):
     State = property(get_State, None)
     _OverlappedPresenter_Meta_.RequestedStartupState = property(get_RequestedStartupState, None)
 class OverlappedPresenterState(Enum, Int32):
+    _name_ = 'Microsoft.UI.Windowing.OverlappedPresenterState'
     Maximized = 0
     Minimized = 1
     Restored = 2
 class TitleBarHeightOption(Enum, Int32):
+    _name_ = 'Microsoft.UI.Windowing.TitleBarHeightOption'
     Standard = 0
     Tall = 1
     Collapsed = 2

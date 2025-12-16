@@ -95,6 +95,7 @@ class CertificateChain(ComPtr):
     @winrt_mixinmethod
     def GetCertificates(self: win32more.Windows.Security.Cryptography.Certificates.ICertificateChain, includeRoot: Boolean) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Cryptography.Certificates.Certificate]: ...
 class CertificateChainPolicy(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Certificates.CertificateChainPolicy'
     Base = 0
     Ssl = 1
     NTAuthentication = 2
@@ -456,6 +457,7 @@ class ChainValidationParameters(ComPtr):
     CertificateChainPolicy = property(get_CertificateChainPolicy, put_CertificateChainPolicy)
     ServerDnsName = property(get_ServerDnsName, put_ServerDnsName)
 class ChainValidationResult(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Certificates.ChainValidationResult'
     Success = 0
     Untrusted = 1
     Revoked = 2
@@ -559,12 +561,14 @@ class CmsTimestampInfo(ComPtr):
     SigningCertificate = property(get_SigningCertificate, None)
     Timestamp = property(get_Timestamp, None)
 class EnrollKeyUsages(Enum, UInt32):
+    _name_ = 'Windows.Security.Cryptography.Certificates.EnrollKeyUsages'
     None_ = 0
     Decryption = 1
     Signing = 2
     KeyAgreement = 4
     All = 16777215
 class ExportOption(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Certificates.ExportOption'
     NotExportable = 0
     Exportable = 1
 class ICertificate(ComPtr):
@@ -1275,6 +1279,7 @@ class IUserCertificateStore(ComPtr):
     def get_Name(self) -> hstr: ...
     Name = property(get_Name, None)
 class InstallOptions(Enum, UInt32):
+    _name_ = 'Windows.Security.Cryptography.Certificates.InstallOptions'
     None_ = 0
     DeleteExpired = 1
 class _KeyAlgorithmNames_Meta_(ComPtr.__class__):
@@ -1322,11 +1327,13 @@ class KeyAttestationHelper(ComPtr):
     @winrt_classmethod
     def GetTpmAttestationCredentialId(cls: win32more.Windows.Security.Cryptography.Certificates.IKeyAttestationHelperStatics, credential: hstr) -> hstr: ...
 class KeyProtectionLevel(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Certificates.KeyProtectionLevel'
     NoConsent = 0
     ConsentOnly = 1
     ConsentWithPassword = 2
     ConsentWithFingerprint = 3
 class KeySize(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Certificates.KeySize'
     Invalid = 0
     Rsa2048 = 2048
     Rsa4096 = 4096
@@ -1396,6 +1403,7 @@ class PfxImportParameters(ComPtr):
     KeyStorageProviderName = property(get_KeyStorageProviderName, put_KeyStorageProviderName)
     ReaderName = property(get_ReaderName, put_ReaderName)
 class SignatureValidationResult(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Certificates.SignatureValidationResult'
     Success = 0
     InvalidParameter = 1
     BadMessage = 2

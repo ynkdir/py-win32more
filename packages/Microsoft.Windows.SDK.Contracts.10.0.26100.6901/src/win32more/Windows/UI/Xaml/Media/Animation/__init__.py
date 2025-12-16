@@ -125,6 +125,7 @@ class CircleEase(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Media.Animation.CircleEase: ...
 class ClockState(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Animation.ClockState'
     Active = 0
     Filling = 1
     Stopped = 2
@@ -339,6 +340,7 @@ class ConnectedAnimation(ComPtr):
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
     Completed = event(add_Completed, remove_Completed)
 class ConnectedAnimationComponent(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Animation.ConnectedAnimationComponent'
     OffsetX = 0
     OffsetY = 1
     CrossFade = 2
@@ -928,6 +930,7 @@ class EasingFunctionBase(ComPtr, metaclass=_EasingFunctionBase_Meta_):
     EasingMode = property(get_EasingMode, put_EasingMode)
     _EasingFunctionBase_Meta_.EasingModeProperty = property(get_EasingModeProperty, None)
 class EasingMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Animation.EasingMode'
     EaseOut = 0
     EaseIn = 1
     EaseInOut = 2
@@ -1139,6 +1142,7 @@ class FadeOutThemeAnimation(ComPtr, metaclass=_FadeOutThemeAnimation_Meta_):
     TargetName = property(get_TargetName, put_TargetName)
     _FadeOutThemeAnimation_Meta_.TargetNameProperty = property(get_TargetNameProperty, None)
 class FillBehavior(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Animation.FillBehavior'
     HoldEnd = 0
     Stop = 1
 class GravityConnectedAnimationConfiguration(ComPtr):
@@ -3502,6 +3506,7 @@ class RepeatBehaviorHelper(ComPtr, metaclass=_RepeatBehaviorHelper_Meta_):
     def Equals(cls: win32more.Windows.UI.Xaml.Media.Animation.IRepeatBehaviorHelperStatics, target: win32more.Windows.UI.Xaml.Media.Animation.RepeatBehavior, value: win32more.Windows.UI.Xaml.Media.Animation.RepeatBehavior) -> Boolean: ...
     _RepeatBehaviorHelper_Meta_.Forever = property(get_Forever, None)
 class RepeatBehaviorType(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Animation.RepeatBehaviorType'
     Count = 0
     Duration = 1
     Forever = 2
@@ -3581,6 +3586,7 @@ class SineEase(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Media.Animation.SineEase: ...
 class SlideNavigationTransitionEffect(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionEffect'
     FromBottom = 0
     FromLeft = 1
     FromRight = 2

@@ -221,6 +221,7 @@ class WiFiDirectAdvertisement(ComPtr):
     ListenStateDiscoverability = property(get_ListenStateDiscoverability, put_ListenStateDiscoverability)
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
 class WiFiDirectAdvertisementListenStateDiscoverability(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisementListenStateDiscoverability'
     None_ = 0
     Normal = 1
     Intensive = 2
@@ -253,6 +254,7 @@ class WiFiDirectAdvertisementPublisher(ComPtr):
     Status = property(get_Status, None)
     StatusChanged = event(add_StatusChanged, remove_StatusChanged)
 class WiFiDirectAdvertisementPublisherStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisherStatus'
     Created = 0
     Started = 1
     Stopped = 2
@@ -268,6 +270,7 @@ class WiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     Error = property(get_Error, None)
     Status = property(get_Status, None)
 class WiFiDirectConfigurationMethod(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod'
     ProvidePin = 0
     DisplayPin = 1
     PushButton = 2
@@ -334,6 +337,7 @@ class WiFiDirectConnectionRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetConnectionRequest(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionRequestedEventArgs) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest: ...
 class WiFiDirectConnectionStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionStatus'
     Disconnected = 0
     Connected = 1
 class WiFiDirectDevice(ComPtr):
@@ -369,9 +373,11 @@ class WiFiDirectDevice(ComPtr):
     DeviceId = property(get_DeviceId, None)
     ConnectionStatusChanged = event(add_ConnectionStatusChanged, remove_ConnectionStatusChanged)
 class WiFiDirectDeviceSelectorType(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.WiFiDirectDeviceSelectorType'
     DeviceInterface = 0
     AssociationEndpoint = 1
 class WiFiDirectError(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.WiFiDirectError'
     Success = 0
     RadioNotAvailable = 1
     ResourceInUse = 2
@@ -427,6 +433,7 @@ class WiFiDirectLegacySettings(ComPtr):
     Passphrase = property(get_Passphrase, put_Passphrase)
     Ssid = property(get_Ssid, put_Ssid)
 class WiFiDirectPairingProcedure(Enum, Int32):
+    _name_ = 'Windows.Devices.WiFiDirect.WiFiDirectPairingProcedure'
     GroupOwnerNegotiation = 0
     Invitation = 1
 

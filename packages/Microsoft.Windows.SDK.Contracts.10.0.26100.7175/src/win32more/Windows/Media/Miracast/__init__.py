@@ -400,6 +400,7 @@ class MiracastReceiverApplySettingsResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class MiracastReceiverApplySettingsStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Miracast.MiracastReceiverApplySettingsStatus'
     Success = 0
     UnknownFailure = 1
     MiracastNotSupported = 2
@@ -409,6 +410,7 @@ class MiracastReceiverApplySettingsStatus(Enum, Int32):
     ModelNumberTooLong = 6
     InvalidSettings = 7
 class MiracastReceiverAuthorizationMethod(Enum, Int32):
+    _name_ = 'Windows.Media.Miracast.MiracastReceiverAuthorizationMethod'
     None_ = 0
     ConfirmConnection = 1
     PinDisplayIfRequested = 2
@@ -497,6 +499,7 @@ class MiracastReceiverCursorImageChannelSettings(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     MaxImageSize = property(get_MaxImageSize, put_MaxImageSize)
 class MiracastReceiverDisconnectReason(Enum, Int32):
+    _name_ = 'Windows.Media.Miracast.MiracastReceiverDisconnectReason'
     Finished = 0
     AppSpecificError = 1
     ConnectionNotAccepted = 2
@@ -538,6 +541,7 @@ class MiracastReceiverGameControllerDevice(ComPtr):
     TransmitInput = property(get_TransmitInput, put_TransmitInput)
     Changed = event(add_Changed, remove_Changed)
 class MiracastReceiverGameControllerDeviceUsageMode(Enum, Int32):
+    _name_ = 'Windows.Media.Miracast.MiracastReceiverGameControllerDeviceUsageMode'
     AsGameController = 0
     AsMouseAndKeyboard = 1
 class MiracastReceiverInputDevices(ComPtr):
@@ -571,6 +575,7 @@ class MiracastReceiverKeyboardDevice(ComPtr):
     TransmitInput = property(get_TransmitInput, put_TransmitInput)
     Changed = event(add_Changed, remove_Changed)
 class MiracastReceiverListeningStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Miracast.MiracastReceiverListeningStatus'
     NotListening = 0
     Listening = 1
     ConnectionPending = 2
@@ -639,6 +644,7 @@ class MiracastReceiverSessionStartResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class MiracastReceiverSessionStartStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Miracast.MiracastReceiverSessionStartStatus'
     Success = 0
     UnknownFailure = 1
     MiracastNotSupported = 2
@@ -723,6 +729,7 @@ class MiracastReceiverVideoStreamSettings(ComPtr):
     Bitrate = property(get_Bitrate, put_Bitrate)
     Size = property(get_Size, put_Size)
 class MiracastReceiverWiFiStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Miracast.MiracastReceiverWiFiStatus'
     MiracastSupportUndetermined = 0
     MiracastNotSupported = 1
     MiracastSupportNotOptimized = 2
@@ -750,6 +757,7 @@ class MiracastTransmitter(ComPtr):
     MacAddress = property(get_MacAddress, None)
     Name = property(get_Name, put_Name)
 class MiracastTransmitterAuthorizationStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Miracast.MiracastTransmitterAuthorizationStatus'
     Undecided = 0
     Allowed = 1
     AlwaysPrompt = 2

@@ -5,6 +5,7 @@ import win32more.Windows.Devices.Input.Preview
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 class GazeDeviceConfigurationStatePreview(Enum, Int32):
+    _name_ = 'Windows.Devices.Input.Preview.GazeDeviceConfigurationStatePreview'
     Unknown = 0
     Ready = 1
     Configuring = 2

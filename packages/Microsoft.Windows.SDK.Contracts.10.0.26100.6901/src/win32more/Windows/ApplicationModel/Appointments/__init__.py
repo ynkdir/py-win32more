@@ -148,6 +148,7 @@ class Appointment(ComPtr):
     Uri = property(get_Uri, put_Uri)
     UserResponse = property(get_UserResponse, put_UserResponse)
 class AppointmentBusyStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentBusyStatus'
     Busy = 0
     Tentative = 1
     Free = 2
@@ -280,11 +281,13 @@ class AppointmentCalendar(ComPtr):
     SyncManager = property(get_SyncManager, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
 class AppointmentCalendarOtherAppReadAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentCalendarOtherAppReadAccess'
     SystemOnly = 0
     Limited = 1
     Full = 2
     None_ = 3
 class AppointmentCalendarOtherAppWriteAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentCalendarOtherAppWriteAccess'
     None_ = 0
     SystemOnly = 1
     Limited = 2
@@ -315,6 +318,7 @@ class AppointmentCalendarSyncManager(ComPtr):
     Status = property(get_Status, put_Status)
     SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class AppointmentCalendarSyncStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentCalendarSyncStatus'
     Idle = 0
     Syncing = 1
     UpToDate = 2
@@ -333,10 +337,12 @@ class AppointmentConflictResult(ComPtr):
     Date = property(get_Date, None)
     Type = property(get_Type, None)
 class AppointmentConflictType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentConflictType'
     None_ = 0
     Adjacent = 1
     Overlap = 2
 class AppointmentDaysOfWeek(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentDaysOfWeek'
     None_ = 0
     Sunday = 1
     Monday = 2
@@ -346,6 +352,7 @@ class AppointmentDaysOfWeek(Enum, UInt32):
     Friday = 32
     Saturday = 64
 class AppointmentDetailsKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentDetailsKind'
     PlainText = 0
     Html = 1
 class AppointmentException(ComPtr):
@@ -482,12 +489,14 @@ class AppointmentOrganizer(ComPtr):
     Address = property(get_Address, put_Address)
     DisplayName = property(get_DisplayName, put_DisplayName)
 class AppointmentParticipantResponse(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentParticipantResponse'
     None_ = 0
     Tentative = 1
     Accepted = 2
     Declined = 3
     Unknown = 4
 class AppointmentParticipantRole(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentParticipantRole'
     RequiredAttendee = 0
     OptionalAttendee = 1
     Resource = 2
@@ -639,6 +648,7 @@ class AppointmentRecurrence(ComPtr):
     Until = property(get_Until, put_Until)
     WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
 class AppointmentRecurrenceUnit(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentRecurrenceUnit'
     Daily = 0
     Weekly = 1
     Monthly = 2
@@ -646,6 +656,7 @@ class AppointmentRecurrenceUnit(Enum, Int32):
     Yearly = 4
     YearlyOnDay = 5
 class AppointmentSensitivity(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentSensitivity'
     Public = 0
     Private = 1
 class AppointmentStore(ComPtr):
@@ -705,6 +716,7 @@ class AppointmentStore(ComPtr):
     ChangeTracker = property(get_ChangeTracker, None)
     StoreChanged = event(add_StoreChanged, remove_StoreChanged)
 class AppointmentStoreAccessType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentStoreAccessType'
     AppCalendarsReadWrite = 0
     AllCalendarsReadOnly = 1
     AllCalendarsReadWrite = 2
@@ -745,6 +757,7 @@ class AppointmentStoreChangeTracker(ComPtr):
     def get_IsTracking(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreChangeTracker2) -> Boolean: ...
     IsTracking = property(get_IsTracking, None)
 class AppointmentStoreChangeType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentStoreChangeType'
     AppointmentCreated = 0
     AppointmentModified = 1
     AppointmentDeleted = 2
@@ -769,15 +782,18 @@ class AppointmentStoreNotificationTriggerDetails(ComPtr):
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreNotificationTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentStoreNotificationTriggerDetails'
 class AppointmentSummaryCardView(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentSummaryCardView'
     System = 0
     App = 1
 class AppointmentWeekOfMonth(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.AppointmentWeekOfMonth'
     First = 0
     Second = 1
     Third = 2
     Fourth = 3
     Last = 4
 class FindAppointmentCalendarsOptions(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Appointments.FindAppointmentCalendarsOptions'
     None_ = 0
     IncludeHidden = 1
 class FindAppointmentsOptions(ComPtr):
@@ -1536,6 +1552,7 @@ class IFindAppointmentsOptions(ComPtr):
     IncludeHidden = property(get_IncludeHidden, put_IncludeHidden)
     MaxCount = property(get_MaxCount, put_MaxCount)
 class RecurrenceType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Appointments.RecurrenceType'
     Master = 0
     Instance = 1
     ExceptionInstance = 2

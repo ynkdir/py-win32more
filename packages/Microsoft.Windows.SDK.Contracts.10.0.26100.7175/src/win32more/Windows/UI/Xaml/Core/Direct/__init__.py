@@ -236,6 +236,7 @@ class XamlDirect(ComPtr):
     def GetDefault(cls: win32more.Windows.UI.Xaml.Core.Direct.IXamlDirectStatics) -> win32more.Windows.UI.Xaml.Core.Direct.XamlDirect: ...
 XamlDirectContract: UInt32 = 327680
 class XamlEventIndex(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Core.Direct.XamlEventIndex'
     FrameworkElement_DataContextChanged = 16
     FrameworkElement_SizeChanged = 17
     FrameworkElement_LayoutUpdated = 18
@@ -375,6 +376,7 @@ class XamlEventIndex(Enum, Int32):
     DatePicker_SelectedDateChanged = 322
     TimePicker_SelectedTimeChanged = 323
 class XamlPropertyIndex(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Core.Direct.XamlPropertyIndex'
     AutomationProperties_AcceleratorKey = 5
     AutomationProperties_AccessibilityView = 6
     AutomationProperties_AccessKey = 7
@@ -2045,6 +2047,7 @@ class XamlPropertyIndex(Enum, Int32):
     Popup_PlacementTarget = 2454
     AutomationProperties_AutomationControlType = 2455
 class XamlTypeIndex(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Core.Direct.XamlTypeIndex'
     AutoSuggestBoxSuggestionChosenEventArgs = 34
     AutoSuggestBoxTextChangedEventArgs = 35
     CollectionViewSource = 41

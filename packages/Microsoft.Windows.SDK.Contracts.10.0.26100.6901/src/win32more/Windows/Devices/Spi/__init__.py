@@ -194,11 +194,13 @@ class SpiDevice(ComPtr):
     ConnectionSettings = property(get_ConnectionSettings, None)
     DeviceId = property(get_DeviceId, None)
 class SpiMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Spi.SpiMode'
     Mode0 = 0
     Mode1 = 1
     Mode2 = 2
     Mode3 = 3
 class SpiSharingMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Spi.SpiSharingMode'
     Exclusive = 0
     Shared = 1
 

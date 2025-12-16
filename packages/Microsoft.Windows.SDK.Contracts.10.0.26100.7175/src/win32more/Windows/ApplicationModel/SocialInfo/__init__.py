@@ -308,9 +308,11 @@ class SocialFeedItem(ComPtr):
     Thumbnails = property(get_Thumbnails, None)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class SocialFeedItemStyle(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedItemStyle'
     Default = 0
     Photo = 1
 class SocialFeedKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedKind'
     HomeFeed = 0
     ContactFeed = 1
     Dashboard = 2
@@ -351,10 +353,12 @@ class SocialFeedSharedItem(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class SocialFeedUpdateMode(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedUpdateMode'
     Append = 0
     Replace = 1
 SocialInfoContract: UInt32 = 131072
 class SocialItemBadgeStyle(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.SocialInfo.SocialItemBadgeStyle'
     Hidden = 0
     Visible = 1
     VisibleWithCount = 2

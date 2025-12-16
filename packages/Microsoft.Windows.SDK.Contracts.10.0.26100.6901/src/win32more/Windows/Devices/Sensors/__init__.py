@@ -107,6 +107,7 @@ class AccelerometerReadingChangedEventArgs(ComPtr):
     def get_Reading(self: win32more.Windows.Devices.Sensors.IAccelerometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.AccelerometerReading: ...
     Reading = property(get_Reading, None)
 class AccelerometerReadingType(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.AccelerometerReadingType'
     Standard = 0
     Linear = 1
     Gravity = 2
@@ -181,6 +182,7 @@ class ActivitySensorReadingChangedEventArgs(ComPtr):
     def get_Reading(self: win32more.Windows.Devices.Sensors.IActivitySensorReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.ActivitySensorReading: ...
     Reading = property(get_Reading, None)
 class ActivitySensorReadingConfidence(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.ActivitySensorReadingConfidence'
     High = 0
     Low = 1
 class ActivitySensorTriggerDetails(ComPtr):
@@ -190,6 +192,7 @@ class ActivitySensorTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def ReadReports(self: win32more.Windows.Devices.Sensors.IActivitySensorTriggerDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sensors.ActivitySensorReadingChangeReport]: ...
 class ActivityType(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.ActivityType'
     Unknown = 0
     Idle = 1
     Stationary = 2
@@ -600,10 +603,12 @@ class HingeAngleSensorReadingChangedEventArgs(ComPtr):
     def get_Reading(self: win32more.Windows.Devices.Sensors.IHingeAngleSensorReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.HingeAngleReading: ...
     Reading = property(get_Reading, None)
 class HumanEngagement(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.HumanEngagement'
     Unknown = 0
     Engaged = 1
     Unengaged = 2
 class HumanPresence(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.HumanPresence'
     Unknown = 0
     Present = 1
     NotPresent = 2
@@ -2872,6 +2877,7 @@ class Magnetometer(ComPtr):
     ReportThreshold = property(get_ReportThreshold, None)
     ReadingChanged = event(add_ReadingChanged, remove_ReadingChanged)
 class MagnetometerAccuracy(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.MagnetometerAccuracy'
     Unknown = 0
     Unreliable = 1
     Approximate = 2
@@ -2928,10 +2934,12 @@ class MagnetometerReadingChangedEventArgs(ComPtr):
     def get_Reading(self: win32more.Windows.Devices.Sensors.IMagnetometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.MagnetometerReading: ...
     Reading = property(get_Reading, None)
 class OnlookerDetectionAction(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.OnlookerDetectionAction'
     Dim = 0
     Notify = 1
     DimAndNotify = 2
 class OnlookerDetectionBackOnMode(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.OnlookerDetectionBackOnMode'
     Manually = 0
     OneHour = 1
     FourHours = 2
@@ -3105,6 +3113,7 @@ class PedometerReadingChangedEventArgs(ComPtr):
     def get_Reading(self: win32more.Windows.Devices.Sensors.IPedometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.PedometerReading: ...
     Reading = property(get_Reading, None)
 class PedometerStepKind(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.PedometerStepKind'
     Unknown = 0
     Walking = 1
     Running = 2
@@ -3187,6 +3196,7 @@ class SensorDataThresholdTriggerDetails(ComPtr):
     DeviceId = property(get_DeviceId, None)
     SensorType = property(get_SensorType, None)
 class SensorOptimizationGoal(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.SensorOptimizationGoal'
     Precision = 0
     PowerEfficiency = 1
 class SensorQuaternion(ComPtr):
@@ -3206,6 +3216,7 @@ class SensorQuaternion(ComPtr):
     Y = property(get_Y, None)
     Z = property(get_Z, None)
 class SensorReadingType(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.SensorReadingType'
     Absolute = 0
     Relative = 1
 class SensorRotationMatrix(ComPtr):
@@ -3240,6 +3251,7 @@ class SensorRotationMatrix(ComPtr):
     M32 = property(get_M32, None)
     M33 = property(get_M33, None)
 class SensorType(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.SensorType'
     Accelerometer = 0
     ActivitySensor = 1
     Barometer = 2
@@ -3255,6 +3267,7 @@ class SensorType(Enum, Int32):
     RelativeOrientationSensor = 12
     SimpleOrientationSensor = 13
 class SimpleOrientation(Enum, Int32):
+    _name_ = 'Windows.Devices.Sensors.SimpleOrientation'
     NotRotated = 0
     Rotated90DegreesCounterclockwise = 1
     Rotated180DegreesCounterclockwise = 2

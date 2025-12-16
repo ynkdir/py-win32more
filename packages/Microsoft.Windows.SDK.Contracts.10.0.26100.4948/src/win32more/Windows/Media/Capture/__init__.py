@@ -200,6 +200,7 @@ class AppBroadcastBackgroundServiceStreamInfo(ComPtr):
     VideoEncodingBitrateChanged = event(add_VideoEncodingBitrateChanged, remove_VideoEncodingBitrateChanged)
     VideoEncodingResolutionChanged = event(add_VideoEncodingResolutionChanged, remove_VideoEncodingResolutionChanged)
 class AppBroadcastCameraCaptureState(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastCameraCaptureState'
     Stopped = 0
     Started = 1
     Failed = 2
@@ -214,6 +215,7 @@ class AppBroadcastCameraCaptureStateChangedEventArgs(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
     State = property(get_State, None)
 class AppBroadcastCameraOverlayLocation(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastCameraOverlayLocation'
     TopLeft = 0
     TopCenter = 1
     TopRight = 2
@@ -224,14 +226,17 @@ class AppBroadcastCameraOverlayLocation(Enum, Int32):
     BottomCenter = 7
     BottomRight = 8
 class AppBroadcastCameraOverlaySize(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastCameraOverlaySize'
     Small = 0
     Medium = 1
     Large = 2
 class AppBroadcastCaptureTargetType(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastCaptureTargetType'
     AppView = 0
     EntireDisplay = 1
 AppBroadcastContract: UInt32 = 131072
 class AppBroadcastExitBroadcastModeReason(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastExitBroadcastModeReason'
     NormalExit = 0
     UserCanceled = 1
     AuthorizationFail = 2
@@ -323,6 +328,7 @@ class AppBroadcastManager(ComPtr):
     @winrt_classmethod
     def ApplyProviderSettings(cls: win32more.Windows.Media.Capture.IAppBroadcastManagerStatics, value: win32more.Windows.Media.Capture.AppBroadcastProviderSettings) -> Void: ...
 class AppBroadcastMicrophoneCaptureState(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastMicrophoneCaptureState'
     Stopped = 0
     Started = 1
     Failed = 2
@@ -372,6 +378,7 @@ class AppBroadcastPlugInManager(ComPtr):
     IsBroadcastProviderAvailable = property(get_IsBroadcastProviderAvailable, None)
     PlugInList = property(get_PlugInList, None)
 class AppBroadcastPlugInState(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastPlugInState'
     Unknown = 0
     Initialized = 1
     MicrosoftSignInRequired = 2
@@ -407,6 +414,7 @@ class AppBroadcastPreview(ComPtr):
     PreviewStreamReader = property(get_PreviewStreamReader, None)
     PreviewStateChanged = event(add_PreviewStateChanged, remove_PreviewStateChanged)
 class AppBroadcastPreviewState(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastPreviewState'
     Started = 0
     Stopped = 1
     Failed = 2
@@ -552,12 +560,14 @@ class AppBroadcastServices(ComPtr):
     State = property(get_State, None)
     UserName = property(get_UserName, None)
 class AppBroadcastSignInResult(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastSignInResult'
     Success = 0
     AuthenticationFailed = 1
     Unauthorized = 2
     ServiceUnavailable = 3
     Unknown = 4
 class AppBroadcastSignInState(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastSignInState'
     NotSignedIn = 0
     MicrosoftSignInInProgress = 1
     MicrosoftSignInComplete = 2
@@ -739,6 +749,7 @@ class AppBroadcastStreamReader(ComPtr):
     AudioFrameArrived = event(add_AudioFrameArrived, remove_AudioFrameArrived)
     VideoFrameArrived = event(add_VideoFrameArrived, remove_VideoFrameArrived)
 class AppBroadcastStreamState(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastStreamState'
     Initializing = 0
     StreamReady = 1
     Started = 2
@@ -784,6 +795,7 @@ class AppBroadcastStreamVideoHeader(ComPtr):
     IsKeyFrame = property(get_IsKeyFrame, None)
     RelativeTimestamp = property(get_RelativeTimestamp, None)
 class AppBroadcastTerminationReason(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastTerminationReason'
     NormalTermination = 0
     LostConnectionToService = 1
     NoNetworkConnectivity = 2
@@ -802,9 +814,11 @@ class AppBroadcastTriggerDetails(ComPtr):
     def get_BackgroundService(self: win32more.Windows.Media.Capture.IAppBroadcastTriggerDetails) -> win32more.Windows.Media.Capture.AppBroadcastBackgroundService: ...
     BackgroundService = property(get_BackgroundService, None)
 class AppBroadcastVideoEncodingBitrateMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastVideoEncodingBitrateMode'
     Custom = 0
     Auto = 1
 class AppBroadcastVideoEncodingResolutionMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppBroadcastVideoEncodingResolutionMode'
     Custom = 0
     Auto = 1
 class AppBroadcastViewerCountChangedEventArgs(ComPtr):
@@ -933,6 +947,7 @@ class AppCaptureFileGeneratedEventArgs(ComPtr):
     def get_File(self: win32more.Windows.Media.Capture.IAppCaptureFileGeneratedEventArgs) -> win32more.Windows.Storage.StorageFile: ...
     File = property(get_File, None)
 class AppCaptureHistoricalBufferLengthUnit(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppCaptureHistoricalBufferLengthUnit'
     Megabytes = 0
     Seconds = 1
 class AppCaptureManager(ComPtr):
@@ -944,6 +959,7 @@ class AppCaptureManager(ComPtr):
     def ApplySettings(cls: win32more.Windows.Media.Capture.IAppCaptureManagerStatics, appCaptureSettings: win32more.Windows.Media.Capture.AppCaptureSettings) -> Void: ...
 AppCaptureMetadataContract: UInt32 = 65536
 class AppCaptureMetadataPriority(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppCaptureMetadataPriority'
     Informational = 0
     Important = 1
 class AppCaptureMetadataWriter(ComPtr):
@@ -987,6 +1003,7 @@ class AppCaptureMetadataWriter(ComPtr):
     RemainingStorageBytesAvailable = property(get_RemainingStorageBytesAvailable, None)
     MetadataPurged = event(add_MetadataPurged, remove_MetadataPurged)
 class AppCaptureMicrophoneCaptureState(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppCaptureMicrophoneCaptureState'
     Stopped = 0
     Started = 1
     Failed = 2
@@ -1037,6 +1054,7 @@ class AppCaptureRecordOperation(ComPtr):
     FileGenerated = event(add_FileGenerated, remove_FileGenerated)
     StateChanged = event(add_StateChanged, remove_StateChanged)
 class AppCaptureRecordingState(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppCaptureRecordingState'
     InProgress = 0
     Completed = 1
     Failed = 2
@@ -1235,13 +1253,16 @@ class AppCaptureState(ComPtr):
     CaptureTargetClosed = event(add_CaptureTargetClosed, remove_CaptureTargetClosed)
     MicrophoneCaptureStateChanged = event(add_MicrophoneCaptureStateChanged, remove_MicrophoneCaptureStateChanged)
 class AppCaptureVideoEncodingBitrateMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppCaptureVideoEncodingBitrateMode'
     Custom = 0
     High = 1
     Standard = 2
 class AppCaptureVideoEncodingFrameRateMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppCaptureVideoEncodingFrameRateMode'
     Standard = 0
     High = 1
 class AppCaptureVideoEncodingResolutionMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.AppCaptureVideoEncodingResolutionMode'
     Custom = 0
     High = 1
     Standard = 2
@@ -1268,6 +1289,7 @@ class CameraCaptureUI(ComPtr):
     VideoSettings = property(get_VideoSettings, None)
 CameraCaptureUIContract: UInt32 = 65536
 class CameraCaptureUIMaxPhotoResolution(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.CameraCaptureUIMaxPhotoResolution'
     HighestAvailable = 0
     VerySmallQvga = 1
     SmallVga = 2
@@ -1275,11 +1297,13 @@ class CameraCaptureUIMaxPhotoResolution(Enum, Int32):
     Large3M = 4
     VeryLarge5M = 5
 class CameraCaptureUIMaxVideoResolution(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.CameraCaptureUIMaxVideoResolution'
     HighestAvailable = 0
     LowDefinition = 1
     StandardDefinition = 2
     HighDefinition = 3
 class CameraCaptureUIMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.CameraCaptureUIMode'
     PhotoOrVideo = 0
     Photo = 1
     Video = 2
@@ -1313,6 +1337,7 @@ class CameraCaptureUIPhotoCaptureSettings(ComPtr):
     Format = property(get_Format, put_Format)
     MaxResolution = property(get_MaxResolution, put_MaxResolution)
 class CameraCaptureUIPhotoFormat(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.CameraCaptureUIPhotoFormat'
     Jpeg = 0
     Png = 1
     JpegXR = 2
@@ -1341,6 +1366,7 @@ class CameraCaptureUIVideoCaptureSettings(ComPtr):
     MaxDurationInSeconds = property(get_MaxDurationInSeconds, put_MaxDurationInSeconds)
     MaxResolution = property(get_MaxResolution, put_MaxResolution)
 class CameraCaptureUIVideoFormat(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.CameraCaptureUIVideoFormat'
     Mp4 = 0
     Wmv = 1
 class CameraOptionsUI(ComPtr):
@@ -1458,9 +1484,11 @@ class CapturedPhoto(ComPtr):
     Frame = property(get_Frame, None)
     Thumbnail = property(get_Thumbnail, None)
 class ForegroundActivationArgument(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.ForegroundActivationArgument'
     SignInRequired = 0
     MoreSettings = 1
 class GameBarCommand(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.GameBarCommand'
     OpenGameBar = 0
     RecordHistoricalBuffer = 1
     ToggleStartStopRecord = 2
@@ -1476,6 +1504,7 @@ class GameBarCommand(Enum, Int32):
     ToggleCameraCapture = 12
     ToggleRecordingIndicator = 13
 class GameBarCommandOrigin(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.GameBarCommandOrigin'
     ShortcutKey = 0
     Cortana = 1
     AppCommand = 2
@@ -1519,6 +1548,7 @@ class GameBarServicesCommandEventArgs(ComPtr):
     Command = property(get_Command, None)
     Origin = property(get_Origin, None)
 class GameBarServicesDisplayMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.GameBarServicesDisplayMode'
     Windowed = 0
     FullScreenExclusive = 1
 class GameBarServicesManager(ComPtr):
@@ -1556,6 +1586,7 @@ class GameBarServicesTargetInfo(ComPtr):
     DisplayName = property(get_DisplayName, None)
     TitleId = property(get_TitleId, None)
 class GameBarTargetCapturePolicy(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.GameBarTargetCapturePolicy'
     EnabledBySystem = 0
     EnabledByUser = 1
     NotEnabled = 2
@@ -3537,6 +3568,7 @@ class IVideoStreamConfiguration(ComPtr):
     InputProperties = property(get_InputProperties, None)
     OutputProperties = property(get_OutputProperties, None)
 class KnownVideoProfile(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.KnownVideoProfile'
     VideoRecording = 0
     HighQualityPhoto = 1
     BalancedVideoAndPhoto = 2
@@ -3759,9 +3791,11 @@ class MediaCapture(ComPtr):
     RecordLimitationExceeded = event(add_RecordLimitationExceeded, remove_RecordLimitationExceeded)
     ThermalStatusChanged = event(add_ThermalStatusChanged, remove_ThermalStatusChanged)
 class MediaCaptureDeviceExclusiveControlReleaseMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.MediaCaptureDeviceExclusiveControlReleaseMode'
     OnDispose = 0
     OnAllStreamsStopped = 1
 class MediaCaptureDeviceExclusiveControlStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.MediaCaptureDeviceExclusiveControlStatus'
     ExclusiveControlAvailable = 0
     SharedReadOnlyAvailable = 1
 class MediaCaptureDeviceExclusiveControlStatusChangedEventArgs(ComPtr):
@@ -3900,6 +3934,7 @@ class MediaCaptureInitializationSettings(ComPtr):
     VideoProfile = property(get_VideoProfile, put_VideoProfile)
     VideoSource = property(get_VideoSource, put_VideoSource)
 class MediaCaptureMemoryPreference(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.MediaCaptureMemoryPreference'
     Auto = 0
     Cpu = 1
 class MediaCapturePauseResult(ComPtr):
@@ -3981,6 +4016,7 @@ class MediaCaptureSettings(ComPtr):
     VideoDeviceCharacteristic = property(get_VideoDeviceCharacteristic, None)
     VideoDeviceId = property(get_VideoDeviceId, None)
 class MediaCaptureSharingMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.MediaCaptureSharingMode'
     ExclusiveControl = 0
     SharedReadOnly = 1
 class MediaCaptureStopResult(ComPtr):
@@ -3997,6 +4033,7 @@ class MediaCaptureStopResult(ComPtr):
     LastFrame = property(get_LastFrame, None)
     RecordDuration = property(get_RecordDuration, None)
 class MediaCaptureThermalStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.MediaCaptureThermalStatus'
     Normal = 0
     Overheated = 1
 class MediaCaptureVideoProfile(ComPtr):
@@ -4052,6 +4089,7 @@ class MediaCaptureVideoProfileMediaDescription(ComPtr):
     Subtype = property(get_Subtype, None)
     Width = property(get_Width, None)
 class MediaCategory(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.MediaCategory'
     Other = 0
     Communications = 1
     Media = 2
@@ -4061,6 +4099,7 @@ class MediaCategory(Enum, Int32):
     UniformSpeech = 6
     VoiceTyping = 7
 class MediaStreamType(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.MediaStreamType'
     VideoPreview = 0
     VideoRecord = 1
     Audio = 2
@@ -4077,6 +4116,7 @@ class OptionalReferencePhotoCapturedEventArgs(ComPtr):
     Context = property(get_Context, None)
     Frame = property(get_Frame, None)
 class PhotoCaptureSource(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.PhotoCaptureSource'
     Auto = 0
     VideoPreview = 1
     Photo = 2
@@ -4104,6 +4144,7 @@ class PhotoConfirmationCapturedEventArgs(ComPtr):
     CaptureTimeOffset = property(get_CaptureTimeOffset, None)
     Frame = property(get_Frame, None)
 class PowerlineFrequency(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.PowerlineFrequency'
     Disabled = 0
     FiftyHertz = 1
     SixtyHertz = 2
@@ -4114,16 +4155,19 @@ class RecordLimitationExceededEventHandler(MulticastDelegate):
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Capture.MediaCapture) -> Void: ...
 class StreamingCaptureMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.StreamingCaptureMode'
     AudioAndVideo = 0
     Audio = 1
     Video = 2
 class VideoDeviceCharacteristic(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.VideoDeviceCharacteristic'
     AllStreamsIndependent = 0
     PreviewRecordStreamsIdentical = 1
     PreviewPhotoStreamsIdentical = 2
     RecordPhotoStreamsIdentical = 3
     AllStreamsIdentical = 4
 class VideoRotation(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.VideoRotation'
     None_ = 0
     Clockwise90Degrees = 1
     Clockwise180Degrees = 2

@@ -5,6 +5,7 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Credentials
 class DeviceAccountAuthenticationType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountAuthenticationType'
     Basic = 0
     OAuth = 1
     SingleSignOn = 2
@@ -243,11 +244,13 @@ class DeviceAccountConfiguration(ComPtr):
     WasModifiedByUser = property(get_WasModifiedByUser, put_WasModifiedByUser)
     WasOutgoingServerCertificateHashConfirmed = property(get_WasOutgoingServerCertificateHashConfirmed, put_WasOutgoingServerCertificateHashConfirmed)
 class DeviceAccountIconId(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountIconId'
     Exchange = 0
     Msa = 1
     Outlook = 2
     Generic = 3
 class DeviceAccountMailAgeFilter(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountMailAgeFilter'
     All = 0
     Last1Day = 1
     Last3Days = 2
@@ -256,10 +259,12 @@ class DeviceAccountMailAgeFilter(Enum, Int32):
     Last30Days = 5
     Last90Days = 6
 class DeviceAccountServerType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountServerType'
     Exchange = 0
     Pop = 1
     Imap = 2
 class DeviceAccountSyncScheduleKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountSyncScheduleKind'
     Manual = 0
     Every15Minutes = 1
     Every30Minutes = 2

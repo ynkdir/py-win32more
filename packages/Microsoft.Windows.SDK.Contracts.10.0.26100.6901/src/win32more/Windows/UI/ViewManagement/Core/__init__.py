@@ -126,6 +126,7 @@ class CoreInputViewHidingEventArgs(ComPtr):
     @winrt_mixinmethod
     def TryCancel(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewHidingEventArgs) -> Boolean: ...
 class CoreInputViewKind(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.Core.CoreInputViewKind'
     Default = 0
     Keyboard = 1
     Handwriting = 2
@@ -145,6 +146,7 @@ class CoreInputViewOcclusion(ComPtr):
     OccludingRect = property(get_OccludingRect, None)
     OcclusionKind = property(get_OcclusionKind, None)
 class CoreInputViewOcclusionKind(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.Core.CoreInputViewOcclusionKind'
     Docked = 0
     Floating = 1
     Overlay = 2
@@ -187,6 +189,7 @@ class CoreInputViewTransferringXYFocusEventArgs(ComPtr):
     Origin = property(get_Origin, None)
     TransferHandled = property(get_TransferHandled, put_TransferHandled)
 class CoreInputViewXYFocusTransferDirection(Enum, Int32):
+    _name_ = 'Windows.UI.ViewManagement.Core.CoreInputViewXYFocusTransferDirection'
     Up = 0
     Right = 1
     Down = 2

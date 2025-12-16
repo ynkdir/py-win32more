@@ -7,6 +7,7 @@ import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 class FeatureElementKindPreview(Enum, Int32):
+    _name_ = 'Windows.AI.MachineLearning.Preview.FeatureElementKindPreview'
     Undefined = 0
     Float = 1
     UInt8 = 2
@@ -307,6 +308,7 @@ class LearningModelDescriptionPreview(ComPtr):
     OutputFeatures = property(get_OutputFeatures, None)
     Version = property(get_Version, None)
 class LearningModelDeviceKindPreview(Enum, Int32):
+    _name_ = 'Windows.AI.MachineLearning.Preview.LearningModelDeviceKindPreview'
     LearningDeviceAny = 0
     LearningDeviceCpu = 1
     LearningDeviceGpu = 2
@@ -324,6 +326,7 @@ class LearningModelEvaluationResultPreview(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
     Outputs = property(get_Outputs, None)
 class LearningModelFeatureKindPreview(Enum, Int32):
+    _name_ = 'Windows.AI.MachineLearning.Preview.LearningModelFeatureKindPreview'
     Undefined = 0
     Tensor = 1
     Sequence = 2

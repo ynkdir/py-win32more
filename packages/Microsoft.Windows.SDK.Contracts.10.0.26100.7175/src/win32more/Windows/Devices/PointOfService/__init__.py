@@ -121,6 +121,7 @@ class BarcodeScannerReport(ComPtr):
     ScanDataLabel = property(get_ScanDataLabel, None)
     ScanDataType = property(get_ScanDataType, None)
 class BarcodeScannerStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.BarcodeScannerStatus'
     Online = 0
     Off = 1
     Offline = 2
@@ -464,6 +465,7 @@ class BarcodeSymbologyAttributes(ComPtr):
     IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, None)
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, None)
 class BarcodeSymbologyDecodeLengthKind(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.BarcodeSymbologyDecodeLengthKind'
     AnyLength = 0
     Discrete = 1
     Range = 2
@@ -600,6 +602,7 @@ class CashDrawerStatus(ComPtr):
     ExtendedStatus = property(get_ExtendedStatus, None)
     StatusKind = property(get_StatusKind, None)
 class CashDrawerStatusKind(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.CashDrawerStatusKind'
     Online = 0
     Off = 1
     Offline = 2
@@ -3715,6 +3718,7 @@ class LineDisplayCursorAttributes(ComPtr):
     IsBlinkEnabled = property(get_IsBlinkEnabled, put_IsBlinkEnabled)
     Position = property(get_Position, put_Position)
 class LineDisplayCursorType(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayCursorType'
     None_ = 0
     Block = 1
     HalfBlock = 2
@@ -3734,10 +3738,12 @@ class LineDisplayCustomGlyphs(ComPtr):
     SizeInPixels = property(get_SizeInPixels, None)
     SupportedGlyphCodes = property(get_SupportedGlyphCodes, None)
 class LineDisplayDescriptorState(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayDescriptorState'
     Off = 0
     On = 1
     Blink = 2
 class LineDisplayHorizontalAlignment(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayHorizontalAlignment'
     Left = 0
     Center = 1
     Right = 2
@@ -3765,16 +3771,19 @@ class LineDisplayMarquee(ComPtr):
     RepeatWaitInterval = property(get_RepeatWaitInterval, put_RepeatWaitInterval)
     ScrollWaitInterval = property(get_ScrollWaitInterval, put_ScrollWaitInterval)
 class LineDisplayMarqueeFormat(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayMarqueeFormat'
     None_ = 0
     Walk = 1
     Place = 2
 class LineDisplayPowerStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayPowerStatus'
     Unknown = 0
     Online = 1
     Off = 2
     Offline = 3
     OffOrOffline = 4
 class LineDisplayScrollDirection(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayScrollDirection'
     Up = 0
     Down = 1
     Left = 2
@@ -3809,15 +3818,18 @@ class LineDisplayStoredBitmap(ComPtr):
     def TryDeleteAsync(self: win32more.Windows.Devices.PointOfService.ILineDisplayStoredBitmap) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     EscapeSequence = property(get_EscapeSequence, None)
 class LineDisplayTextAttribute(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayTextAttribute'
     Normal = 0
     Blink = 1
     Reverse = 2
     ReverseBlink = 3
 class LineDisplayTextAttributeGranularity(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayTextAttributeGranularity'
     NotSupported = 0
     EntireDisplay = 1
     PerCharacter = 2
 class LineDisplayVerticalAlignment(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.LineDisplayVerticalAlignment'
     Top = 0
     Center = 1
     Bottom = 2
@@ -3970,10 +3982,12 @@ class MagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     Surname = property(get_Surname, None)
     Weight = property(get_Weight, None)
 class MagneticStripeReaderAuthenticationLevel(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.MagneticStripeReaderAuthenticationLevel'
     NotSupported = 0
     Optional = 1
     Required = 2
 class MagneticStripeReaderAuthenticationProtocol(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.MagneticStripeReaderAuthenticationProtocol'
     None_ = 0
     ChallengeResponse = 1
 class MagneticStripeReaderBankCardDataReceivedEventArgs(ComPtr):
@@ -4098,6 +4112,7 @@ class MagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     Track3Status = property(get_Track3Status, None)
     Track4Status = property(get_Track4Status, None)
 class MagneticStripeReaderErrorReportingType(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.MagneticStripeReaderErrorReportingType'
     CardLevel = 0
     TrackLevel = 1
 class MagneticStripeReaderReport(ComPtr):
@@ -4132,6 +4147,7 @@ class MagneticStripeReaderReport(ComPtr):
     Track3 = property(get_Track3, None)
     Track4 = property(get_Track4, None)
 class MagneticStripeReaderStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.MagneticStripeReaderStatus'
     Unauthenticated = 0
     Authenticated = 1
     Extended = 2
@@ -4159,6 +4175,7 @@ class MagneticStripeReaderTrackData(ComPtr):
     DiscretionaryData = property(get_DiscretionaryData, None)
     EncryptedData = property(get_EncryptedData, None)
 class MagneticStripeReaderTrackErrorType(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.MagneticStripeReaderTrackErrorType'
     None_ = 0
     StartSentinelError = 1
     EndSentinelError = 2
@@ -4166,6 +4183,7 @@ class MagneticStripeReaderTrackErrorType(Enum, Int32):
     LrcError = 4
     Unknown = -1
 class MagneticStripeReaderTrackIds(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.MagneticStripeReaderTrackIds'
     None_ = 0
     Track1 = 1
     Track2 = 2
@@ -4179,6 +4197,7 @@ class MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs(ComPtr):
     def get_Report(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderVendorSpecificCardDataReceivedEventArgs) -> win32more.Windows.Devices.PointOfService.MagneticStripeReaderReport: ...
     Report = property(get_Report, None)
 class PosConnectionTypes(Enum, UInt32):
+    _name_ = 'Windows.Devices.PointOfService.PosConnectionTypes'
     Local = 1
     IP = 2
     Bluetooth = 4
@@ -4230,10 +4249,12 @@ class PosPrinter(ComPtr):
     SupportedTypeFaces = property(get_SupportedTypeFaces, None)
     StatusUpdated = event(add_StatusUpdated, remove_StatusUpdated)
 class PosPrinterAlignment(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterAlignment'
     Left = 0
     Center = 1
     Right = 2
 class PosPrinterBarcodeTextPosition(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterBarcodeTextPosition'
     None_ = 0
     Above = 1
     Below = 2
@@ -4272,6 +4293,7 @@ class PosPrinterCapabilities(ComPtr):
     Receipt = property(get_Receipt, None)
     Slip = property(get_Slip, None)
 class PosPrinterCartridgeSensors(Enum, UInt32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterCartridgeSensors'
     None_ = 0
     Removed = 1
     Empty = 2
@@ -4292,6 +4314,7 @@ class PosPrinterCharacterSetIds(ComPtr, metaclass=_PosPrinterCharacterSetIds_Met
     _PosPrinterCharacterSetIds_Meta_.Ascii = property(get_Ascii, None)
     _PosPrinterCharacterSetIds_Meta_.Utf16LE = property(get_Utf16LE, None)
 class PosPrinterColorCapabilities(Enum, UInt32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterColorCapabilities'
     None_ = 0
     Primary = 1
     Custom1 = 2
@@ -4305,6 +4328,7 @@ class PosPrinterColorCapabilities(Enum, UInt32):
     Yellow = 512
     Full = 1024
 class PosPrinterColorCartridge(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterColorCartridge'
     Unknown = 0
     Primary = 1
     Custom1 = 2
@@ -4330,25 +4354,30 @@ class PosPrinterFontProperty(ComPtr):
     IsScalableToAnySize = property(get_IsScalableToAnySize, None)
     TypeFace = property(get_TypeFace, None)
 class PosPrinterLineDirection(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterLineDirection'
     Horizontal = 0
     Vertical = 1
 class PosPrinterLineStyle(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterLineStyle'
     SingleSolid = 0
     DoubleSolid = 1
     Broken = 2
     Chain = 3
 class PosPrinterMapMode(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterMapMode'
     Dots = 0
     Twips = 1
     English = 2
     Metric = 3
 class PosPrinterMarkFeedCapabilities(Enum, UInt32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterMarkFeedCapabilities'
     None_ = 0
     ToTakeUp = 1
     ToCutter = 2
     ToCurrentTopOfForm = 4
     ToNextTopOfForm = 8
 class PosPrinterMarkFeedKind(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterMarkFeedKind'
     ToTakeUp = 0
     ToCutter = 1
     ToCurrentTopOfForm = 2
@@ -4432,6 +4461,7 @@ class PosPrinterPrintOptions(ComPtr):
     TypeFace = property(get_TypeFace, put_TypeFace)
     Underline = property(get_Underline, put_Underline)
 class PosPrinterPrintSide(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterPrintSide'
     Unknown = 0
     Side1 = 1
     Side2 = 2
@@ -4440,11 +4470,13 @@ class PosPrinterReleaseDeviceRequestedEventArgs(ComPtr):
     default_interface: win32more.Windows.Devices.PointOfService.IPosPrinterReleaseDeviceRequestedEventArgs
     _classid_ = 'Windows.Devices.PointOfService.PosPrinterReleaseDeviceRequestedEventArgs'
 class PosPrinterRotation(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterRotation'
     Normal = 0
     Right90 = 1
     Left90 = 2
     Rotate180 = 3
 class PosPrinterRuledLineCapabilities(Enum, UInt32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterRuledLineCapabilities'
     None_ = 0
     Horizontal = 1
     Vertical = 2
@@ -4459,6 +4491,7 @@ class PosPrinterStatus(ComPtr):
     ExtendedStatus = property(get_ExtendedStatus, None)
     StatusKind = property(get_StatusKind, None)
 class PosPrinterStatusKind(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.PosPrinterStatusKind'
     Online = 0
     Off = 1
     Offline = 2
@@ -4800,6 +4833,7 @@ class UnifiedPosErrorData(ComPtr):
     Reason = property(get_Reason, None)
     Severity = property(get_Severity, None)
 class UnifiedPosErrorReason(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.UnifiedPosErrorReason'
     UnknownErrorReason = 0
     NoService = 1
     Disabled = 2
@@ -4812,6 +4846,7 @@ class UnifiedPosErrorReason(Enum, Int32):
     Busy = 9
     Extended = 10
 class UnifiedPosErrorSeverity(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.UnifiedPosErrorSeverity'
     UnknownErrorSeverity = 0
     Warning = 1
     Recoverable = 2
@@ -4819,11 +4854,13 @@ class UnifiedPosErrorSeverity(Enum, Int32):
     AssistanceRequired = 4
     Fatal = 5
 class UnifiedPosHealthCheckLevel(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.UnifiedPosHealthCheckLevel'
     UnknownHealthCheckLevel = 0
     POSInternal = 1
     External = 2
     Interactive = 3
 class UnifiedPosPowerReportingType(Enum, Int32):
+    _name_ = 'Windows.Devices.PointOfService.UnifiedPosPowerReportingType'
     UnknownPowerReportingType = 0
     Standard = 1
     Advanced = 2

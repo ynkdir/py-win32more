@@ -94,6 +94,7 @@ class OfflineMapPackageQueryResult(ComPtr):
     Packages = property(get_Packages, None)
     Status = property(get_Status, None)
 class OfflineMapPackageQueryStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryStatus'
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2
@@ -106,11 +107,13 @@ class OfflineMapPackageStartDownloadResult(ComPtr):
     def get_Status(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStartDownloadResult) -> win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadStatus: ...
     Status = property(get_Status, None)
 class OfflineMapPackageStartDownloadStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadStatus'
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2
     DeniedWithoutCapability = 3
 class OfflineMapPackageStatus(Enum, Int32):
+    _name_ = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageStatus'
     NotDownloaded = 0
     Downloading = 1
     Downloaded = 2

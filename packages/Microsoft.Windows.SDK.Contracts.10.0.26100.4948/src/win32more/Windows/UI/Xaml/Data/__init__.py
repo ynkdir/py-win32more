@@ -103,6 +103,7 @@ class BindingExpressionBase(ComPtr):
     default_interface: win32more.Windows.UI.Xaml.Data.IBindingExpressionBase
     _classid_ = 'Windows.UI.Xaml.Data.BindingExpressionBase'
 class BindingMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Data.BindingMode'
     OneWay = 1
     OneTime = 2
     TwoWay = 3
@@ -615,10 +616,12 @@ class RelativeSource(ComPtr):
     def put_Mode(self: win32more.Windows.UI.Xaml.Data.IRelativeSource, value: win32more.Windows.UI.Xaml.Data.RelativeSourceMode) -> Void: ...
     Mode = property(get_Mode, put_Mode)
 class RelativeSourceMode(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Data.RelativeSourceMode'
     None_ = 0
     TemplatedParent = 1
     Self = 2
 class UpdateSourceTrigger(Enum, Int32):
+    _name_ = 'Windows.UI.Xaml.Data.UpdateSourceTrigger'
     Default = 0
     PropertyChanged = 1
     Explicit = 2

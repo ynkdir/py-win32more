@@ -42,11 +42,13 @@ class BackgroundEnergyManager(ComPtr, metaclass=_BackgroundEnergyManager_Meta_):
     _BackgroundEnergyManager_Meta_.RecentEnergyUsageIncreased = event(add_RecentEnergyUsageIncreased, remove_RecentEnergyUsageIncreased)
     _BackgroundEnergyManager_Meta_.RecentEnergyUsageReturnedToLow = event(add_RecentEnergyUsageReturnedToLow, remove_RecentEnergyUsageReturnedToLow)
 class BatteryStatus(Enum, Int32):
+    _name_ = 'Windows.System.Power.BatteryStatus'
     NotPresent = 0
     Discharging = 1
     Idle = 2
     Charging = 3
 class EnergySaverStatus(Enum, Int32):
+    _name_ = 'Windows.System.Power.EnergySaverStatus'
     Disabled = 0
     Off = 1
     On = 2
@@ -243,6 +245,7 @@ class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     _PowerManager_Meta_.RemainingChargePercentChanged = event(add_RemainingChargePercentChanged, remove_RemainingChargePercentChanged)
     _PowerManager_Meta_.RemainingDischargeTimeChanged = event(add_RemainingDischargeTimeChanged, remove_RemainingDischargeTimeChanged)
 class PowerSupplyStatus(Enum, Int32):
+    _name_ = 'Windows.System.Power.PowerSupplyStatus'
     NotPresent = 0
     Inadequate = 1
     Adequate = 2

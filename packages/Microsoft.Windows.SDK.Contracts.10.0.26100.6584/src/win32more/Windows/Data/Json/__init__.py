@@ -190,6 +190,7 @@ class JsonError(ComPtr):
     @winrt_classmethod
     def GetJsonStatus(cls: win32more.Windows.Data.Json.IJsonErrorStatics2, hresult: Int32) -> win32more.Windows.Data.Json.JsonErrorStatus: ...
 class JsonErrorStatus(Enum, Int32):
+    _name_ = 'Windows.Data.Json.JsonErrorStatus'
     Unknown = 0
     InvalidJsonString = 1
     InvalidJsonNumber = 2
@@ -307,6 +308,7 @@ class JsonValue(ComPtr):
     def CreateStringValue(cls: win32more.Windows.Data.Json.IJsonValueStatics, input: hstr) -> win32more.Windows.Data.Json.JsonValue: ...
     ValueType = property(get_ValueType, None)
 class JsonValueType(Enum, Int32):
+    _name_ = 'Windows.Data.Json.JsonValueType'
     Null = 0
     Boolean = 1
     Number = 2

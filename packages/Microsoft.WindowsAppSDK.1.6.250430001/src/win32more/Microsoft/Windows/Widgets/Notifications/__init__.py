@@ -3,9 +3,11 @@ from win32more._prelude import *
 import win32more.Microsoft.Windows.Widgets.Notifications
 import win32more.Windows.Foundation
 class AnnouncementActionKind(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Widgets.Notifications.AnnouncementActionKind'
     Shown = 0
     Engaged = 1
 class AnnouncementTextColor(Enum, Int32):
+    _name_ = 'Microsoft.Windows.Widgets.Notifications.AnnouncementTextColor'
     Default = 0
     Dark = 1
     Light = 2

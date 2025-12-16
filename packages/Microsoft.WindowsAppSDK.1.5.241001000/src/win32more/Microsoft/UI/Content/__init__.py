@@ -30,6 +30,7 @@ class ContentCoordinateConverter(ComPtr):
     @winrt_classmethod
     def CreateForWindowId(cls: win32more.Microsoft.UI.Content.IContentCoordinateConverterStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
 class ContentCoordinateRoundingMode(Enum, Int32):
+    _name_ = 'Microsoft.UI.Content.ContentCoordinateRoundingMode'
     Auto = 0
     Floor = 1
     Round = 2
@@ -215,6 +216,7 @@ class ContentIslandStateChangedEventArgs(ComPtr):
     DidSiteEnabledChange = property(get_DidSiteEnabledChange, None)
     DidSiteVisibleChange = property(get_DidSiteVisibleChange, None)
 class ContentLayoutDirection(Enum, Int32):
+    _name_ = 'Microsoft.UI.Content.ContentLayoutDirection'
     LeftToRight = 0
     RightToLeft = 1
 class ContentSite(ComPtr):
@@ -388,6 +390,7 @@ class ContentSiteView(ComPtr):
     RequestedSize = property(get_RequestedSize, None)
     ShouldApplyRasterizationScale = property(get_ShouldApplyRasterizationScale, None)
 class ContentSizePolicy(Enum, Int32):
+    _name_ = 'Microsoft.UI.Content.ContentSizePolicy'
     None_ = 0
     ResizeContentToParentWindow = 1
     ResizeParentWindowToContent = 2

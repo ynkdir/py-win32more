@@ -379,6 +379,7 @@ class UserDataTaskBatch(ComPtr):
     def get_Tasks(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskBatch) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask]: ...
     Tasks = property(get_Tasks, None)
 class UserDataTaskDaysOfWeek(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskDaysOfWeek'
     None_ = 0
     Sunday = 1
     Monday = 2
@@ -388,9 +389,11 @@ class UserDataTaskDaysOfWeek(Enum, UInt32):
     Friday = 32
     Saturday = 64
 class UserDataTaskDetailsKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskDetailsKind'
     PlainText = 0
     Html = 1
 class UserDataTaskKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskKind'
     Single = 0
     Recurring = 1
     Regenerating = 2
@@ -457,10 +460,12 @@ class UserDataTaskListLimitedWriteOperations(ComPtr):
     @winrt_mixinmethod
     def TrySkipOccurrenceAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskListLimitedWriteOperations, userDataTaskId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class UserDataTaskListOtherAppReadAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskListOtherAppReadAccess'
     Full = 0
     SystemOnly = 1
     None_ = 2
 class UserDataTaskListOtherAppWriteAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskListOtherAppWriteAccess'
     Limited = 0
     None_ = 1
 class UserDataTaskListSyncManager(ComPtr):
@@ -490,6 +495,7 @@ class UserDataTaskListSyncManager(ComPtr):
     Status = property(get_Status, put_Status)
     SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class UserDataTaskListSyncStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncStatus'
     Idle = 0
     Syncing = 1
     UpToDate = 2
@@ -510,10 +516,12 @@ class UserDataTaskManager(ComPtr):
     def GetForUser(cls: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskManagerStatics, user: win32more.Windows.System.User) -> win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskManager: ...
     User = property(get_User, None)
 class UserDataTaskPriority(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskPriority'
     Normal = 0
     Low = -1
     High = 1
 class UserDataTaskQueryKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryKind'
     All = 0
     Incomplete = 1
     Complete = 2
@@ -541,6 +549,7 @@ class UserDataTaskQueryOptions(ComPtr):
     Kind = property(get_Kind, put_Kind)
     SortProperty = property(get_SortProperty, put_SortProperty)
 class UserDataTaskQuerySortProperty(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskQuerySortProperty'
     DueDate = 0
 class UserDataTaskReader(ComPtr):
     extends: IInspectable
@@ -602,6 +611,7 @@ class UserDataTaskRecurrenceProperties(ComPtr):
     Until = property(get_Until, put_Until)
     WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
 class UserDataTaskRecurrenceUnit(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceUnit'
     Daily = 0
     Weekly = 1
     Monthly = 2
@@ -642,11 +652,13 @@ class UserDataTaskRegenerationProperties(ComPtr):
     Unit = property(get_Unit, put_Unit)
     Until = property(get_Until, put_Until)
 class UserDataTaskRegenerationUnit(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationUnit'
     Daily = 0
     Weekly = 1
     Monthly = 2
     Yearly = 4
 class UserDataTaskSensitivity(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskSensitivity'
     Public = 0
     Private = 1
 class UserDataTaskStore(ComPtr):
@@ -662,9 +674,11 @@ class UserDataTaskStore(ComPtr):
     @winrt_mixinmethod
     def GetListAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskStore, taskListId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskList]: ...
 class UserDataTaskStoreAccessType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskStoreAccessType'
     AppTasksReadWrite = 0
     AllTasksLimitedReadWrite = 1
 class UserDataTaskWeekOfMonth(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskWeekOfMonth'
     First = 0
     Second = 1
     Third = 2

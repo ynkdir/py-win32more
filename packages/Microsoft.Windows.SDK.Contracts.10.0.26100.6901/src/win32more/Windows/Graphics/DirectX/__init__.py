@@ -2,11 +2,13 @@ from __future__ import annotations
 from win32more._prelude import *
 import win32more.Windows.Graphics.DirectX
 class DirectXAlphaMode(Enum, Int32):
+    _name_ = 'Windows.Graphics.DirectX.DirectXAlphaMode'
     Unspecified = 0
     Premultiplied = 1
     Straight = 2
     Ignore = 3
 class DirectXColorSpace(Enum, Int32):
+    _name_ = 'Windows.Graphics.DirectX.DirectXColorSpace'
     RgbFullG22NoneP709 = 0
     RgbFullG10NoneP709 = 1
     RgbStudioG22NoneP709 = 2
@@ -33,6 +35,7 @@ class DirectXColorSpace(Enum, Int32):
     YccStudioG24LeftP2020 = 23
     YccStudioG24TopLeftP2020 = 24
 class DirectXPixelFormat(Enum, Int32):
+    _name_ = 'Windows.Graphics.DirectX.DirectXPixelFormat'
     Unknown = 0
     R32G32B32A32Typeless = 1
     R32G32B32A32Float = 2
@@ -156,6 +159,7 @@ class DirectXPixelFormat(Enum, Int32):
     SamplerFeedbackMipRegionUsedOpaque = 190
     A4B4G4R4 = 191
 class DirectXPrimitiveTopology(Enum, Int32):
+    _name_ = 'Windows.Graphics.DirectX.DirectXPrimitiveTopology'
     Undefined = 0
     PointList = 1
     LineList = 2

@@ -116,6 +116,7 @@ class HttpClient(ComPtr):
     DefaultPrivacyAnnotation = property(get_DefaultPrivacyAnnotation, put_DefaultPrivacyAnnotation)
     DefaultRequestHeaders = property(get_DefaultRequestHeaders, None)
 class HttpCompletionOption(Enum, Int32):
+    _name_ = 'Windows.Web.Http.HttpCompletionOption'
     ResponseContentRead = 0
     ResponseHeadersRead = 1
 class HttpCookie(ComPtr):
@@ -435,6 +436,7 @@ class HttpProgress(Structure):
     TotalBytesToReceive: win32more.Windows.Foundation.IReference[UInt64]
     Retries: UInt32
 class HttpProgressStage(Enum, Int32):
+    _name_ = 'Windows.Web.Http.HttpProgressStage'
     None_ = 0
     DetectingProxy = 10
     ResolvingName = 20
@@ -578,10 +580,12 @@ class HttpResponseMessage(ComPtr):
     StatusCode = property(get_StatusCode, put_StatusCode)
     Version = property(get_Version, put_Version)
 class HttpResponseMessageSource(Enum, Int32):
+    _name_ = 'Windows.Web.Http.HttpResponseMessageSource'
     None_ = 0
     Cache = 1
     Network = 2
 class HttpStatusCode(Enum, Int32):
+    _name_ = 'Windows.Web.Http.HttpStatusCode'
     None_ = 0
     Continue = 100
     SwitchingProtocols = 101
@@ -733,6 +737,7 @@ class HttpTransportInformation(ComPtr):
     ServerCertificateErrors = property(get_ServerCertificateErrors, None)
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class HttpVersion(Enum, Int32):
+    _name_ = 'Windows.Web.Http.HttpVersion'
     None_ = 0
     Http10 = 1
     Http11 = 2

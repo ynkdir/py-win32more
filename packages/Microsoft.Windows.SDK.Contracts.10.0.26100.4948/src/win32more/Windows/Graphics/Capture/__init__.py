@@ -63,9 +63,11 @@ class GraphicsCaptureAccess(ComPtr):
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Graphics.Capture.IGraphicsCaptureAccessStatics, request: win32more.Windows.Graphics.Capture.GraphicsCaptureAccessKind) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus]: ...
 class GraphicsCaptureAccessKind(Enum, Int32):
+    _name_ = 'Windows.Graphics.Capture.GraphicsCaptureAccessKind'
     Borderless = 0
     Programmatic = 1
 class GraphicsCaptureDirtyRegionMode(Enum, Int32):
+    _name_ = 'Windows.Graphics.Capture.GraphicsCaptureDirtyRegionMode'
     ReportOnly = 0
     ReportAndRender = 1
 class GraphicsCaptureItem(ComPtr):

@@ -1,7 +1,7 @@
 [project]
 name = "win32more-Microsoft.WindowsAppSDK"
-version = "0.7.1.6.250108002"
-dependencies = ["win32more-core==0.7.*", "win32more-Microsoft.Web.WebView2>=0.7.1.0.2651.64,<0.8"]
+version = "0.8.1.6.250108002"
+dependencies = ["win32more-core==0.8.*", "win32more-Microsoft.Web.WebView2>=0.8.1.0.2651.64,<0.9"]
 
 [build-system]
 requires = ["hatchling >= 1.26"]

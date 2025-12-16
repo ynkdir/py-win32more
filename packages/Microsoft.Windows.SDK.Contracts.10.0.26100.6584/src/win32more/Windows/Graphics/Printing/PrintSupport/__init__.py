@@ -319,17 +319,20 @@ class IPrintSupportSettingsUISession(ComPtr):
     SessionInfo = property(get_SessionInfo, None)
     SessionPrintTicket = property(get_SessionPrintTicket, None)
 class IppCommunicationErrorKind(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintSupport.IppCommunicationErrorKind'
     Other = 0
     Timeout = 1
     ConnectionError = 2
     AccessDenied = 3
 class IppPrinterCommunicationKind(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintSupport.IppPrinterCommunicationKind'
     Network = 0
     Usb = 1
     PrinterConnection = 2
     UniversalPrint = 3
     VirtualPrinter = 4
 class PrintSupportAppContracts(Enum, UInt32):
+    _name_ = 'Windows.Graphics.Printing.PrintSupport.PrintSupportAppContracts'
     None_ = 0
     JobBackgroundSession = 1
     SettingsUI = 2
@@ -630,13 +633,16 @@ class PrintSupportSettingsUISession(ComPtr):
     SessionInfo = property(get_SessionInfo, None)
     SessionPrintTicket = property(get_SessionPrintTicket, None)
 class SettingsLaunchKind(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintSupport.SettingsLaunchKind'
     JobPrintTicket = 0
     UserDefaultPrintTicket = 1
 class WorkflowPrintTicketValidationStatus(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintSupport.WorkflowPrintTicketValidationStatus'
     Resolved = 0
     Conflicting = 1
     Invalid = 2
 class XpsImageQuality(Enum, Int32):
+    _name_ = 'Windows.Graphics.Printing.PrintSupport.XpsImageQuality'
     JpegHighCompression = 0
     JpegMediumCompression = 1
     JpegLowCompression = 2

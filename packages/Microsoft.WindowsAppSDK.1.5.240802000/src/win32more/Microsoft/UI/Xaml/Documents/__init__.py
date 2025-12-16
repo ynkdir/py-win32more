@@ -1378,6 +1378,7 @@ class LineBreak(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Documents.LineBreak: ...
 class LogicalDirection(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.Documents.LogicalDirection'
     Backward = 0
     Forward = 1
 class _Paragraph_Meta_(ComPtr.__class__):
@@ -2024,6 +2025,7 @@ class Underline(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Documents.Underline: ...
 class UnderlineStyle(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.Documents.UnderlineStyle'
     None_ = 0
     Single = 1
 

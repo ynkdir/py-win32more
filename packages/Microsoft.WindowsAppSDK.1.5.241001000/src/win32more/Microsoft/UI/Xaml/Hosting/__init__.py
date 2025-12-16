@@ -270,6 +270,7 @@ class XamlShutdownCompletedOnThreadEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDispatcherQueueDeferral(self: win32more.Microsoft.UI.Xaml.Hosting.IXamlShutdownCompletedOnThreadEventArgs) -> win32more.Windows.Foundation.Deferral: ...
 class XamlSourceFocusNavigationReason(Enum, Int32):
+    _name_ = 'Microsoft.UI.Xaml.Hosting.XamlSourceFocusNavigationReason'
     Programmatic = 0
     Restore = 1
     First = 3

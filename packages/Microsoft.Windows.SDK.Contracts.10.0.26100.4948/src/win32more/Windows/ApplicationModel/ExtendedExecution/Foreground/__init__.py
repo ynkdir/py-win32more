@@ -3,11 +3,13 @@ from win32more._prelude import *
 import win32more.Windows.ApplicationModel.ExtendedExecution.Foreground
 import win32more.Windows.Foundation
 class ExtendedExecutionForegroundReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundReason'
     Unspecified = 0
     SavingData = 1
     BackgroundAudio = 2
     Unconstrained = 3
 class ExtendedExecutionForegroundResult(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundResult'
     Allowed = 0
     Denied = 1
 class ExtendedExecutionForegroundRevokedEventArgs(ComPtr):
@@ -18,6 +20,7 @@ class ExtendedExecutionForegroundRevokedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundRevokedEventArgs) -> win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedReason: ...
     Reason = property(get_Reason, None)
 class ExtendedExecutionForegroundRevokedReason(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedReason'
     Resumed = 0
     SystemPolicy = 1
 class ExtendedExecutionForegroundSession(ComPtr):

@@ -31,6 +31,7 @@ class DnssdRegistrationResult(ComPtr):
     IPAddress = property(get_IPAddress, None)
     Status = property(get_Status, None)
 class DnssdRegistrationStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationStatus'
     Success = 0
     InvalidServiceName = 1
     ServerError = 2
@@ -129,6 +130,7 @@ class DnssdServiceWatcher(ComPtr):
     EnumerationCompleted = event(add_EnumerationCompleted, remove_EnumerationCompleted)
     Stopped = event(add_Stopped, remove_Stopped)
 class DnssdServiceWatcherStatus(Enum, Int32):
+    _name_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcherStatus'
     Created = 0
     Started = 1
     EnumerationCompleted = 2

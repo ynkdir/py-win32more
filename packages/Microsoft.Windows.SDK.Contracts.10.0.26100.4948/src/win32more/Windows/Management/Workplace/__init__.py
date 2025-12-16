@@ -40,6 +40,7 @@ class MdmPolicy(ComPtr):
     @winrt_classmethod
     def IsStoreAllowed(cls: win32more.Windows.Management.Workplace.IMdmAllowPolicyStatics) -> Boolean: ...
 class MessagingSyncPolicy(Enum, Int32):
+    _name_ = 'Windows.Management.Workplace.MessagingSyncPolicy'
     Disallowed = 0
     Allowed = 1
     Required = 2

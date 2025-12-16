@@ -59,6 +59,7 @@ class UserNotificationListener(ComPtr, metaclass=_UserNotificationListener_Meta_
     _UserNotificationListener_Meta_.Current = property(get_Current, None)
     NotificationChanged = event(add_NotificationChanged, remove_NotificationChanged)
 class UserNotificationListenerAccessStatus(Enum, Int32):
+    _name_ = 'Windows.UI.Notifications.Management.UserNotificationListenerAccessStatus'
     Unspecified = 0
     Allowed = 1
     Denied = 2

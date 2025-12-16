@@ -415,20 +415,24 @@ class IsolatedWindowsEnvironment(ComPtr):
     def FindByOwnerId(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory, environmentOwnerId: hstr) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironment]: ...
     Id = property(get_Id, None)
 class IsolatedWindowsEnvironmentActivator(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentActivator'
     System = 0
     User = 1
 class IsolatedWindowsEnvironmentAllowedClipboardFormats(Enum, UInt32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentAllowedClipboardFormats'
     None_ = 0
     Text = 1
     Image = 2
     Rtf = 4
 class IsolatedWindowsEnvironmentAvailablePrinters(Enum, UInt32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentAvailablePrinters'
     None_ = 0
     Local = 1
     Network = 2
     SystemPrintToPdf = 4
     SystemPrintToXps = 8
 class IsolatedWindowsEnvironmentClipboardCopyPasteDirections(Enum, UInt32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentClipboardCopyPasteDirections'
     None_ = 0
     HostToIsolatedWindowsEnvironment = 1
     IsolatedWindowsEnvironmentToHost = 2
@@ -453,10 +457,12 @@ class IsolatedWindowsEnvironmentCreateResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentCreateStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateStatus'
     Success = 0
     FailureByPolicy = 1
     UnknownFailure = 2
 class IsolatedWindowsEnvironmentCreationPriority(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentCreationPriority'
     Low = 0
     Normal = 1
 class IsolatedWindowsEnvironmentFile(ComPtr):
@@ -489,6 +495,7 @@ class IsolatedWindowsEnvironmentHost(ComPtr, metaclass=_IsolatedWindowsEnvironme
     _IsolatedWindowsEnvironmentHost_Meta_.HostErrors = property(get_HostErrors, None)
     _IsolatedWindowsEnvironmentHost_Meta_.IsReady = property(get_IsReady, None)
 class IsolatedWindowsEnvironmentHostError(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentHostError'
     AdminPolicyIsDisabledOrNotPresent = 0
     FeatureNotInstalled = 1
     HardwareRequirementsNotMet = 2
@@ -508,6 +515,7 @@ class IsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     File = property(get_File, None)
     Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentLaunchFileStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileStatus'
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2
@@ -633,6 +641,7 @@ class IsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentOwnerRegistrationStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationStatus'
     Success = 0
     InvalidArgument = 1
     AccessDenied = 2
@@ -649,6 +658,7 @@ class IsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentPostMessageStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageStatus'
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2
@@ -669,10 +679,12 @@ class IsolatedWindowsEnvironmentProcess(ComPtr):
     ExitCode = property(get_ExitCode, None)
     State = property(get_State, None)
 class IsolatedWindowsEnvironmentProcessState(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentProcessState'
     Running = 1
     Aborted = 2
     Completed = 3
 class IsolatedWindowsEnvironmentProgressState(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentProgressState'
     Queued = 0
     Processing = 1
     Completed = 2
@@ -712,6 +724,7 @@ class IsolatedWindowsEnvironmentShareFileResult(ComPtr):
     File = property(get_File, None)
     Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentShareFileStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileStatus'
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2
@@ -747,12 +760,14 @@ class IsolatedWindowsEnvironmentShareFolderResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentShareFolderStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderStatus'
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2
     FolderNotFound = 3
     AccessDenied = 4
 class IsolatedWindowsEnvironmentSignInProgress(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentSignInProgress'
     Connecting = 0
     Connected = 1
     Authenticating = 2
@@ -773,6 +788,7 @@ class IsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     Process = property(get_Process, None)
     Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentStartProcessStatus(Enum, Int32):
+    _name_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessStatus'
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2

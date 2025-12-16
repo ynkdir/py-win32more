@@ -3,6 +3,7 @@ from win32more._prelude import *
 import win32more.Windows.Security.Cryptography
 import win32more.Windows.Storage.Streams
 class BinaryStringEncoding(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.BinaryStringEncoding'
     Utf8 = 0
     Utf16LE = 1
     Utf16BE = 2

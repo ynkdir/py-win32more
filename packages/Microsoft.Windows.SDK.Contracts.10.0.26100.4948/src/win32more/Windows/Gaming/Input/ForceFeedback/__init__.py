@@ -34,6 +34,7 @@ class ConditionForceEffect(ComPtr):
     Kind = property(get_Kind, None)
     State = property(get_State, None)
 class ConditionForceEffectKind(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.ForceFeedback.ConditionForceEffectKind'
     Spring = 0
     Damper = 1
     Inertia = 2
@@ -68,16 +69,19 @@ class ConstantForceEffect(ComPtr):
     Gain = property(get_Gain, put_Gain)
     State = property(get_State, None)
 class ForceFeedbackEffectAxes(Enum, UInt32):
+    _name_ = 'Windows.Gaming.Input.ForceFeedback.ForceFeedbackEffectAxes'
     None_ = 0
     X = 1
     Y = 2
     Z = 4
 class ForceFeedbackEffectState(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.ForceFeedback.ForceFeedbackEffectState'
     Stopped = 0
     Running = 1
     Paused = 2
     Faulted = 3
 class ForceFeedbackLoadEffectResult(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.ForceFeedback.ForceFeedbackLoadEffectResult'
     Succeeded = 0
     EffectStorageFull = 1
     EffectNotSupported = 2
@@ -246,6 +250,7 @@ class PeriodicForceEffect(ComPtr):
     Kind = property(get_Kind, None)
     State = property(get_State, None)
 class PeriodicForceEffectKind(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.ForceFeedback.PeriodicForceEffectKind'
     SquareWave = 0
     SineWave = 1
     TriangleWave = 2

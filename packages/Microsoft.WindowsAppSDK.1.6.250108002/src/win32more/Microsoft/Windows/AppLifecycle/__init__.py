@@ -63,6 +63,7 @@ class AppInstance(ComPtr):
     Activated = event(add_Activated, remove_Activated)
 AppLifecycleContract: UInt32 = 131072
 class ExtendedActivationKind(Enum, Int32):
+    _name_ = 'Microsoft.Windows.AppLifecycle.ExtendedActivationKind'
     Launch = 0
     Search = 1
     ShareTarget = 2

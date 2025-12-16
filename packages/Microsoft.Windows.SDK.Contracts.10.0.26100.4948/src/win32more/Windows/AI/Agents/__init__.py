@@ -4,6 +4,7 @@ import win32more.Windows.AI.Agents
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
 class AgentAuthorizationResponse(Enum, Int32):
+    _name_ = 'Windows.AI.Agents.AgentAuthorizationResponse'
     Denied = 0
     Approved = 1
 class AgentContext(ComPtr):

@@ -59,6 +59,7 @@ class ArcadeStick(ComPtr, metaclass=_ArcadeStick_Meta_):
     _ArcadeStick_Meta_.ArcadeStickAdded = event(add_ArcadeStickAdded, remove_ArcadeStickAdded)
     _ArcadeStick_Meta_.ArcadeStickRemoved = event(add_ArcadeStickRemoved, remove_ArcadeStickRemoved)
 class ArcadeStickButtons(Enum, UInt32):
+    _name_ = 'Windows.Gaming.Input.ArcadeStickButtons'
     None_ = 0
     StickUp = 1
     StickDown = 2
@@ -131,6 +132,7 @@ class FlightStick(ComPtr, metaclass=_FlightStick_Meta_):
     _FlightStick_Meta_.FlightStickAdded = event(add_FlightStickAdded, remove_FlightStickAdded)
     _FlightStick_Meta_.FlightStickRemoved = event(add_FlightStickRemoved, remove_FlightStickRemoved)
 class FlightStickButtons(Enum, UInt32):
+    _name_ = 'Windows.Gaming.Input.FlightStickButtons'
     None_ = 0
     FirePrimary = 1
     FireSecondary = 2
@@ -144,6 +146,7 @@ class FlightStickReading(Structure):
     Yaw: Double
     Throttle: Double
 class GameControllerButtonLabel(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.GameControllerButtonLabel'
     None_ = 0
     XboxBack = 1
     XboxStart = 2
@@ -214,10 +217,12 @@ class GameControllerButtonLabel(Enum, Int32):
     DialRight = 67
     Suspension = 68
 class GameControllerSwitchKind(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.GameControllerSwitchKind'
     TwoWay = 0
     FourWay = 1
     EightWay = 2
 class GameControllerSwitchPosition(Enum, Int32):
+    _name_ = 'Windows.Gaming.Input.GameControllerSwitchPosition'
     Center = 0
     Up = 1
     UpRight = 2
@@ -284,6 +289,7 @@ class Gamepad(ComPtr, metaclass=_Gamepad_Meta_):
     _Gamepad_Meta_.GamepadAdded = event(add_GamepadAdded, remove_GamepadAdded)
     _Gamepad_Meta_.GamepadRemoved = event(add_GamepadRemoved, remove_GamepadRemoved)
 class GamepadButtons(Enum, UInt32):
+    _name_ = 'Windows.Gaming.Input.GamepadButtons'
     None_ = 0
     Menu = 1
     View = 2
@@ -620,6 +626,7 @@ class IUINavigationControllerStatics2(ComPtr):
     @winrt_commethod(6)
     def FromGameController(self, gameController: win32more.Windows.Gaming.Input.IGameController) -> win32more.Windows.Gaming.Input.UINavigationController: ...
 class OptionalUINavigationButtons(Enum, UInt32):
+    _name_ = 'Windows.Gaming.Input.OptionalUINavigationButtons'
     None_ = 0
     Context1 = 1
     Context2 = 2
@@ -703,6 +710,7 @@ class RacingWheel(ComPtr, metaclass=_RacingWheel_Meta_):
     _RacingWheel_Meta_.RacingWheelAdded = event(add_RacingWheelAdded, remove_RacingWheelAdded)
     _RacingWheel_Meta_.RacingWheelRemoved = event(add_RacingWheelRemoved, remove_RacingWheelRemoved)
 class RacingWheelButtons(Enum, UInt32):
+    _name_ = 'Windows.Gaming.Input.RacingWheelButtons'
     None_ = 0
     PreviousGear = 1
     NextGear = 2
@@ -817,6 +825,7 @@ class RawGameController(ComPtr, metaclass=_RawGameController_Meta_):
     _RawGameController_Meta_.RawGameControllerAdded = event(add_RawGameControllerAdded, remove_RawGameControllerAdded)
     _RawGameController_Meta_.RawGameControllerRemoved = event(add_RawGameControllerRemoved, remove_RawGameControllerRemoved)
 class RequiredUINavigationButtons(Enum, UInt32):
+    _name_ = 'Windows.Gaming.Input.RequiredUINavigationButtons'
     None_ = 0
     Menu = 1
     View = 2

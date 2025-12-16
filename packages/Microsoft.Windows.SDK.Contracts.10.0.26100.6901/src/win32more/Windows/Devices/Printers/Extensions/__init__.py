@@ -132,6 +132,7 @@ class Print3DWorkflow(ComPtr):
     PrintRequested = event(add_PrintRequested, remove_PrintRequested)
     PrinterChanged = event(add_PrinterChanged, remove_PrinterChanged)
 class Print3DWorkflowDetail(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflowDetail'
     Unknown = 0
     ModelExceedsPrintBed = 1
     UploadFailed = 2
@@ -160,6 +161,7 @@ class Print3DWorkflowPrinterChangedEventArgs(ComPtr):
     def get_NewDeviceId(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs) -> hstr: ...
     NewDeviceId = property(get_NewDeviceId, None)
 class Print3DWorkflowStatus(Enum, Int32):
+    _name_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflowStatus'
     Abandoned = 0
     Canceled = 1
     Failed = 2

@@ -456,6 +456,7 @@ class MusicProperties(ComPtr):
     Writers = property(get_Writers, None)
     Year = property(get_Year, put_Year)
 class PhotoOrientation(Enum, Int32):
+    _name_ = 'Windows.Storage.FileProperties.PhotoOrientation'
     Unspecified = 0
     Normal = 1
     FlipHorizontal = 2
@@ -466,6 +467,7 @@ class PhotoOrientation(Enum, Int32):
     Transverse = 7
     Rotate90 = 8
 class PropertyPrefetchOptions(Enum, UInt32):
+    _name_ = 'Windows.Storage.FileProperties.PropertyPrefetchOptions'
     None_ = 0
     MusicProperties = 1
     VideoProperties = 2
@@ -541,6 +543,7 @@ class StorageItemThumbnail(ComPtr):
     Size = property(get_Size, put_Size)
     Type = property(get_Type, None)
 class ThumbnailMode(Enum, Int32):
+    _name_ = 'Windows.Storage.FileProperties.ThumbnailMode'
     PicturesView = 0
     VideosView = 1
     MusicView = 2
@@ -548,14 +551,17 @@ class ThumbnailMode(Enum, Int32):
     ListView = 4
     SingleItem = 5
 class ThumbnailOptions(Enum, UInt32):
+    _name_ = 'Windows.Storage.FileProperties.ThumbnailOptions'
     None_ = 0
     ReturnOnlyIfCached = 1
     ResizeThumbnail = 2
     UseCurrentScale = 4
 class ThumbnailType(Enum, Int32):
+    _name_ = 'Windows.Storage.FileProperties.ThumbnailType'
     Image = 0
     Icon = 1
 class VideoOrientation(Enum, Int32):
+    _name_ = 'Windows.Storage.FileProperties.VideoOrientation'
     Normal = 0
     Rotate90 = 90
     Rotate180 = 180

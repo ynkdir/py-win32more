@@ -502,9 +502,11 @@ class MediaFrameReader(ComPtr):
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
     FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class MediaFrameReaderAcquisitionMode(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode'
     Realtime = 0
     Buffered = 1
 class MediaFrameReaderStartStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.Frames.MediaFrameReaderStartStatus'
     Success = 0
     UnknownFailure = 1
     DeviceNotAvailable = 2
@@ -598,6 +600,7 @@ class MediaFrameSourceGetPropertyResult(ComPtr):
     Status = property(get_Status, None)
     Value = property(get_Value, None)
 class MediaFrameSourceGetPropertyStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyStatus'
     Success = 0
     UnknownFailure = 1
     NotSupported = 2
@@ -660,6 +663,7 @@ class MediaFrameSourceInfo(ComPtr):
     SourceKind = property(get_SourceKind, None)
     VideoProfileMediaDescription = property(get_VideoProfileMediaDescription, None)
 class MediaFrameSourceKind(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.Frames.MediaFrameSourceKind'
     Custom = 0
     Color = 1
     Infrared = 2
@@ -668,6 +672,7 @@ class MediaFrameSourceKind(Enum, Int32):
     Image = 5
     Metadata = 6
 class MediaFrameSourceSetPropertyStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus'
     Success = 0
     UnknownFailure = 1
     NotSupported = 2
@@ -702,6 +707,7 @@ class MultiSourceMediaFrameReader(ComPtr):
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
     FrameArrived = event(add_FrameArrived, remove_FrameArrived)
 class MultiSourceMediaFrameReaderStartStatus(Enum, Int32):
+    _name_ = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReaderStartStatus'
     Success = 0
     NotSupported = 1
     InsufficientResources = 2

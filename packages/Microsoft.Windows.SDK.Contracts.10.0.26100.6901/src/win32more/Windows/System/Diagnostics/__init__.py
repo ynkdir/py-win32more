@@ -16,6 +16,7 @@ class DiagnosticActionResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Results = property(get_Results, None)
 class DiagnosticActionState(Enum, Int32):
+    _name_ = 'Windows.System.Diagnostics.DiagnosticActionState'
     Initializing = 0
     Downloading = 1
     VerifyingTrust = 2

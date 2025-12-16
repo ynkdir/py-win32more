@@ -1027,6 +1027,7 @@ class WindowsSoftwareUpdateActionProgress(ComPtr):
     CurrentProgress = property(get_CurrentProgress, None)
     TotalProgress = property(get_TotalProgress, None)
 class WindowsSoftwareUpdateActionResult(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsSoftwareUpdateActionResult'
     Succeeded = 0
     Continue = 1
     Failed = 2
@@ -1052,6 +1053,7 @@ class WindowsSoftwareUpdateActionResultInfo(ComPtr):
     Succeeded = property(get_Succeeded, None)
     Timestamp = property(get_Timestamp, None)
 class WindowsSoftwareUpdateActionType(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsSoftwareUpdateActionType'
     Download = 0
     Install = 1
     Deploy = 2
@@ -1105,6 +1107,7 @@ class WindowsSoftwareUpdateApprovalInfo(ComPtr):
     Seeker = property(get_Seeker, None)
     UserInitiated = property(get_UserInitiated, None)
 class WindowsSoftwareUpdateArchitecture(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsSoftwareUpdateArchitecture'
     Neutral = 0
     X86 = 1
     X64 = 2
@@ -1140,6 +1143,7 @@ class WindowsSoftwareUpdateExecutionInfo(ComPtr):
     InstallInfo = property(get_InstallInfo, None)
     OptionalActionInfo = property(get_OptionalActionInfo, None)
 class WindowsSoftwareUpdateInstallationType(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsSoftwareUpdateInstallationType'
     WindowsUpdate = 0
     AppPackage = 1
     Executable = 2
@@ -1313,6 +1317,7 @@ class WindowsSoftwareUpdateProviderPayloadFileInfo(ComPtr):
     Filename = property(get_Filename, None)
     TrustState = property(get_TrustState, None)
 class WindowsSoftwareUpdateProviderRegistrationType(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsSoftwareUpdateProviderRegistrationType'
     None_ = 0
     System = 1
     Windows = 2
@@ -1344,14 +1349,17 @@ class WindowsSoftwareUpdateProviderStatus(ComPtr):
     def SetActionResult(self: win32more.Windows.Management.Update.IWindowsSoftwareUpdateProviderStatus, actionResult: win32more.Windows.Management.Update.WindowsSoftwareUpdateProviderActionResult) -> win32more.Windows.Management.Update.WindowsSoftwareUpdateResult: ...
     CancelRequested = event(add_CancelRequested, remove_CancelRequested)
 class WindowsSoftwareUpdateProviderTrustState(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsSoftwareUpdateProviderTrustState'
     SignedTrusted = 0
     SignedUntrusted = 1
     Unsigned = 2
 class WindowsSoftwareUpdateProviderType(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsSoftwareUpdateProviderType'
     WindowsUpdate = 0
     Executable = 1
     Powershell = 2
 class WindowsSoftwareUpdateRestartReason(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsSoftwareUpdateRestartReason'
     None_ = 0
     System = 1
     AppClose = 2
@@ -1588,11 +1596,13 @@ class WindowsUpdateAdministrator(ComPtr):
     @winrt_classmethod
     def CancelRestartRequest(cls: win32more.Windows.Management.Update.IWindowsUpdateAdministratorStatics, requestRestartToken: hstr) -> Void: ...
 class WindowsUpdateAdministratorOptions(Enum, UInt32):
+    _name_ = 'Windows.Management.Update.WindowsUpdateAdministratorOptions'
     None_ = 0
     RequireAdministratorApprovalForScans = 1
     RequireAdministratorApprovalForUpdates = 2
     RequireAdministratorApprovalForActions = 4
 class WindowsUpdateAdministratorStatus(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsUpdateAdministratorStatus'
     Succeeded = 0
     NoAdministratorRegistered = 1
     OtherAdministratorIsRegistered = 2
@@ -1645,6 +1655,7 @@ class WindowsUpdateAttentionRequiredInfo(ComPtr):
     Reason = property(get_Reason, None)
     Timestamp = property(get_Timestamp, None)
 class WindowsUpdateAttentionRequiredReason(Enum, Int32):
+    _name_ = 'Windows.Management.Update.WindowsUpdateAttentionRequiredReason'
     None_ = 0
     SeekerUpdate = 1
     ReadyToReboot = 2

@@ -56,6 +56,7 @@ class IUserDataStorageItemProtectionInfo(ComPtr):
     def get_Availability(self) -> win32more.Windows.Security.DataProtection.UserDataAvailability: ...
     Availability = property(get_Availability, None)
 class UserDataAvailability(Enum, Int32):
+    _name_ = 'Windows.Security.DataProtection.UserDataAvailability'
     Always = 0
     AfterFirstUnlock = 1
     WhileUnlocked = 2
@@ -76,6 +77,7 @@ class UserDataBufferUnprotectResult(ComPtr):
     Status = property(get_Status, None)
     UnprotectedBuffer = property(get_UnprotectedBuffer, None)
 class UserDataBufferUnprotectStatus(Enum, Int32):
+    _name_ = 'Windows.Security.DataProtection.UserDataBufferUnprotectStatus'
     Succeeded = 0
     Unavailable = 1
 class UserDataProtectionManager(ComPtr):
@@ -109,6 +111,7 @@ class UserDataStorageItemProtectionInfo(ComPtr):
     def get_Availability(self: win32more.Windows.Security.DataProtection.IUserDataStorageItemProtectionInfo) -> win32more.Windows.Security.DataProtection.UserDataAvailability: ...
     Availability = property(get_Availability, None)
 class UserDataStorageItemProtectionStatus(Enum, Int32):
+    _name_ = 'Windows.Security.DataProtection.UserDataStorageItemProtectionStatus'
     Succeeded = 0
     NotProtectable = 1
     DataUnavailable = 2

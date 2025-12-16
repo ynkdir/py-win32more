@@ -241,6 +241,7 @@ class ContactAddress(ComPtr):
     Region = property(get_Region, put_Region)
     StreetAddress = property(get_StreetAddress, put_StreetAddress)
 class ContactAddressKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactAddressKind'
     Home = 0
     Work = 1
     Other = 2
@@ -315,6 +316,7 @@ class ContactAnnotationList(ComPtr):
     ProviderPackageFamilyName = property(get_ProviderPackageFamilyName, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
 class ContactAnnotationOperations(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactAnnotationOperations'
     None_ = 0
     ContactProfile = 1
     Message = 2
@@ -345,6 +347,7 @@ class ContactAnnotationStore(ComPtr):
     @winrt_mixinmethod
     def FindAnnotationsForContactListAsync(self: win32more.Windows.ApplicationModel.Contacts.IContactAnnotationStore2, contactListId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Contacts.ContactAnnotation]]: ...
 class ContactAnnotationStoreAccessType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactAnnotationStoreAccessType'
     AppAnnotationsReadWrite = 0
     AllAnnotationsReadWrite = 1
 class ContactBatch(ComPtr):
@@ -358,6 +361,7 @@ class ContactBatch(ComPtr):
     Contacts = property(get_Contacts, None)
     Status = property(get_Status, None)
 class ContactBatchStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactBatchStatus'
     Success = 0
     ServerSearchSyncManagerError = 1
     ServerSearchUnknownError = 2
@@ -371,6 +375,7 @@ class ContactCardDelayedDataLoader(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class ContactCardHeaderKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactCardHeaderKind'
     Default = 0
     Basic = 1
     Enterprise = 2
@@ -401,6 +406,7 @@ class ContactCardOptions(ComPtr):
     InitialTabKind = property(get_InitialTabKind, put_InitialTabKind)
     ServerSearchContactListIds = property(get_ServerSearchContactListIds, None)
 class ContactCardTabKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactCardTabKind'
     Default = 0
     Email = 1
     Messaging = 2
@@ -441,6 +447,7 @@ class ContactChangeTracker(ComPtr):
     def get_IsTracking(self: win32more.Windows.ApplicationModel.Contacts.IContactChangeTracker2) -> Boolean: ...
     IsTracking = property(get_IsTracking, None)
 class ContactChangeType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactChangeType'
     Created = 0
     Modified = 1
     Deleted = 2
@@ -519,6 +526,7 @@ class ContactDate(ComPtr):
     Month = property(get_Month, put_Month)
     Year = property(get_Year, put_Year)
 class ContactDateKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactDateKind'
     Birthday = 0
     Anniversary = 1
     Other = 2
@@ -551,6 +559,7 @@ class ContactEmail(ComPtr):
     Description = property(get_Description, put_Description)
     Kind = property(get_Kind, put_Kind)
 class ContactEmailKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactEmailKind'
     Personal = 0
     Work = 1
     Other = 2
@@ -588,6 +597,7 @@ class ContactField(ComPtr):
     Type = property(get_Type, None)
     Value = property(get_Value, None)
 class ContactFieldCategory(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactFieldCategory'
     None_ = 0
     Home = 1
     Work = 2
@@ -625,6 +635,7 @@ class ContactFieldFactory(ComPtr):
     @winrt_mixinmethod
     def CreateInstantMessage_All(self: win32more.Windows.ApplicationModel.Contacts.IContactInstantMessageFieldFactory, userName: hstr, category: win32more.Windows.ApplicationModel.Contacts.ContactFieldCategory, service: hstr, displayText: hstr, verb: win32more.Windows.Foundation.Uri) -> win32more.Windows.ApplicationModel.Contacts.ContactInstantMessageField: ...
 class ContactFieldType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactFieldType'
     Email = 0
     PhoneNumber = 1
     Location = 2
@@ -871,11 +882,13 @@ class ContactListLimitedWriteOperations(ComPtr):
     @winrt_mixinmethod
     def TryDeleteContactAsync(self: win32more.Windows.ApplicationModel.Contacts.IContactListLimitedWriteOperations, contactId: hstr) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ContactListOtherAppReadAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactListOtherAppReadAccess'
     SystemOnly = 0
     Limited = 1
     Full = 2
     None_ = 3
 class ContactListOtherAppWriteAccess(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactListOtherAppWriteAccess'
     None_ = 0
     SystemOnly = 1
     Limited = 2
@@ -1050,6 +1063,7 @@ class ContactListSyncManager(ComPtr):
     Status = property(get_Status, put_Status)
     SyncStatusChanged = event(add_SyncStatusChanged, remove_SyncStatusChanged)
 class ContactListSyncStatus(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactListSyncStatus'
     Idle = 0
     Syncing = 1
     UpToDate = 2
@@ -1203,6 +1217,7 @@ class ContactMatchReason(ComPtr):
     Segments = property(get_Segments, None)
     Text = property(get_Text, None)
 class ContactMatchReasonKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactMatchReasonKind'
     Name = 0
     EmailAddress = 1
     PhoneNumber = 2
@@ -1210,6 +1225,7 @@ class ContactMatchReasonKind(Enum, Int32):
     YomiName = 4
     Other = 5
 class ContactNameOrder(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactNameOrder'
     FirstNameLastName = 0
     LastNameFirstName = 1
 class ContactPanel(ComPtr):
@@ -1277,6 +1293,7 @@ class ContactPhone(ComPtr):
     Kind = property(get_Kind, put_Kind)
     Number = property(get_Number, put_Number)
 class ContactPhoneKind(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactPhoneKind'
     Home = 0
     Mobile = 1
     Work = 2
@@ -1332,6 +1349,7 @@ class ContactPicker(ComPtr):
     SelectionMode = property(get_SelectionMode, put_SelectionMode)
     User = property(get_User, None)
 class ContactQueryDesiredFields(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactQueryDesiredFields'
     None_ = 0
     PhoneNumber = 1
     EmailAddress = 2
@@ -1382,12 +1400,14 @@ class ContactQueryOptions(ComPtr):
     IncludeContactsFromHiddenLists = property(get_IncludeContactsFromHiddenLists, put_IncludeContactsFromHiddenLists)
     TextSearch = property(get_TextSearch, None)
 class ContactQuerySearchFields(Enum, UInt32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactQuerySearchFields'
     None_ = 0
     Name = 1
     Email = 2
     Phone = 4
     All = 4294967295
 class ContactQuerySearchScope(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactQuerySearchScope'
     Local = 0
     Server = 1
 class ContactQueryTextSearch(ComPtr):
@@ -1418,6 +1438,7 @@ class ContactReader(ComPtr):
     @winrt_mixinmethod
     def GetMatchingPropertiesWithMatchReason(self: win32more.Windows.ApplicationModel.Contacts.IContactReader, contact: win32more.Windows.ApplicationModel.Contacts.Contact) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Contacts.ContactMatchReason]: ...
 class ContactRelationship(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactRelationship'
     Other = 0
     Spouse = 1
     Partner = 2
@@ -1425,6 +1446,7 @@ class ContactRelationship(Enum, Int32):
     Parent = 4
     Child = 5
 class ContactSelectionMode(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactSelectionMode'
     Contacts = 0
     Fields = 1
 class ContactSignificantOther(ComPtr):
@@ -1493,6 +1515,7 @@ class ContactStore(ComPtr):
     ChangeTracker = property(get_ChangeTracker, None)
     ContactChanged = event(add_ContactChanged, remove_ContactChanged)
 class ContactStoreAccessType(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.ContactStoreAccessType'
     AppContactsReadWrite = 0
     AllContactsReadOnly = 1
     AllContactsReadWrite = 2
@@ -2959,6 +2982,7 @@ class PinnedContactManager(ComPtr):
     def IsSupported(cls: win32more.Windows.ApplicationModel.Contacts.IPinnedContactManagerStatics) -> Boolean: ...
     User = property(get_User, None)
 class PinnedContactSurface(Enum, Int32):
+    _name_ = 'Windows.ApplicationModel.Contacts.PinnedContactSurface'
     StartMenu = 0
     Taskbar = 1
 

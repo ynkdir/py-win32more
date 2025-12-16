@@ -97,6 +97,7 @@ class AsymmetricKeyAlgorithmProvider(ComPtr):
     def OpenAlgorithm(cls: win32more.Windows.Security.Cryptography.Core.IAsymmetricKeyAlgorithmProviderStatics, algorithm: hstr) -> win32more.Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider: ...
     AlgorithmName = property(get_AlgorithmName, None)
 class Capi1KdfTargetAlgorithm(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Core.Capi1KdfTargetAlgorithm'
     NotAes = 0
     Aes = 1
 class CryptographicEngine(ComPtr):
@@ -150,17 +151,20 @@ class CryptographicKey(ComPtr):
     def ExportPublicKeyWithBlobType(self: win32more.Windows.Security.Cryptography.Core.ICryptographicKey, BlobType: win32more.Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType) -> win32more.Windows.Storage.Streams.IBuffer: ...
     KeySize = property(get_KeySize, None)
 class CryptographicPadding(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Core.CryptographicPadding'
     None_ = 0
     RsaOaep = 1
     RsaPkcs1V15 = 2
     RsaPss = 3
 class CryptographicPrivateKeyBlobType(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Core.CryptographicPrivateKeyBlobType'
     Pkcs8RawPrivateKeyInfo = 0
     Pkcs1RsaPrivateKey = 1
     BCryptPrivateKey = 2
     Capi1PrivateKey = 3
     BCryptEccFullPrivateKey = 4
 class CryptographicPublicKeyBlobType(Enum, Int32):
+    _name_ = 'Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType'
     X509SubjectPublicKeyInfo = 0
     Pkcs1RsaPublicKey = 1
     BCryptPublicKey = 2

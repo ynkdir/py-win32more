@@ -127,6 +127,7 @@ class PwmPin(ComPtr):
     IsStarted = property(get_IsStarted, None)
     Polarity = property(get_Polarity, put_Polarity)
 class PwmPulsePolarity(Enum, Int32):
+    _name_ = 'Windows.Devices.Pwm.PwmPulsePolarity'
     ActiveHigh = 0
     ActiveLow = 1
 
