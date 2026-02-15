@@ -584,6 +584,14 @@ class Nupkg:
         return MetadataParser(metadata).namespaces()
 
     def dependencies(self) -> Iterable[Version]:
+        # PATCH: Microsoft.WindowsAppSDK.Foundation==1.8.260126001 doesn't exist.
+        if self._id == "Microsoft.WindowsAppSDK.ML" and self._version == "1.8.2124":
+            return [Version("Microsoft.WindowsAppSDK.Base", "1.8.251216001"),
+                    Version("Microsoft.WindowsAppSDK.Foundation", "1.8.260203002")]
+        if self._id == "Microsoft.WindowsAppSDK.AI" and self._version == "1.8.47":
+            return [Version("Microsoft.WindowsAppSDK.Base", "1.8.251216001"),
+                    Version("Microsoft.WindowsAppSDK.Foundation", "1.8.260203002")]
+
         nuspec = (self.nupkg_dir() / f"{self._id}.nuspec").read_text(encoding="utf-8-sig")
         return NuspecParser(nuspec).dependencies()
 
