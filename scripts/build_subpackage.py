@@ -1,78 +1,79 @@
-from __future__ import annotations
-
 import argparse
 import contextlib
 import json
 import logging
+import math
 import os
 import re
 import shutil
 import stat
 import subprocess
-import urllib.request
+import tomllib
 import xml.etree.ElementTree as ET
-from abc import ABC, abstractmethod
-from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-
-import tomllib
+from typing import Self
 
 logger = logging.getLogger(__name__)
 
-package_dir: Path
-build_dir: Path
-win32more_version: list[int]
-nupkg_winrt: Nupkg
 
+@dataclass(frozen=True)
+class NuGetVersion:
+    major: int
+    minor: int
+    patch: int
+    revision: int | None = None
+    prerelease: str | None = None
 
-def version_tuple(version_str: str) -> tuple[int]:
-    return tuple(int(n) for n in re.sub("-.*$", "", version_str).split("."))
-
-
-class Version:
-    def __init__(self, id: str, version_range: str) -> None:
-        self._id = id
-        self._version_range = version_range
-
-    def id(self) -> str:
-        return self._id
-
-    def version_range(self) -> str:
-        return self._version_range
-
-    def version(self) -> str:
-        if self.is_exact():
-            return self._version_range[1:-1]
-        return self._version_range
-
-    def is_exact(self) -> bool:
-        return self._version_range.startswith("[") and self._version_range.endswith("]")
-
-    def is_preview(self) -> bool:
-        return self.version().endswith("-preview")
-
-    def pyname(self) -> str:
-        return f"win32more-{self._id}"
-
-    def pyversion(self) -> str:
-        if self.is_preview():
-            if self._id == "Microsoft.Windows.SDK.Win32Metadata":
-                version = self.version().removesuffix("-preview")
-            else:
-                version = self.version().removesuffix("-preview") + "a"
+    @classmethod
+    def parse(cls, version_str: str) -> Self:
+        m = re.match(
+            r"^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:\.(?P<revision>0|[1-9]\d*))?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$",
+            version_str,
+        )
+        if not m:
+            raise ValueError(f"cannot parse version string: '{version_str}'")
+        # ignore buildmetadata
+        if m["revision"] is None:
+            revision = None
         else:
-            version = self.version()
-        return f"{win32more_version[0]}.{win32more_version[1]}.{version}"
+            revision = int(m["revision"])
+        return cls(int(m["major"]), int(m["minor"]), int(m["patch"]), revision, m["prerelease"])
 
-    def pyversion_max(self) -> str:
-        return f"{win32more_version[0]}.{win32more_version[1] + 1}"
+    def __lt__(self, other: Self) -> bool:
+        return self._comparetuple() < other._comparetuple()
 
-    def pydependency(self) -> str:
-        if self.is_exact():
-            return f"{self.pyname()}=={self.pyversion()}"
+    def _comparetuple(self) -> tuple:
+        revision = self.revision
+        if revision is None:
+            revision = 0
+        prerelease = self.prerelease
+        if prerelease is None:
+            prerelease = math.inf
+        return (self.major, self.minor, self.patch, revision, prerelease)
+
+    def __str__(self):
+        if self.revision is None:
+            revision = ""
         else:
-            return f"{self.pyname()}>={self.pyversion()},<{self.pyversion_max()}"
+            revision = f".{self.revision}"
+        if self.prerelease is None:
+            prerelease = ""
+        else:
+            prerelease = "-" + self.prerelease
+        return f"{self.major}.{self.minor}.{self.patch}{revision}{prerelease}"
+
+
+@dataclass(frozen=True)
+class PackageSpec:
+    spec: str
+    id: str
+    version: str
+
+    @classmethod
+    def parse(cls, spec: str) -> Self:
+        id, version = re.split(r"\.(?=\d)", spec, maxsplit=1)
+        return cls(spec, id, version)
 
 
 @dataclass(frozen=True)
@@ -107,41 +108,11 @@ WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = {self.WINDOWSAPPSDK_RUNTIME_VERSION_UINT6
         return AppSDKVersionInfo(major_minor, shorttag, version)
 
 
-@dataclass(frozen=True)
-class Asset:
-    dst: str
-    data: bytes
-
-
-class NuspecParser:
-    def __init__(self, xml) -> None:
-        self._root = ET.fromstring(xml)
-
-    def dependencies(self) -> Iterable[Version]:
-        def parse_dependency(dependency):
-            id = dependency.get("id")
-            if id is None:
-                raise RuntimeError("cannot get id")
-            version = dependency.get("version")
-            if version is None:
-                raise RuntimeError("cannot get version")
-            return Version(id, version)
-
-        ns = {"n": "http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd"}
-        for dependency in self._root.findall("n:metadata/n:dependencies/n:dependency", ns):
-            yield parse_dependency(dependency)
-        # Microsoft.WindowsAppSDK.ML>=1.8.2109
-        for dependency in self._root.findall(
-            "n:metadata/n:dependencies/n:group[@targetFramework='native0.0']/n:dependency", ns
-        ):
-            yield parse_dependency(dependency)
-
-
 class MetadataParser:
     def __init__(self, metadata: list[dict]) -> None:
         self._metadata = metadata
 
-    def namespaces(self) -> Iterable[str]:
+    def namespaces(self) -> set[str]:
         return {td["Namespace"] for td in self._metadata if self._is_public(td)}
 
     def _is_public(self, td: dict) -> bool:
@@ -152,577 +123,121 @@ class MetadataParser:
             return td["Namespace"] != "" and "Public" in td["Attributes"]
 
 
-class NupkgStrategy(ABC):
-    def __init__(self, nupkg: Nupkg) -> None:
-        self._nupkg = nupkg
+class Builder:
+    def __init__(
+        self,
+        build_dir: Path,
+        dist_dir: Path,
+        win32more_major: int,
+        win32more_minor: int,
+    ) -> None:
+        self._build_dir = build_dir
+        self._dist_dir = dist_dir
+        self._win32more_major = win32more_major
+        self._win32more_minor = win32more_minor
 
-    @abstractmethod
-    def known_dependencies(self) -> set[str]:
-        pass
+        if build_dir.exists():
+            self.rmtree_force(build_dir)
+        self.mkdir(build_dir)
 
-    @abstractmethod
-    def runtime_dependencies(self) -> set[str]:
-        pass
+        if dist_dir.exists():
+            self.rmtree_force(dist_dir)
+        self.mkdir(dist_dir)
 
-    @abstractmethod
-    def assets(self) -> Iterable[Asset]:
-        pass
+        self._nupkg_dir = self.mkdir(build_dir / "nupkg")
+        self._json_dir = self.mkdir(build_dir / "json")
+        self._generate_dir = self.mkdir(build_dir / "generate")
 
-    @abstractmethod
-    def winmd_files(self) -> Iterable[Path]:
-        pass
+    def build(self, id: str, version: str) -> None:
+        recipe = self.recipe(id, version)
+        self.download(recipe, version)
+        self.generate(recipe)
+        self.assets(recipe)
+        self.versioninfo(recipe)
+        self.pyproject(recipe, version)
 
-    @staticmethod
-    def create(nupkg: Nupkg) -> NupkgStrategy:
-        if nupkg.id() == "Microsoft.Windows.SDK.Win32Metadata":
-            return NupkgWin32Metadata(nupkg)
-        elif nupkg.id() == "Microsoft.Windows.SDK.Contracts":
-            return NupkgWindowsSDKContracts(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK":
-            if nupkg.version().startswith("1.8."):
-                return NupkgWindowsAppSDK_1_8(nupkg)
-            return NupkgWindowsAppSDK(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.Base":
-            return NupkgWindowsAppSDKBase(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.Foundation":
-            return NupkgWindowsAppSDKFoundation(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.InteractiveExperiences":
-            return NupkgWindowsAppSDKInteractiveExperiences(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.WinUI":
-            return NupkgWindowsAppSDKWinUI(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.DWrite":
-            return NupkgWindowsAppSDKDWrite(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.Widgets":
-            return NupkgWindowsAppSDKWidgets(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.AI":
-            return NupkgWindowsAppSDKAI(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.Runtime":
-            return NupkgWindowsAppSDKRuntime(nupkg)
-        elif nupkg.id() == "Microsoft.WindowsAppSDK.ML":
-            return NupkgWindowsAppSDKML(nupkg)
-        elif nupkg.id() == "Microsoft.Web.WebView2":
-            return NupkgWebView2(nupkg)
-        elif nupkg.id() == "Microsoft.Graphics.Win2D":
-            return NupkgWin2D(nupkg)
-        elif nupkg.id() == "Microsoft.Windows.SDK.BuildTools":
-            return NupkgWindowsSDKBuildTools(nupkg)
-        elif nupkg.id() == "Microsoft.Windows.SDK.BuildTools.MSIX":
-            return NupkgWindowsSDKBuildToolsMSIX(nupkg)
-        raise RuntimeError(f"Unknown package '{nupkg.id()}'")
-
-
-class NupkgWin32Metadata(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return set()
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        return [self._nupkg.nupkg_dir() / "Windows.Win32.winmd"]
-
-
-class NupkgWindowsSDKContracts(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {
-            "System.Runtime.WindowsRuntime",
-            "System.Runtime.InteropServices.WindowsRuntime",
-            "System.Runtime.WindowsRuntime.UI.Xaml",
-        }
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("ref/netstandard2.0/*.winmd")
-
-
-class NupkgWindowsAppSDK(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        if self._nupkg.version().startswith("1.5."):
-            return {"Microsoft.Windows.SDK.BuildTools"}
-        return {"Microsoft.Windows.SDK.BuildTools", "Microsoft.Web.WebView2"}
-
-    def runtime_dependencies(self) -> set[str]:
-        if self._nupkg.version().startswith("1.5."):
-            return set()
-        return {"Microsoft.Web.WebView2"}
-
-    def assets(self) -> Iterable[Asset]:
-        yield Asset("LICENSE (Microsoft.WindowsAppSDK).txt", (self._nupkg.nupkg_dir() / "license.txt").read_bytes())
-
-        for p in self._nupkg.nupkg_dir().glob("runtimes/**/*.dll"):
-            if "win-x86" in str(p):
-                yield Asset(f"src/win32more/dll/x86/{p.name}", p.read_bytes())
-            elif "win-x64" in str(p):
-                yield Asset(f"src/win32more/dll/x64/{p.name}", p.read_bytes())
-            elif "win-arm64" in str(p):
-                yield Asset(f"src/win32more/dll/arm64/{p.name}", p.read_bytes())
-
-        appver = AppSDKVersionInfo.parse(self._nupkg.nupkg_dir() / "WindowsAppSDK-VersionInfo.xml")
-        yield Asset("src/win32more/appsdk/versioninfo.py", appver.format().encode("utf-8"))
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("lib/uap10.0.18362/*.winmd")
-        yield from self._nupkg.nupkg_dir().glob("lib/uap10.0/*.winmd")
-
-
-class NupkgWindowsAppSDK_1_8(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        if version_tuple(self._nupkg.version()) < version_tuple("1.8.250916003"):
-            return {
-                "Microsoft.WindowsAppSDK.Base",
-                "Microsoft.WindowsAppSDK.Foundation",
-                "Microsoft.WindowsAppSDK.InteractiveExperiences",
-                "Microsoft.WindowsAppSDK.WinUI",
-                "Microsoft.WindowsAppSDK.DWrite",
-                "Microsoft.WindowsAppSDK.Widgets",
-                "Microsoft.WindowsAppSDK.AI",
-                "Microsoft.WindowsAppSDK.Runtime",
-            }
+    def recipe(self, id: str, version: str) -> dict:
+        if id == "Microsoft.Windows.SDK.Win32Metadata":
+            return RECIPES["Microsoft.Windows.SDK.Win32Metadata"]
+        elif id == "Microsoft.Windows.SDK.Contracts":
+            return RECIPES["Microsoft.Windows.SDK.Contracts"]
+        elif id == "Microsoft.WindowsAppSDK":
+            if NuGetVersion.parse(version) < NuGetVersion.parse("1.6.0"):
+                return RECIPES["Microsoft.WindowsAppSDK.1.5"]
+            elif NuGetVersion.parse(version) < NuGetVersion.parse("1.7.0"):
+                return RECIPES["Microsoft.WindowsAppSDK.1.6"]
+            elif NuGetVersion.parse(version) < NuGetVersion.parse("1.8.0"):
+                return RECIPES["Microsoft.WindowsAppSDK.1.7"]
+            elif NuGetVersion.parse(version) < NuGetVersion.parse("1.8.250916003"):
+                return RECIPES["Microsoft.WindowsAppSDK.1.8"]
+            else:
+                return RECIPES["Microsoft.WindowsAppSDK.1.8.250916003"]
+        elif id == "Microsoft.Web.WebView2":
+            return RECIPES["Microsoft.Web.WebView2"]
+        elif id == "Microsoft.Graphics.Win2D":
+            if NuGetVersion.parse(version) < NuGetVersion.parse("1.3.0"):
+                return RECIPES["Microsoft.Graphics.Win2D.1.2"]
+            else:
+                return RECIPES["Microsoft.Graphics.Win2D.1.3"]
         else:
-            return {
-                "Microsoft.WindowsAppSDK.Base",
-                "Microsoft.WindowsAppSDK.Foundation",
-                "Microsoft.WindowsAppSDK.InteractiveExperiences",
-                "Microsoft.WindowsAppSDK.WinUI",
-                "Microsoft.WindowsAppSDK.DWrite",
-                "Microsoft.WindowsAppSDK.Widgets",
-                "Microsoft.WindowsAppSDK.AI",
-                "Microsoft.WindowsAppSDK.Runtime",
-                "Microsoft.WindowsAppSDK.ML",
-            }
+            raise RuntimeError(f"cannot build {id}.{version}")
 
-    def runtime_dependencies(self) -> set[str]:
-        return set()
+    def download(self, recipe: dict, version: str) -> None:
+        self.nuget_install(recipe["id"], version)
 
-    def assets(self) -> Iterable[Asset]:
-        yield Asset("LICENSE (Microsoft.WindowsAppSDK).txt", (self._nupkg.nupkg_dir() / "license.txt").read_bytes())
+        for nupkg_id, nupkg_version in recipe["extra_install"]:
+            self.nuget_install(nupkg_id, nupkg_version)
 
-    def winmd_files(self) -> Iterable[Path]:
-        return []
+        assert self.nupkg_names() == self.known_packages(recipe)
 
+    def generate(self, recipe: dict) -> None:
+        metadata = self.metadata(recipe)
 
-class NupkgWindowsAppSDKBase(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {
-            "Microsoft.Windows.SDK.BuildTools",
-            "Microsoft.Windows.SDK.BuildTools.MSIX",
-        }
+        dependencies_metadata = self.dependencies_metadata(recipe)
 
-    def runtime_dependencies(self) -> set[str]:
-        return set()
+        self.win32generator(metadata + dependencies_metadata)
 
-    def assets(self) -> Iterable[Asset]:
-        return []
+        for namespace in self.namespaces(metadata):
+            self.copymodule(namespace)
 
-    def winmd_files(self) -> Iterable[Path]:
-        return []
+    def assets(self, recipe: dict) -> None:
+        for id, nupkg_path, dist_path in recipe["assets"]:
+            self.copyfile(id, nupkg_path, dist_path)
 
+    def versioninfo(self, recipe: dict) -> None:
+        if recipe["versioninfo"] is not None:
+            id, nupkg_path, dist_path = recipe["versioninfo"]
+            self.writefile(AppSDKVersionInfo.parse(self.nupkg_path(id) / nupkg_path).format(), dist_path)
 
-class NupkgWindowsAppSDKFoundation(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {
-            "Microsoft.WindowsAppSDK.Base",
-            "Microsoft.WindowsAppSDK.InteractiveExperiences",
-        }
+    def pyproject(self, recipe: dict, version: str):
+        major = self._win32more_major
+        minor = self._win32more_minor
 
-    def runtime_dependencies(self) -> set[str]:
-        return set()
+        v = NuGetVersion.parse(version)
+        if v.prerelease is not None:
+            release = NuGetVersion(v.major, v.minor, v.patch, v.revision)
+            if recipe["prerelease_is_release"]:
+                version = f"{release}"
+            else:
+                version = f"{release}a"
 
-    def assets(self) -> Iterable[Asset]:
-        for p in self._nupkg.nupkg_dir().glob("runtimes/**/*.dll"):
-            if "win-x86" in str(p):
-                yield Asset(f"src/win32more/dll/x86/{p.name}", p.read_bytes())
-            elif "win-x64" in str(p):
-                yield Asset(f"src/win32more/dll/x64/{p.name}", p.read_bytes())
-            elif "win-arm64" in str(p):
-                yield Asset(f"src/win32more/dll/arm64/{p.name}", p.read_bytes())
+        dependencies = []
 
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("metadata/*.winmd")
+        for core in recipe["core_dependencies"]:
+            dependencies.append(f'"win32more-{core}=={major}.{minor}.*"')
 
+        for recipe_id in recipe["dependencies"]:
+            nupkg_id = RECIPES[recipe_id]["id"]
+            nupkg_version = self.nupkg_version(nupkg_id)
+            dependencies.append(f'"win32more-{nupkg_id}>={major}.{minor}.{nupkg_version},<{major}.{minor + 1}"')
 
-class NupkgWindowsAppSDKInteractiveExperiences(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {"Microsoft.WindowsAppSDK.Base"}
+        dependencies_csv = ", ".join(dependencies)
 
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("metadata/10.0.18362.0/*.winmd")
-
-
-class NupkgWindowsAppSDKWinUI(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {
-            "Microsoft.Web.WebView2",
-            "Microsoft.WindowsAppSDK.Base",
-            "Microsoft.WindowsAppSDK.Foundation",
-            "Microsoft.WindowsAppSDK.InteractiveExperiences",
-        }
-
-    def runtime_dependencies(self) -> set[str]:
-        return {"Microsoft.Web.WebView2"}
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("metadata/*.winmd")
-
-
-class NupkgWindowsAppSDKDWrite(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {"Microsoft.WindowsAppSDK.Base"}
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        return []
-
-
-class NupkgWindowsAppSDKWidgets(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {"Microsoft.WindowsAppSDK.Base"}
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("metadata/*.winmd")
-
-
-class NupkgWindowsAppSDKAI(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {"Microsoft.WindowsAppSDK.Base", "Microsoft.WindowsAppSDK.Foundation"}
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("metadata/*.winmd")
-
-
-class NupkgWindowsAppSDKRuntime(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {"Microsoft.WindowsAppSDK.Base"}
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        appver = AppSDKVersionInfo.parse(self._nupkg.nupkg_dir() / "WindowsAppSDK-VersionInfo.xml")
-        yield Asset("src/win32more/appsdk/versioninfo.py", appver.format().encode("utf-8"))
-
-    def winmd_files(self) -> Iterable[Path]:
-        return []
-
-
-class NupkgWindowsAppSDKML(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {"Microsoft.WindowsAppSDK.Base", "Microsoft.WindowsAppSDK.Foundation"}
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("metadata/*.winmd")
-
-
-class NupkgWebView2(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return set()
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        yield Asset("LICENSE (Microsoft.Web.WebView2).txt", (self._nupkg.nupkg_dir() / "LICENSE.txt").read_bytes())
-
-        for p in self._nupkg.nupkg_dir().glob("runtimes/*/native_uap/*.dll"):
-            if "win-x86" in str(p):
-                yield Asset(f"src/win32more/dll/x86/{p.name}", p.read_bytes())
-            elif "win-x64" in str(p):
-                yield Asset(f"src/win32more/dll/x64/{p.name}", p.read_bytes())
-            elif "win-arm64" in str(p):
-                yield Asset(f"src/win32more/dll/arm64/{p.name}", p.read_bytes())
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("lib/*.winmd")
-
-
-class NupkgWin2D(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return {"Microsoft.WindowsAppSDK"}
-
-    def runtime_dependencies(self) -> set[str]:
-        return {"Microsoft.WindowsAppSDK"}
-
-    def assets(self) -> Iterable[Asset]:
-        for p in self._nupkg.nupkg_dir().glob("runtimes/**/*.dll"):
-            if "win-x86" in str(p):
-                yield Asset(f"src/win32more/dll/x86/{p.name}", p.read_bytes())
-            elif "win-x64" in str(p):
-                yield Asset(f"src/win32more/dll/x64/{p.name}", p.read_bytes())
-            elif "win-arm64" in str(p):
-                yield Asset(f"src/win32more/dll/arm64/{p.name}", p.read_bytes())
-
-    def winmd_files(self) -> Iterable[Path]:
-        yield from self._nupkg.nupkg_dir().glob("lib/uap10.0/*.winmd")
-
-
-class NupkgWindowsSDKBuildTools(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return set()
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        return []
-
-
-class NupkgWindowsSDKBuildToolsMSIX(NupkgStrategy):
-    def known_dependencies(self) -> set[str]:
-        return set()
-
-    def runtime_dependencies(self) -> set[str]:
-        return set()
-
-    def assets(self) -> Iterable[Asset]:
-        return []
-
-    def winmd_files(self) -> Iterable[Path]:
-        return []
-
-
-class Nupkg:
-    def __init__(self, id: str, version: str) -> None:
-        self._id = id
-        self._version = version
-        self._strategy = NupkgStrategy.create(self)
-        self.download()
-        self.verify()
-        self.compile()
-
-    def id(self) -> str:
-        return self._id
-
-    def version(self) -> str:
-        return self._version
-
-    def url(self) -> str:
-        return f"https://api.nuget.org/v3-flatcontainer/{self._id.lower()}/{self._version}/{self._id.lower()}.{self._version}.nupkg"
-
-    def nupkg_file(self) -> Path:
-        return build_dir / "nupkg" / f"{self._id}.{self._version}.nupkg"
-
-    def nupkg_dir(self) -> Path:
-        return build_dir / "nupkg" / f"{self._id}.{self._version}"
-
-    def json_dir(self) -> Path:
-        return build_dir / "json" / f"{self._id}.{self._version}"
-
-    def json_files(self) -> Iterable[Path]:
-        for _, json_file in self.winmd_json_files():
-            yield json_file
-
-    def winmd_json_files(self) -> Iterable[tuple[Path, Path]]:
-        for winmd_file in self.winmd_files():
-            json_file = self.json_dir() / winmd_file.with_suffix(".json").name
-            yield winmd_file, json_file
-
-    def download(self) -> None:
-        if self.nupkg_file().exists():
-            return
-        download(self.url(), self.nupkg_file())
-        shutil.unpack_archive(self.nupkg_file(), self.nupkg_dir(), "zip")
-
-    def verify(self) -> None:
-        deps = {ver.id() for ver in self.dependencies()}
-        if deps != self.known_dependencies():
-            raise RuntimeError(f"Unexpected dependencies: {self._id}.{self._version}: {deps}")
-
-    def compile(self) -> None:
-        if self.json_dir().exists():
-            return
-        self.json_dir().mkdir()
-        for winmd_file, json_file in self.winmd_json_files():
-            winmd_printer(winmd_file, json_file)
-
-    def namespaces(self) -> Iterable[str]:
-        metadata = []
-        for p in self.json_files():
-            metadata.extend(json.loads(p.read_text()))
-        return MetadataParser(metadata).namespaces()
-
-    def dependencies(self) -> Iterable[Version]:
-        # PATCH: Microsoft.WindowsAppSDK.Foundation==1.8.260126001 doesn't exist.
-        if self._id == "Microsoft.WindowsAppSDK.ML" and self._version == "1.8.2124":
-            return [Version("Microsoft.WindowsAppSDK.Base", "1.8.251216001"),
-                    Version("Microsoft.WindowsAppSDK.Foundation", "1.8.260203002")]
-        if self._id == "Microsoft.WindowsAppSDK.AI" and self._version == "1.8.47":
-            return [Version("Microsoft.WindowsAppSDK.Base", "1.8.251216001"),
-                    Version("Microsoft.WindowsAppSDK.Foundation", "1.8.260203002")]
-
-        nuspec = (self.nupkg_dir() / f"{self._id}.nuspec").read_text(encoding="utf-8-sig")
-        return NuspecParser(nuspec).dependencies()
-
-    def known_dependencies(self) -> set[str]:
-        return self._strategy.known_dependencies()
-
-    def runtime_dependencies(self) -> set[str]:
-        return self._strategy.runtime_dependencies()
-
-    def assets(self) -> Iterable[Asset]:
-        return self._strategy.assets()
-
-    def winmd_files(self) -> Iterable[Path]:
-        return self._strategy.winmd_files()
-
-
-class Pypkg:
-    def __init__(self, id: str, version: str) -> None:
-        self._id = id
-        self._version = version
-        self._nupkg = Nupkg(id, version)
-
-    def generate_dir(self) -> Path:
-        return build_dir / "generate" / f"{self._id}.{self._version}"
-
-    def package_dir(self) -> Path:
-        return package_dir / f"{self._id}.{self._version}"
-
-    def build_dependencies(self) -> Iterable[Version]:
-        yield from self.collect_build_dependencies(self._nupkg, set())
-
-    def collect_build_dependencies(self, nupkg: Nupkg, sentinel: set[str]) -> Iterable[Version]:
-        if nupkg.id() in sentinel:
-            return
-        sentinel.add(nupkg.id())
-        yield Version(nupkg.id(), nupkg.version())
-        for ver in nupkg.dependencies():
-            if ver.id().startswith("System."):
-                continue
-            yield from self.collect_build_dependencies(Nupkg(ver.id(), ver.version()), sentinel)
-
-    def runtime_dependencies(self) -> Iterable[Version]:
-        yield from self.collect_runtime_dependencies(self._nupkg, set())
-
-    def collect_runtime_dependencies(self, nupkg: Nupkg, sentinel: set[str]) -> Iterable[Version]:
-        if nupkg.id() in sentinel:
-            return
-        sentinel.add(nupkg.id())
-        for ver in nupkg.dependencies():
-            if ver.id().startswith("System."):
-                continue
-            if ver.id() in nupkg.runtime_dependencies():
-                yield ver
-                continue
-            yield from self.collect_runtime_dependencies(Nupkg(ver.id(), ver.version()), sentinel)
-
-    def dist_dependencies(self) -> Iterable[Version]:
-        yield from self.collect_dist_dependencies(self._nupkg, set())
-
-    def collect_dist_dependencies(self, nupkg: Nupkg, sentinel: set[str]) -> Iterable[Version]:
-        if nupkg.id() in sentinel:
-            return
-        sentinel.add(nupkg.id())
-        yield Version(nupkg.id(), nupkg.version())
-        for ver in nupkg.dependencies():
-            if ver.id().startswith("System."):
-                continue
-            if ver.id() in nupkg.runtime_dependencies():
-                continue
-            yield from self.collect_dist_dependencies(Nupkg(ver.id(), ver.version()), sentinel)
-
-    def namespaces(self) -> Iterable[str]:
-        for ver in self.dist_dependencies():
-            yield from Nupkg(ver.id(), ver.version()).namespaces()
-
-    def assets(self) -> Iterable[Asset]:
-        for ver in self.dist_dependencies():
-            yield from Nupkg(ver.id(), ver.version()).assets()
-
-    def build(self) -> None:
-        logger.debug(f"Pypkg.build: {self._id}.{self._version}")
-        self.generate()
-        self.assemble()
-
-    def generate(self) -> None:
-        if self.generate_dir().exists():
-            rmtree_force(self.generate_dir())
-        self.generate_dir().mkdir()
-        json_files: list[Path] = []
-        for ver in self.build_dependencies():
-            json_files.extend(Nupkg(ver.id(), ver.version()).json_files())
-        if self._nupkg.id() != "Microsoft.Windows.SDK.Contracts":
-            json_files.extend(nupkg_winrt.json_files())
-        subprocess.run(
-            ["py", "-m", "win32generator", "--output-directory", self.generate_dir(), *json_files], check=True
-        )
-
-    def assemble(self) -> None:
-        if self.package_dir().exists():
-            rmtree_force(self.package_dir())
-        self.package_dir().mkdir()
-        self.copy_modules()
-        self.copy_assets()
-        self.write_pyproject()
-
-    def copy_modules(self) -> None:
-        for namespace in self.namespaces():
-            module = namespace.replace(".", "/") + "/__init__.py"
-            src = self.generate_dir() / "win32more" / module
-            dst = self.package_dir() / "src/win32more" / module
-            copyfile(src, dst)
-
-    def copy_assets(self) -> None:
-        for asset in self.assets():
-            writebytes(self.package_dir() / asset.dst, asset.data)
-
-    def pyproject_dependencies(self) -> str:
-        deps = [f'"win32more-core=={win32more_version[0]}.{win32more_version[1]}.*"']
-        for ver in self.runtime_dependencies():
-            deps.append(f'"{ver.pydependency()}"')
-        return ", ".join(deps)
-
-    def write_pyproject(self) -> None:
-        version = Version(self._id, self._version)
-        dst = self.package_dir() / "pyproject.toml"
-        writefile(
-            dst,
+        self.writefile(
             f"""[project]
-name = "{version.pyname()}"
-version = "{version.pyversion()}"
-dependencies = [{self.pyproject_dependencies()}]
+name = "win32more-{recipe["id"]}"
+version = "{major}.{minor}.{version}"
+dependencies = [{dependencies_csv}]
 
 [build-system]
 requires = ["hatchling >= 1.26"]
@@ -731,97 +246,519 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/win32more"]
 """,
+            "pyproject.toml",
         )
 
+    def dependencies(self, recipe: dict) -> set[str]:
+        dependencies = set(recipe["dependencies"])
+        for recipe_id in recipe["dependencies"]:
+            dependencies |= self.dependencies(RECIPES[recipe_id])
+        return dependencies
 
-def winmd_printer(winmd_file: Path, json_file: Path) -> None:
-    winmd_printer_exe = build_dir / "winmd-printer/bin/winmd-printer.exe"
+    def known_packages(self, recipe: dict) -> set[str]:
+        known_packages = set(recipe["known_packages"])
+        for recipe_id in recipe["dependencies"]:
+            known_packages |= self.known_packages(RECIPES[recipe_id])
+        return known_packages
 
-    if not winmd_printer_exe.exists():
-        logger.debug("winmd_printer: compile")
-        with contextlib.chdir(build_dir):
-            subprocess.run(["git", "clone", "--depth", "1", "https://github.com/ynkdir/winmd-printer.git"], check=True)
-        with contextlib.chdir(build_dir / "winmd-printer"):
-            subprocess.run(["dotnet", "build", "--configuration", "Release", "--output", "bin"], check=True)
+    def metadata(self, recipe: dict) -> list[Path]:
+        metadata = []
+        for nupkg_id, pattern in recipe["metadata"]:
+            for winmd_file in self.nupkg_path(nupkg_id).glob(pattern):
+                json_file = self.winmd_printer(winmd_file)
+                metadata.append(json_file)
+        return metadata
 
-    logger.debug(f"winmd_printer: {winmd_file} {json_file}")
-    json_file.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run([winmd_printer_exe, "-o", json_file, winmd_file], check=True)
+    def dependencies_metadata(self, recipe: dict) -> list[Path]:
+        metadata = []
+        for recipe_id in self.dependencies(recipe):
+            metadata.extend(self.metadata(RECIPES[recipe_id]))
+        return metadata
+
+    def nupkg_path(self, id: str) -> Path:
+        for p in self._nupkg_dir.iterdir():
+            spec = PackageSpec.parse(p.name)
+            if spec.id == id:
+                return p
+        raise KeyError(f"cannot find {id}")
+
+    def nupkg_version(self, id: str) -> str:
+        for p in self._nupkg_dir.iterdir():
+            spec = PackageSpec.parse(p.name)
+            if spec.id == id:
+                return spec.version
+        raise KeyError(f"cannot find {id}")
+
+    def nupkg_names(self) -> set[str]:
+        return {PackageSpec.parse(p.name).id for p in self._nupkg_dir.iterdir()}
+
+    def nuget_install(self, id: str, version: str) -> None:
+        logger.debug(f"nuget_install: {id}.{version}")
+        subprocess.run(
+            ["nuget.exe", "install", id, "-OutputDirectory", self._nupkg_dir, "-Version", version], check=True
+        )
+
+    def win32generator(self, json_files: list[Path]) -> None:
+        subprocess.run(
+            ["py", "-m", "win32generator", "--output-directory", self._generate_dir, *json_files], check=True
+        )
+
+    def winmd_printer(self, winmd_file: Path) -> Path:
+        winmd_printer_exe = self._build_dir / "winmd-printer/bin/winmd-printer.exe"
+
+        json_file = self._json_dir / winmd_file.with_suffix(".json").name
+
+        if not winmd_printer_exe.exists():
+            logger.debug("winmd_printer: compile")
+            with contextlib.chdir(self._build_dir):
+                subprocess.run(
+                    ["git", "clone", "--depth", "1", "https://github.com/ynkdir/winmd-printer.git"], check=True
+                )
+            with contextlib.chdir(self._build_dir / "winmd-printer"):
+                subprocess.run(["dotnet.exe", "build", "--configuration", "Release", "--output", "bin"], check=True)
+
+        logger.debug(f"winmd_printer: {winmd_file} {json_file}")
+        json_file.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run([winmd_printer_exe, "-o", json_file, winmd_file], check=True)
+
+        return json_file
+
+    def namespaces(self, json_files: list[Path]) -> set[str]:
+        metadata = []
+        for p in json_files:
+            metadata.extend(json.loads(p.read_text()))
+        return MetadataParser(metadata).namespaces()
+
+    def copymodule(self, namespace: str) -> None:
+        module = namespace.replace(".", "/") + "/__init__.py"
+        src = self._generate_dir / "win32more" / module
+        dst = self._dist_dir / "src/win32more" / module
+        logger.debug(f"copymodule: {src} {dst}")
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(src, dst)
+
+    def copyfile(self, id: str, nupkg_path: str, dist_path: str) -> None:
+        src = self.nupkg_path(id) / nupkg_path
+        dst = self._dist_dir / dist_path
+        logger.debug(f"copyfile: {src} {dst}")
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(src, dst)
+
+    def writefile(self, txt: str, dist_path: str) -> None:
+        dst = self._dist_dir / dist_path
+        logger.debug(f"writefile: {dst}")
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_text(txt, newline="")
+
+    def rmtree_force(self, path: Path) -> None:
+        def onexc(func, path, exc):
+            os.chmod(path, stat.S_IWRITE)
+            func(path)
+
+        shutil.rmtree(path, onexc=onexc)
+
+    def mkdir(self, path: Path) -> Path:
+        path.mkdir(parents=True, exist_ok=True)
+        return path
 
 
-def download(url: str, dst: Path) -> None:
-    logger.debug(f"download: {url} {dst}")
-    with urllib.request.urlopen(url) as f:
-        dst.write_bytes(f.read())
-
-
-def copyfile(src: Path, dst: Path) -> None:
-    logger.debug(f"copyfile: {src} {dst}")
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(src, dst)
-
-
-def writefile(dst: Path, txt: str) -> None:
-    logger.debug(f"writefile: {dst}")
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    dst.write_text(txt)
-
-
-def writebytes(dst: Path, data: bytes) -> None:
-    logger.debug(f"writebytes: {dst}")
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    dst.write_bytes(data)
-
-
-def rmtree_force(path: Path) -> None:
-    def onexc(func, path, exc):
-        os.chmod(path, stat.S_IWRITE)
-        func(path)
-
-    shutil.rmtree(path, onexc=onexc)
+RECIPES = {
+    "Microsoft.Windows.SDK.Win32Metadata": {
+        "id": "Microsoft.Windows.SDK.Win32Metadata",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts"],
+        "core_dependencies": ["core"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": ["Microsoft.Windows.SDK.Win32Metadata"],
+        "metadata": [("Microsoft.Windows.SDK.Win32Metadata", "Windows.Win32.winmd")],
+        "assets": [],
+        "versioninfo": None,
+        "prerelease_is_release": True,
+    },
+    "Microsoft.Windows.SDK.Contracts": {
+        "id": "Microsoft.Windows.SDK.Contracts",
+        "dependencies": [],
+        "core_dependencies": ["core"],
+        "extra_install": [],
+        "known_packages": [
+            "Microsoft.Windows.SDK.Contracts",
+            "System.Runtime.WindowsRuntime",
+            "System.Runtime.InteropServices.WindowsRuntime",
+            "System.Runtime.WindowsRuntime.UI.Xaml",
+        ],
+        "metadata": [("Microsoft.Windows.SDK.Contracts", "ref/netstandard2.0/*.winmd")],
+        "assets": [],
+        "versioninfo": None,
+        "prerelease_is_release": False,
+    },
+    "Microsoft.WindowsAppSDK.1.5": {
+        "id": "Microsoft.WindowsAppSDK",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts"],
+        "core_dependencies": ["core", "appsdk"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": ["Microsoft.WindowsAppSDK", "Microsoft.Windows.SDK.BuildTools"],
+        "metadata": [
+            ("Microsoft.WindowsAppSDK", "lib/uap10.0.18362/*.winmd"),
+            ("Microsoft.WindowsAppSDK", "lib/uap10.0/*.winmd"),
+        ],
+        "assets": [
+            ("Microsoft.WindowsAppSDK", "license.txt", "LICENSE (Microsoft.WindowsAppSDK).txt"),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+        ],
+        "versioninfo": (
+            "Microsoft.WindowsAppSDK",
+            "WindowsAppSDK-VersionInfo.xml",
+            "src/win32more/appsdk/versioninfo.py",
+        ),
+        "prerelease_is_release": False,
+    },
+    "Microsoft.WindowsAppSDK.1.6": {
+        "id": "Microsoft.WindowsAppSDK",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
+        "core_dependencies": ["core", "appsdk"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": ["Microsoft.WindowsAppSDK", "Microsoft.Windows.SDK.BuildTools"],
+        "metadata": [
+            ("Microsoft.WindowsAppSDK", "lib/uap10.0.18362/*.winmd"),
+            ("Microsoft.WindowsAppSDK", "lib/uap10.0/*.winmd"),
+        ],
+        "assets": [
+            ("Microsoft.WindowsAppSDK", "license.txt", "LICENSE (Microsoft.WindowsAppSDK).txt"),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+        ],
+        "versioninfo": (
+            "Microsoft.WindowsAppSDK",
+            "WindowsAppSDK-VersionInfo.xml",
+            "src/win32more/appsdk/versioninfo.py",
+        ),
+        "prerelease_is_release": False,
+    },
+    "Microsoft.WindowsAppSDK.1.7": {
+        "id": "Microsoft.WindowsAppSDK",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
+        "core_dependencies": ["core", "appsdk"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": ["Microsoft.WindowsAppSDK", "Microsoft.Windows.SDK.BuildTools"],
+        "metadata": [
+            ("Microsoft.WindowsAppSDK", "lib/uap10.0.18362/*.winmd"),
+            ("Microsoft.WindowsAppSDK", "lib/uap10.0/*.winmd"),
+        ],
+        "assets": [
+            ("Microsoft.WindowsAppSDK", "license.txt", "LICENSE (Microsoft.WindowsAppSDK).txt"),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-x86/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/x86/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-x64/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/x64/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK",
+                "runtimes/win-arm64/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/arm64/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+        ],
+        "versioninfo": (
+            "Microsoft.WindowsAppSDK",
+            "WindowsAppSDK-VersionInfo.xml",
+            "src/win32more/appsdk/versioninfo.py",
+        ),
+        "prerelease_is_release": False,
+    },
+    "Microsoft.WindowsAppSDK.1.8": {
+        "id": "Microsoft.WindowsAppSDK",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
+        "core_dependencies": ["core", "appsdk"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": [
+            "Microsoft.WindowsAppSDK",
+            "Microsoft.WindowsAppSDK.Base",
+            "Microsoft.WindowsAppSDK.Foundation",
+            "Microsoft.WindowsAppSDK.InteractiveExperiences",
+            "Microsoft.WindowsAppSDK.WinUI",
+            "Microsoft.WindowsAppSDK.DWrite",
+            "Microsoft.WindowsAppSDK.Widgets",
+            "Microsoft.WindowsAppSDK.AI",
+            "Microsoft.WindowsAppSDK.Runtime",
+            "Microsoft.Windows.SDK.BuildTools",
+            "Microsoft.Windows.SDK.BuildTools.MSIX",
+        ],
+        "metadata": [
+            ("Microsoft.WindowsAppSDK.Foundation", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.InteractiveExperiences", "metadata/10.0.18362.0/*.winmd"),
+            ("Microsoft.WindowsAppSDK.WinUI", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.Widgets", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.AI", "metadata/*.winmd"),
+        ],
+        "assets": [
+            ("Microsoft.WindowsAppSDK", "license.txt", "LICENSE (Microsoft.WindowsAppSDK).txt"),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x86/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/x86/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x64/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/x64/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-arm64/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/arm64/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+        ],
+        "versioninfo": (
+            "Microsoft.WindowsAppSDK.Runtime",
+            "WindowsAppSDK-VersionInfo.xml",
+            "src/win32more/appsdk/versioninfo.py",
+        ),
+        "prerelease_is_release": False,
+    },
+    "Microsoft.WindowsAppSDK.1.8.250916003": {
+        "id": "Microsoft.WindowsAppSDK",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
+        "core_dependencies": ["core", "appsdk"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": [
+            "Microsoft.WindowsAppSDK",
+            "Microsoft.WindowsAppSDK.Base",
+            "Microsoft.WindowsAppSDK.Foundation",
+            "Microsoft.WindowsAppSDK.InteractiveExperiences",
+            "Microsoft.WindowsAppSDK.WinUI",
+            "Microsoft.WindowsAppSDK.DWrite",
+            "Microsoft.WindowsAppSDK.Widgets",
+            "Microsoft.WindowsAppSDK.AI",
+            "Microsoft.WindowsAppSDK.Runtime",
+            "Microsoft.WindowsAppSDK.ML",
+            "Microsoft.Windows.SDK.BuildTools",
+            "Microsoft.Windows.SDK.BuildTools.MSIX",
+        ],
+        "metadata": [
+            ("Microsoft.WindowsAppSDK.Foundation", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.InteractiveExperiences", "metadata/10.0.18362.0/*.winmd"),
+            ("Microsoft.WindowsAppSDK.WinUI", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.Widgets", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.AI", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.ML", "metadata/*.winmd"),
+        ],
+        "assets": [
+            ("Microsoft.WindowsAppSDK", "license.txt", "LICENSE (Microsoft.WindowsAppSDK).txt"),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x86/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/x86/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x64/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/x64/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-arm64/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/arm64/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+        ],
+        "versioninfo": (
+            "Microsoft.WindowsAppSDK.Runtime",
+            "WindowsAppSDK-VersionInfo.xml",
+            "src/win32more/appsdk/versioninfo.py",
+        ),
+        "prerelease_is_release": False,
+    },
+    "Microsoft.Web.WebView2": {
+        "id": "Microsoft.Web.WebView2",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts"],
+        "core_dependencies": ["core"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": ["Microsoft.Web.WebView2"],
+        "metadata": [("Microsoft.Web.WebView2", "lib/*.winmd")],
+        "assets": [
+            ("Microsoft.Web.WebView2", "LICENSE.txt", "LICENSE (Microsoft.Web.WebView2).txt"),
+            (
+                "Microsoft.Web.WebView2",
+                "runtimes/win-x86/native_uap/Microsoft.Web.WebView2.Core.dll",
+                "src/win32more/dll/x86/Microsoft.Web.WebView2.Core.dll",
+            ),
+            (
+                "Microsoft.Web.WebView2",
+                "runtimes/win-x64/native_uap/Microsoft.Web.WebView2.Core.dll",
+                "src/win32more/dll/x64/Microsoft.Web.WebView2.Core.dll",
+            ),
+            (
+                "Microsoft.Web.WebView2",
+                "runtimes/win-arm64/native_uap/Microsoft.Web.WebView2.Core.dll",
+                "src/win32more/dll/arm64/Microsoft.Web.WebView2.Core.dll",
+            ),
+        ],
+        "versioninfo": None,
+        "prerelease_is_release": False,
+    },
+    "Microsoft.Graphics.Win2D.1.2": {
+        "id": "Microsoft.Graphics.Win2D",
+        "dependencies": ["Microsoft.WindowsAppSDK.1.5"],
+        "core_dependencies": ["core"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": ["Microsoft.Graphics.Win2D"],
+        "metadata": [("Microsoft.Graphics.Win2D", "lib/uap10.0/*.winmd")],
+        "assets": [
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-x86/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/x86/Microsoft.Graphics.Canvas.dll",
+            ),
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-x64/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/x64/Microsoft.Graphics.Canvas.dll",
+            ),
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-arm64/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/arm64/Microsoft.Graphics.Canvas.dll",
+            ),
+        ],
+        "versioninfo": None,
+        "prerelease_is_release": False,
+    },
+    "Microsoft.Graphics.Win2D.1.3": {
+        "id": "Microsoft.Graphics.Win2D",
+        "dependencies": ["Microsoft.WindowsAppSDK.1.6"],
+        "core_dependencies": ["core"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": ["Microsoft.Graphics.Win2D"],
+        "metadata": [("Microsoft.Graphics.Win2D", "lib/uap10.0/*.winmd")],
+        "assets": [
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-x86/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/x86/Microsoft.Graphics.Canvas.dll",
+            ),
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-x64/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/x64/Microsoft.Graphics.Canvas.dll",
+            ),
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-arm64/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/arm64/Microsoft.Graphics.Canvas.dll",
+            ),
+        ],
+        "versioninfo": None,
+        "prerelease_is_release": False,
+    },
+}
 
 
 def main() -> None:
-    global package_dir, build_dir, win32more_version, nupkg_winrt
-
     logging.basicConfig(level=logging.DEBUG, force=True)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--builddir", default="build", type=Path)
-    parser.add_argument("--packagedir", default="packages", type=Path)
+    parser.add_argument("--builddir", type=Path)
+    parser.add_argument("--distdir", type=Path)
     parser.add_argument("--win32more-version")
-    parser.add_argument("--winrt-version", default="10.0.26100.4948")
     parser.add_argument("--name", required=True)
     parser.add_argument("--version", required=True)
     args = parser.parse_args()
 
-    package_dir = args.packagedir
     build_dir = args.builddir
+    if build_dir is None:
+        build_dir = Path(f"build/{args.name}.{args.version}")
 
-    if not package_dir.exists():
-        package_dir.mkdir()
-
-    if not build_dir.exists():
-        build_dir.mkdir()
-
-    if not (build_dir / "nupkg").exists():
-        (build_dir / "nupkg").mkdir()
-
-    if not (build_dir / "json").exists():
-        (build_dir / "json").mkdir()
-
-    if not (build_dir / "generate").exists():
-        (build_dir / "generate").mkdir()
+    dist_dir = args.distdir
+    if dist_dir is None:
+        dist_dir = Path(f"packages/{args.name}.{args.version}")
 
     if args.win32more_version is not None:
-        win32more_version = args.win32more_version
+        win32more_version = args.win32more_version.split(".")
     else:
         pyproject = tomllib.loads(Path("pyproject.toml").read_text())
         win32more_version = [int(x) for x in pyproject["project"]["version"].split(".")]
+    win32more_major, win32more_minor, *_ = win32more_version
 
-    nupkg_winrt = Nupkg("Microsoft.Windows.SDK.Contracts", args.winrt_version)
-
-    Pypkg(args.name, args.version).build()
+    Builder(
+        build_dir,
+        dist_dir,
+        win32more_major,
+        win32more_minor,
+    ).build(args.name, args.version)
 
 
 if __name__ == "__main__":
