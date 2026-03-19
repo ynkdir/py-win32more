@@ -177,8 +177,10 @@ class Builder:
         elif id == "Microsoft.Graphics.Win2D":
             if NuGetVersion.parse(version) < NuGetVersion.parse("1.3.0"):
                 return RECIPES["Microsoft.Graphics.Win2D.1.2"]
-            else:
+            elif NuGetVersion.parse(version) < NuGetVersion.parse("1.4.0"):
                 return RECIPES["Microsoft.Graphics.Win2D.1.3"]
+            else:
+                return RECIPES["Microsoft.Graphics.Win2D.1.4"]
         else:
             raise RuntimeError(f"cannot build {id}.{version}")
 
@@ -702,6 +704,37 @@ RECIPES = {
         "dependencies": ["Microsoft.WindowsAppSDK.1.6"],
         "core_dependencies": ["core"],
         "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "known_packages": ["Microsoft.Graphics.Win2D"],
+        "metadata": [("Microsoft.Graphics.Win2D", "lib/uap10.0/*.winmd")],
+        "assets": [
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-x86/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/x86/Microsoft.Graphics.Canvas.dll",
+            ),
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-x64/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/x64/Microsoft.Graphics.Canvas.dll",
+            ),
+            (
+                "Microsoft.Graphics.Win2D",
+                "runtimes/win-arm64/native/Microsoft.Graphics.Canvas.dll",
+                "src/win32more/dll/arm64/Microsoft.Graphics.Canvas.dll",
+            ),
+        ],
+        "versioninfo": None,
+        "prerelease_is_release": False,
+    },
+    "Microsoft.Graphics.Win2D.1.4": {
+        "id": "Microsoft.Graphics.Win2D",
+        # FIXME: Win2D actually depends on Microsoft.WindowsAppSDK.WinUI
+        "dependencies": ["Microsoft.WindowsAppSDK.1.8.250916003"],
+        "core_dependencies": ["core"],
+        "extra_install": [
+            ("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948"),
+            ("Microsoft.WindowsAppSDK", "1.8.260209005"),
+        ],
         "known_packages": ["Microsoft.Graphics.Win2D"],
         "metadata": [("Microsoft.Graphics.Win2D", "lib/uap10.0/*.winmd")],
         "assets": [
