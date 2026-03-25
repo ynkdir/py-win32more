@@ -35,6 +35,8 @@ from itertools import zip_longest
 from typing import Annotated, get_args, get_origin
 from typing import get_type_hints as _get_type_hints
 
+from ._generic import GenericSpecializer, generic_is_concrete
+
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
 elif "(amd64)" in sys.version.lower():
@@ -175,37 +177,37 @@ class ComPtr(c_void_p):
     @classmethod
     def __commit__(cls):
         hints = get_type_hints(cls)
+
         if hints["extends"] is None:
             return cls
+
         # Generic class have multiple base class (Generic[], ComPtr).
-        bases = []
-        for type_ in cls.__bases__:
+
+        orig_bases = []
+
+        for type_ in cls.__dict__.get("__orig_bases__", cls.__bases__):
             if type_ is ComPtr:
                 type_ = hints["extends"]
-            bases.append(type_)
+            orig_bases.append(type_)
+
         if "implements" in hints:
-            bases.extend(get_args(hints["implements"]))
-        cls.__bases__ = tuple(bases)
+            orig_bases.extend(get_args(hints["implements"]))
+
         if "__orig_bases__" in cls.__dict__:
-            orig_bases = []
-            for type_ in cls.__bases__:
-                if type_ is ComPtr:
-                    type_ = hints["extends"]
-                orig_bases.append(type_)
             cls.__orig_bases__ = tuple(orig_bases)
+
+        cls.__bases__ = tuple(types.resolve_bases(orig_bases))
+
         if "default_interface" in hints:
             cls._default_interface_ = hints["default_interface"]
+
         return cls
 
     def as_(self, cls):
         from ._boxing import unbox_value
-        from ._generic import is_generic_alias
-        from ._ro import ro_get_parameterized_type_instance_iid
 
         if cls is str:
             return unbox_value(self)
-        elif is_generic_alias(cls):
-            iid = ro_get_parameterized_type_instance_iid(cls)
         elif "_iid_" in cls.__dict__:
             iid = cls._iid_
         elif "_default_interface_" in cls.__dict__:
@@ -221,6 +223,16 @@ class ComPtr(c_void_p):
     def __eq__(self, other):
         return isinstance(other, ComPtr) and self.value == other.value
 
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+
+        if generic_is_concrete(cls) and "_piid_" in cls.__origin__.__dict__:
+            # lazy load to prevent cyclic import
+            from ._ro import ro_get_parameterized_type_instance_iid
+
+            cls._piid_ = cls.__origin__._piid_
+            cls._iid_ = ro_get_parameterized_type_instance_iid(cls)
+
 
 def _struct_union_commit(cls, start=True):
     if start:
@@ -229,13 +241,6 @@ def _struct_union_commit(cls, start=True):
         setattr(module, cls.__name__, cls)
 
     hints = get_type_hints(cls)
-
-    cls._generic_types = {}
-
-    for name, type_ in hints.items():
-        if getattr(type_, "_classid_", None) == "Windows.Foundation.IReference":
-            cls._generic_types[name] = type_
-            hints[name] = get_origin(type_)
 
     for type_ in hints.values():
         if issubclass(type_, (Structure, Union)) and "_fields_" not in type_.__dict__:
@@ -275,11 +280,8 @@ def _hook_descriptor(cls, struct):
             continue
         if issubclass(type_, (c_char_p, c_wchar_p)):
             setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
-        if getattr(type_, "_classid_", None) == "Windows.Foundation.IReference":
-            setattr(cls, name, IReferenceDescriptor(cls.__dict__[name], struct._generic_types[name]))
-        else:
-            # use __dict__[name] to avoid calling descriptor.__get__().
-            setattr(cls, name, EasyCastDescriptor(cls.__dict__[name], type_))
+        # use __dict__[name] to avoid calling descriptor.__get__().
+        setattr(cls, name, EasyCastDescriptor(cls.__dict__[name], type_))
 
 
 class Structure(_Structure):
@@ -322,24 +324,6 @@ class AsIntPtrDescriptor:
         self._original_descriptor.__set__(instance, value)
 
 
-class IReferenceDescriptor:
-    def __init__(self, original_descriptor, type_):
-        self._original_descriptor = original_descriptor
-        self._type = type_
-
-    def __get__(self, instance, owner=None):
-        if instance is None:
-            return self._original_descriptor.__get__(instance, owner)
-        return self._type(move=self._original_descriptor.__get__(instance, owner))
-
-    def __set__(self, instance, value):
-        self._original_descriptor.__set__(instance, value)
-
-    @property
-    def offset(self):
-        return self._original_descriptor.offset
-
-
 easycast_keep_reference = []
 
 
@@ -376,11 +360,11 @@ def easycast(obj, type_):
     return obj
 
 
-def get_type_hints(prototype, include_extras=False):
-    if sys.version_info < (3, 10) and isinstance(prototype, type) and issubclass(prototype, (Structure, Union)):
-        hints = _get_type_hints(prototype, localns=vars(prototype), include_extras=include_extras)
-    else:
-        hints = _get_type_hints(prototype, include_extras=include_extras)
+def get_type_hints(prototype, /, include_extras=False, generic=None):
+    localns = dict(vars(prototype))
+    if generic is not None and generic_is_concrete(generic):
+        localns.update(dict(zip([t.__name__ for t in generic.__parameters__], generic.__args__)))
+    hints = _get_type_hints(prototype, localns=localns, include_extras=include_extras)
     for name, type_ in hints.items():
         if not isinstance(type_, type):
             # generic
@@ -391,6 +375,9 @@ def get_type_hints(prototype, include_extras=False):
             # Ctype's fundamental types are converted to python type transparently.
             # It is not applied to subclass.  Avoid it for Enum.
             hints[name] = type_.__bases__[1]
+    if generic is not None and generic_is_concrete(generic):
+        gs = GenericSpecializer(dict(zip(generic.__parameters__, generic.__args__)))
+        hints = {key: gs.specialize_parameter(parameter) for key, parameter in hints.items()}
     return hints
 
 

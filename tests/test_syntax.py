@@ -89,9 +89,8 @@ class TestSyntax(unittest.TestCase):
         self.assertEqual(GetCurrentProcessToken(), -4)
 
     def test_overload_method_is_wrapped_with_winrt_overload(self):
-        from win32more.Windows.Storage.Pickers import FileOpenPicker
-
         from win32more._winrt import winrt_overload
+        from win32more.Windows.Storage.Pickers import FileOpenPicker
 
         self.assertIsInstance(FileOpenPicker.__dict__["PickSingleFileAsync"], winrt_overload)
 
@@ -112,22 +111,17 @@ class TestSyntax(unittest.TestCase):
         self.assertIs(MessageBox, MessageBoxW)
 
     def test_struct_member_of_generic_type(self):
-        from typing import Generic
-
+        from win32more import UInt64
         from win32more.Windows.Foundation import IReference
         from win32more.Windows.Web.Http import HttpProgress
 
-        from win32more import UInt64
-
         x = HttpProgress()
-        self.assertIsInstance(x.TotalBytesToSend, Generic)
         self.assertIsInstance(x.TotalBytesToSend, IReference)
-        self.assertEqual(x.TotalBytesToSend.__orig_class__.__args__, (UInt64,))
+        self.assertEqual(x.TotalBytesToSend.__args__, (UInt64,))
 
     def test_struct_bitfield(self):
-        from win32more.Windows.Win32.Storage.Nvme import NVME_COMMAND_DWORD0
-
         from win32more import UInt32
+        from win32more.Windows.Win32.Storage.Nvme import NVME_COMMAND_DWORD0
 
         self.assertEqual(sizeof(NVME_COMMAND_DWORD0), sizeof(UInt32))
 

@@ -15,46 +15,24 @@ from win32more.Windows.Foundation.Collections import (
     VectorChangedEventHandler,
 )
 
+from ._generic import generic_get_args
 from ._win32 import Boolean, UInt32, Void
 from ._winrt import (
     ComClass,
     FillArray,
     PassArray,
     T,
-    get_args,
     is_com_class,
 )
 
 logger = logging.getLogger(__name__)
 
 
-class call_after_orig_class_set:
-    def __init__(self, orig_init):
-        self._orig_init = orig_init
-
-    def __set_name__(self, owner, name):
-        owner.__orig_class__ = self
-
-    def __call__(self, *args, **kwargs):
-        self._args = args
-        self._kwargs = kwargs
-
-    def __set__(self, instance, value):
-        instance.__dict__["__orig_class__"] = value
-        try:
-            self._orig_init(instance, *self._args, **self._kwargs)
-        except Exception:
-            # _BaseGenericAlias.__call__() ignore error
-            logger.exception("Unhandled exception caught")
-            raise
-
-
 class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
-    @call_after_orig_class_set
     def __init__(self, lst: list[T] | None = None) -> None:
         super().__init__(own=True)
 
-        self._type = get_args(self.__orig_class__)[0]
+        self._T = generic_get_args(type(self))[0]
 
         self._observers = {}
         self._observers_count = 0
@@ -64,7 +42,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         else:
             self._lst = list(lst)
 
-        if is_com_class(self._type):
+        if is_com_class(self._T):
             for v in self._lst:
                 v.AddRef()
 
@@ -75,7 +53,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         return len(self._lst)
 
     def GetView(self) -> IVectorView[T]:
-        return self.as_(IVector[self._type])
+        return self.as_(IVector[self._T])
 
     def IndexOf(self, value: T, index: POINTER(UInt32)) -> Boolean:
         for i, v in enumerate(self._lst):
@@ -85,21 +63,21 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         return False
 
     def SetAt(self, index: UInt32, value: T) -> Void:
-        if is_com_class(self._type):
+        if is_com_class(self._T):
             self._lst[index].Release()
             value.AddRef()
         self._lst[index] = value
         self._notify(VectorChangedEventArgs(CollectionChange.ItemChanged, index))
 
     def InsertAt(self, index: UInt32, value: T) -> Void:
-        if is_com_class(self._type):
+        if is_com_class(self._T):
             value.AddRef()
         self._lst.insert(index, value)
         self._notify(VectorChangedEventArgs(CollectionChange.ItemInserted, index))
 
     def RemoveAt(self, index: UInt32) -> Void:
         value = self._lst.pop(index)
-        if is_com_class(self._type):
+        if is_com_class(self._T):
             value.Release()
         self._notify(VectorChangedEventArgs(CollectionChange.ItemRemoved, index))
 
@@ -110,7 +88,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         self.RemoveAt(len(self) - 1)
 
     def Clear(self) -> Void:
-        if is_com_class(self._type):
+        if is_com_class(self._T):
             for v in self._lst:
                 v.Release()
         self._lst[:] = []
@@ -126,10 +104,10 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         return numcopied
 
     def ReplaceAll(self, items: PassArray[T]) -> Void:
-        if is_com_class(self._type):
+        if is_com_class(self._T):
             for v in items:
                 v.AddRef()
-        if is_com_class(self._type):
+        if is_com_class(self._T):
             for v in self._lst:
                 v.Release()
         self._lst[:] = items
@@ -137,7 +115,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
 
     def First(self) -> IIterator[T]:
-        return Iterator[self._type](self._lst)
+        return Iterator[self._T](self._lst)
 
     def add_VectorChanged(self, vhnd: VectorChangedEventHandler[T]) -> EventRegistrationToken:
         self._observers_count += 1
@@ -155,11 +133,8 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
 
 
 class Iterator(ComClass, IIterator[T]):
-    @call_after_orig_class_set
     def __init__(self, lst: list[T] | None = None) -> None:
         super().__init__(own=True)
-
-        self._type = get_args(self.__orig_class__)[0]
 
         self._lst = lst
         self._index = 0
