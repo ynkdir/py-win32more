@@ -193,10 +193,12 @@ class ComPtr(c_void_p):
         if "implements" in hints:
             orig_bases.extend(get_args(hints["implements"]))
 
-        if "__orig_bases__" in cls.__dict__:
-            cls.__orig_bases__ = tuple(orig_bases)
+        orig_bases = tuple(orig_bases)
 
-        cls.__bases__ = tuple(types.resolve_bases(orig_bases))
+        if "__orig_bases__" in cls.__dict__:
+            cls.__orig_bases__ = orig_bases
+
+        cls.__bases__ = types.resolve_bases(orig_bases)
 
         if "default_interface" in hints:
             cls._default_interface_ = hints["default_interface"]
