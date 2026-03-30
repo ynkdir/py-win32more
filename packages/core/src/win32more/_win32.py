@@ -32,10 +32,10 @@ from ctypes import (
 from ctypes import Structure as _Structure
 from ctypes import Union as _Union
 from itertools import zip_longest
-from typing import Annotated, get_args, get_origin
+from typing import Annotated, Generic, get_args, get_origin
 from typing import get_type_hints as _get_type_hints
 
-from ._generic import GenericSpecializer, generic_is_concrete
+from ._generic import GenericSpecializer, generic_class_getitem, is_generic_concrete
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -226,12 +226,8 @@ class ComPtr(c_void_p):
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
 
-        if generic_is_concrete(cls) and "_piid_" in cls.__origin__.__dict__:
-            # lazy load to prevent cyclic import
-            from ._ro import ro_get_parameterized_type_instance_iid
-
-            cls._piid_ = cls.__origin__._piid_
-            cls._iid_ = ro_get_parameterized_type_instance_iid(cls)
+        if issubclass(cls, Generic):
+            cls.__class_getitem__ = classmethod(generic_class_getitem)
 
 
 def _struct_union_commit(cls, start=True):
@@ -362,7 +358,7 @@ def easycast(obj, type_):
 
 def get_type_hints(prototype, /, include_extras=False, generic=None):
     localns = dict(vars(prototype))
-    if generic is not None and generic_is_concrete(generic):
+    if generic is not None and is_generic_concrete(generic):
         localns.update(dict(zip([t.__name__ for t in generic.__parameters__], generic.__args__)))
     hints = _get_type_hints(prototype, localns=localns, include_extras=include_extras)
     for name, type_ in hints.items():
@@ -375,7 +371,7 @@ def get_type_hints(prototype, /, include_extras=False, generic=None):
             # Ctype's fundamental types are converted to python type transparently.
             # It is not applied to subclass.  Avoid it for Enum.
             hints[name] = type_.__bases__[1]
-    if generic is not None and generic_is_concrete(generic):
+    if generic is not None and is_generic_concrete(generic):
         gs = GenericSpecializer(dict(zip(generic.__parameters__, generic.__args__)))
         hints = {key: gs.specialize_parameter(parameter) for key, parameter in hints.items()}
     return hints

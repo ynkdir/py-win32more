@@ -15,7 +15,6 @@ from win32more.Windows.Foundation.Collections import (
     VectorChangedEventHandler,
 )
 
-from ._generic import generic_get_args
 from ._win32 import Boolean, UInt32, Void
 from ._winrt import (
     ComClass,
@@ -32,7 +31,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
     def __init__(self, lst: list[T] | None = None) -> None:
         super().__init__(own=True)
 
-        self._T = generic_get_args(type(self))[0]
+        self._T = self._IVector__args[0]
 
         self._observers = {}
         self._observers_count = 0

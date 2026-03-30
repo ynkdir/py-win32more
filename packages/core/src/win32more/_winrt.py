@@ -16,18 +16,17 @@ from ctypes import (
 from functools import partial
 from typing import (
     Any,
+    Generic,
     Tuple,  # noqa: F401
+    TypeVar,
+    get_args,
 )
 
 from . import asyncui
 from ._boxing import box_value, unbox_value
 from ._comclass import ComClass, ISelf, is_com_class, is_com_instance
 from ._comerror import ComError
-from ._generic import (
-    Generic,
-    TypeVar,
-    generic_get_args,
-)
+from ._generic import generic_class_getitem, get_origin_or_itself, is_generic_concrete
 from ._hstr import hstr
 from ._ro import ro_activate_instance, ro_get_activation_factory
 from ._win32 import (
@@ -89,7 +88,7 @@ def winrt_easycast(obj, type_):
             return box_value(obj)
     elif issubclass(type_, IVector):
         if isinstance(obj, list):
-            return Vector[generic_get_args(type_)[0]](obj)
+            return Vector[type_._IVector__args[0]](obj)
     elif issubclass(type_, IReference):
         # FIXME: Should I check obj is T of IReference[T]?
         if obj is None:
@@ -286,7 +285,7 @@ class WinrtMethod:
 
     def __call__(self, this, *args, **kwargs):
         cls = type(this)
-        generic_args = generic_get_args(cls)
+        generic_args = cls.__args__ if is_generic_concrete(cls) else ()
         if generic_args not in self._generic_delegate:
             self._generic_delegate[generic_args] = WinrtMethodCall(self._prototype, self._vtbl_index, cls)
         return self._generic_delegate[generic_args](this, *args, **kwargs)
@@ -323,17 +322,17 @@ class WinrtMethodCall:
     def _add_parameter(self, argtypes: list[type], params: list[tuple[int, str]], name: str, type_: type) -> None:
         if is_passarray_class(type_):
             argtypes.append(UInt32)
-            argtypes.append(POINTER(generic_get_args(type_)[0]))
+            argtypes.append(POINTER(get_args(type_)[0]))
             params.append((1, f"{name}_length"))
             params.append((1, name))
         elif is_fillarray_class(type_):
             argtypes.append(UInt32)
-            argtypes.append(POINTER(generic_get_args(type_)[0]))
+            argtypes.append(POINTER(get_args(type_)[0]))
             params.append((1, f"{name}_length"))
             params.append((1, name))
         elif is_receivearray_class(type_):
             argtypes.append(POINTER(UInt32))
-            argtypes.append(POINTER(POINTER(generic_get_args(type_)[0])))
+            argtypes.append(POINTER(POINTER(get_args(type_)[0])))
             params.append((1, f"{name}_length"))
             params.append((1, name))
         elif is_delegate_class(type_):
@@ -348,7 +347,7 @@ class WinrtMethodCall:
             pass
         elif is_receivearray_class(restype):
             argtypes.append(POINTER(UInt32))
-            argtypes.append(POINTER(POINTER(generic_get_args(restype)[0])))
+            argtypes.append(POINTER(POINTER(get_args(restype)[0])))
             params.append((1, "return_length"))
             params.append((1, "return"))
         else:
@@ -357,11 +356,11 @@ class WinrtMethodCall:
 
     def _add_argument(self, cargs: list[Any], value: Any, type_: type, exitstack: ExitStack) -> None:
         if is_passarray_class(type_):
-            exitstack.enter_context(PassArray(generic_get_args(type_)[0], value, cargs))
+            exitstack.enter_context(PassArray(get_args(type_)[0], value, cargs))
         elif is_fillarray_class(type_):
-            exitstack.enter_context(FillArray(generic_get_args(type_)[0], value, cargs))
+            exitstack.enter_context(FillArray(get_args(type_)[0], value, cargs))
         elif is_receivearray_class(type_):
-            exitstack.enter_context(ReceiveArray(generic_get_args(type_)[0], value, cargs))
+            exitstack.enter_context(ReceiveArray(get_args(type_)[0], value, cargs))
         elif is_delegate_class(type_):
             cargs.append(MulticastDelegateImpl(type_, value))
         elif is_com_instance(value) and is_com_class(type_):
@@ -374,7 +373,7 @@ class WinrtMethodCall:
             result = None
         elif is_receivearray_class(self.restype):
             result = []
-            exitstack.enter_context(ReceiveArray(generic_get_args(self.restype)[0], result, cargs))
+            exitstack.enter_context(ReceiveArray(get_args(self.restype)[0], result, cargs))
         elif is_com_class(self.restype):
             result = self.restype(own=True)
             cargs.append(pointer(result))
@@ -391,6 +390,8 @@ class WinrtMethodCall:
 
         if self.restype is Void:
             return None
+        elif is_receivearray_class(self.restype):
+            return result
         elif issubclass(self.restype, IReference):
             if not result:
                 return None
@@ -434,19 +435,19 @@ class winrt_mixinmethod:
 
 
 def is_delegate_class(cls):
-    return issubclass(cls, MulticastDelegate)
+    return issubclass(get_origin_or_itself(cls), MulticastDelegate)
 
 
 def is_passarray_class(cls):
-    return issubclass(cls, PassArray)
+    return issubclass(get_origin_or_itself(cls), PassArray)
 
 
 def is_fillarray_class(cls):
-    return issubclass(cls, FillArray)
+    return issubclass(get_origin_or_itself(cls), FillArray)
 
 
 def is_receivearray_class(cls):
-    return issubclass(cls, ReceiveArray)
+    return issubclass(get_origin_or_itself(cls), ReceiveArray)
 
 
 # check if ptr[0] returns python primitive?
@@ -603,10 +604,12 @@ class SequenceProtocol:
 
 
 class MappingProtocol(Generic[K, V]):
+    __class_getitem__ = classmethod(generic_class_getitem)
+
     def __iterator(self):
         from win32more.Windows.Foundation.Collections import IIterable, IKeyValuePair
 
-        iterable = self.as_(IIterable[IKeyValuePair[generic_get_args(type(self), MappingProtocol)]])
+        iterable = self.as_(IIterable[IKeyValuePair[self._MappingProtocol__args]])
         for pair in iterable:
             yield pair.Key, pair.Value
 
