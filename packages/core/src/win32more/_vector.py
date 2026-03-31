@@ -31,7 +31,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
     def __init__(self, lst: list[T] | None = None) -> None:
         super().__init__(own=True)
 
-        self._T = self._IVector__args[0]
+        self._T = self.__args__[0]
 
         self._observers = {}
         self._observers_count = 0
