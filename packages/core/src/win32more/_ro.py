@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import uuid
 from ctypes import cast
-from typing import _GenericAlias, get_args
+from typing import _GenericAlias
 
 from ._hstr import hstr
 from ._win32 import (
@@ -105,9 +105,9 @@ def ro_get_parameterized_type_instance_iid(ga: _GenericAlias) -> Guid:
 def _get_type_signature(cls) -> str:
     if cls is IInspectable:
         return "cinterface(IInspectable)"
-    elif isinstance(cls, _GenericAlias):
+    elif isinstance(cls, _GenericAlias) or "_piid_" in cls.__dict__:
         piid_guid = str(cls._piid_)
-        args = ";".join(_get_type_signature(arg) for arg in get_args(cls))
+        args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
         return f"pinterface({piid_guid};{args})"
     elif issubclass(cls, ComPtr):
         if "_iid_" in cls.__dict__:

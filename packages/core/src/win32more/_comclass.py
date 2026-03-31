@@ -1,24 +1,14 @@
 from __future__ import annotations
 
 import logging
-import sys
-from collections.abc import Iterable
 from contextlib import ExitStack
 from ctypes import POINTER, Structure, addressof, c_void_p, cast, py_object, sizeof
 from functools import partial
-from typing import Any, _GenericAlias, get_args, get_origin
+from typing import Any
 
 from ._comerror import set_error_info
-from ._generic import (
-    generic_get_type_hints,
-    get_origin_or_itself,
-    get_original_class,
-    get_specialized_bases,
-    is_generic_alias,
-)
 from ._hstr import hstr
-from ._ro import ro_get_parameterized_type_instance_iid
-from ._win32 import WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod
+from ._win32 import WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod, get_type_hints
 from ._win32api import (
     E_FAIL,
     E_NOINTERFACE,
@@ -49,7 +39,7 @@ _winrt = _lazy_winrt()
 
 
 def is_com_class(cls):
-    return issubclass(get_origin_or_itself(cls), ComPtr)
+    return issubclass(cls, ComPtr)
 
 
 def is_com_instance(obj):
@@ -70,34 +60,19 @@ class ComClass(ComPtr):
     def _make_iid_vtbls(self) -> list[tuple[Guid, Vtbl]]:
         iid_vtbls = []
         for interface in self._implemented_interfaces():
-            iid = self._get_iid(interface)
+            iid = interface.__dict__["_iid_"]
             vtbl = Vtbl(self, interface)
             iid_vtbls.append((iid, vtbl))
         return iid_vtbls
 
-    def _get_iid(self, interface):
-        if is_generic_alias(interface):
-            return ro_get_parameterized_type_instance_iid(interface)
-        elif "_iid_" in interface.__dict__:
-            return interface.__dict__["_iid_"]
-        else:
-            raise ValueError("Cannot get iid")
-
-    def _implemented_interfaces(self) -> list[_GenericAlias | type]:
+    def _implemented_interfaces(self) -> list[type]:
         r = []
-        for base in self._enumerate_specialized_bases_recursively(get_original_class(self)):
-            if is_generic_alias(base) and "_piid_" in get_origin(base).__dict__:
-                r.append(base)
-            elif "_iid_" in base.__dict__:
+        for base in type(self).__mro__:
+            if "_iid_" in base.__dict__:
                 r.append(base)
         r.append(IAgileObject)
         r.append(ISelf)
         return r
-
-    def _enumerate_specialized_bases_recursively(self, cls: _GenericAlias | type) -> Iterable[_GenericAlias | type]:
-        for base in get_specialized_bases(cls):
-            yield base
-            yield from self._enumerate_specialized_bases_recursively(base)
 
     @classmethod
     def _runtime_class_name(cls) -> str:
@@ -177,18 +152,14 @@ class Vtbl(Structure):
         return lpvtbl
 
     def _interface_methods(self):
-        if sys.version_info < (3, 10) and is_generic_alias(self._interface):
-            interface = get_origin(self._interface)
-        else:
-            interface = self._interface
         methods = []
-        for name in dir(interface):
-            if isinstance(getattr(interface, name), (ComMethod, _winrt.WinrtMethod)):
-                methods.append(getattr(interface, name))
+        for name in dir(self._interface):
+            if isinstance(getattr(self._interface, name), (ComMethod, _winrt.WinrtMethod)):
+                methods.append(getattr(self._interface, name))
         return methods
 
     def _make_thunk_com(self, method):
-        hints = generic_get_type_hints(method._prototype, self._interface)
+        hints = get_type_hints(method._prototype, generic=self._interface)
         restype = hints.pop("return")
         argtypes = [self._make_allocator(t) for t in hints.values()]
         closure = partial(self._com_callback_error_check, getattr(self._owner, method._prototype.__name__))
@@ -197,28 +168,26 @@ class Vtbl(Structure):
         return cast(thunk, c_void_p)
 
     def _make_thunk_winrt(self, method):
-        hints = generic_get_type_hints(method._prototype, self._interface)
+        hints = get_type_hints(method._prototype, generic=self._interface)
         restype = hints.pop("return")
         argtypes = []
         for type_ in hints.values():
             if _winrt.is_passarray_class(type_):
                 argtypes.append(UInt32)
-                argtypes.append(POINTER(get_args(type_)[0]))
+                argtypes.append(POINTER(type_.__args__[0]))
             elif _winrt.is_fillarray_class(type_):
                 argtypes.append(UInt32)
-                argtypes.append(POINTER(get_args(type_)[0]))
+                argtypes.append(POINTER(type_.__args__[0]))
             elif _winrt.is_receivearray_class(type_):
                 argtypes.append(POINTER(UInt32))
-                argtypes.append(POINTER(POINTER(get_args(type_)[0])))
+                argtypes.append(POINTER(POINTER(type_.__args__[0])))
             else:
                 argtypes.append(self._make_allocator(type_))
         if restype is Void:
             pass
         elif _winrt.is_receivearray_class(restype):
             argtypes.append(POINTER(UInt32))
-            argtypes.append(POINTER(POINTER(get_args(restype)[0])))
-        elif is_generic_alias(restype):
-            argtypes.append(POINTER(get_origin(restype)))
+            argtypes.append(POINTER(POINTER(restype.__args__[0])))
         else:
             argtypes.append(POINTER(restype))
         closure = partial(
@@ -230,7 +199,7 @@ class Vtbl(Structure):
 
     # allocate winrt runtime class without constructor.
     def _make_allocator(self, t):
-        if is_generic_alias(t) or issubclass(t, ComPtr):
+        if issubclass(t, ComPtr):
             return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: t(own=False)})
         return t
 
@@ -262,11 +231,11 @@ class Vtbl(Structure):
 
     def _add_argument(self, type_: type, args: list[Any], pyargs: list[Any], exitstack) -> None:
         if _winrt.is_passarray_class(type_):
-            exitstack.enter_context(_winrt.PassArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+            exitstack.enter_context(_winrt.PassArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif _winrt.is_fillarray_class(type_):
-            exitstack.enter_context(_winrt.FillArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+            exitstack.enter_context(_winrt.FillArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif _winrt.is_receivearray_class(type_):
-            exitstack.enter_context(_winrt.ReceiveArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+            exitstack.enter_context(_winrt.ReceiveArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif type_ is hstr:
             pyargs.append(str(args.pop(0)))
         else:
@@ -277,7 +246,7 @@ class Vtbl(Structure):
             pass
         elif _winrt.is_receivearray_class(restype):
             return_length, return_pointer = args
-            _winrt.ReceiveArrayCallback.handle_result(get_args(restype)[0], return_length, return_pointer, result)
+            _winrt.ReceiveArrayCallback.handle_result(restype.__args__[0], return_length, return_pointer, result)
         elif restype is hstr:
             return_pointer = args[0]
             return_pointer[0] = hstr(result)
