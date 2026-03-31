@@ -8,10 +8,6 @@ def is_generic_concrete(cls):
     return "__concrete__" in cls.__dict__
 
 
-def get_origin_or_itself(cls):
-    return get_origin(cls) or cls
-
-
 class GenericSpecializer:
     def __init__(self, parameter_to_type_map: dict[TypeVar, type]) -> None:
         self._parameter_to_type_map = parameter_to_type_map

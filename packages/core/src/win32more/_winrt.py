@@ -19,14 +19,13 @@ from typing import (
     Generic,
     Tuple,  # noqa: F401
     TypeVar,
-    get_args,
 )
 
 from . import asyncui
 from ._boxing import box_value, unbox_value
 from ._comclass import ComClass, ISelf, is_com_class, is_com_instance
 from ._comerror import ComError
-from ._generic import generic_class_getitem, get_origin_or_itself, is_generic_concrete
+from ._generic import generic_class_getitem, is_generic_concrete
 from ._hstr import hstr
 from ._ro import ro_activate_instance, ro_get_activation_factory
 from ._win32 import (
@@ -99,8 +98,10 @@ def winrt_easycast(obj, type_):
 
 # Dummy type for list[T]
 class PassArray(Generic[T]):
-    def __init__(self, type_, seq, cargs):
-        self._type = type_
+    __class_getitem__ = classmethod(generic_class_getitem)
+
+    def __init__(self, seq, cargs):
+        self._type = self.__args__[0]
 
         if isinstance(seq, Sequence):
             if self._type is hstr:
@@ -110,7 +111,7 @@ class PassArray(Generic[T]):
             cargs.append(len(self._seq))
             cargs.append((self._type * len(self._seq))(*self._seq))
         else:
-            raise TypeError(f"cannot convert {type(seq)} to PassArray[{type_.__name__}]")
+            raise TypeError(f"cannot convert {type(seq)} to PassArray[{self._type.__name__}]")
 
     def __enter__(self):
         pass
@@ -143,16 +144,18 @@ class PassArrayCallback:
 
 # Dummy type for list[T]
 class FillArray(Generic[T]):
-    def __init__(self, type_, seq, cargs):
-        self._type = type_
+    __class_getitem__ = classmethod(generic_class_getitem)
+
+    def __init__(self, seq, cargs):
+        self._type = self.__args__[0]
 
         if isinstance(seq, MutableSequence):
             self._seq = seq
-            self._ptr = (type_ * len(seq))()
+            self._ptr = (self._type * len(seq))()
             cargs.append(len(self._seq))
             cargs.append(self._ptr)
         else:
-            raise TypeError(f"cannot convert {type(seq)} to FillArray[{type_.__name__}]")
+            raise TypeError(f"cannot convert {type(seq)} to FillArray[{self._type.__name__}]")
 
     def __enter__(self):
         pass
@@ -201,17 +204,19 @@ class FillArrayCallback:
 
 # Dummy type for list[T]
 class ReceiveArray(Generic[T]):
-    def __init__(self, type_, seq, cargs):
-        self._type = type_
+    __class_getitem__ = classmethod(generic_class_getitem)
+
+    def __init__(self, seq, cargs):
+        self._type = self.__args__[0]
 
         if isinstance(seq, MutableSequence):
             self._seq = seq
             self._size = UInt32()
-            self._ptr = POINTER(type_)()
+            self._ptr = POINTER(self._type)()
             cargs.append(pointer(self._size))
             cargs.append(pointer(self._ptr))
         else:
-            raise TypeError(f"cannot convert {type(seq)} to ReceiveArray[{type_.__name__}]")
+            raise TypeError(f"cannot convert {type(seq)} to ReceiveArray[{self._type.__name__}]")
 
     def __enter__(self):
         pass
@@ -322,17 +327,17 @@ class WinrtMethodCall:
     def _add_parameter(self, argtypes: list[type], params: list[tuple[int, str]], name: str, type_: type) -> None:
         if is_passarray_class(type_):
             argtypes.append(UInt32)
-            argtypes.append(POINTER(get_args(type_)[0]))
+            argtypes.append(POINTER(type_.__args__[0]))
             params.append((1, f"{name}_length"))
             params.append((1, name))
         elif is_fillarray_class(type_):
             argtypes.append(UInt32)
-            argtypes.append(POINTER(get_args(type_)[0]))
+            argtypes.append(POINTER(type_.__args__[0]))
             params.append((1, f"{name}_length"))
             params.append((1, name))
         elif is_receivearray_class(type_):
             argtypes.append(POINTER(UInt32))
-            argtypes.append(POINTER(POINTER(get_args(type_)[0])))
+            argtypes.append(POINTER(POINTER(type_.__args__[0])))
             params.append((1, f"{name}_length"))
             params.append((1, name))
         elif is_delegate_class(type_):
@@ -347,7 +352,7 @@ class WinrtMethodCall:
             pass
         elif is_receivearray_class(restype):
             argtypes.append(POINTER(UInt32))
-            argtypes.append(POINTER(POINTER(get_args(restype)[0])))
+            argtypes.append(POINTER(POINTER(restype.__args__[0])))
             params.append((1, "return_length"))
             params.append((1, "return"))
         else:
@@ -356,11 +361,11 @@ class WinrtMethodCall:
 
     def _add_argument(self, cargs: list[Any], value: Any, type_: type, exitstack: ExitStack) -> None:
         if is_passarray_class(type_):
-            exitstack.enter_context(PassArray(get_args(type_)[0], value, cargs))
+            exitstack.enter_context(type_(value, cargs))
         elif is_fillarray_class(type_):
-            exitstack.enter_context(FillArray(get_args(type_)[0], value, cargs))
+            exitstack.enter_context(type_(value, cargs))
         elif is_receivearray_class(type_):
-            exitstack.enter_context(ReceiveArray(get_args(type_)[0], value, cargs))
+            exitstack.enter_context(type_(value, cargs))
         elif is_delegate_class(type_):
             cargs.append(MulticastDelegateImpl(type_, value))
         elif is_com_instance(value) and is_com_class(type_):
@@ -373,7 +378,7 @@ class WinrtMethodCall:
             result = None
         elif is_receivearray_class(self.restype):
             result = []
-            exitstack.enter_context(ReceiveArray(get_args(self.restype)[0], result, cargs))
+            exitstack.enter_context(self.restype(result, cargs))
         elif is_com_class(self.restype):
             result = self.restype(own=True)
             cargs.append(pointer(result))
@@ -435,19 +440,19 @@ class winrt_mixinmethod:
 
 
 def is_delegate_class(cls):
-    return issubclass(get_origin_or_itself(cls), MulticastDelegate)
+    return issubclass(cls, MulticastDelegate)
 
 
 def is_passarray_class(cls):
-    return issubclass(get_origin_or_itself(cls), PassArray)
+    return issubclass(cls, PassArray)
 
 
 def is_fillarray_class(cls):
-    return issubclass(get_origin_or_itself(cls), FillArray)
+    return issubclass(cls, FillArray)
 
 
 def is_receivearray_class(cls):
-    return issubclass(get_origin_or_itself(cls), ReceiveArray)
+    return issubclass(cls, ReceiveArray)
 
 
 # check if ptr[0] returns python primitive?

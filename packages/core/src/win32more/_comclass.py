@@ -4,10 +4,9 @@ import logging
 from contextlib import ExitStack
 from ctypes import POINTER, Structure, addressof, c_void_p, cast, py_object, sizeof
 from functools import partial
-from typing import Any, get_args
+from typing import Any
 
 from ._comerror import set_error_info
-from ._generic import get_origin_or_itself
 from ._hstr import hstr
 from ._win32 import WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod, get_type_hints
 from ._win32api import (
@@ -40,7 +39,7 @@ _winrt = _lazy_winrt()
 
 
 def is_com_class(cls):
-    return issubclass(get_origin_or_itself(cls), ComPtr)
+    return issubclass(cls, ComPtr)
 
 
 def is_com_instance(obj):
@@ -175,20 +174,20 @@ class Vtbl(Structure):
         for type_ in hints.values():
             if _winrt.is_passarray_class(type_):
                 argtypes.append(UInt32)
-                argtypes.append(POINTER(get_args(type_)[0]))
+                argtypes.append(POINTER(type_.__args__[0]))
             elif _winrt.is_fillarray_class(type_):
                 argtypes.append(UInt32)
-                argtypes.append(POINTER(get_args(type_)[0]))
+                argtypes.append(POINTER(type_.__args__[0]))
             elif _winrt.is_receivearray_class(type_):
                 argtypes.append(POINTER(UInt32))
-                argtypes.append(POINTER(POINTER(get_args(type_)[0])))
+                argtypes.append(POINTER(POINTER(type_.__args__[0])))
             else:
                 argtypes.append(self._make_allocator(type_))
         if restype is Void:
             pass
         elif _winrt.is_receivearray_class(restype):
             argtypes.append(POINTER(UInt32))
-            argtypes.append(POINTER(POINTER(get_args(restype)[0])))
+            argtypes.append(POINTER(POINTER(restype.__args__[0])))
         else:
             argtypes.append(POINTER(restype))
         closure = partial(
@@ -232,11 +231,11 @@ class Vtbl(Structure):
 
     def _add_argument(self, type_: type, args: list[Any], pyargs: list[Any], exitstack) -> None:
         if _winrt.is_passarray_class(type_):
-            exitstack.enter_context(_winrt.PassArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+            exitstack.enter_context(_winrt.PassArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif _winrt.is_fillarray_class(type_):
-            exitstack.enter_context(_winrt.FillArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+            exitstack.enter_context(_winrt.FillArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif _winrt.is_receivearray_class(type_):
-            exitstack.enter_context(_winrt.ReceiveArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+            exitstack.enter_context(_winrt.ReceiveArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif type_ is hstr:
             pyargs.append(str(args.pop(0)))
         else:
@@ -247,7 +246,7 @@ class Vtbl(Structure):
             pass
         elif _winrt.is_receivearray_class(restype):
             return_length, return_pointer = args
-            _winrt.ReceiveArrayCallback.handle_result(get_args(restype)[0], return_length, return_pointer, result)
+            _winrt.ReceiveArrayCallback.handle_result(restype.__args__[0], return_length, return_pointer, result)
         elif restype is hstr:
             return_pointer = args[0]
             return_pointer[0] = hstr(result)
