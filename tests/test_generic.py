@@ -29,26 +29,14 @@ class TestGeneric(unittest.TestCase):
 
         self.assertIsInstance(A[Int32], type)
         self.assertIs(A[Int32], A[Int32])
-        self.assertEqual(
-            A[Int32].__bases__,
-            (
-                A,
-                ComPtr,
-            ),
-        )
+        self.assertEqual(A[Int32].__bases__, (A, ComPtr))
         self.assertEqual(A[Int32].__args__, (Int32,))
 
         class B(A[Int32], Generic[K, V]):
             pass
 
         self.assertIs(B[Int16, Int64], B[Int16, Int64])
-        self.assertEqual(
-            B[Int16, Int64].__bases__,
-            (
-                B,
-                A[Int32],
-            ),
-        )
+        self.assertEqual(B[Int16, Int64].__bases__, (B, A[Int32]))
         self.assertEqual(B[Int16, Int64].__args__, (Int16, Int64))
         self.assertEqual(B[Int16, Int64]._B__args, (Int16, Int64))
         self.assertEqual(B[Int16, Int64]._A__args, (Int32,))
