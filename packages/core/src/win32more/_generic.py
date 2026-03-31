@@ -72,15 +72,19 @@ def _concrete(ga):
             bases.append(b)
     name_suffix = "_" + "_".join(t.__name__ for t in args)
     name = cls.__name__ + name_suffix
-    qualname = cls.__qualname__ + name_suffix
-    classdict = dict(cls.__dict__)
-    classdict["__qualname__"] = qualname
-    classdict["__args__"] = args
-    classdict[f"_{cls.__name__}__args"] = args
-    classdict["__concrete__"] = True
-    if "_piid_" in classdict:
+    # Constructor overwrites __parameters__.  Set later.
+    newcls = type(cls)(name, tuple(bases), {})
+    newcls.__module__ = cls.__module__
+    newcls.__parameters__ = cls.__parameters__
+    newcls.__args__ = args
+    setattr(newcls, f"_{cls.__name__}__args", args)
+    newcls.__concrete__ = True
+    if "_classid_" in cls.__dict__:
+        newcls._classid_ = cls._classid_
+    if "_piid_" in cls.__dict__:
         # lazy load to prevent circular import
         from ._ro import ro_get_parameterized_type_instance_iid
 
-        classdict["_iid_"] = ro_get_parameterized_type_instance_iid(ga)
-    return type(cls)(name, tuple(bases), classdict)
+        newcls._piid_ = cls._piid_
+        newcls._iid_ = ro_get_parameterized_type_instance_iid(ga)
+    return newcls
