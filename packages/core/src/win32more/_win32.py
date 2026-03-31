@@ -35,7 +35,7 @@ from itertools import zip_longest
 from typing import Annotated, Generic, get_args, get_origin
 from typing import get_type_hints as _get_type_hints
 
-from ._generic import GenericSpecializer, generic_class_getitem, is_generic_concrete
+from ._generic import generic_class_getitem, generic_specialize, is_generic_concrete
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -361,7 +361,8 @@ def easycast(obj, type_):
 def get_type_hints(prototype, /, include_extras=False, generic=None):
     localns = dict(vars(prototype))
     if generic is not None and is_generic_concrete(generic):
-        localns.update(dict(zip([t.__name__ for t in generic.__parameters__], generic.__args__)))
+        namebind = dict(zip([t.__name__ for t in generic.__parameters__], generic.__args__))
+        localns.update(namebind)
     hints = _get_type_hints(prototype, localns=localns, include_extras=include_extras)
     for name, type_ in hints.items():
         if not isinstance(type_, type):
@@ -374,8 +375,8 @@ def get_type_hints(prototype, /, include_extras=False, generic=None):
             # It is not applied to subclass.  Avoid it for Enum.
             hints[name] = type_.__bases__[1]
     if generic is not None and is_generic_concrete(generic):
-        gs = GenericSpecializer(dict(zip(generic.__parameters__, generic.__args__)))
-        hints = {key: gs.specialize_parameter(parameter) for key, parameter in hints.items()}
+        parambind = dict(zip(generic.__parameters__, generic.__args__))
+        hints = {key: generic_specialize(parameter, parambind) for key, parameter in hints.items()}
     return hints
 
 

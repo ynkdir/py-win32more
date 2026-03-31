@@ -8,25 +8,14 @@ def is_generic_concrete(cls):
     return "__concrete__" in cls.__dict__
 
 
-class GenericSpecializer:
-    def __init__(self, parameter_to_type_map: dict[TypeVar, type]) -> None:
-        self._parameter_to_type_map = parameter_to_type_map
-
-    def specialize_generic_alias(self, parameterized_generic_alias: _GenericAlias) -> type:
-        parameters = get_args(parameterized_generic_alias)
-        args = self.specialize_parameters(parameters)
-        return get_origin(parameterized_generic_alias)[tuple(args)]
-
-    def specialize_parameters(self, parameters: list[_GenericAlias | TypeVar | type]) -> list[type]:
-        return [self.specialize_parameter(parameter) for parameter in parameters]
-
-    def specialize_parameter(self, parameter: _GenericAlias | TypeVar | type) -> type:
-        if isinstance(parameter, _GenericAlias):
-            return self.specialize_generic_alias(parameter)
-        elif isinstance(parameter, TypeVar):
-            return self._parameter_to_type_map[parameter]
-        else:
-            return parameter
+def generic_specialize(parameter: _GenericAlias | TypeVar | type, parambind: dict[TypeVar, type]) -> type:
+    if isinstance(parameter, _GenericAlias):
+        args = tuple(generic_specialize(param, parambind) for param in get_args(parameter))
+        return get_origin(parameter)[args]
+    elif isinstance(parameter, TypeVar):
+        return parambind[parameter]
+    else:
+        return parameter
 
 
 # C[K, V] -> GenericAlias
@@ -61,7 +50,7 @@ def _concrete(ga):
             if get_origin(b) is Generic:
                 pass
             else:
-                boundargs = tuple([parambind.get(t, t) for t in b.__args__])
+                boundargs = tuple(parambind.get(t, t) for t in b.__args__)
                 boundbase = get_origin(b)[boundargs]
                 bases.append(boundbase)
         else:
