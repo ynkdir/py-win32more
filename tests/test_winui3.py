@@ -1,5 +1,6 @@
 import unittest
 from multiprocessing import Process, parent_process
+import os
 
 try:
     import win32more.Microsoft  # noqa
@@ -8,6 +9,9 @@ except:  # noqa
 else:
     appsdk_available = True
 
+# WindowsAppSDK may be installed in the github actions. But winui doesn't work on it.
+if os.getenv("GITHUB_ACTIONS"):
+    appsdk_available = False
 
 assertion_error = None
 
