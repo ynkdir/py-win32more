@@ -1,6 +1,6 @@
+import os
 import unittest
 from multiprocessing import Process, parent_process
-import os
 
 try:
     import win32more.Microsoft  # noqa
