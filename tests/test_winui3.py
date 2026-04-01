@@ -45,6 +45,27 @@ def exitonerror(func):
 @unittest.skipUnless(appsdk_available, "WindowsAppSDK is not available")
 class TestWinui3(unittest.TestCase):
     @process
+    def test_true(testcase):
+        print("TEST_TRUE: START")
+        testcase.assertTrue(True)
+        print("TEST_TRUE: END")
+
+    @process
+    def test_ml(testcase):
+        print("TEST_ML: START")
+
+        from win32more.Microsoft.Windows.AI.MachineLearning import ExecutionProviderCatalog, ExecutionProviderReadyResultState
+
+        catalog = ExecutionProviderCatalog.GetDefault()
+        providers = [provider.Name for provider in catalog.FindAllProviders()]
+
+        print("TEST_ML:", providers)
+
+        testcase.assertNotEqual(providers, [])
+
+        print("TEST_ML: END")
+
+    @process
     def test_create_window(testcase):
         from win32more.Microsoft.UI.Xaml import Window, WindowActivationState
         from win32more.winui3 import XamlApplication
