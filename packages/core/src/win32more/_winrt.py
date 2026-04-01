@@ -614,7 +614,7 @@ class MappingProtocol(Generic[K, V]):
     def __iterator(self):
         from win32more.Windows.Foundation.Collections import IIterable, IKeyValuePair
 
-        iterable = self.as_(IIterable[IKeyValuePair[self._MappingProtocol__args]])
+        iterable = self.as_(IIterable[IKeyValuePair[self.__args]])
         for pair in iterable:
             yield pair.Key, pair.Value
 
