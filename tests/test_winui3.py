@@ -46,8 +46,14 @@ def exitonerror(func):
 class TestWinui3(unittest.TestCase):
     @process
     def test_true(testcase):
+        from win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime import RuntimeInfo
+
         print("TEST_TRUE: START")
+
+        print("TEST_TRUE: RuntimeInfo.AsString():", RuntimeInfo.AsString)
+
         testcase.assertTrue(True)
+
         print("TEST_TRUE: END")
 
     @process
