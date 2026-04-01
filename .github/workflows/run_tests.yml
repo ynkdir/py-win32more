@@ -41,6 +41,7 @@ jobs:
         architecture: ${{ matrix.architecture }}
 
     - name: Debug
+      continue-on-error: true
       run: |
         where.exe Microsoft.WindowsAppRuntime.dll
 
