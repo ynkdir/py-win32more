@@ -22,11 +22,11 @@ from win32more.winui3 import XamlApplication, XamlLoader
 APILIST_CACHE = Path(".apisearch.txt")
 LIST_MAX = 200
 METADATA_URLS = [
-    "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Windows.SDK.Win32Metadata.68.0.4-preview.zip",
-    "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Windows.SDK.Contracts.10.0.26100.7175.zip",
-    "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.WindowsAppSDK.1.8.251106002.zip",
-    "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Web.WebView2.1.0.3595.46.zip",
-    "https://github.com/ynkdir/winmd-printer/releases/download/v1.1.0/Microsoft.Graphics.Win2D.1.3.2.zip",
+    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Windows.SDK.Win32Metadata.70.0.11-preview.zip",
+    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Windows.SDK.Contracts.10.0.26100.7705.zip",
+    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.WindowsAppSDK.1.8.260317003.zip",
+    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Web.WebView2.1.0.3856.49.zip",
+    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Graphics.Win2D.1.4.0.zip",
 ]
 
 logger = logging.getLogger(__name__)

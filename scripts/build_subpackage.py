@@ -369,7 +369,7 @@ RECIPES = {
         "id": "Microsoft.Windows.SDK.Win32Metadata",
         "dependencies": ["Microsoft.Windows.SDK.Contracts"],
         "core_dependencies": ["core"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.Windows.SDK.Win32Metadata"],
         "metadata": [("Microsoft.Windows.SDK.Win32Metadata", "Windows.Win32.winmd")],
         "assets": [],
@@ -396,7 +396,7 @@ RECIPES = {
         "id": "Microsoft.WindowsAppSDK",
         "dependencies": ["Microsoft.Windows.SDK.Contracts"],
         "core_dependencies": ["core", "appsdk"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.WindowsAppSDK", "Microsoft.Windows.SDK.BuildTools"],
         "metadata": [
             ("Microsoft.WindowsAppSDK", "lib/uap10.0.18362/*.winmd"),
@@ -431,7 +431,7 @@ RECIPES = {
         "id": "Microsoft.WindowsAppSDK",
         "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
         "core_dependencies": ["core", "appsdk"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.WindowsAppSDK", "Microsoft.Windows.SDK.BuildTools"],
         "metadata": [
             ("Microsoft.WindowsAppSDK", "lib/uap10.0.18362/*.winmd"),
@@ -466,7 +466,7 @@ RECIPES = {
         "id": "Microsoft.WindowsAppSDK",
         "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
         "core_dependencies": ["core", "appsdk"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.WindowsAppSDK", "Microsoft.Windows.SDK.BuildTools"],
         "metadata": [
             ("Microsoft.WindowsAppSDK", "lib/uap10.0.18362/*.winmd"),
@@ -516,7 +516,7 @@ RECIPES = {
         "id": "Microsoft.WindowsAppSDK",
         "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
         "core_dependencies": ["core", "appsdk"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": [
             "Microsoft.WindowsAppSDK",
             "Microsoft.WindowsAppSDK.Base",
@@ -581,7 +581,7 @@ RECIPES = {
         "id": "Microsoft.WindowsAppSDK",
         "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
         "core_dependencies": ["core", "appsdk"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": [
             "Microsoft.WindowsAppSDK",
             "Microsoft.WindowsAppSDK.Base",
@@ -648,7 +648,7 @@ RECIPES = {
         "id": "Microsoft.Web.WebView2",
         "dependencies": ["Microsoft.Windows.SDK.Contracts"],
         "core_dependencies": ["core"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.Web.WebView2"],
         "metadata": [("Microsoft.Web.WebView2", "lib/*.winmd")],
         "assets": [
@@ -676,7 +676,7 @@ RECIPES = {
         "id": "Microsoft.Graphics.Win2D",
         "dependencies": ["Microsoft.WindowsAppSDK.1.5"],
         "core_dependencies": ["core"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.Graphics.Win2D"],
         "metadata": [("Microsoft.Graphics.Win2D", "lib/uap10.0/*.winmd")],
         "assets": [
@@ -703,7 +703,7 @@ RECIPES = {
         "id": "Microsoft.Graphics.Win2D",
         "dependencies": ["Microsoft.WindowsAppSDK.1.6"],
         "core_dependencies": ["core"],
-        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.Graphics.Win2D"],
         "metadata": [("Microsoft.Graphics.Win2D", "lib/uap10.0/*.winmd")],
         "assets": [
@@ -732,7 +732,7 @@ RECIPES = {
         "dependencies": ["Microsoft.WindowsAppSDK.1.8.250916003"],
         "core_dependencies": ["core"],
         "extra_install": [
-            ("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948"),
+            ("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705"),
             ("Microsoft.WindowsAppSDK", "1.8.260209005"),
         ],
         "known_packages": ["Microsoft.Graphics.Win2D"],
