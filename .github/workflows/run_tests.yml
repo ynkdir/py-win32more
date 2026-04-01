@@ -40,6 +40,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
         architecture: ${{ matrix.architecture }}
 
+    - name: Debug
+      run: |
+        where.exe Microsoft.WindowsAppRuntime.dll
+
     - name: Install Python requirements
       run: pip install -r test_requirements.txt
 
