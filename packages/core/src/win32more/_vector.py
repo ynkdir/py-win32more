@@ -114,7 +114,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
 
     def First(self) -> IIterator[T]:
-        return Iterator[self._T](self._lst)
+        return Iterator[self._T](self._T(v) for v in self._lst)
 
     def add_VectorChanged(self, vhnd: VectorChangedEventHandler[T]) -> EventRegistrationToken:
         self._observers_count += 1
@@ -132,29 +132,42 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
 
 
 class Iterator(ComClass, IIterator[T]):
-    def __init__(self, lst: list[T] | None = None) -> None:
+    def __init__(self, it) -> None:
         super().__init__(own=True)
 
-        self._lst = lst
-        self._index = 0
+        self._it = it
+        try:
+            self._current = next(self._it)
+        except StopIteration:
+            self._current = None
 
     def get_Current(self) -> T:
-        return self._lst[self._index]
+        if self._current is None:
+            return None
+        return self._current
 
     def get_HasCurrent(self) -> Boolean:
-        return self._index < len(self._lst)
+        return self._current is not None
 
     def MoveNext(self) -> Boolean:
-        self._index += 1
-        return self._index < len(self._lst)
+        try:
+            self._current = next(self._it)
+            return True
+        except StopIteration:
+            self._current = None
+            return False
 
     def GetMany(self, items: FillArray[T]) -> UInt32:
         numcopied = 0
         for i in range(len(items)):
-            if i >= len(self._lst):
+            if self._current is None:
                 break
-            items[numcopied] = self._lst[i]
+            items[numcopied] = self._current
             numcopied += 1
+            try:
+                self._current = next(self._it)
+            except StopIteration:
+                self._current = None
         return numcopied
 
 
