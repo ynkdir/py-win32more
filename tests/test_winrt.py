@@ -317,6 +317,21 @@ class TestWinrt(unittest.TestCase):
         asyncio.run(main())
 
     def test_box_value(self):
+        dummy = IInspectable(0)
+        self.assertIs(box_value(dummy), dummy)
+
+        self.assertIsNone(box_value(None))
+        self.assertIsNone(unbox_value(box_value(None)))
+
+        self.assertIsInstance(box_value(True), IInspectable)
+        self.assertTrue(unbox_value(box_value(True)))
+
+        self.assertIsInstance(box_value(42), IInspectable)
+        self.assertEqual(unbox_value(box_value(42)), 42)
+
+        self.assertIsInstance(box_value(42.195), IInspectable)
+        self.assertEqual(unbox_value(box_value(42.195)), 42.195)
+
         self.assertIsInstance(box_value("str"), IInspectable)
         self.assertEqual(unbox_value(box_value("str")), "str")
         self.assertEqual(box_value("str").as_(str), "str")

@@ -7,15 +7,27 @@ from ._win32api import IInspectable
 def box_value(value: object) -> IInspectable:
     from win32more.Windows.Foundation import PropertyValue
 
-    if isinstance(value, str):
-        return PropertyValue.CreateString(value)
+    if value is None:
+        return None
+    elif isinstance(value, IInspectable):
+        return value
     elif isinstance(value, bool):
         return PropertyValue.CreateBoolean(value)
+    elif isinstance(value, int):
+        # FIXME: size?
+        return PropertyValue.CreateInt32(value)
+    elif isinstance(value, float):
+        return PropertyValue.CreateDouble(value)
+    elif isinstance(value, str):
+        return PropertyValue.CreateString(value)
     raise NotImplementedError(f"box_value: {type(value)}")
 
 
 def unbox_value(value: IInspectable):
     from win32more.Windows.Foundation import IPropertyValue, PropertyType
+
+    if value is None:
+        return None
 
     property_value = value.as_(IPropertyValue)
 
