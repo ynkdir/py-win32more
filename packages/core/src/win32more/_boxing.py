@@ -1,16 +1,23 @@
 from __future__ import annotations
 
+from typing import Any
+
 from ._win32api import IInspectable
 
 
 # FIXME: Add more conversion.
-def box_value(value: object) -> IInspectable:
+def box_value(value: Any) -> IInspectable:
     from win32more.Windows.Foundation import PropertyValue
+    from win32more.Windows.Foundation.Collections import IVector
+
+    from ._vector import Vector
 
     if value is None:
         return None
     elif isinstance(value, IInspectable):
         return value
+    elif isinstance(value, list):
+        return Vector[IInspectable]([box_value(v) for v in value]).as_(IVector[IInspectable])
     elif isinstance(value, bool):
         return PropertyValue.CreateBoolean(value)
     elif isinstance(value, int):
@@ -23,11 +30,21 @@ def box_value(value: object) -> IInspectable:
     raise NotImplementedError(f"box_value: {type(value)}")
 
 
-def unbox_value(value: IInspectable):
+def unbox_value(value: IInspectable | None) -> Any:
     from win32more.Windows.Foundation import IPropertyValue, PropertyType
+    from win32more.Windows.Foundation.Collections import IVector
+    from win32more.Windows.Win32.Foundation import E_NOINTERFACE
 
     if value is None:
         return None
+
+    try:
+        vec = value.as_(IVector[IInspectable])
+    except OSError as e:
+        if e.winerror != E_NOINTERFACE:
+            raise
+    else:
+        return [unbox_value(v) for v in vec]
 
     property_value = value.as_(IPropertyValue)
 

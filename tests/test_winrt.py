@@ -342,6 +342,10 @@ class TestWinrt(unittest.TestCase):
         with self.assertRaises(AttributeError):  # 'str' object has not attribute 'as_'
             unbox_value("non com object")
 
+        self.assertIsInstance(box_value([1]), IVector)
+        self.assertEqual(unbox_value(box_value([1])), [1])
+        self.assertEqual(unbox_value(box_value([1, ["x"]])), [1, ["x"]])
+
     def test_vector(self):
         v = Vector[Int32]([0, 1, 2])
 
