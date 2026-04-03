@@ -185,13 +185,14 @@ class ComPtr(c_void_p):
 
         orig_bases = []
 
+        # Add implements first for MRO
+        if "implements" in hints:
+            orig_bases.extend(get_args(hints["implements"]))
+
         for type_ in cls.__dict__.get("__orig_bases__", cls.__bases__):
             if type_ is ComPtr:
                 type_ = hints["extends"]
             orig_bases.append(type_)
-
-        if "implements" in hints:
-            orig_bases.extend(get_args(hints["implements"]))
 
         orig_bases = tuple(orig_bases)
 
