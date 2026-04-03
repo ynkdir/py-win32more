@@ -50,7 +50,7 @@ from win32more.Windows.Foundation import (
     PropertyValue,
     Uri,
 )
-from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
+from win32more.Windows.Foundation.Collections import IMap, IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
@@ -345,6 +345,10 @@ class TestWinrt(unittest.TestCase):
         self.assertIsInstance(box_value([1]), IVector)
         self.assertEqual(unbox_value(box_value([1])), [1])
         self.assertEqual(unbox_value(box_value([1, ["x"]])), [1, ["x"]])
+
+        self.assertIsInstance(box_value({"a": 1}), IMap)
+        self.assertEqual(unbox_value(box_value({"a": 1})), {"a": 1})
+        self.assertEqual(unbox_value(box_value({"a": {"b": [42]}})), {"a": {"b": [42]}})
 
     def test_vector(self):
         v = Vector[Int32]([0, 1, 2])
