@@ -50,7 +50,7 @@ def _concrete(ga):
             if get_origin(b) is Generic:
                 pass
             else:
-                boundargs = tuple(parambind.get(t, t) for t in b.__args__)
+                boundargs = tuple(generic_specialize(t, parambind) for t in b.__args__)
                 boundbase = get_origin(b)[boundargs]
                 bases.append(boundbase)
         else:

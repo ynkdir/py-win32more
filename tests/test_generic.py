@@ -41,6 +41,20 @@ class TestGeneric(unittest.TestCase):
         self.assertEqual(B[Int16, Int64]._B__args, (Int16, Int64))
         self.assertEqual(B[Int16, Int64]._A__args, (Int32,))
 
+    def test_nested_generic_alias(self):
+        class A(Generic[T], ComPtr):
+            pass
+
+        class B(Generic[T], ComPtr):
+            pass
+
+        class C(B[A[T]]):
+            pass
+
+        self.assertIs(C[Int32], C[Int32])
+        self.assertEqual(C[Int32]._C__args, (Int32,))
+        self.assertEqual(C[Int32]._B__args, (A[Int32],))
+
 
 if __name__ == "__main__":
     unittest.main()
