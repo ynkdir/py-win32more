@@ -21,6 +21,7 @@ from win32more import (
     box_value,
     unbox_value,
 )
+from win32more._map import Map
 from win32more._ro import _get_type_signature, ro_get_parameterized_type_instance_iid
 from win32more._vector import Vector
 from win32more._win32 import (
@@ -351,15 +352,33 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(unbox_value(box_value({"a": {"b": [42]}})), {"a": {"b": [42]}})
 
     def test_vector(self):
-        v = Vector[Int32]([0, 1, 2])
+        v = Vector[Int32]().as_(IVector[Int32])
+
+        v.Append(0)
+        v.Append(1)
+        v.Append(2)
 
         self.assertEqual(v.GetAt(0), 0)
         self.assertEqual(v.GetAt(1), 1)
         self.assertEqual(v.GetAt(2), 2)
+        self.assertEqual(v[0], 0)
+        self.assertEqual(v[1], 1)
+        self.assertEqual(v[2], 2)
 
         r = [None] * 3
         v.GetMany(0, r)
         self.assertEqual(r, [0, 1, 2])
+
+    def test_map(self):
+        m = Map[hstr, hstr]().as_(IMap[hstr, hstr])
+
+        m.Insert("a", "1")
+        m.Insert("b", "2")
+
+        self.assertEqual(m.Lookup("a"), "1")
+        self.assertEqual(m.Lookup("b"), "2")
+        self.assertEqual(m["a"], "1")
+        self.assertEqual(m["b"], "2")
 
     def test_sequence_protocol(self):
         async def device_information_find_all():
