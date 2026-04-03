@@ -17,7 +17,7 @@ from win32more.Windows.Foundation.Collections import (
 
 from ._vector import Iterator
 from ._win32 import Boolean, UInt32, Void
-from ._winrt import ComClass, K, T, V, is_com_class
+from ._winrt import ComClass, K, T, V, is_com_instance
 
 
 class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], IObservableMap[K, V]):
@@ -89,15 +89,15 @@ class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], 
             observer.Invoke(self, args)
 
     def _addref(self, key: K, value: V) -> None:
-        if is_com_class(self._K):
+        if key and is_com_instance(self._K):
             key.AddRef()
-        if is_com_class(self._V):
+        if value and is_com_instance(self._V):
             value.AddRef()
 
     def _release(self, key: K, value: V) -> None:
-        if is_com_class(self._K):
+        if key and is_com_instance(self._K):
             key.Release()
-        if is_com_class(self._V):
+        if value and is_com_instance(self._V):
             value.Release()
 
 

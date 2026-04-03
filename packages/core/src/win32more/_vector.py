@@ -21,7 +21,7 @@ from ._winrt import (
     FillArray,
     PassArray,
     T,
-    is_com_class,
+    is_com_instance,
 )
 
 logger = logging.getLogger(__name__)
@@ -41,9 +41,8 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         else:
             self._lst = list(lst)
 
-        if is_com_class(self._T):
-            for v in self._lst:
-                v.AddRef()
+        for v in self._lst:
+            self._addref(v)
 
     def GetAt(self, index: UInt32) -> T:
         return self._lst[index]
@@ -62,22 +61,19 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         return False
 
     def SetAt(self, index: UInt32, value: T) -> Void:
-        if is_com_class(self._T):
-            self._lst[index].Release()
-            value.AddRef()
+        self._release(self._lst[index])
+        self._addref(value)
         self._lst[index] = value
         self._notify(VectorChangedEventArgs(CollectionChange.ItemChanged, index))
 
     def InsertAt(self, index: UInt32, value: T) -> Void:
-        if is_com_class(self._T):
-            value.AddRef()
+        self._addref(value)
         self._lst.insert(index, value)
         self._notify(VectorChangedEventArgs(CollectionChange.ItemInserted, index))
 
     def RemoveAt(self, index: UInt32) -> Void:
         value = self._lst.pop(index)
-        if is_com_class(self._T):
-            value.Release()
+        self._release(value)
         self._notify(VectorChangedEventArgs(CollectionChange.ItemRemoved, index))
 
     def Append(self, value: T) -> Void:
@@ -87,9 +83,8 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         self.RemoveAt(len(self) - 1)
 
     def Clear(self) -> Void:
-        if is_com_class(self._T):
-            for v in self._lst:
-                v.Release()
+        for v in self._lst:
+            self._release(v)
         self._lst[:] = []
         self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
 
@@ -103,12 +98,10 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         return numcopied
 
     def ReplaceAll(self, items: PassArray[T]) -> Void:
-        if is_com_class(self._T):
-            for v in items:
-                v.AddRef()
-        if is_com_class(self._T):
-            for v in self._lst:
-                v.Release()
+        for v in items:
+            self._addref(v)
+        for v in self._lst:
+            self._addref(v)
         self._lst[:] = items
         # FIXME: ?
         self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
@@ -129,6 +122,14 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
     def _notify(self, args):
         for observer in self._observers.values():
             observer.Invoke(self, args)
+
+    def _addref(self, value: T) -> None:
+        if value and is_com_instance(self._T):
+            value.AddRef()
+
+    def _release(self, value: T) -> None:
+        if value and is_com_instance(self._T):
+            value.Release()
 
 
 class Iterator(ComClass, IIterator[T]):
