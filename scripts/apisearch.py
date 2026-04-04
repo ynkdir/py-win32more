@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any
 
 from win32more import box_value
-from win32more.Microsoft.UI.Xaml import FocusState
+from win32more.Microsoft.UI.Xaml import FocusState, Visibility
 from win32more.winui3 import XamlApplication, XamlLoader
 
 APILIST_CACHE = Path(".apisearch.txt")
@@ -48,16 +48,26 @@ class App(XamlApplication):
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TextBox x:Name="TextBlock1" Grid.Row="0" PlaceholderText="Enter API name" TextChanged="TextBlock1_TextChanged" Loaded="TextBlock1_Loaded"/>
-        <ListView x:Name="ListView1" Grid.Row="1" />
+        <ListView x:Name="ListView1" Grid.Row="1">
+        </ListView>
+        <StackPanel Grid.Row="2">
+            <ProgressBar x:Name="ProgressBar" IsIndeterminate="True" />
+            <TextBlock x:Name="Status"></TextBlock>
+        </StackPanel>
     </Grid>
 </Window>
 """,
         )
+
+        self._items = box_value([])
+
+        self.ListView1.ItemsSource = self._items
 
         self.Window.Title = "Api Search"
         self.Window.Activate()
@@ -69,34 +79,19 @@ class App(XamlApplication):
         asyncio.create_task(self._load())
 
     async def _load(self) -> None:
-        self.ListView1.Items.Append(
-            XamlLoader.Load(
-                self,
-                """<TextBlock xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">loading</TextBlock>""",
-            )
-        )
-        self.ListView1.Items.Append(
-            XamlLoader.Load(
-                self,
-                """<ProgressBar xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" IsIndeterminate="True" />""",
-            )
-        )
+        self.ProgressBar.Visibility = Visibility.Visible
+        self.Status.Text = "loading"
 
         await asyncio.to_thread(self._search_engine.load)
+
+        self.ProgressBar.Visibility = Visibility.Collapsed
+        self.Status.Text = "ready"
 
         self._ready = True
 
         if self.TextBlock1.Text != "":
             await self._search()
             return
-
-        self.ListView1.Items.Clear()
-        self.ListView1.Items.Append(
-            XamlLoader.Load(
-                self,
-                """<TextBlock xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">ready</TextBlock>""",
-            )
-        )
 
     async def _search(self) -> None:
         if not self._ready:
@@ -107,8 +102,9 @@ class App(XamlApplication):
 
         self._current_search_task = asyncio.current_task()
 
+        self.Status.Text = ""
+
         query = self.TextBlock1.Text
-        items = self.ListView1.Items
 
         # debouncing
         try:
@@ -117,7 +113,7 @@ class App(XamlApplication):
             return
 
         if query == "":
-            items.Clear()
+            self._items.Clear()
             return
 
         try:
@@ -129,9 +125,9 @@ class App(XamlApplication):
         for i, api in enumerate(matched_api):
             r.append(self.make_item(api))
             if i == LIST_MAX:
-                r.append(box_value(f"... (over {LIST_MAX})"))
+                self.Status.Text = f"... (over {LIST_MAX})"
                 break
-        items.ReplaceAll(r)
+        self._items.ReplaceAll(r)
 
         self._current_search_task = None
 
