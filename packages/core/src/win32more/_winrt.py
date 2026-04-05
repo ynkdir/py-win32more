@@ -180,7 +180,8 @@ class FillArrayCallback:
         self._type = type_
         self._size = size
         self._ptr = ptr
-        self._lst = [None] * size
+        self._sentinel = object()
+        self._lst = [self._sentinel] * size
         pyargs.append(self._lst)
 
     def __enter__(self):
@@ -191,6 +192,8 @@ class FillArrayCallback:
             return
 
         for i, v in enumerate(self._lst):
+            if self._lst[i] is self._sentinel:
+                break
             if self._type is hstr:
                 self._ptr[i] = hstr(v)
             elif is_com_class(self._type):
