@@ -83,8 +83,7 @@ def winrt_easycast(obj, type_):
     from win32more.Windows.Foundation.Collections import IVector
 
     if type_ is IInspectable:
-        if isinstance(obj, str):
-            return box_value(obj)
+        return box_value(obj)
     elif issubclass(type_, IVector):
         if isinstance(obj, list):
             return Vector[type_._IVector__args[0]](obj)
