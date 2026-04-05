@@ -124,11 +124,11 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
             observer.Invoke(self, args)
 
     def _addref(self, value: T) -> None:
-        if value and is_com_instance(self._T):
+        if value and is_com_instance(value):
             value.AddRef()
 
     def _release(self, value: T) -> None:
-        if value and is_com_instance(self._T):
+        if value and is_com_instance(value):
             value.Release()
 
 

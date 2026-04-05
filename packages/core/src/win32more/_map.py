@@ -89,15 +89,15 @@ class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], 
             observer.Invoke(self, args)
 
     def _addref(self, key: K, value: V) -> None:
-        if key and is_com_instance(self._K):
+        if key and is_com_instance(key):
             key.AddRef()
-        if value and is_com_instance(self._V):
+        if value and is_com_instance(value):
             value.AddRef()
 
     def _release(self, key: K, value: V) -> None:
-        if key and is_com_instance(self._K):
+        if key and is_com_instance(key):
             key.Release()
-        if value and is_com_instance(self._V):
+        if value and is_com_instance(value):
             value.Release()
 
 
