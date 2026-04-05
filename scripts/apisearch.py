@@ -55,6 +55,21 @@ class App(XamlApplication):
         </Grid.ColumnDefinitions>
         <TextBox x:Name="TextBlock1" Grid.Row="0" PlaceholderText="Enter API name" TextChanged="TextBlock1_TextChanged" Loaded="TextBlock1_Loaded"/>
         <ListView x:Name="ListView1" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Visibility="{Binding ModuleMemberVisibility}">
+                            <Run Text="{Binding Namespace}" />.<Run Foreground="Tomato" Text="{Binding Member}" />
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding ClassMemberVisibility}">
+                            <Run Text="{Binding Namespace}" />.<Run Foreground="Tomato" Text="{Binding Class}" />.<Run Foreground="Maroon" Text="{Binding Member}" />
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding DocVisibility}">
+                            <Run Text=" " /><Hyperlink NavigateUri="{Binding Doc}">doc</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <StackPanel Grid.Row="2">
             <ProgressBar x:Name="ProgressBar" IsIndeterminate="True" />
@@ -123,7 +138,7 @@ class App(XamlApplication):
 
         r = []
         for i, api in enumerate(matched_api):
-            r.append(self.make_item(api))
+            r.append(box_value(self.make_item(api)))
             if i == LIST_MAX:
                 self.Status.Text = f"... (over {LIST_MAX})"
                 break
@@ -131,19 +146,34 @@ class App(XamlApplication):
 
         self._current_search_task = None
 
-    def make_item(self, api: Any) -> object:
-        if api["Doc"] is None:
-            link = ""
-        else:
-            link = f"""<Hyperlink NavigateUri="{api["Doc"]}">doc</Hyperlink>"""
+    def make_item(self, api: dict) -> dict:
+        dto = {
+            "DocVisibility": Visibility.Collapsed,
+            "Doc": "",
+            "ModuleMemberVisibility": Visibility.Collapsed,
+            "ClassMemberVisibility": Visibility.Collapsed,
+            "Namespace": "",
+            "Class": "",
+            "Member": "",
+        }
+        if api["Doc"] is not None:
+            dto["DocVisibility"] = Visibility.Visible
+            dto["Doc"] = api["Doc"]
         if "Method" in api:
-            item = f"{api['Namespace']}.<Run Foreground='Tomato'>{api['Class']}</Run>.<Run Foreground='Maroon'>{api['Method']}</Run> {link}"
+            dto["ClassMemberVisibility"] = Visibility.Visible
+            dto["Namespace"] = api["Namespace"]
+            dto["Class"] = api["Class"]
+            dto["Member"] = api["Method"]
         elif "Field" in api:
-            item = f"{api['Namespace']}.<Run Foreground='Tomato'>{api['Class']}</Run>.<Run Foreground='Maroon'>{api['Field']}</Run> {link}"
+            dto["ClassMemberVisibility"] = Visibility.Visible
+            dto["Namespace"] = api["Namespace"]
+            dto["Class"] = api["Class"]
+            dto["Member"] = api["Field"]
         else:
-            item = f"{api['Namespace']}.<Run Foreground='Tomato'>{api['Name']}</Run> {link}"
-        xaml = f'<TextBlock xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">{item}</TextBlock>'
-        return XamlLoader.Load(self, xaml)
+            dto["ModuleMemberVisibility"] = Visibility.Visible
+            dto["Namespace"] = api["Namespace"]
+            dto["Member"] = api["Name"]
+        return dto
 
     async def TextBlock1_TextChanged(self, sender, e):
         await self._search()
