@@ -369,6 +369,15 @@ class TestWinrt(unittest.TestCase):
         v.GetMany(0, r)
         self.assertEqual(r, [0, 1, 2])
 
+        v[1] = 42
+        self.assertEqual(v[1], 42)
+
+        v[:] = [99]
+        self.assertEqual(v[:], [99])
+
+        del v[0]
+        self.assertEqual(v[:], [])
+
     def test_map(self):
         m = Map[hstr, hstr]().as_(IMap[hstr, hstr])
 
@@ -379,6 +388,21 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(m.Lookup("b"), "2")
         self.assertEqual(m["a"], "1")
         self.assertEqual(m["b"], "2")
+
+        m = Map[hstr, IInspectable]().as_(IMap[hstr, IInspectable])
+
+        m["x"] = 1
+        self.assertIsInstance(m["x"], IInspectable)
+        self.assertEqual(unbox_value(m["x"]), 1)
+
+        m["x"] = True
+        self.assertIs(unbox_value(m["x"]), True)
+
+        m["x"] = [1, 2, 3]
+        self.assertEqual(unbox_value(m["x"]), [1, 2, 3])
+
+        del m["x"]
+        self.assertFalse(m.HasKey("x"))
 
     def test_sequence_protocol(self):
         async def device_information_find_all():

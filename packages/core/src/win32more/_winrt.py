@@ -609,6 +609,25 @@ class SequenceProtocol:
         else:
             raise TypeError(f"list indices must be integers or slices, not {type(index).__name__}")
 
+    def __setitem__(self, index, value):
+        if isinstance(index, slice):
+            # FIXME:
+            lst = [None] * len(self)
+            self.GetMany(0, lst)
+            lst[index] = [v for v in value]
+            self.ReplaceAll(lst)
+        elif isinstance(index, int):
+            if index < 0:
+                index += len(self)
+            if index < 0 or len(self) <= index:
+                raise IndexError("list index out of range")
+            self.SetAt(index, value)
+        else:
+            raise TypeError(f"list indices must be integers or slices, not {type(index).__name__}")
+
+    def __delitem__(self, index):
+        self.RemoveAt(index)
+
 
 class MappingProtocol(Generic[K, V]):
     __class_getitem__ = classmethod(generic_class_getitem)
@@ -630,6 +649,14 @@ class MappingProtocol(Generic[K, V]):
         if not self.HasKey(key):
             raise KeyError(key)
         return self.Lookup(key)
+
+    def __setitem__(self, key, value):
+        self.Insert(key, value)
+
+    def __delitem__(self, key):
+        if not self.HasKey(key):
+            raise KeyError(key)
+        self.Remove(key)
 
     def __contains__(self, key):
         return self.HasKey(key)
