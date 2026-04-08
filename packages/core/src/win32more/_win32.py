@@ -211,17 +211,31 @@ class ComPtr(c_void_p):
 
         if cls is str:
             return unbox_value(self)
-        elif "_iid_" in cls.__dict__:
+
+        if "_iid_" in cls.__dict__:
             iid = cls._iid_
         elif "_default_interface_" in cls.__dict__:
             iid = cls._default_interface_._iid_
         else:
             raise RuntimeError("no _iid_ found")
+
         instance = cls(own=True)
         hr = self.QueryInterface(pointer(iid), pointer(instance))
         if FAILED(hr):
             raise WinError(hr)
         return instance
+
+    def try_as(self, cls):
+        from ._win32api import E_NOINTERFACE
+
+        try:
+            return self.as_(cls)
+        except TypeError:
+            return None
+        except OSError as e:
+            if e.winerror == E_NOINTERFACE:
+                return None
+            raise
 
     def __eq__(self, other):
         return isinstance(other, ComPtr) and self.value == other.value

@@ -31,31 +31,22 @@ def box_value(value: Any) -> IInspectable:
         return PropertyValue.CreateDouble(value)
     elif isinstance(value, str):
         return PropertyValue.CreateString(value)
-    raise NotImplementedError(f"box_value: {type(value)}")
+    raise TypeError(f"box_value: {type(value)}")
 
 
 def unbox_value(value: IInspectable | None) -> Any:
     from win32more.Windows.Foundation import IPropertyValue, PropertyType
     from win32more.Windows.Foundation.Collections import IMap, IVector
-    from win32more.Windows.Win32.Foundation import E_NOINTERFACE
 
     if value is None:
         return None
 
-    try:
-        vec = value.as_(IVector[IInspectable])
-    except OSError as e:
-        if e.winerror != E_NOINTERFACE:
-            raise
-    else:
+    vec = value.try_as(IVector[IInspectable])
+    if vec is not None:
         return [unbox_value(v) for v in vec]
 
-    try:
-        map = value.as_(IMap[hstr, IInspectable])
-    except OSError as e:
-        if e.winerror != E_NOINTERFACE:
-            raise
-    else:
+    map = value.try_as(IMap[hstr, IInspectable])
+    if map is not None:
         return {k: unbox_value(v) for k, v in map.items()}
 
     property_value = value.as_(IPropertyValue)
@@ -179,4 +170,4 @@ def unbox_value(value: IInspectable | None) -> Any:
     # elif property_value.Type == PropertyType.OtherType:
     # elif property_value.Type == PropertyType.OtherTypeArray:
     else:
-        raise NotImplementedError(f"unbox_value: {property_value.Type}")
+        raise TypeError(f"unbox_value: {property_value.Type}")
