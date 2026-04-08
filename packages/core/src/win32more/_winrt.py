@@ -22,7 +22,7 @@ from typing import (
 )
 
 from . import asyncui
-from ._boxing import box_value, unbox_value
+from ._boxing import box_value
 from ._comclass import ComClass, ISelf, is_com_class, is_com_instance
 from ._comerror import ComError
 from ._generic import generic_class_getitem, is_generic_concrete
@@ -402,7 +402,7 @@ class WinrtMethodCall:
         elif issubclass(self.restype, IReference):
             if not result:
                 return None
-            return unbox_value(result)
+            return result.Value
         elif issubclass(self.restype, Enum):
             return result.value
         elif is_com_class(self.restype):
