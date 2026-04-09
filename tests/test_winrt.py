@@ -21,6 +21,7 @@ from win32more import (
     box_value,
     unbox_value,
 )
+from win32more._boxing import unbox_str
 from win32more._map import Map
 from win32more._ro import _get_type_signature, ro_get_parameterized_type_instance_iid
 from win32more._vector import Vector
@@ -350,6 +351,10 @@ class TestWinrt(unittest.TestCase):
         self.assertIsInstance(box_value({"a": 1}), IMap)
         self.assertEqual(unbox_value(box_value({"a": 1})), {"a": 1})
         self.assertEqual(unbox_value(box_value({"a": {"b": [42]}})), {"a": {"b": [42]}})
+
+        self.assertEqual(unbox_str(box_value("s")), "s")
+        with self.assertRaises(TypeError):
+            unbox_str(box_value(1))
 
     def test_vector(self):
         v = Vector[Int32]().as_(IVector[Int32])

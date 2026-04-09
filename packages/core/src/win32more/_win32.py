@@ -207,10 +207,10 @@ class ComPtr(c_void_p):
         return cls
 
     def as_(self, cls):
-        from ._boxing import unbox_value
+        from ._boxing import unbox_str
 
         if cls is str:
-            return unbox_value(self)
+            return unbox_str(self)
 
         if "_iid_" in cls.__dict__:
             iid = cls._iid_

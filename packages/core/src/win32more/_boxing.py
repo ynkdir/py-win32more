@@ -171,3 +171,12 @@ def unbox_value(value: IInspectable | None) -> Any:
     # elif property_value.Type == PropertyType.OtherTypeArray:
     else:
         raise TypeError(f"unbox_value: {property_value.Type}")
+
+
+def unbox_str(value: IInspectable) -> str:
+    from win32more.Windows.Foundation import IPropertyValue, PropertyType
+
+    property_value = value.try_as(IPropertyValue)
+    if property_value.Type != PropertyType.String:
+        raise TypeError(f"unbox_str: {property_value.Type}")
+    return property_value.GetString()
