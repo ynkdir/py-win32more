@@ -177,6 +177,9 @@ def unbox_str(value: IInspectable) -> str:
     from win32more.Windows.Foundation import IPropertyValue, PropertyType
 
     property_value = value.try_as(IPropertyValue)
-    if property_value.Type != PropertyType.String:
-        raise TypeError(f"unbox_str: {property_value.Type}")
-    return property_value.GetString()
+    if property_value is not None:
+        if property_value.Type != PropertyType.String:
+            raise TypeError(f"unbox_str: {property_value.Type}")
+        return property_value.GetString()
+
+    raise TypeError(f"unbox_str: {value}")
