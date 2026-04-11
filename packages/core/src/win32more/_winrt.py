@@ -13,6 +13,7 @@ from ctypes import (
     pointer,
     sizeof,
 )
+from datetime import datetime, timedelta
 from functools import partial
 from typing import (
     Any,
@@ -22,7 +23,7 @@ from typing import (
 )
 
 from . import asyncui
-from ._boxing import box_value
+from ._boxing import box_value, datetime_to_winrt, timedelta_to_winrt
 from ._comclass import ComClass, ISelf, is_com_class, is_com_instance
 from ._comerror import ComError
 from ._generic import generic_class_getitem, is_generic_concrete
@@ -79,7 +80,7 @@ class event_setter:
 
 def winrt_easycast(obj, type_):
     from win32more._vector import Vector
-    from win32more.Windows.Foundation import IReference
+    from win32more.Windows.Foundation import DateTime, IReference, TimeSpan
     from win32more.Windows.Foundation.Collections import IVector
 
     if type_ is IInspectable:
@@ -90,8 +91,20 @@ def winrt_easycast(obj, type_):
     elif issubclass(type_, IReference):
         # FIXME: Should I check obj is T of IReference[T]?
         if obj is None:
-            return type_(None)
+            return None
         return box_value(obj).as_(type_)
+    elif issubclass(type_, DateTime):
+        if isinstance(obj, DateTime):
+            return obj
+        elif isinstance(obj, datetime):
+            return datetime_to_winrt(obj)
+        raise TypeError(f"cannot convert {type(obj)} to DateTime")
+    elif issubclass(type_, TimeSpan):
+        if isinstance(obj, TimeSpan):
+            return obj
+        elif isinstance(obj, timedelta):
+            return timedelta_to_winrt(obj)
+        raise TypeError(f"cannot convert {type(obj)} to TimeSpan")
     return easycast(obj, type_)
 
 
