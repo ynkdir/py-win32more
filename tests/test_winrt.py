@@ -3,7 +3,7 @@ import sys
 import unittest
 from concurrent.futures import Future
 from ctypes import POINTER, cast, pointer
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Generic, TypeVar
 
@@ -365,6 +365,10 @@ class TestWinrt(unittest.TestCase):
             box_value(datetime(2006, 1, 2, 3, 4, 5, tzinfo=timezone.utc)).as_(datetime),
             datetime(2006, 1, 2, 3, 4, 5, tzinfo=timezone.utc),
         )
+
+        self.assertEqual(unbox_value(box_value(timedelta(1, 2, 3, 4, 5, 6))), timedelta(1, 2, 3, 4, 5, 6))
+
+        self.assertEqual(box_value(timedelta(1, 2, 3, 4, 5, 6)).as_(timedelta), timedelta(1, 2, 3, 4, 5, 6))
 
     def test_vector(self):
         v = Vector[Int32]().as_(IVector[Int32])

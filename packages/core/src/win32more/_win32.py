@@ -31,7 +31,7 @@ from ctypes import (
 )
 from ctypes import Structure as _Structure
 from ctypes import Union as _Union
-from datetime import datetime
+from datetime import datetime, timedelta
 from itertools import zip_longest
 from typing import Annotated, Generic, get_args, get_origin
 from typing import get_type_hints as _get_type_hints
@@ -208,12 +208,14 @@ class ComPtr(c_void_p):
         return cls
 
     def as_(self, cls):
-        from ._boxing import unbox_datetime, unbox_str
+        from ._boxing import unbox_datetime, unbox_str, unbox_timespan
 
         if cls is str:
             return unbox_str(self)
         elif cls is datetime:
             return unbox_datetime(self)
+        elif cls is timedelta:
+            return unbox_timespan(self)
 
         if "_iid_" in cls.__dict__:
             iid = cls._iid_

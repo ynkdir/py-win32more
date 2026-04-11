@@ -36,11 +36,13 @@ def box_value(value: Any) -> IInspectable:
         return PropertyValue.CreateString(value)
     elif isinstance(value, datetime):
         return box_datetime(value)
+    elif isinstance(value, timedelta):
+        return box_timespan(value)
     raise TypeError(f"box_value: {type(value)}")
 
 
 def unbox_value(value: IInspectable | None) -> Any:
-    from win32more.Windows.Foundation import DateTime, IPropertyValue, IReference, PropertyType
+    from win32more.Windows.Foundation import DateTime, IPropertyValue, IReference, PropertyType, TimeSpan
     from win32more.Windows.Foundation.Collections import IMap, IVector
 
     if value is None:
@@ -57,6 +59,10 @@ def unbox_value(value: IInspectable | None) -> Any:
     reference = value.try_as(IReference[DateTime])
     if reference is not None:
         return unbox_reference_datetime(reference)
+
+    reference = value.try_as(IReference[TimeSpan])
+    if reference is not None:
+        return unbox_reference_timespan(reference)
 
     property_value = value.as_(IPropertyValue)
 
@@ -91,7 +97,7 @@ def unbox_value(value: IInspectable | None) -> Any:
     elif property_value.Type == PropertyType.DateTime:
         return unbox_property_datetime(property_value)
     elif property_value.Type == PropertyType.TimeSpan:
-        return property_value.GetTimeSpan()
+        return unbox_property_timespan(property_value)
     elif property_value.Type == PropertyType.Guid:
         return property_value.GetGuid()
     elif property_value.Type == PropertyType.Point:
@@ -243,3 +249,39 @@ def datetime_to_filetime(dt: datetime) -> int:
 # nanoseconds are dropped
 def datetime_from_filetime(ft: int) -> datetime:
     return FILETIME_EPOCH + timedelta(microseconds=ft / 10)
+
+
+def box_timespan(value: timedelta) -> IInspectable:
+    from win32more.Windows.Foundation import PropertyValue, TimeSpan
+
+    return PropertyValue.CreateTimeSpan(TimeSpan(int(value / timedelta(microseconds=1)) * 10))
+
+
+def unbox_timespan(value: IInspectable) -> timedelta:
+    from win32more.Windows.Foundation import IPropertyValue, IReference, TimeSpan
+
+    reference = value.try_as(IReference[TimeSpan])
+    if reference is not None:
+        return unbox_reference_timespan(reference)
+
+    property_value = value.try_as(IPropertyValue)
+    if property_value is not None:
+        return unbox_property_timespan(property_value)
+
+    raise TypeError(f"unbox_timespan: {value}")
+
+
+def unbox_reference_timespan(
+    value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan],
+) -> timedelta:
+
+    return timedelta(microseconds=value.Value.Duration / 10)
+
+
+def unbox_property_timespan(value: win32more.Windows.Foundation.IPropertyValue) -> timedelta:
+    from win32more.Windows.Foundation import PropertyType
+
+    if value.Type == PropertyType.TimeSpan:
+        return timedelta(microseconds=value.GetTimeSpan().Duration / 10)
+
+    raise TypeError(f"unbox_property_timespan: {value.Type}")
