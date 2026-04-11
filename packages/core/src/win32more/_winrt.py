@@ -393,16 +393,10 @@ class WinrtMethodCall:
         return result
 
     def _handle_result(self, result: Any) -> Any:
-        from win32more.Windows.Foundation import IReference
-
         if self.restype is Void:
             return None
         elif is_receivearray_class(self.restype):
             return result
-        elif issubclass(self.restype, IReference):
-            if not result:
-                return None
-            return result.Value
         elif issubclass(self.restype, Enum):
             return result.value
         elif is_com_class(self.restype):
