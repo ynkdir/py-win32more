@@ -244,7 +244,7 @@ def datetime_to_winrt(value: datetime) -> win32more.Windows.Foundation.DateTime:
 
 # nanoseconds are dropped
 def datetime_from_winrt(value: win32more.Windows.Foundation.DateTime) -> datetime:
-    return FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime / 10)
+    return (FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime / 10)).astimezone()
 
 
 def box_timespan(value: timedelta) -> IInspectable:
