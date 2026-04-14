@@ -241,12 +241,12 @@ def datetime_to_winrt(value: datetime) -> win32more.Windows.Foundation.DateTime:
     # value = value.astimezone()
     if value.tzinfo is None:
         value = value.replace(tzinfo=localtzinfo())
-    return DateTime(int((value - FILETIME_EPOCH) / timedelta(microseconds=1)) * 10)
+    return DateTime((value - FILETIME_EPOCH) // timedelta(microseconds=1) * 10)
 
 
 # nanoseconds are dropped
 def datetime_from_winrt(value: win32more.Windows.Foundation.DateTime) -> datetime:
-    utc = FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime / 10)
+    utc = FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime // 10)
     local = localtzinfo()
     return (utc + local.utcoffset(None)).replace(tzinfo=local)
 
