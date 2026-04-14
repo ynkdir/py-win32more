@@ -365,6 +365,9 @@ class TestWinrt(unittest.TestCase):
             box_value(datetime(2006, 1, 2, 3, 4, 5, tzinfo=timezone.utc)).as_(datetime),
             datetime(2006, 1, 2, 3, 4, 5, tzinfo=timezone.utc),
         )
+        self.assertEqual(
+            unbox_value(box_value(datetime(1, 1, 1, tzinfo=timezone.utc))), datetime(1, 1, 1, tzinfo=timezone.utc)
+        )
 
         self.assertEqual(unbox_value(box_value(timedelta(1, 2, 3, 4, 5, 6))), timedelta(1, 2, 3, 4, 5, 6))
 

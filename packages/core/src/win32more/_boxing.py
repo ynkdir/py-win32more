@@ -236,15 +236,23 @@ FILETIME_EPOCH = datetime(1601, 1, 1, tzinfo=timezone.utc)
 def datetime_to_winrt(value: datetime) -> win32more.Windows.Foundation.DateTime:
     from win32more.Windows.Foundation import DateTime
 
-    value_utc = value.astimezone(timezone.utc)  # ensure aware datetime
-    if value_utc < FILETIME_EPOCH:
-        raise ValueError(f"out of range for Windows FILETIME (minimum is 1601-01-01): {value}")
-    return DateTime(int((value_utc - FILETIME_EPOCH) / timedelta(microseconds=1)) * 10)
+    # ensure aware datetime
+    # <3.15: OSError for pre-EPOCH datetime
+    # value = value.astimezone()
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=localtzinfo())
+    return DateTime(int((value - FILETIME_EPOCH) / timedelta(microseconds=1)) * 10)
 
 
 # nanoseconds are dropped
 def datetime_from_winrt(value: win32more.Windows.Foundation.DateTime) -> datetime:
-    return (FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime / 10)).astimezone()
+    utc = FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime / 10)
+    local = localtzinfo()
+    return (utc + local.utcoffset(None)).replace(tzinfo=local)
+
+
+def localtzinfo():
+    return datetime(2006, 1, 2).astimezone().tzinfo
 
 
 def box_timespan(value: timedelta) -> IInspectable:
