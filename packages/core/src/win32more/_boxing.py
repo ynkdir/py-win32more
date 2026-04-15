@@ -281,8 +281,8 @@ def unbox_timespan(value: IInspectable | win32more.Windows.Foundation.TimeSpan) 
 def timedelta_to_winrt(value: timedelta) -> win32more.Windows.Foundation.TimeSpan:
     from win32more.Windows.Foundation import TimeSpan
 
-    return TimeSpan(int(value / timedelta(microseconds=1)) * 10)
+    return TimeSpan(value // timedelta(microseconds=1) * 10)
 
 
 def timedelta_from_winrt(value: win32more.Windows.Foundation.TimeSpan) -> timedelta:
-    return timedelta(microseconds=value.Duration / 10)
+    return timedelta(microseconds=value.Duration // 10)
