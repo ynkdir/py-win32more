@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from typing import Any
-
-import win32more  # for annotation
+from typing import TYPE_CHECKING, Any
 
 from ._hstr import hstr
 from ._win32api import IInspectable
+
+if TYPE_CHECKING:
+    import win32more
 
 
 # FIXME: Add more conversion.
