@@ -35,24 +35,18 @@ def box_value(value: Any) -> IInspectable:
     elif isinstance(value, str):
         return PropertyValue.CreateString(value)
     elif isinstance(value, datetime):
-        return box_datetime(value)
+        return PropertyValue.CreateDateTime(datetime_to_winrt(value))
     elif isinstance(value, timedelta):
-        return box_timespan(value)
+        return PropertyValue.CreateTimeSpan(timedelta_to_winrt(value))
     raise TypeError(f"box_value: {type(value)}")
 
 
 def unbox_value(value: Any) -> Any:
-    from win32more.Windows.Foundation import DateTime, IPropertyValue, IReference, PropertyType, TimeSpan
+    from win32more.Windows.Foundation import IPropertyValue, PropertyType
     from win32more.Windows.Foundation.Collections import IMap, IVector
 
     if value is None:
         return None
-
-    if isinstance(value, DateTime):
-        return unbox_datetime(value)
-
-    if isinstance(value, TimeSpan):
-        return unbox_timespan(value)
 
     vec = value.try_as(IVector[IInspectable])
     if vec is not None:
@@ -61,14 +55,6 @@ def unbox_value(value: Any) -> Any:
     map = value.try_as(IMap[hstr, IInspectable])
     if map is not None:
         return {k: unbox_value(v) for k, v in map.items()}
-
-    reference = value.try_as(IReference[DateTime])
-    if reference is not None:
-        return datetime_from_winrt(reference.Value)
-
-    reference = value.try_as(IReference[TimeSpan])
-    if reference is not None:
-        return timedelta_from_winrt(reference.Value)
 
     property_value = value.as_(IPropertyValue)
 
@@ -206,21 +192,8 @@ def unbox_str(value: IInspectable) -> str:
     raise TypeError(f"unbox_str: {value}")
 
 
-def box_datetime(value: datetime) -> IInspectable:
-    from win32more.Windows.Foundation import PropertyValue
-
-    return PropertyValue.CreateDateTime(datetime_to_winrt(value))
-
-
 def unbox_datetime(value: IInspectable | win32more.Windows.Foundation.DateTime) -> datetime:
-    from win32more.Windows.Foundation import DateTime, IPropertyValue, IReference, PropertyType
-
-    if isinstance(value, DateTime):
-        return datetime_from_winrt(value)
-
-    reference = value.try_as(IReference[DateTime])
-    if reference is not None:
-        return datetime_from_winrt(reference.Value)
+    from win32more.Windows.Foundation import IPropertyValue, PropertyType
 
     property_value = value.try_as(IPropertyValue)
     if property_value is not None and property_value.Type == PropertyType.DateTime:
@@ -255,21 +228,8 @@ def localtzinfo():
     return datetime(2006, 1, 2).astimezone().tzinfo
 
 
-def box_timespan(value: timedelta) -> IInspectable:
-    from win32more.Windows.Foundation import PropertyValue
-
-    return PropertyValue.CreateTimeSpan(timedelta_to_winrt(value))
-
-
 def unbox_timespan(value: IInspectable | win32more.Windows.Foundation.TimeSpan) -> timedelta:
-    from win32more.Windows.Foundation import IPropertyValue, IReference, PropertyType, TimeSpan
-
-    if isinstance(value, TimeSpan):
-        return timedelta_from_winrt(value)
-
-    reference = value.try_as(IReference[TimeSpan])
-    if reference is not None:
-        return timedelta_from_winrt(reference.Value)
+    from win32more.Windows.Foundation import IPropertyValue, PropertyType
 
     property_value = value.try_as(IPropertyValue)
     if property_value is not None and property_value.Type == PropertyType.TimeSpan:
