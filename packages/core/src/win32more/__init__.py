@@ -3,6 +3,7 @@ from . import _win32api
 from ._boxing import box_value, unbox_value
 from ._comclass import ComClass
 from ._comerror import ComError
+from ._datetime import datetime_from_winrt, datetime_to_winrt, timedelta_from_winrt, timedelta_to_winrt
 from ._win32 import (
     FAILED,
     SUCCEEDED,

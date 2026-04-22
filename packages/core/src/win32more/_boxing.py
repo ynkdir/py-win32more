@@ -1,18 +1,16 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
-from typing import TYPE_CHECKING, Any
+from datetime import datetime, timedelta
+from typing import Any
 
+from ._datetime import datetime_to_winrt, timedelta_to_winrt
 from ._hstr import hstr
 from ._win32api import IInspectable
-
-if TYPE_CHECKING:
-    import win32more
 
 
 # FIXME: Add more conversion.
 def box_value(value: Any) -> IInspectable:
-    from win32more.Windows.Foundation import PropertyValue
+    from win32more.Windows.Foundation import DateTime, PropertyValue, TimeSpan
     from win32more.Windows.Foundation.Collections import IMap, IVector
 
     from ._map import Map
@@ -35,8 +33,12 @@ def box_value(value: Any) -> IInspectable:
         return PropertyValue.CreateDouble(value)
     elif isinstance(value, str):
         return PropertyValue.CreateString(value)
+    elif isinstance(value, DateTime):
+        return PropertyValue.CreateDateTime(value)
     elif isinstance(value, datetime):
         return PropertyValue.CreateDateTime(datetime_to_winrt(value))
+    elif isinstance(value, TimeSpan):
+        return PropertyValue.CreateTimeSpan(value)
     elif isinstance(value, timedelta):
         return PropertyValue.CreateTimeSpan(timedelta_to_winrt(value))
     raise TypeError(f"box_value: {type(value)}")
@@ -88,9 +90,9 @@ def unbox_value(value: Any) -> Any:
     elif property_value.Type == PropertyType.Inspectable:
         return value
     elif property_value.Type == PropertyType.DateTime:
-        return datetime_from_winrt(property_value.GetDateTime())
+        return property_value.GetDateTime()
     elif property_value.Type == PropertyType.TimeSpan:
-        return timedelta_from_winrt(property_value.GetTimeSpan())
+        return property_value.GetTimeSpan()
     elif property_value.Type == PropertyType.Guid:
         return property_value.GetGuid()
     elif property_value.Type == PropertyType.Point:
@@ -191,59 +193,3 @@ def unbox_str(value: IInspectable) -> str:
         return property_value.GetString()
 
     raise TypeError(f"unbox_str: {value}")
-
-
-def unbox_datetime(value: IInspectable | win32more.Windows.Foundation.DateTime) -> datetime:
-    from win32more.Windows.Foundation import IPropertyValue, PropertyType
-
-    property_value = value.try_as(IPropertyValue)
-    if property_value is not None and property_value.Type == PropertyType.DateTime:
-        return datetime_from_winrt(property_value.GetDateTime())
-
-    raise TypeError(f"unbox_datetime: {value}")
-
-
-# FILETIME: 100-nanosecond intervals since January 1, 1601 (UTC)
-FILETIME_EPOCH = datetime(1601, 1, 1, tzinfo=timezone.utc)
-
-
-def datetime_to_winrt(value: datetime) -> win32more.Windows.Foundation.DateTime:
-    from win32more.Windows.Foundation import DateTime
-
-    # ensure aware datetime
-    # <3.15: OSError for pre-EPOCH datetime
-    # value = value.astimezone()
-    if value.tzinfo is None:
-        value = value.replace(tzinfo=localtzinfo())
-    return DateTime((value - FILETIME_EPOCH) // timedelta(microseconds=1) * 10)
-
-
-# nanoseconds are dropped
-def datetime_from_winrt(value: win32more.Windows.Foundation.DateTime) -> datetime:
-    utc = FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime // 10)
-    local = localtzinfo()
-    return (utc + local.utcoffset(None)).replace(tzinfo=local)
-
-
-def localtzinfo():
-    return datetime(2006, 1, 2).astimezone().tzinfo
-
-
-def unbox_timespan(value: IInspectable | win32more.Windows.Foundation.TimeSpan) -> timedelta:
-    from win32more.Windows.Foundation import IPropertyValue, PropertyType
-
-    property_value = value.try_as(IPropertyValue)
-    if property_value is not None and property_value.Type == PropertyType.TimeSpan:
-        return timedelta_from_winrt(property_value.GetTimeSpan())
-
-    raise TypeError(f"unbox_timespan: {value}")
-
-
-def timedelta_to_winrt(value: timedelta) -> win32more.Windows.Foundation.TimeSpan:
-    from win32more.Windows.Foundation import TimeSpan
-
-    return TimeSpan(value // timedelta(microseconds=1) * 10)
-
-
-def timedelta_from_winrt(value: win32more.Windows.Foundation.TimeSpan) -> timedelta:
-    return timedelta(microseconds=value.Duration // 10)
