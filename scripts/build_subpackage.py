@@ -170,8 +170,10 @@ class Builder:
                 return RECIPES["Microsoft.WindowsAppSDK.1.7"]
             elif NuGetVersion.parse(version) < NuGetVersion.parse("1.8.250916003"):
                 return RECIPES["Microsoft.WindowsAppSDK.1.8"]
-            else:
+            elif NuGetVersion.parse(version) < NuGetVersion.parse("2.0.1"):
                 return RECIPES["Microsoft.WindowsAppSDK.1.8.250916003"]
+            else:
+                return RECIPES["Microsoft.WindowsAppSDK.2.0.1"]
         elif id == "Microsoft.Web.WebView2":
             return RECIPES["Microsoft.Web.WebView2"]
         elif id == "Microsoft.Graphics.Win2D":
@@ -603,6 +605,80 @@ RECIPES = {
             ("Microsoft.WindowsAppSDK.Widgets", "metadata/*.winmd"),
             ("Microsoft.WindowsAppSDK.AI", "metadata/*.winmd"),
             ("Microsoft.WindowsAppSDK.ML", "metadata/*.winmd"),
+        ],
+        "assets": [
+            ("Microsoft.WindowsAppSDK", "license.txt", "LICENSE (Microsoft.WindowsAppSDK).txt"),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+                "src/win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x86/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/x86/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-x64/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/x64/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+            (
+                "Microsoft.WindowsAppSDK.Foundation",
+                "runtimes/win-arm64/native/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+                "src/win32more/dll/arm64/Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+            ),
+        ],
+        "versioninfo": (
+            "Microsoft.WindowsAppSDK.Runtime",
+            "WindowsAppSDK-VersionInfo.xml",
+            "src/win32more/appsdk/versioninfo.py",
+        ),
+        "prerelease_is_release": False,
+    },
+    "Microsoft.WindowsAppSDK.2.0.1": {
+        "id": "Microsoft.WindowsAppSDK",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts", "Microsoft.Web.WebView2"],
+        "core_dependencies": ["core", "appsdk"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
+        "known_packages": [
+            "Microsoft.WindowsAppSDK",
+            "Microsoft.WindowsAppSDK.Base",
+            "Microsoft.WindowsAppSDK.Foundation",
+            "Microsoft.WindowsAppSDK.InteractiveExperiences",
+            "Microsoft.WindowsAppSDK.WinUI",
+            "Microsoft.WindowsAppSDK.DWrite",
+            "Microsoft.WindowsAppSDK.Widgets",
+            "Microsoft.WindowsAppSDK.AI",
+            "Microsoft.WindowsAppSDK.Runtime",
+            "Microsoft.WindowsAppSDK.ML",
+            "Microsoft.Windows.SDK.BuildTools",
+            "Microsoft.Windows.SDK.BuildTools.MSIX",
+            "Microsoft.Windows.AI.MachineLearning",
+            "Microsoft.Bcl.Numerics",
+            "System.Buffers",
+            "System.Memory",
+            "System.Numerics.Tensors",
+            "System.Numerics.Vectors",
+            "System.Runtime.CompilerServices.Unsafe",
+        ],
+        "metadata": [
+            ("Microsoft.WindowsAppSDK.Foundation", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.InteractiveExperiences", "metadata/10.0.18362.0/*.winmd"),
+            ("Microsoft.WindowsAppSDK.WinUI", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.Widgets", "metadata/*.winmd"),
+            ("Microsoft.WindowsAppSDK.AI", "metadata/*.winmd"),
+            ("Microsoft.Windows.AI.MachineLearning", "metadata/*.winmd"),
         ],
         "assets": [
             ("Microsoft.WindowsAppSDK", "license.txt", "LICENSE (Microsoft.WindowsAppSDK).txt"),
