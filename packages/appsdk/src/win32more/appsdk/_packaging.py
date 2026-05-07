@@ -30,8 +30,14 @@ def GetFrameworkPackageFamilyName(major_minor_version: int, version_tag: PACKAGE
     major_version = major_minor_version >> 16
     minor_version = major_minor_version & 0xFFFF
     version_tag_delimiter = "" if version_tag == "" else "-"
-    name = f"Microsoft.WindowsAppRuntime.{major_version}.{minor_version}{version_tag_delimiter}{version_tag}"
+
+    if major_minor_version >= 0x00020000:
+        name = f"Microsoft.WindowsAppRuntime.{major_version}{version_tag_delimiter}{version_tag}"
+    else:
+        name = f"Microsoft.WindowsAppRuntime.{major_version}.{minor_version}{version_tag_delimiter}{version_tag}"
+
     publisher_id = "8wekyb3d8bbwe"
+
     return f"{name}_{publisher_id}"
 
 
