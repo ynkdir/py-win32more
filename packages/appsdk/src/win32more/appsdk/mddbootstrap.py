@@ -28,8 +28,7 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
 )
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
 
-from . import WINDOWSAPPSDK_RUNTIME_VERSION_UINT64
-from ._packaging import GetFrameworkPackageFamilyName, IsPackagedProcess
+from ._packaging import GetFrameworkPackageFamilyName
 
 if ARCH == "ARM64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_Arm64
@@ -73,31 +72,25 @@ def MddBootstrapInitialize(major_minor_version: int, version_tag: str, min_versi
 def MddBootstrapInitialize2(
     major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION, options: int
 ) -> int:
-    if IsPackagedProcess():
-        # FIXME: Mddbootstrap API doesn't support packaged process.
-        # Since 1.6.5, WindowsAppSDK seems to work with Win11's package dependency API.
-        # I'm not sure if it is offically supported.  It might have a problem.
-        VERSION_1_6_5 = 0x1770019109300000
-        if not _IsWin11() or WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 < VERSION_1_6_5:
-            raise RuntimeError("Packaged process is not supported before Windows 11")
-        hr = _Initialize_Win11(GetFrameworkPackageFamilyName(major_minor_version, version_tag), min_version)
+    if _IsWin11():
+        family_name = GetFrameworkPackageFamilyName(major_minor_version, version_tag)
+        hr = _Initialize_Win11(family_name, min_version)
         if FAILED(hr):
             if hr == STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED:
                 if options & MddBootstrapInitializeOptions_OnNoMatch_ShowUI:
                     _OnNoMatch_ShowUI(major_minor_version, version_tag, min_version)
             return hr
         return S_OK
-    else:
-        return _MddBootstrapInitialize2(major_minor_version, version_tag, min_version, options)
+
+    # Mddbootstrap API doesn't support packaged process.
+    return _MddBootstrapInitialize2(major_minor_version, version_tag, min_version, options)
 
 
 def MddBootstrapShutdown() -> None:
-    if IsPackagedProcess() and not _IsWin11():
-        raise RuntimeError("Packaged process is not supported before Windows 11")
-    elif _IsWin11():
-        pass
-    else:
-        _MddBootstrapShutdown()
+    if _IsWin11():
+        return
+
+    _MddBootstrapShutdown()
 
 
 def _IsWin11() -> bool:
