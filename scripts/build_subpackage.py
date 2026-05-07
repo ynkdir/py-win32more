@@ -81,11 +81,13 @@ class AppSDKVersionInfo:
     WINDOWSAPPSDK_RELEASE_MAJORMINOR: str
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W: str
     WINDOWSAPPSDK_RUNTIME_VERSION_UINT64: str
+    WINDOWSAPPSDK_FRAMEWORK_PACKAGE_FAMILY_NAME: str
 
     def format(self) -> str:
         return f"""WINDOWSAPPSDK_RELEASE_MAJORMINOR = {self.WINDOWSAPPSDK_RELEASE_MAJORMINOR}
 WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W = '{self.WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W}'
-WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = {self.WINDOWSAPPSDK_RUNTIME_VERSION_UINT64}"""
+WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = {self.WINDOWSAPPSDK_RUNTIME_VERSION_UINT64}
+WINDOWSAPPSDK_FRAMEWORK_PACKAGE_FAMILY_NAME = '{self.WINDOWSAPPSDK_FRAMEWORK_PACKAGE_FAMILY_NAME}'"""
 
     @staticmethod
     def parse(xml: Path) -> AppSDKVersionInfo:
@@ -105,7 +107,9 @@ WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = {self.WINDOWSAPPSDK_RUNTIME_VERSION_UINT6
 
         version = _find_and_get_text("Runtime/Version/HexUInt16")
 
-        return AppSDKVersionInfo(major_minor, shorttag, version)
+        framework_package_family_name = _find_and_get_text("Runtime/Packages/Framework/PackageFamilyName")
+
+        return AppSDKVersionInfo(major_minor, shorttag, version, framework_package_family_name)
 
 
 class MetadataParser:
