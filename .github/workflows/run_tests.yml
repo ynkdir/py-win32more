@@ -39,6 +39,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         architecture: ${{ matrix.architecture }}
+        allow-prerelease: true
 
     - name: Install Python requirements
       run: pip install -r test_requirements.txt
