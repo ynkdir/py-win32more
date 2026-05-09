@@ -69,10 +69,16 @@ def MddBootstrapInitialize(major_minor_version: int, version_tag: str, min_versi
     return MddBootstrapInitialize2(major_minor_version, version_tag, min_version, MddBootstrapInitializeOptions_None)
 
 
+_mdd_bootstrap_initialized = False
+
+
 def MddBootstrapInitialize2(
     major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION, options: int
 ) -> int:
-    if _IsWin11():
+
+    global _mdd_bootstrap_initialized
+
+    if _IsWin11() and major_minor_version >= 0x00010007:
         family_name = GetFrameworkPackageFamilyName(major_minor_version, version_tag)
         hr = _Initialize_Win11(family_name, min_version)
         if FAILED(hr):
@@ -83,14 +89,13 @@ def MddBootstrapInitialize2(
         return S_OK
 
     # Mddbootstrap API doesn't support packaged process.
+    _mdd_bootstrap_initialized = True
     return _MddBootstrapInitialize2(major_minor_version, version_tag, min_version, options)
 
 
 def MddBootstrapShutdown() -> None:
-    if _IsWin11():
-        return
-
-    _MddBootstrapShutdown()
+    if _mdd_bootstrap_initialized:
+        _MddBootstrapShutdown()
 
 
 def _IsWin11() -> bool:
