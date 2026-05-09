@@ -8,6 +8,7 @@ from pathlib import Path
 import win32more
 from win32more import FAILED, Int32, String, UInt32, Void
 from win32more._win32 import ARCH, winfunctype
+from win32more.appsdk._packaging import IsPackagedProcess
 from win32more.Windows.Win32.Foundation import (
     HRESULT,
     S_OK,
@@ -78,7 +79,7 @@ def MddBootstrapInitialize2(
 
     global _mdd_bootstrap_initialized
 
-    if _IsWin11() and major_minor_version >= 0x00010007:
+    if _IsWin11() and (major_minor_version >= 0x00010007 or IsPackagedProcess()):
         family_name = GetFrameworkPackageFamilyName(major_minor_version, version_tag)
         hr = _Initialize_Win11(family_name, min_version)
         if FAILED(hr):
