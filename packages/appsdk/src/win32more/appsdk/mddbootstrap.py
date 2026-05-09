@@ -8,7 +8,6 @@ from pathlib import Path
 import win32more
 from win32more import FAILED, Int32, String, UInt32, Void
 from win32more._win32 import ARCH, winfunctype
-from win32more.appsdk._packaging import IsPackagedProcess
 from win32more.Windows.Win32.Foundation import (
     HRESULT,
     S_OK,
@@ -29,7 +28,7 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
 )
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
 
-from ._packaging import GetFrameworkPackageFamilyName
+from ._packaging import GetFrameworkPackageFamilyName, IsPackagedProcess
 
 if ARCH == "ARM64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_Arm64
