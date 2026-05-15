@@ -217,6 +217,55 @@ class TestWinui3(unittest.TestCase):
             "http://example.com/foo.txt", _ms_appx_absolute_path("http://example.com/foo.txt", xaml_root, approot)
         )
 
+    @process
+    def test_microsoft_ui_interop_basic_usage(testcase):
+        from win32more.Microsoft.UI.Interop import (
+            GetDisplayIdFromMonitor,
+            GetIconFromIconId,
+            GetIconIdFromIcon,
+            GetMonitorFromDisplayId,
+            GetWindowFromWindowId,
+            GetWindowIdFromWindow,
+        )
+        from win32more.Microsoft.UI.Windowing import DisplayArea
+        from win32more.Microsoft.UI.Xaml import Window
+        from win32more.Windows.Win32.UI.Shell import ExtractIcon
+        from win32more.winui3 import XamlApplication
+
+        class App(XamlApplication):
+            def OnLaunched(self, args):
+                self._window = Window()
+                self._window.Activate()
+                try:
+                    self._test()
+                finally:
+                    self.Exit()
+
+            def _test(self):
+                hwnd = GetWindowFromWindowId(self._window.AppWindow.Id)
+                testcase.assertEqual(hwnd, self._window.AppWindow.Id.Value)  # current behavior, not specification
+
+                windowId = GetWindowIdFromWindow(hwnd)
+                testcase.assertEqual(windowId.Value, self._window.AppWindow.Id.Value)
+
+                da = DisplayArea.Primary
+
+                hmonitor = GetMonitorFromDisplayId(da.DisplayId)
+                testcase.assertEqual(hmonitor, da.DisplayId.Value)  # current behavior, not specification
+
+                displayId = GetDisplayIdFromMonitor(hmonitor)
+                testcase.assertEqual(displayId.Value, da.DisplayId.Value)
+
+                icon = ExtractIcon(None, "shell32.dll", 1)
+
+                iconId = GetIconIdFromIcon(icon)
+                testcase.assertEqual(iconId.Value, icon)  # current behavior, not specification
+
+                hicon = GetIconFromIconId(iconId)
+                testcase.assertEqual(hicon, icon)
+
+        XamlApplication.Start(App)
+
 
 if __name__ == "__main__":
     unittest.main()
