@@ -35,13 +35,13 @@ def Windowing_GetMonitorFromDisplayId(
 
 @winfunctype("Microsoft.Internal.FrameworkUdk.dll")
 def Windowing_GetIconIdFromIcon(
-    hicon: win32more.Windows.Win32.WindowsAndMessaging.HICON, iconId: POINTER(win32more.Microsoft.UI.IconId)
+    hicon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON, iconId: POINTER(win32more.Microsoft.UI.IconId)
 ) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
 @winfunctype("Microsoft.Internal.FrameworkUdk.dll")
 def Windowing_GetIconFromIconId(
-    iconId: win32more.Microsoft.UI.IconId, hicon: POINTER(win32more.Windows.Win32.WindowsAndMessaging.HICON)
+    iconId: win32more.Microsoft.UI.IconId, hicon: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.HICON)
 ) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
@@ -81,7 +81,7 @@ def GetMonitorFromDisplayId(
     return hmonitor.value
 
 
-def GetIconIdFromIcon(hicon: win32more.Windows.Win32.WindowsAndMessaging.HICON) -> win32more.Microsoft.UI.IconId:
+def GetIconIdFromIcon(hicon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON) -> win32more.Microsoft.UI.IconId:
     iconId = win32more.Microsoft.UI.IconId()
     r = Windowing_GetIconIdFromIcon(hicon, iconId)
     if FAILED(r):
@@ -89,8 +89,8 @@ def GetIconIdFromIcon(hicon: win32more.Windows.Win32.WindowsAndMessaging.HICON) 
     return iconId
 
 
-def GetIconFromIconId(iconId: win32more.Microsoft.UI.IconId) -> win32more.Windows.Win32.WindowsAndMessaging.HICON:
-    hicon = win32more.Windows.Win32.WindowsAndMessaging.HICON()
+def GetIconFromIconId(iconId: win32more.Microsoft.UI.IconId) -> win32more.Windows.Win32.UI.WindowsAndMessaging.HICON:
+    hicon = win32more.Windows.Win32.UI.WindowsAndMessaging.HICON()
     r = Windowing_GetIconFromIconId(iconId, hicon)
     if FAILED(r):
         raise WinError(r)
