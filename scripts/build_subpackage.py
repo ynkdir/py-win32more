@@ -78,15 +78,23 @@ class PackageSpec:
 
 @dataclass(frozen=True)
 class AppSDKVersionInfo:
+    WINDOWSAPPSDK_RELEASE_MAJOR: str
+    WINDOWSAPPSDK_RELEASE_MINOR: str
+    WINDOWSAPPSDK_RELEASE_PATCH: str
     WINDOWSAPPSDK_RELEASE_MAJORMINOR: str
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG: str
+    WINDOWSAPPSDK_RUNTIME_IDENTITY_PUBLISHERID: str
     WINDOWSAPPSDK_RUNTIME_VERSION_UINT64: str
     WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME: str
 
     def format(self) -> str:
-        return f"""WINDOWSAPPSDK_RELEASE_MAJORMINOR = {self.WINDOWSAPPSDK_RELEASE_MAJORMINOR}
+        return f"""WINDOWSAPPSDK_RELEASE_MAJOR = {self.WINDOWSAPPSDK_RELEASE_MAJOR}
+WINDOWSAPPSDK_RELEASE_MINOR = {self.WINDOWSAPPSDK_RELEASE_MINOR}
+WINDOWSAPPSDK_RELEASE_PATCH = {self.WINDOWSAPPSDK_RELEASE_PATCH}
+WINDOWSAPPSDK_RELEASE_MAJORMINOR = {self.WINDOWSAPPSDK_RELEASE_MAJORMINOR}
 WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG = '{self.WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG}'
 WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W = '{self.WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG}'
+WINDOWSAPPSDK_RUNTIME_IDENTITY_PUBLISHERID = '{self.WINDOWSAPPSDK_RUNTIME_IDENTITY_PUBLISHERID}'
 WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = {self.WINDOWSAPPSDK_RUNTIME_VERSION_UINT64}
 WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME = '{self.WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME}'"""
 
@@ -98,19 +106,23 @@ WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME = '{self.WINDOWSAPPSDK
                 raise RuntimeError(f"cannot find '{xmlpath}'")
             return e.text or ""
 
+        def _patch_major_minor_in_old_version(major_minor):
+            if not major_minor.startswith("0x"):
+                return f"0x{major_minor}"
+            return major_minor
+
         root = ET.parse(xml).getroot()
 
-        major_minor = _find_and_get_text("Release/MajorMinor/HexUInt32")
-        if not major_minor.startswith("0x"):
-            major_minor = f"0x{major_minor}"
-
-        shorttag = _find_and_get_text("Release/ShortTag")
-
-        version = _find_and_get_text("Runtime/Version/HexUInt16")
-
-        framework_package_family_name = _find_and_get_text("Runtime/Packages/Framework/PackageFamilyName")
-
-        return AppSDKVersionInfo(major_minor, shorttag, version, framework_package_family_name)
+        return AppSDKVersionInfo(
+            _find_and_get_text("Release/Major"),
+            _find_and_get_text("Release/Minor"),
+            _find_and_get_text("Release/Patch"),
+            _patch_major_minor_in_old_version(_find_and_get_text("Release/MajorMinor/HexUInt32")),
+            _find_and_get_text("Release/ShortTag"),
+            _find_and_get_text("Runtime/Identity/PublisherId"),
+            _find_and_get_text("Runtime/Version/HexUInt16"),
+            _find_and_get_text("Runtime/Packages/Framework/PackageFamilyName"),
+        )
 
 
 class MetadataParser:
