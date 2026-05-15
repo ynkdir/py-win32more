@@ -1,80 +1,97 @@
 # Microsoft.UI.Interop.h
+from __future__ import annotations
 
+import win32more.Microsoft.UI
+import win32more.Windows.Win32.Foundation
+import win32more.Windows.Win32.Graphics.Gdi
+import win32more.Windows.Win32.UI.WindowsAndMessaging
 from win32more import FAILED, WinError
 from win32more._prelude import POINTER, winfunctype
-from win32more.Microsoft.UI import DisplayId, IconId, WindowId
-from win32more.Windows.Win32.Foundation import HRESULT, HWND
-from win32more.Windows.Win32.Graphics.Gdi import HMONITOR
-from win32more.Windows.Win32.UI.WindowsAndMessaging import HICON
 
 
-@winfunctype("Microsoft.Internal.FrameworkUdk.dll", entry_point="Windowing_GetWindowIdFromWindow")
-def _GetWindowIdFromWindow(hwnd: HWND, windowId: POINTER(WindowId)) -> HRESULT: ...
+@winfunctype("Microsoft.Internal.FrameworkUdk.dll")
+def Windowing_GetWindowIdFromWindow(
+    hwnd: win32more.Windows.Win32.Foundation.HWND, windowId: POINTER(win32more.Microsoft.UI.WindowId)
+) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-@winfunctype("Microsoft.Internal.FrameworkUdk.dll", entry_point="Windowing_GetWindowFromWindowId")
-def _GetWindowFromWindowId(windowId: WindowId, hwnd: POINTER(HWND)) -> HRESULT: ...
+@winfunctype("Microsoft.Internal.FrameworkUdk.dll")
+def Windowing_GetWindowFromWindowId(
+    windowId: win32more.Microsoft.UI.WindowId, hwnd: POINTER(win32more.Windows.Win32.Foundation.HWND)
+) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-@winfunctype("Microsoft.Internal.FrameworkUdk.dll", entry_point="Windowing_GetDisplayIdFromMonitor")
-def _GetDisplayIdFromMonitor(hmonitor: HMONITOR, displayId: POINTER(DisplayId)) -> HRESULT: ...
+@winfunctype("Microsoft.Internal.FrameworkUdk.dll")
+def Windowing_GetDisplayIdFromMonitor(
+    hmonitor: win32more.Windows.Win32.Graphics.Gdi.HMONITOR, displayId: POINTER(win32more.Microsoft.UI.DisplayId)
+) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-@winfunctype("Microsoft.Internal.FrameworkUdk.dll", entry_point="Windowing_GetMonitorFromDisplayId")
-def _GetMonitorFromDisplayId(displayId: DisplayId, hmonitor: POINTER(HMONITOR)) -> HRESULT: ...
+@winfunctype("Microsoft.Internal.FrameworkUdk.dll")
+def Windowing_GetMonitorFromDisplayId(
+    displayId: win32more.Microsoft.UI.DisplayId, hmonitor: POINTER(win32more.Windows.Win32.Graphics.Gdi.HMONITOR)
+) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-@winfunctype("Microsoft.Internal.FrameworkUdk.dll", entry_point="Windowing_GetIconIdFromIcon")
-def _GetIconIdFromIcon(hicon: HICON, iconId: POINTER(IconId)) -> HRESULT: ...
+@winfunctype("Microsoft.Internal.FrameworkUdk.dll")
+def Windowing_GetIconIdFromIcon(
+    hicon: win32more.Windows.Win32.WindowsAndMessaging.HICON, iconId: POINTER(win32more.Microsoft.UI.IconId)
+) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-@winfunctype("Microsoft.Internal.FrameworkUdk.dll", entry_point="Windowing_GetIconFromIconId")
-def _GetIconFromIconId(iconId: IconId, hicon: POINTER(HICON)) -> HRESULT: ...
+@winfunctype("Microsoft.Internal.FrameworkUdk.dll")
+def Windowing_GetIconFromIconId(
+    iconId: win32more.Microsoft.UI.IconId, hicon: POINTER(win32more.Windows.Win32.WindowsAndMessaging.HICON)
+) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-def GetWindowIdFromWindow(hwnd: HWND) -> WindowId:
-    windowId = WindowId()
-    r = _GetWindowIdFromWindow(hwnd, windowId)
+def GetWindowIdFromWindow(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Microsoft.UI.WindowId:
+    windowId = win32more.Microsoft.UI.WindowId()
+    r = Windowing_GetWindowIdFromWindow(hwnd, windowId)
     if FAILED(r):
         raise WinError(r)
     return windowId
 
 
-def GetWindowFromWindowId(windowId: WindowId) -> HWND:
-    hwnd = HWND()
-    r = _GetWindowFromWindowId(windowId, hwnd)
+def GetWindowFromWindowId(windowId: win32more.Microsoft.UI.WindowId) -> win32more.Windows.Win32.Foundation.HWND:
+    hwnd = win32more.Windows.Win32.Foundation.HWND()
+    r = Windowing_GetWindowFromWindowId(windowId, hwnd)
     if FAILED(r):
         raise WinError(r)
     return hwnd.value
 
 
-def GetDisplayIdFromMonitor(hmonitor: HMONITOR) -> DisplayId:
-    displayId = DisplayId()
-    r = _GetDisplayIdFromMonitor(hmonitor, displayId)
+def GetDisplayIdFromMonitor(
+    hmonitor: win32more.Windows.Win32.Graphics.Gdi.HMONITOR,
+) -> win32more.Microsoft.UI.DisplayId:
+    displayId = win32more.Microsoft.UI.DisplayId()
+    r = Windowing_GetDisplayIdFromMonitor(hmonitor, displayId)
     if FAILED(r):
         raise WinError(r)
     return displayId
 
 
-def GetMonitorFromDisplayId(displayId: DisplayId) -> HMONITOR:
-    hmonitor = HMONITOR()
-    r = _GetMonitorFromDisplayId(displayId, hmonitor)
+def GetMonitorFromDisplayId(
+    displayId: win32more.Microsoft.UI.DisplayId,
+) -> win32more.Windows.Win32.Graphics.Gdi.HMONITOR:
+    hmonitor = win32more.Windows.Win32.Graphics.Gdi.HMONITOR()
+    r = Windowing_GetMonitorFromDisplayId(displayId, hmonitor)
     if FAILED(r):
         raise WinError(r)
     return hmonitor.value
 
 
-def GetIconIdFromIcon(hicon: HICON) -> IconId:
-    iconId = IconId()
-    r = _GetIconIdFromIcon(hicon, iconId)
+def GetIconIdFromIcon(hicon: win32more.Windows.Win32.WindowsAndMessaging.HICON) -> win32more.Microsoft.UI.IconId:
+    iconId = win32more.Microsoft.UI.IconId()
+    r = Windowing_GetIconIdFromIcon(hicon, iconId)
     if FAILED(r):
         raise WinError(r)
     return iconId
 
 
-def GetIconFromIconId(iconId: IconId) -> HICON:
-    hicon = HICON()
-    r = _GetIconFromIconId(iconId, hicon)
+def GetIconFromIconId(iconId: win32more.Microsoft.UI.IconId) -> win32more.Windows.Win32.WindowsAndMessaging.HICON:
+    hicon = win32more.Windows.Win32.WindowsAndMessaging.HICON()
+    r = Windowing_GetIconFromIconId(iconId, hicon)
     if FAILED(r):
         raise WinError(r)
     return hicon.value
