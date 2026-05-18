@@ -4,26 +4,17 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from ._datetime import datetime_to_winrt, timedelta_to_winrt
-from ._hstr import hstr
 from ._win32api import IInspectable
 
 
 # FIXME: Add more conversion.
 def box_value(value: Any) -> IInspectable:
     from win32more.Windows.Foundation import DateTime, PropertyValue, TimeSpan
-    from win32more.Windows.Foundation.Collections import IMap, IVector
-
-    from ._map import Map
-    from ._vector import Vector
 
     if value is None:
         return None
     elif isinstance(value, IInspectable):
         return value
-    elif isinstance(value, list):
-        return Vector[IInspectable]([box_value(v) for v in value]).as_(IVector[IInspectable])
-    elif isinstance(value, dict):
-        return Map[hstr, IInspectable]({str(k): box_value(v) for k, v in value.items()}).as_(IMap[hstr, IInspectable])
     elif isinstance(value, bool):
         return PropertyValue.CreateBoolean(value)
     elif isinstance(value, int):
@@ -46,18 +37,9 @@ def box_value(value: Any) -> IInspectable:
 
 def unbox_value(value: Any) -> Any:
     from win32more.Windows.Foundation import IPropertyValue, PropertyType
-    from win32more.Windows.Foundation.Collections import IMap, IVector
 
     if value is None:
         return None
-
-    vec = value.try_as(IVector[IInspectable])
-    if vec is not None:
-        return [unbox_value(v) for v in vec]
-
-    map = value.try_as(IMap[hstr, IInspectable])
-    if map is not None:
-        return {k: unbox_value(v) for k, v in map.items()}
 
     property_value = value.as_(IPropertyValue)
 

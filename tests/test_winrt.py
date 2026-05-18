@@ -344,14 +344,6 @@ class TestWinrt(unittest.TestCase):
         with self.assertRaises(AttributeError):  # 'str' object has not attribute 'as_'
             unbox_value("non com object")
 
-        self.assertIsInstance(box_value([1]), IVector)
-        self.assertEqual(unbox_value(box_value([1])), [1])
-        self.assertEqual(unbox_value(box_value([1, ["x"]])), [1, ["x"]])
-
-        self.assertIsInstance(box_value({"a": 1}), IMap)
-        self.assertEqual(unbox_value(box_value({"a": 1})), {"a": 1})
-        self.assertEqual(unbox_value(box_value({"a": {"b": [42]}})), {"a": {"b": [42]}})
-
         self.assertEqual(unbox_str(box_value("s")), "s")
         with self.assertRaises(TypeError):
             unbox_str(box_value(1))
@@ -402,9 +394,6 @@ class TestWinrt(unittest.TestCase):
 
         m["x"] = True
         self.assertIs(unbox_value(m["x"]), True)
-
-        m["x"] = [1, 2, 3]
-        self.assertEqual(unbox_value(m["x"]), [1, 2, 3])
 
         del m["x"]
         self.assertFalse(m.HasKey("x"))
