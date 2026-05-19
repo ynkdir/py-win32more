@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import logging
 from ctypes import POINTER
 
 from win32more.Windows.Foundation import EventRegistrationToken
@@ -23,8 +22,6 @@ from ._winrt import (
     T,
     is_com_instance,
 )
-
-logger = logging.getLogger(__name__)
 
 
 class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
