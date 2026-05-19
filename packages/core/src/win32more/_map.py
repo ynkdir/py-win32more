@@ -21,6 +21,12 @@ from ._winrt import ComClass, K, T, V, is_com_instance
 
 
 class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], IObservableMap[K, V]):
+    # FIXME: dirty hack
+    def __new__(cls, dct: dict[K, V] | None = None) -> Map[K, V] | IMap[K, V]:
+        self = super().__new__(cls)
+        self.__init__(dct)
+        return self.as_(IMap[self._K, self._V])
+
     def __init__(self, dct: dict[K, V] | None = None) -> None:
         super().__init__(own=True)
 
