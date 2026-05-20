@@ -11,6 +11,7 @@ dependencies = [
     "win32more-core == 0.8.*",
     "win32more-appsdk == 0.8.*",
     "win32more-Microsoft.Windows.SDK.Win32Metadata == 0.8.*",
+    "win32more-Microsoft.Windows.WDK.Win32Metadata == 0.8.*",
     "win32more-Microsoft.Windows.SDK.Contracts == 0.8.*",
     "win32more-Microsoft.WindowsAppSDK == 0.8.*",
     "win32more-Microsoft.Web.WebView2 == 0.8.*",
