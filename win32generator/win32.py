@@ -347,6 +347,9 @@ class FunctionPointer:
             return "winfunctype_pointer"
         elif calling_convention == "Cdecl":
             return "cfunctype_pointer"
+        elif calling_convention == "FastCall":
+            # not work on x86
+            return "winfunctype_pointer"
         else:
             raise NotImplementedError()
 
