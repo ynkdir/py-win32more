@@ -27,9 +27,10 @@ APILIST_CACHE = Path(".apisearch.txt")
 LIST_MAX = 200
 METADATA_URLS = [
     "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Windows.SDK.Win32Metadata.70.0.11-preview.zip",
+    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Windows.WDK.Win32Metadata.0.13.25-experimental.zip",
     "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Windows.SDK.Contracts.10.0.26100.7705.zip",
-    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.WindowsAppSDK.1.8.260317003.zip",
-    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Web.WebView2.1.0.3856.49.zip",
+    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.WindowsAppSDK.2.0.1.zip",
+    "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Web.WebView2.1.0.3967.48.zip",
     "https://github.com/ynkdir/winmd-printer/releases/download/v1.2.0/Microsoft.Graphics.Win2D.1.4.0.zip",
 ]
 

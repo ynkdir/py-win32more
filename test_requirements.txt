@@ -1,6 +1,7 @@
 ./packages/core
 ./packages/appsdk
 ./packages/Microsoft.Windows.SDK.Win32Metadata.70.0.11-preview
+./packages/Microsoft.Windows.WDK.Win32Metadata.0.13.25-experimental
 ./packages/Microsoft.Windows.SDK.Contracts.10.0.26100.7705
 ./packages/Microsoft.WindowsAppSDK.2.0.1
 ./packages/Microsoft.Web.WebView2.1.0.3912.50

@@ -176,6 +176,8 @@ class Builder:
     def recipe(self, id: str, version: str) -> dict:
         if id == "Microsoft.Windows.SDK.Win32Metadata":
             return RECIPES["Microsoft.Windows.SDK.Win32Metadata"]
+        elif id == "Microsoft.Windows.WDK.Win32Metadata":
+            return RECIPES["Microsoft.Windows.WDK.Win32Metadata"]
         elif id == "Microsoft.Windows.SDK.Contracts":
             return RECIPES["Microsoft.Windows.SDK.Contracts"]
         elif id == "Microsoft.WindowsAppSDK":
@@ -391,6 +393,17 @@ RECIPES = {
         "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.Windows.SDK.Win32Metadata"],
         "metadata": [("Microsoft.Windows.SDK.Win32Metadata", "Windows.Win32.winmd")],
+        "assets": [],
+        "versioninfo": None,
+        "prerelease_is_release": True,
+    },
+    "Microsoft.Windows.WDK.Win32Metadata": {
+        "id": "Microsoft.Windows.WDK.Win32Metadata",
+        "dependencies": ["Microsoft.Windows.SDK.Win32Metadata"],
+        "core_dependencies": ["core"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
+        "known_packages": ["Microsoft.Windows.WDK.Win32Metadata", "Microsoft.Windows.SDK.Win32Metadata"],
+        "metadata": [("Microsoft.Windows.WDK.Win32Metadata", "Windows.WDK.winmd")],
         "assets": [],
         "versioninfo": None,
         "prerelease_is_release": True,
