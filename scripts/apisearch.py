@@ -16,7 +16,11 @@ from pathlib import Path
 from typing import Any
 
 from win32more import box_value
+from win32more._hstr import hstr
+from win32more._map import Map
+from win32more._vector import Vector
 from win32more.Microsoft.UI.Xaml import FocusState, Visibility
+from win32more.Windows.Win32.System.WinRT import IInspectable
 from win32more.winui3 import XamlApplication, XamlLoader
 
 APILIST_CACHE = Path(".apisearch.txt")
@@ -80,7 +84,7 @@ class App(XamlApplication):
 """,
         )
 
-        self._items = box_value([])
+        self._items = Vector[IInspectable]()
 
         self.ListView1.ItemsSource = self._items
 
@@ -138,7 +142,7 @@ class App(XamlApplication):
 
         r = []
         for i, api in enumerate(matched_api):
-            r.append(box_value(self.make_item(api)))
+            r.append(Map[hstr, IInspectable]({k: box_value(v) for k, v in self.make_item(api).items()}))
             if i == LIST_MAX:
                 self.Status.Text = f"... (over {LIST_MAX})"
                 break
