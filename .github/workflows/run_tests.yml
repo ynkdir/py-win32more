@@ -61,10 +61,10 @@ jobs:
     - name: Set up Cygwin
       uses: cygwin/cygwin-install-action@v6
       with:
-        packages: python3
+        packages: python312
 
     - name: Install Python requirements
-      run: pip3 install -r test_requirements.txt
+      run: python3.12 -m pip install -r test_requirements.txt
 
     - name: Run tests
-      run: python -m unittest discover -s tests
+      run: python3.12 -m unittest discover -s tests
