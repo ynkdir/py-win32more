@@ -12,14 +12,9 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
-from win32more import box_value
-from win32more._hstr import hstr
-from win32more._map import Map
-from win32more._vector import Vector
+from win32more._collections import Dict, List
 from win32more.Microsoft.UI.Xaml import FocusState, Window
 from win32more.Microsoft.UI.Xaml.Controls import Page
-from win32more.Windows.Foundation.Collections import IMap
-from win32more.Windows.Win32.System.WinRT import IInspectable
 from win32more.winui3 import XamlApplication, XamlClass
 
 APILIST_CACHE = Path(".apisearch.txt")
@@ -77,23 +72,22 @@ class LoadPage(XamlClass, Page):
         super().__init__()
         self._search_engine = search_engine
         self.LoadComponentFromString(self.xaml)
-        self._items = Vector[IInspectable]()
+        self._items = List()
         self.ListView1.ItemsSource = self._items
 
     async def load(self) -> None:
         await self._search_engine.load(self)
 
     def notify_task_start(self, name) -> None:
-        m = Map[hstr, IInspectable]()
+        m = Dict()
         m["name"] = name
         m["running"] = True
         m["done"] = False
-        self._items.Append(m)
+        self._items.append(m)
 
     def notify_task_end(self, name) -> None:
         for m in self._items:
-            m = m.as_(IMap[hstr, IInspectable])
-            if m["name"].as_(str) == name:
+            if m["name"] == name:
                 m["running"] = False
                 m["done"] = True
                 break
@@ -144,7 +138,7 @@ class SearchPage(XamlClass, Page):
         self._search_engine = search_engine
         self._current_search_task = None
         self.LoadComponentFromString(self.xaml)
-        self._items = Vector[IInspectable]()
+        self._items = List()
         self.ListView1.ItemsSource = self._items
 
     async def QueryTextBox_TextChanged(self, sender, e):
@@ -179,13 +173,11 @@ class SearchPage(XamlClass, Page):
         self._current_search_task = None
 
     def clear(self) -> None:
-        self._items.Clear()
+        self._items.clear()
         self.Status.Text = ""
 
     def update(self, items: list, overflow: bool) -> None:
-        self._items.ReplaceAll(
-            [Map[hstr, IInspectable]({k: box_value(v) for k, v in self.make_item(api).items()}) for api in items]
-        )
+        self._items[:] = [Dict(self.make_item(api)) for api in items]
         if overflow:
             self.Status.Text = f"... (over {LIST_MAX})"
 
