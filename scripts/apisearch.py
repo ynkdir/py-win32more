@@ -12,7 +12,7 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
-from win32more._collections import Dict, List
+from win32more import List
 from win32more.Microsoft.UI.Xaml import FocusState, Window
 from win32more.Microsoft.UI.Xaml.Controls import Page
 from win32more.winui3 import XamlApplication, XamlClass
@@ -79,11 +79,13 @@ class LoadPage(XamlClass, Page):
         await self._search_engine.load(self)
 
     def notify_task_start(self, name) -> None:
-        m = Dict()
-        m["name"] = name
-        m["running"] = True
-        m["done"] = False
-        self._items.append(m)
+        self._items.append(
+            {
+                "name": name,
+                "running": True,
+                "done": False,
+            }
+        )
 
     def notify_task_end(self, name) -> None:
         for m in self._items:
@@ -177,9 +179,11 @@ class SearchPage(XamlClass, Page):
         self.Status.Text = ""
 
     def update(self, items: list, overflow: bool) -> None:
-        self._items[:] = [Dict(self.make_item(api)) for api in items]
+        self._items[:] = [self.make_item(api) for api in items]
         if overflow:
             self.Status.Text = f"... (over {LIST_MAX})"
+        else:
+            self.Status.Text = ""
 
     def make_item(self, api: dict) -> dict:
         dto = {
