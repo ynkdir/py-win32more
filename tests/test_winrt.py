@@ -22,6 +22,7 @@ from win32more import (
     unbox_value,
 )
 from win32more._boxing import unbox_str
+from win32more._collections import Dict, List
 from win32more._map import Map
 from win32more._ro import _get_type_signature, ro_get_parameterized_type_instance_iid
 from win32more._vector import Vector
@@ -52,7 +53,7 @@ from win32more.Windows.Foundation import (
     PropertyValue,
     Uri,
 )
-from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
+from win32more.Windows.Foundation.Collections import IMap, IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
@@ -397,6 +398,34 @@ class TestWinrt(unittest.TestCase):
 
         del m["x"]
         self.assertFalse(m.HasKey("x"))
+
+    def test_list(self):
+        x = List([1, 2, 3, 4, 5])
+
+        self.assertIsInstance(x.as_(IVector[IInspectable]), IVector[IInspectable])
+
+        self.assertEqual(x[0], 1)
+
+        x[1] = "hello"
+        self.assertEqual(x[1], "hello")
+
+        x[2] = {"a": 1, "b": 2}
+        self.assertIsInstance(x[2], Dict)
+        self.assertEqual(x[2]["a"], 1)
+
+    def test_dict(self):
+        x = Dict({"a": 1, "b": 2})
+
+        self.assertIsInstance(x.as_(IMap[hstr, IInspectable]), IMap[hstr, IInspectable])
+
+        self.assertEqual(x["a"], 1)
+
+        x["b"] = "hello"
+        self.assertEqual(x["b"], "hello")
+
+        x["c"] = [1, 2, 3, 4, 5]
+        self.assertIsInstance(x["c"], List)
+        self.assertEqual(x["c"][0], 1)
 
     def test_sequence_protocol(self):
         async def device_information_find_all():
