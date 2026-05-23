@@ -31,6 +31,21 @@ from ._win32 import (
     windll,
 )
 
+
+def __getattr__(name):
+    if name == "List":
+        from ._collections import List
+
+        return List
+
+    if name == "Dict":
+        from ._collections import Dict
+
+        return Dict
+
+    raise AttributeError(f"module 'win32more' has no attribute '{name}'")
+
+
 # Initialize COM Multithreaded Apartment.
 # Call CoInitializeEx(None, COINIT_APARTMENTTHREADED) explicitly for Single-Threaded Apartment.
 if FAILED(_win32api.CoIncrementMTAUsage(VoidPtr())):
