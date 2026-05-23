@@ -182,7 +182,7 @@ class FillArray(Generic[T]):
                 s.clear()
         elif is_com_class(self._type):
             self._seq[:] = self._ptr[:]
-            for p in self.seq:
+            for p in self._seq:
                 p._own = True
         else:
             self._seq[:] = self._ptr[:]
