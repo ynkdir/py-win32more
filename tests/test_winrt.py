@@ -411,6 +411,48 @@ class TestWinrt(unittest.TestCase):
         self.assertIsInstance(x[2], Dict)
         self.assertEqual(x[2]["a"], 1)
 
+        x.clear()
+        self.assertEqual(len(x), 0)
+
+        x.append(1)
+        x.insert(0, 0)
+        x.insert(2, 2)
+        x.extend([3, 4])
+        self.assertEqual(x[:], [0, 1, 2, 3, 4])
+
+        x = List([1, 2, 3])
+        self.assertEqual(x.pop(), 3)
+        self.assertEqual(x.pop(0), 1)
+        self.assertEqual(x[:], [2])
+
+        x = List([1, 2, 3])
+        x.remove(2)
+        self.assertEqual(x[:], [1, 3])
+        with self.assertRaises(ValueError):
+            x.remove(9)
+
+        x = List([1, 2, 3])
+        x += [4, 5]
+        self.assertEqual(x[:], [1, 2, 3, 4, 5])
+
+        x = List([0, 1, 0, 1, 0])
+        self.assertEqual(x.count(0), 3)
+
+        x = List([1, 2, 3, 4, 5])
+        self.assertEqual(x.index(3), 2)
+
+        x = List([1, 2, 3, 4, 5])
+        self.assertTrue(3 in x)
+        self.assertFalse(6 in x)
+
+        x = List([1, 2, 3, 4, 5])
+        self.assertEqual(list(reversed(x)), [5, 4, 3, 2, 1])
+
+        x = List([1, 2, 3, 4, 5])
+        x.reverse()
+        self.assertEqual(x[:], [5, 4, 3, 2, 1])
+
+
     def test_dict(self):
         x = Dict({"a": 1, "b": 2})
 

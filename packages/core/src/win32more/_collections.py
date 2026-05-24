@@ -77,11 +77,42 @@ class List(IInspectable):
             return [_unbox_any(v) for v in r]
         return _unbox_any(r)
 
+    def __contains__(self, value):
+        for v in self:
+            if v == value:
+                return True
+        return False
+
+    def __iter__(self):
+        for i in range(len(self)):
+            yield self[i]
+
+    def __reversed__(self):
+        for i in reversed(range(len(self))):
+            yield self[i]
+
     def __setitem__(self, index, value):
         self._inner.__setitem__(index, _box_any(value))
 
     def __delitem__(self, index):
         self._inner.__delitem__(index)
+
+    def __iadd__(self, iterable):
+        self.extend(iterable)
+        return self
+
+    def count(self, value):
+        counter = 0
+        for v in self:
+            if v == value:
+                counter += 1
+        return counter
+
+    def index(self, value):
+        for i, v in enumerate(self):
+            if v == value:
+                return i
+        raise ValueError(f"{value} is not in List")
 
     def insert(self, index, value):
         self._inner.InsertAt(index, _box_any(value))
@@ -91,6 +122,21 @@ class List(IInspectable):
 
     def clear(self):
         self._inner.Clear()
+
+    def reverse(self):
+        self._inner.ReplaceAll([_box_any(v) for v in reversed(self)])
+
+    def extend(self, iterable):
+        for v in iterable:
+            self.append(v)
+
+    def pop(self, index=-1):
+        r = self[index]
+        del self[index]
+        return r
+
+    def remove(self, value):
+        del self[self.index(value)]
 
 
 class Dict(IInspectable):
