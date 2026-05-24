@@ -34,6 +34,8 @@ from ._winrt import (
     is_com_instance,
 )
 
+_sentinel = object()
+
 
 def _box_any(value):
     if isinstance(value, list):
@@ -44,6 +46,9 @@ def _box_any(value):
 
 
 def _unbox_any(value):
+    if value is None:
+        return None
+
     ivector = value.try_as(IVector[IInspectable])
     if ivector is not None:
         return List(ivector)
@@ -172,6 +177,9 @@ class Dict(IInspectable):
     def __contains__(self, key):
         return key in self._inner
 
+    def __eq__(self, other):
+        return dict(self.items()) == dict(other.items())
+
     def items(self):
         for k, v in self._inner.items():
             yield k, _unbox_any(v)
@@ -187,8 +195,48 @@ class Dict(IInspectable):
     def get(self, key, default=None):
         return self._inner.get(key, default)
 
-    def __eq__(self, other):
-        return dict(self.items()) == dict(other.items())
+    def clear(self):
+        self._inner.Clear()
+
+    def pop(self, key, default=_sentinel):
+        if key in self:
+            r = self[key]
+            del self[key]
+            return r
+        if default is not _sentinel:
+            return default
+        raise KeyError(f"{key}")
+
+    # NOTE: LIFO order is not guaranteed.  It depends on _inner object.
+    def popitem(self):
+        if len(self) == 0:
+            raise KeyError("dictionary is empty")
+        for k in self.keys():
+            pass
+        return (k, self.pop(k))
+
+    def update(self, *args, **kwargs):
+        if len(args) > 2:
+            raise TypeError(f"update expected at most 1 argument, got {len(args)}")
+
+        if len(args) == 1:
+            if hasattr(args[0], "items"):
+                # mapping
+                for k, v in args[0].items():
+                    self[k] = v
+            else:
+                # iterable
+                for k, v in args[0]:
+                    self[k] = v
+
+        for k, v in kwargs.items():
+            self[k] = v
+
+    def setdefault(self, key, default=None):
+        if key in self:
+            return self[key]
+        self[key] = default
+        return default
 
 
 class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):

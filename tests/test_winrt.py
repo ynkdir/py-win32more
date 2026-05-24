@@ -452,7 +452,6 @@ class TestWinrt(unittest.TestCase):
         x.reverse()
         self.assertEqual(x[:], [5, 4, 3, 2, 1])
 
-
     def test_dict(self):
         x = Dict({"a": 1, "b": 2})
 
@@ -466,6 +465,38 @@ class TestWinrt(unittest.TestCase):
         x["c"] = [1, 2, 3, 4, 5]
         self.assertIsInstance(x["c"], List)
         self.assertEqual(x["c"][0], 1)
+
+        x = Dict({"a": 1, "b": 2})
+        x.clear()
+        self.assertEqual(dict(x), {})
+
+        x = Dict()
+        x.update({"a": 1})
+        x.update([("b", 2)])
+        x.update(c=3)
+        self.assertEqual(dict(x), {"a": 1, "b": 2, "c": 3})
+
+        x = Dict({"a": 1})
+        self.assertEqual(x.setdefault("a", 42), 1)
+        self.assertEqual(x.setdefault("b"), None)
+        self.assertEqual(x.setdefault("c", 42), 42)
+        self.assertEqual(dict(x), {"a": 1, "b": None, "c": 42})
+
+        x = Dict({"a": 1})
+        self.assertEqual(x.pop("a"), 1)
+        with self.assertRaises(KeyError):
+            x.pop("a")
+        self.assertIsNone(x.pop("b", None))
+        with self.assertRaises(KeyError):
+            x.pop("b")
+
+        x = Dict()
+        x["a"] = 1
+        x["b"] = 2
+        self.assertEqual(x.popitem(), ("b", 2))
+        self.assertEqual(x.popitem(), ("a", 1))
+        with self.assertRaises(KeyError):
+            x.popitem()
 
     def test_sequence_protocol(self):
         async def device_information_find_all():
