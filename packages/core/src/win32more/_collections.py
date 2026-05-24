@@ -89,7 +89,7 @@ class List(IInspectable):
     def append(self, value):
         self._inner.Append(_box_any(value))
 
-    def clear(self, value):
+    def clear(self):
         self._inner.Clear()
 
 
