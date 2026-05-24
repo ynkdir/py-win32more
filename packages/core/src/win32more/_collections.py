@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 from win32more.Windows.Foundation.Collections import IMap, IVector
 
-from ._boxing import box_value, unbox_value
+from . import _boxing
 from ._hstr import hstr
 from ._map import Map
 from ._vector import Vector
@@ -9,10 +11,10 @@ from ._win32api import IInspectable
 
 def _box_value_and_collection(value):
     if isinstance(value, list):
-        return Vector[IInspectable]([_box_value_and_collection(v) for v in value])
+        return List(value)
     if isinstance(value, dict):
-        return Map[hstr, IInspectable]({k: _box_value_and_collection(v) for k, v in value.items()})
-    return box_value(value)
+        return Dict(value)
+    return _boxing.box_value(value)
 
 
 def _unbox_value_and_collection(value):
@@ -24,92 +26,94 @@ def _unbox_value_and_collection(value):
     if map is not None:
         return Dict(map)
 
-    return unbox_value(value)
+    return _boxing.unbox_value(value)
 
 
 class List(IInspectable):
-    def __init__(self, data: list | IVector[IInspectable] | None = None) -> None:
+    def __init__(self, inner: list | IVector[IInspectable] | None = None) -> None:
         super().__init__()
 
-        if data is None:
-            self._data = Vector[IInspectable]()
-        elif isinstance(data, list):
-            self._data = _box_value_and_collection(data)
+        if inner is None:
+            self._inner = Vector[IInspectable]().as_(IVector[IInspectable])
+        elif isinstance(inner, list):
+            self._inner = Vector[IInspectable]([_box_value_and_collection(v) for v in inner]).as_(IVector[IInspectable])
         else:
-            self._data = data.as_(IVector[IInspectable])
+            self._inner = inner.as_(IVector[IInspectable])
 
-        self.value = self._data.value
+        self.value = self._inner.value
 
     def __len__(self):
-        return len(self._data)
+        return len(self._inner)
 
     def __getitem__(self, index):
-        r = self._data[index]
+        r = self._inner[index]
         if isinstance(r, list):
             return [_unbox_value_and_collection(v) for v in r]
         return _unbox_value_and_collection(r)
 
     def __setitem__(self, index, value):
-        self._data.__setitem__(index, _box_value_and_collection(value))
+        self._inner.__setitem__(index, _box_value_and_collection(value))
 
     def __delitem__(self, index):
-        self._data.__delitem__(index)
+        self._inner.__delitem__(index)
 
     def insert(self, index, value):
-        self._data.InsertAt(index, _box_value_and_collection(value))
+        self._inner.InsertAt(index, _box_value_and_collection(value))
 
     def append(self, value):
-        self._data.Append(_box_value_and_collection(value))
+        self._inner.Append(_box_value_and_collection(value))
 
     def clear(self, value):
-        self._data.Clear()
+        self._inner.Clear()
 
 
 class Dict(IInspectable):
-    def __init__(self, data: dict | IMap[hstr, IInspectable] | None = None) -> None:
+    def __init__(self, inner: dict | IMap[hstr, IInspectable] | None = None) -> None:
         super().__init__()
 
-        if data is None:
-            self._data = Map[hstr, IInspectable]()
-        elif isinstance(data, dict):
-            self._data = _box_value_and_collection(data)
+        if inner is None:
+            self._inner = Map[hstr, IInspectable]().as_(IMap[hstr, IInspectable])
+        elif isinstance(inner, dict):
+            self._inner = Map[hstr, IInspectable]({k: _box_value_and_collection(v) for k, v in inner.items()}).as_(
+                IMap[hstr, IInspectable]
+            )
         else:
-            self._data = data.as_(IMap[hstr, IInspectable])
+            self._inner = inner.as_(IMap[hstr, IInspectable])
 
-        self.value = self._data.value
+        self.value = self._inner.value
 
     def __iter__(self):
-        return self._data.__iter__()
+        return self._inner.__iter__()
 
     def __len__(self):
-        return len(self._data)
+        return len(self._inner)
 
     def __getitem__(self, key):
-        return _unbox_value_and_collection(self._data[key])
+        return _unbox_value_and_collection(self._inner[key])
 
     def __setitem__(self, key, value):
-        self._data[key] = _box_value_and_collection(value)
+        self._inner[key] = _box_value_and_collection(value)
 
     def __delitem__(self, key):
-        self._data.__delitem__(key)
+        self._inner.__delitem__(key)
 
     def __contains__(self, key):
-        return key in self._data
+        return key in self._inner
 
     def items(self):
-        for k, v in self._data.items():
+        for k, v in self._inner.items():
             yield k, _unbox_value_and_collection(v)
 
     def keys(self):
-        for k in self._data.keys():
+        for k in self._inner.keys():
             yield k
 
     def values(self):
-        for v in self._data.values():
+        for v in self._inner.values():
             yield _unbox_value_and_collection(v)
 
     def get(self, key, default=None):
-        return self._data.get(key, default)
+        return self._inner.get(key, default)
 
     def __eq__(self, other):
         return dict(self.items()) == dict(other.items())
