@@ -273,7 +273,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         for v in items:
             self._addref(v)
         for v in self._lst:
-            self._addref(v)
+            self._release(v)
         self._lst[:] = items
         # FIXME: ?
         self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
