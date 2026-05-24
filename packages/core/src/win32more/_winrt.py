@@ -79,8 +79,8 @@ class event_setter:
 
 def winrt_easycast(obj, type_):
     from win32more._box import box_value
+    from win32more._collections import Vector
     from win32more._datetime import datetime_to_winrt, timedelta_to_winrt
-    from win32more._vector import Vector
     from win32more.Windows.Foundation import DateTime, IReference, TimeSpan
     from win32more.Windows.Foundation.Collections import IVector
 
