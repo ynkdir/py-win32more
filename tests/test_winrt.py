@@ -21,7 +21,7 @@ from win32more import (
     box_value,
     unbox_value,
 )
-from win32more._boxing import unbox_str
+from win32more._box import unbox_str
 from win32more._collections import Dict, List
 from win32more._map import Map
 from win32more._ro import _get_type_signature, ro_get_parameterized_type_instance_iid

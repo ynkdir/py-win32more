@@ -207,7 +207,7 @@ class ComPtr(c_void_p):
         return cls
 
     def as_(self, cls):
-        from ._boxing import unbox_str
+        from ._box import unbox_str
 
         if cls is str:
             return unbox_str(self)

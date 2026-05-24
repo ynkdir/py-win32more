@@ -1,6 +1,6 @@
 # ruff: noqa: F401
 from . import _win32api
-from ._boxing import box_value, unbox_value
+from ._box import box_value, unbox_value
 from ._collections import Dict, List
 from ._comclass import ComClass
 from ._comerror import ComError

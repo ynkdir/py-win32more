@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from win32more.Windows.Foundation.Collections import IMap, IVector
 
-from . import _boxing
+from . import _box
 from ._hstr import hstr
 from ._map import Map
 from ._vector import Vector
@@ -14,7 +14,7 @@ def _box_any(value):
         return List(value)
     if isinstance(value, dict):
         return Dict(value)
-    return _boxing.box_value(value)
+    return _box.box_value(value)
 
 
 def _unbox_any(value):
@@ -26,7 +26,7 @@ def _unbox_any(value):
     if map is not None:
         return Dict(map)
 
-    return _boxing.unbox_value(value)
+    return _box.unbox_value(value)
 
 
 class List(IInspectable):
