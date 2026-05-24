@@ -9,7 +9,7 @@ from ._vector import Vector
 from ._win32api import IInspectable
 
 
-def _box_value_and_collection(value):
+def _box_any(value):
     if isinstance(value, list):
         return List(value)
     if isinstance(value, dict):
@@ -17,7 +17,7 @@ def _box_value_and_collection(value):
     return _boxing.box_value(value)
 
 
-def _unbox_value_and_collection(value):
+def _unbox_any(value):
     vec = value.try_as(IVector[IInspectable])
     if vec is not None:
         return List(vec)
@@ -36,7 +36,7 @@ class List(IInspectable):
         if inner is None:
             self._inner = Vector[IInspectable]().as_(IVector[IInspectable])
         elif isinstance(inner, list):
-            self._inner = Vector[IInspectable]([_box_value_and_collection(v) for v in inner]).as_(IVector[IInspectable])
+            self._inner = Vector[IInspectable]([_box_any(v) for v in inner]).as_(IVector[IInspectable])
         else:
             self._inner = inner.as_(IVector[IInspectable])
 
@@ -48,20 +48,20 @@ class List(IInspectable):
     def __getitem__(self, index):
         r = self._inner[index]
         if isinstance(r, list):
-            return [_unbox_value_and_collection(v) for v in r]
-        return _unbox_value_and_collection(r)
+            return [_unbox_any(v) for v in r]
+        return _unbox_any(r)
 
     def __setitem__(self, index, value):
-        self._inner.__setitem__(index, _box_value_and_collection(value))
+        self._inner.__setitem__(index, _box_any(value))
 
     def __delitem__(self, index):
         self._inner.__delitem__(index)
 
     def insert(self, index, value):
-        self._inner.InsertAt(index, _box_value_and_collection(value))
+        self._inner.InsertAt(index, _box_any(value))
 
     def append(self, value):
-        self._inner.Append(_box_value_and_collection(value))
+        self._inner.Append(_box_any(value))
 
     def clear(self, value):
         self._inner.Clear()
@@ -74,7 +74,7 @@ class Dict(IInspectable):
         if inner is None:
             self._inner = Map[hstr, IInspectable]().as_(IMap[hstr, IInspectable])
         elif isinstance(inner, dict):
-            self._inner = Map[hstr, IInspectable]({k: _box_value_and_collection(v) for k, v in inner.items()}).as_(
+            self._inner = Map[hstr, IInspectable]({k: _box_any(v) for k, v in inner.items()}).as_(
                 IMap[hstr, IInspectable]
             )
         else:
@@ -89,10 +89,10 @@ class Dict(IInspectable):
         return len(self._inner)
 
     def __getitem__(self, key):
-        return _unbox_value_and_collection(self._inner[key])
+        return _unbox_any(self._inner[key])
 
     def __setitem__(self, key, value):
-        self._inner[key] = _box_value_and_collection(value)
+        self._inner[key] = _box_any(value)
 
     def __delitem__(self, key):
         self._inner.__delitem__(key)
@@ -102,7 +102,7 @@ class Dict(IInspectable):
 
     def items(self):
         for k, v in self._inner.items():
-            yield k, _unbox_value_and_collection(v)
+            yield k, _unbox_any(v)
 
     def keys(self):
         for k in self._inner.keys():
@@ -110,7 +110,7 @@ class Dict(IInspectable):
 
     def values(self):
         for v in self._inner.values():
-            yield _unbox_value_and_collection(v)
+            yield _unbox_any(v)
 
     def get(self, key, default=None):
         return self._inner.get(key, default)
