@@ -30,8 +30,9 @@ def WINFUNCTYPE(restype, *argtypes, use_errno=False, use_last_error=False):
         return functype_new(cls, *args)
 
     functype = CFUNCTYPE(restype, *argtypes, use_errno=use_errno, use_last_error=use_last_error)
-    functype_new = functype.__new__
-    functype.__new__ = __new__
+    if functype.__new__.__module__ != __name__:
+        functype_new = functype.__new__
+        functype.__new__ = __new__
     return functype
 
 
