@@ -634,6 +634,10 @@ class SequenceProtocol:
             raise TypeError(f"list indices must be integers or slices, not {type(index).__name__}")
 
     def __delitem__(self, index):
+        if index < 0:
+            index += len(self)
+        if index < 0 or len(self) <= index:
+            raise IndexError("list index out of range")
         self.RemoveAt(index)
 
 
