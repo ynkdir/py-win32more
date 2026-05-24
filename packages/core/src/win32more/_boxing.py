@@ -3,14 +3,14 @@ from __future__ import annotations
 from datetime import datetime, timedelta
 from typing import Any
 
+from win32more.Windows.Foundation import DateTime, IPropertyValue, PropertyType, PropertyValue, TimeSpan
+
 from ._datetime import datetime_to_winrt, timedelta_to_winrt
 from ._win32api import IInspectable
 
 
 # FIXME: Add more conversion.
 def box_value(value: Any) -> IInspectable:
-    from win32more.Windows.Foundation import DateTime, PropertyValue, TimeSpan
-
     if value is None:
         return None
     elif isinstance(value, IInspectable):
@@ -36,8 +36,6 @@ def box_value(value: Any) -> IInspectable:
 
 
 def unbox_value(value: Any) -> Any:
-    from win32more.Windows.Foundation import IPropertyValue, PropertyType
-
     if value is None:
         return None
 
@@ -166,8 +164,6 @@ def unbox_value(value: Any) -> Any:
 
 
 def unbox_str(value: IInspectable) -> str:
-    from win32more.Windows.Foundation import IPropertyValue, PropertyType
-
     property_value = value.try_as(IPropertyValue)
     if property_value is not None:
         if property_value.Type != PropertyType.String:

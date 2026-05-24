@@ -23,7 +23,6 @@ from typing import (
 )
 
 from . import asyncui
-from ._boxing import box_value, datetime_to_winrt, timedelta_to_winrt
 from ._comclass import ComClass, ISelf, is_com_class, is_com_instance
 from ._comerror import ComError
 from ._generic import generic_class_getitem, is_generic_concrete
@@ -79,6 +78,8 @@ class event_setter:
 
 
 def winrt_easycast(obj, type_):
+    from win32more._boxing import box_value
+    from win32more._datetime import datetime_to_winrt, timedelta_to_winrt
     from win32more._vector import Vector
     from win32more.Windows.Foundation import DateTime, IReference, TimeSpan
     from win32more.Windows.Foundation.Collections import IVector
