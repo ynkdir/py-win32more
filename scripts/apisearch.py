@@ -54,8 +54,8 @@ class LoadPage(XamlClass, Page):
     mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Center">
         <TextBlock>Loading</TextBlock>
-        <ListView x:Name="ListView1">
-            <ListView.ItemTemplate>
+        <ItemsControl x:Name="ItemsControl1">
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <ProgressRing IsActive="True" Visibility="{Binding running}" />
@@ -63,8 +63,8 @@ class LoadPage(XamlClass, Page):
                         <TextBlock Text="{Binding name}" />
                     </StackPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </StackPanel>
 </Page>"""
 
@@ -73,7 +73,7 @@ class LoadPage(XamlClass, Page):
         self._search_engine = search_engine
         self.LoadComponentFromString(self.xaml)
         self._items = List()
-        self.ListView1.ItemsSource = self._items
+        self.ItemsControl1.ItemsSource = self._items
 
     async def load(self) -> None:
         await self._search_engine.load(self)
