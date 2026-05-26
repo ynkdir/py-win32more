@@ -241,7 +241,7 @@ class Dict(IInspectable):
 
 class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
     def __init__(self, lst: list[T] | None = None) -> None:
-        super().__init__(own=True)
+        super().__init__()
 
         self._T = self.__args[0]
 
@@ -346,7 +346,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
 
 class Iterator(ComClass, IIterator[T]):
     def __init__(self, it) -> None:
-        super().__init__(own=True)
+        super().__init__()
 
         self._it = it
         try:
@@ -386,7 +386,7 @@ class Iterator(ComClass, IIterator[T]):
 
 class VectorChangedEventArgs(ComClass, IVectorChangedEventArgs):
     def __init__(self, collection_change: CollectionChange, index: int) -> None:
-        super().__init__(own=True)
+        super().__init__()
         self._collection_change = collection_change
         self._index = index
 
@@ -399,7 +399,7 @@ class VectorChangedEventArgs(ComClass, IVectorChangedEventArgs):
 
 class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], IObservableMap[K, V]):
     def __init__(self, dct: dict[K, V] | None = None) -> None:
-        super().__init__(own=True)
+        super().__init__()
 
         self._K, self._V = self.__args
 
@@ -480,7 +480,7 @@ class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], 
 
 class KeyValuePair(ComClass, IKeyValuePair[K, V]):
     def __init__(self, item) -> None:
-        super().__init__(own=True)
+        super().__init__()
         self._key = item[0]
         self._value = item[1]
 
@@ -493,7 +493,7 @@ class KeyValuePair(ComClass, IKeyValuePair[K, V]):
 
 class MapChangedEventArgs(ComClass, IMapChangedEventArgs[K]):
     def __init__(self, collection_change: CollectionChange, key: K) -> None:
-        super().__init__(own=True)
+        super().__init__()
         self._collection_change = collection_change
         self._key = key
 
