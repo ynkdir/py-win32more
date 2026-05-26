@@ -122,10 +122,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
             SetTimer(0, 0, 100, lambda *_: runner.update())
             Application.Start(lambda params: init())
 
-        # FIXME: force Release() to avoid exit with error code.
-        if XamlApplication.__current is not None:
-            XamlApplication.__current.Release()
-
         CoUninitialize()
 
 
