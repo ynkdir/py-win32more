@@ -50,11 +50,11 @@ class ComClass(ComPtr):
     _keep_reference_in_python_world_ = {}
 
     def __init__(self, *args, **kwargs):
+        kwargs.update(own=False)
         super().__init__(*args, **kwargs)
         self._iid_vtbls = self._make_iid_vtbls()
         self.value = addressof(self._iid_vtbls[0][1])  # select default interface
         self._refcount = 0
-        self.AddRef()
         self._inner = self._compose()
 
     def _make_iid_vtbls(self) -> list[tuple[Guid, Vtbl]]:
