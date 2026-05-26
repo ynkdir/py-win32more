@@ -240,14 +240,6 @@ class Dict(IInspectable):
 
 
 class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
-    # FIXME: dirty hack
-    # Return IVector for normal usage.
-    # Implemented methods are expected to be called from com interface, not from python code directory.
-    def __new__(cls, lst: list[T] | None = None) -> Vector[T] | IVector[T]:
-        self = super().__new__(cls)
-        self.__init__(lst)
-        return self.as_(IVector[self._T])
-
     def __init__(self, lst: list[T] | None = None) -> None:
         super().__init__(own=True)
 
@@ -406,12 +398,6 @@ class VectorChangedEventArgs(ComClass, IVectorChangedEventArgs):
 
 
 class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], IObservableMap[K, V]):
-    # FIXME: dirty hack
-    def __new__(cls, dct: dict[K, V] | None = None) -> Map[K, V] | IMap[K, V]:
-        self = super().__new__(cls)
-        self.__init__(dct)
-        return self.as_(IMap[self._K, self._V])
-
     def __init__(self, dct: dict[K, V] | None = None) -> None:
         super().__init__(own=True)
 

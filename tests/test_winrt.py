@@ -348,7 +348,7 @@ class TestWinrt(unittest.TestCase):
             unbox_str(box_value(1))
 
     def test_vector(self):
-        v = Vector[Int32]()
+        v = Vector[Int32]().as_(IVector[Int32])
 
         v.Append(0)
         v.Append(1)
@@ -375,7 +375,7 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(v[:], [])
 
     def test_map(self):
-        m = Map[hstr, hstr]()
+        m = Map[hstr, hstr]().as_(IMap[hstr, hstr])
 
         m.Insert("a", "1")
         m.Insert("b", "2")
@@ -385,7 +385,7 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(m["a"], "1")
         self.assertEqual(m["b"], "2")
 
-        m = Map[hstr, IInspectable]()
+        m = Map[hstr, IInspectable]().as_(IMap[hstr, IInspectable])
 
         m["x"] = 1
         self.assertIsInstance(m["x"], IInspectable)
@@ -534,7 +534,7 @@ class TestWinrt(unittest.TestCase):
         self.assertTrue(iterator_succeeded)
 
     def test_comclass_handle_inherited_interfaces(self):
-        v = Vector[Int32]([0, 1, 2])
+        v = Vector[Int32]([0, 1, 2]).as_(IVector[Int32])
         o = IInspectable()
         self.assertEqual(v.QueryInterface(pointer(IUnknown._iid_), pointer(o)), S_OK)
         self.assertEqual(v.QueryInterface(pointer(IInspectable._iid_), pointer(o)), S_OK)
