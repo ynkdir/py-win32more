@@ -58,23 +58,82 @@ logger = logging.getLogger(__name__)
 
 
 class event:
+    """A class used to create/store event_setter objects of a Windows API object."""
+
     def __init__(self, adder, remover):
-        self._adder = adder
-        self._remover = remover
+        # Store only the name of the adders/removers and retrieve the instance method
+        # later. Calling remover directly will throw an exception.
+        self._adder = adder._prototype.__name__
+        self._remover = remover._prototype.__name__
+        self._event_setters = {}
 
     def __get__(self, instance, owner=None):
         if instance is None:
             return self
-        return event_setter(instance, self._adder)
+
+        # Store/retrieve the event setter using the id of the instance.
+        event_setters = self._event_setters
+        key = id(instance)
+        if key not in event_setters.keys():
+            event_setters[key] = event_setter(instance, self._adder, self._remover)
+
+        return event_setters[key]
 
 
 class event_setter:
-    def __init__(self, instance, adder):
+    """A class used to add callbacks to events of a Windows API object.
+
+    Event callbacks are
+        - Added individually using instance.EventName += callback
+        - Removed individually using instance.EventName -= callback
+        - Cleared using instance.EventName.clear()
+    """
+
+    def __init__(self, instance, adder, remover):
         self._instance = instance
         self._adder = adder
+        self._remover = remover
+        self._callbacks = {}
 
     def __iadd__(self, callback):
-        self._adder(self._instance, callback)
+        # An adder is of the form instance.add_EventName(callback) -> token where the
+        # token is used to remove the added callback.
+        adder_method = getattr(self._instance, self._adder)
+        token = adder_method(callback)
+
+        callbacks = self._callbacks
+        callback_id = id(callback)
+
+        if callback_id not in callbacks.keys():
+            callbacks[callback_id] = []
+
+        # Store the token for the callback.
+        callbacks[callback_id].append(token)
+        return self
+
+    def __isub__(self, callback):
+        # Retrieve the token for the callback.
+        callback_id = id(callback)
+        token = self._callbacks[callback_id].pop()
+
+        # A remover is of the form instance.remover_EventName(token) -> None.
+        remover_method = getattr(self._instance, self._remover)
+        remover_method(token)
+
+        if len(self._callbacks[callback_id]) < 1:
+            del self._callbacks[callback_id]
+
+        return self
+
+    def clear(self):
+        """Remove all the callbacks associated to an event of a Windows API object."""
+        for tokens in self._callbacks.values():
+            for token in tokens:
+                # A remover is of the form instance.remover_EventName(token) -> None.
+                remover_method = getattr(self._instance, self._remover)
+                remover_method(token)
+
+        self._callbacks = {}
 
 
 def winrt_easycast(obj, type_):
