@@ -441,7 +441,7 @@ class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], 
         for k, v in self._dict.items():
             self._release(k, v)
         self._dict.clear()
-        self._notify(MapChangedEventArgs(CollectionChange.Reset, None))
+        self._notify(MapChangedEventArgs[self._K](CollectionChange.Reset, None))
 
     def Split(self, first: POINTER(IMapView[K, V]), second: POINTER(IMapView[K, V])) -> Void:
         raise NotImplementedError("Split")
