@@ -21,17 +21,16 @@ from win32more.Windows.Foundation.Collections import (
 )
 
 from . import _box
+from ._comclass import ComClass, is_com_class
 from ._hstr import hstr
 from ._win32 import Boolean, UInt32, Void
 from ._win32api import IInspectable
 from ._winrt import (
-    ComClass,
     FillArray,
     K,
     PassArray,
     T,
     V,
-    is_com_instance,
 )
 
 _sentinel = object()
@@ -249,99 +248,86 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         self._observers_count = 0
 
         if lst is None:
-            self._lst = []
+            self._data = []
         else:
-            self._lst = list(lst)
-
-        for v in self._lst:
-            self._addref(v)
+            self._data = [self._addref(v) for v in lst]
 
     def GetAt(self, index: UInt32) -> T:
-        return self._lst[index]
+        return self._data[index]
 
     def get_Size(self) -> UInt32:
-        return len(self._lst)
+        return len(self._data)
 
     def GetView(self) -> IVectorView[T]:
         return self.as_(IVector[self._T])
 
     def IndexOf(self, value: T, index: POINTER(UInt32)) -> Boolean:
-        for i, v in enumerate(self._lst):
+        for i, v in enumerate(self._data):
             if v == value:
                 index[0] = i
                 return True
         return False
 
     def SetAt(self, index: UInt32, value: T) -> Void:
-        self._release(self._lst[index])
-        self._addref(value)
-        self._lst[index] = value
+        self._data[index] = self._addref(value)
         self._notify(VectorChangedEventArgs(CollectionChange.ItemChanged, index))
 
     def InsertAt(self, index: UInt32, value: T) -> Void:
-        self._addref(value)
-        self._lst.insert(index, value)
+        self._data.insert(index, self._addref(value))
         self._notify(VectorChangedEventArgs(CollectionChange.ItemInserted, index))
 
     def RemoveAt(self, index: UInt32) -> Void:
-        value = self._lst.pop(index)
-        self._release(value)
+        self._data.pop(index)
         self._notify(VectorChangedEventArgs(CollectionChange.ItemRemoved, index))
 
     def Append(self, value: T) -> Void:
-        self.InsertAt(len(self._lst), value)
+        self.InsertAt(len(self._data), value)
 
     def RemoveAtEnd(self) -> Void:
         self.RemoveAt(len(self) - 1)
 
     def Clear(self) -> Void:
-        for v in self._lst:
-            self._release(v)
-        self._lst[:] = []
+        self._data.clear()
         self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
 
     def GetMany(self, startIndex: UInt32, items: FillArray[T]) -> UInt32:
         numcopied = 0
         for i in range(startIndex, startIndex + len(items)):
-            if i >= len(self._lst):
+            if i >= len(self._data):
                 break
-            items[numcopied] = self._lst[i]
+            items[numcopied] = self._data[i]
             numcopied += 1
         return numcopied
 
     def ReplaceAll(self, items: PassArray[T]) -> Void:
-        for v in items:
-            self._addref(v)
-        for v in self._lst:
-            self._release(v)
-        self._lst[:] = items
-        # FIXME: ?
+        self._data = [self._addref(v) for v in items]
         self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
 
     def First(self) -> IIterator[T]:
-        return Iterator[self._T](self._T(v) for v in self._lst)
+        return Iterator[self._T](self._T(v) for v in self._data)
 
     def add_VectorChanged(self, vhnd: VectorChangedEventHandler[T]) -> EventRegistrationToken:
         self._observers_count += 1
-        self._observers[self._observers_count] = vhnd
-        vhnd.AddRef()
+        self._observers[self._observers_count] = self._addref_vhnd(vhnd)
         return EventRegistrationToken(self._observers_count)
 
     def remove_VectorChanged(self, token: EventRegistrationToken) -> Void:
-        vhnd = self._observers.pop(token.Value)
-        vhnd.Release()
+        self._observers.pop(token.Value)
 
     def _notify(self, args):
         for observer in self._observers.values():
             observer.Invoke(self, args)
 
-    def _addref(self, value: T) -> None:
-        if value and is_com_instance(value):
+    def _addref(self, value: T) -> T:
+        if is_com_class(self._T) and value:
+            value = self._T(value.value, own=True)
             value.AddRef()
+        return value
 
-    def _release(self, value: T) -> None:
-        if value and is_com_instance(value):
-            value.Release()
+    def _addref_vhnd(self, vhnd: VectorChangedEventHandler[T]) -> VectorChangedEventHandler[T]:
+        vhnd = VectorChangedEventHandler[self._T](vhnd.value, own=True)
+        vhnd.AddRef()
+        return vhnd
 
 
 class Iterator(ComClass, IIterator[T]):
@@ -407,40 +393,35 @@ class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], 
         self._observers_count = 0
 
         if dct is None:
-            self._dict = {}
+            self._data = {}
         else:
-            self._dict = dict(dct)
-
-        for k, v in self._dict.items():
-            self._addref(k, v)
+            self._data = dict(self._addref(k, v) for k, v in dct.items())
 
     def Lookup(self, key: K) -> V:
-        return self._dict[key]
+        return self._data[key]
 
     def get_Size(self) -> UInt32:
-        return len(self._dict)
+        return len(self._data)
 
     def HasKey(self, key: K) -> Boolean:
-        return key in self._dict
+        return key in self._data
 
     def GetView(self) -> IMapView[K, V]:
         return self.as_(IMapView[K, V])
 
     def Insert(self, key: K, value: V) -> Boolean:
-        self._addref(key, value)
-        r = key in self._dict
-        self._dict[key] = value
+        key, value = self._addref(key, value)
+        r = key in self._data
+        self._data[key] = value
         self._notify(MapChangedEventArgs[self._K](CollectionChange.ItemChanged, key))
         return r
 
     def Remove(self, key: K) -> Void:
-        self._release(key, self._dict.pop(key))
+        self._data.pop(key)
         self._notify(MapChangedEventArgs[self._K](CollectionChange.ItemRemoved, key))
 
     def Clear(self) -> Void:
-        for k, v in self._dict.items():
-            self._release(k, v)
-        self._dict.clear()
+        self._data.clear()
         self._notify(MapChangedEventArgs[self._K](CollectionChange.Reset, None))
 
     def Split(self, first: POINTER(IMapView[K, V]), second: POINTER(IMapView[K, V])) -> Void:
@@ -448,41 +429,43 @@ class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], 
 
     def First(self) -> IIterator[T]:
         return Iterator[IKeyValuePair[self._K, self._V]](
-            KeyValuePair[self._K, self._V]((k, v)) for k, v in self._dict.items()
+            KeyValuePair[self._K, self._V](k, v) for k, v in self._data.items()
         )
 
     def add_MapChanged(self, vhnd: MapChangedEventHandler[K, V]) -> EventRegistrationToken:
         self._observers_count += 1
-        self._observers[self._observers_count] = vhnd
-        vhnd.AddRef()
+        self._observers[self._observers_count] = self._addref_vhnd(vhnd)
         return EventRegistrationToken(self._observers_count)
 
     def remove_MapChanged(self, token: EventRegistrationToken) -> Void:
-        vhnd = self._observers.pop(token.Value)
-        vhnd.Release()
+        self._observers.pop(token.Value)
 
     def _notify(self, args: MapChangedEventArgs) -> None:
         for observer in self._observers.values():
             observer.Invoke(self, args)
 
-    def _addref(self, key: K, value: V) -> None:
-        if key and is_com_instance(key):
+    def _addref(self, key: K, value: V) -> tuple[K, V]:
+        if is_com_class(self._K) and key:
+            key = self._K(key.value, own=True)
             key.AddRef()
-        if value and is_com_instance(value):
+        if is_com_class(self._V) and value:
+            value = self._V(value.value, own=True)
             value.AddRef()
+        return key, value
 
-    def _release(self, key: K, value: V) -> None:
-        if key and is_com_instance(key):
-            key.Release()
-        if value and is_com_instance(value):
-            value.Release()
+    def _addref_vhnd(self, vhnd: MapChangedEventHandler[K, V]) -> MapChangedEventHandler[K, V]:
+        vhnd = MapChangedEventHandler[self._K, self._V](vhnd.value, own=True)
+        vhnd.AddRef()
+        return vhnd
 
 
 class KeyValuePair(ComClass, IKeyValuePair[K, V]):
-    def __init__(self, item) -> None:
+    def __init__(self, key: K, value: V) -> None:
         super().__init__()
-        self._key = item[0]
-        self._value = item[1]
+
+        self._K, self._V = self.__args
+
+        self._key, self._value = self._addref(key, value)
 
     def get_Key(self) -> K:
         return self._key
@@ -490,15 +473,33 @@ class KeyValuePair(ComClass, IKeyValuePair[K, V]):
     def get_Value(self) -> V:
         return self._value
 
+    def _addref(self, key: K, value: V) -> tuple[K, V]:
+        if is_com_class(self._K) and key:
+            key = self._K(key.value, own=True)
+            key.AddRef()
+        if is_com_class(self._V) and value:
+            value = self._V(value.value, own=True)
+            value.AddRef()
+        return key, value
+
 
 class MapChangedEventArgs(ComClass, IMapChangedEventArgs[K]):
     def __init__(self, collection_change: CollectionChange, key: K) -> None:
         super().__init__()
+
+        self._K = self.__args[0]
+
         self._collection_change = collection_change
-        self._key = key
+        self._key = self._addref(key)
 
     def get_CollectionChange(self) -> CollectionChange:
         return self._collection_change
 
     def get_Key(self) -> K:
         return self._key
+
+    def _addref(self, key: K) -> K:
+        if is_com_class(self._K) and key:
+            key = self._K(key.value, own=True)
+            key.AddRef()
+        return key

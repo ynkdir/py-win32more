@@ -1,4 +1,5 @@
 import asyncio
+import gc
 import sys
 import unittest
 from concurrent.futures import Future
@@ -14,6 +15,7 @@ from win32more import (
     ComError,
     Guid,
     Int32,
+    IntPtr,
     UInt32,
     Void,
     VoidPtr,
@@ -37,7 +39,7 @@ from win32more._winrt import (
     event,
     hstr,
     winrt_commethod,
-    winrt_mixinmethod
+    winrt_mixinmethod,
 )
 from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Data.Xml.Dom import XmlDocument
@@ -375,6 +377,34 @@ class TestWinrt(unittest.TestCase):
         del v[0]
         self.assertEqual(v[:], [])
 
+    def test_vector_releases_its_contents_when_deleted(self):
+        class Mock(ComClass, IUnknown):
+            def AddRef(self):
+                r = super().AddRef()
+                if r == 1:
+                    added.add(self.value)
+                return r
+
+            def Release(self):
+                r = super().Release()
+                if r == 0:
+                    released.add(self.value)
+                return r
+
+        added = set()
+        released = set()
+
+        v = Vector[IUnknown]().as_(IVector[IUnknown])
+        v.Append(Mock())
+        v.Append(Mock())
+        v.Append(Mock())
+        del v
+
+        gc.collect()  # may be flaky
+
+        self.assertEqual(len(added), 3)
+        self.assertEqual(added, released)
+
     def test_map(self):
         m = Map[hstr, hstr]().as_(IMap[hstr, hstr])
 
@@ -397,6 +427,47 @@ class TestWinrt(unittest.TestCase):
 
         del m["x"]
         self.assertFalse(m.HasKey("x"))
+
+    def test_map_releases_its_contents_when_deleted(self):
+        class IMock(IUnknown):
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @commethod(3)
+            def __hash__(self) -> IntPtr: ...
+
+        class Mock(ComClass, IMock):
+            def __init__(self, value):
+                super().__init__()
+                self._value = value
+
+            def AddRef(self):
+                r = super().AddRef()
+                if r == 1:
+                    added.add(self.value)
+                return r
+
+            def Release(self):
+                r = super().Release()
+                if r == 0:
+                    released.add(self.value)
+                return r
+
+            def __hash__(self):
+                return hash(self._value)
+
+        added = set()
+        released = set()
+
+        m = Map[IMock, IMock]().as_(IMap[IMock, IMock])
+        m[Mock("a")] = Mock("b")
+        m[Mock("c")] = Mock("d")
+        m[Mock("e")] = Mock("f")
+        del m
+
+        gc.collect()  # may be flaky
+
+        self.assertEqual(len(added), 6)
+        self.assertEqual(added, released)
 
     def test_list(self):
         x = List([1, 2, 3, 4, 5])
@@ -741,7 +812,6 @@ class TestWinrt(unittest.TestCase):
 
         def callback2(sender, args):
             pass
-
 
         mock.MockEvent += callback1
 
