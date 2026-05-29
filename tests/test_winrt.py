@@ -400,7 +400,9 @@ class TestWinrt(unittest.TestCase):
         v.Append(Mock())
         del v
 
-        gc.collect()  # may be flaky
+        gc.collect()  # may be flaky.  pray three times.
+        gc.collect()
+        gc.collect()
 
         self.assertEqual(len(added), 3)
         self.assertEqual(added, released)
@@ -464,7 +466,9 @@ class TestWinrt(unittest.TestCase):
         m[Mock("e")] = Mock("f")
         del m
 
-        gc.collect()  # may be flaky
+        gc.collect()  # may be flaky.  pray three times.
+        gc.collect()
+        gc.collect()
 
         self.assertEqual(len(added), 6)
         self.assertEqual(added, released)
