@@ -711,13 +711,13 @@ class TestWinrt(unittest.TestCase):
         class IMock:
             _token = -1
 
-            def add_MockEvent(self: IMock, callback: Callable) -> Token:
+            def add_MockEvent(self, callback: Callable) -> Token:
                 cls = type(self)
                 cls._token += 1
                 trace[cls._token] = callback
                 return cls._token
 
-            def remove_MockEvent(self: IMock, token: Token) -> None:
+            def remove_MockEvent(self, token: Token) -> None:
                 del trace[token]
 
         class Mock:
