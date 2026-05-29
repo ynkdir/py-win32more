@@ -4,7 +4,7 @@ import unittest
 from concurrent.futures import Future
 from ctypes import POINTER, cast, pointer
 from pathlib import Path
-from typing import Generic, TypeVar
+from typing import Callable, Generic, TypeVar
 
 from win32more import (
     FAILED,
@@ -37,6 +37,7 @@ from win32more._winrt import (
     event,
     hstr,
     winrt_commethod,
+    winrt_mixinmethod
 )
 from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Data.Xml.Dom import XmlDocument
@@ -703,22 +704,69 @@ class TestWinrt(unittest.TestCase):
         unknown = mock.as_(IInspectable)
         self.assertIs(mock, unknown.as_(ISelf).GetSelf())
 
-    def test_classevent_calls_adder_function_as_classmethod(self):
-        class Meta(type):
+    def test_event_setter(self):
+        class Token(int):
             pass
 
-        class Mock(metaclass=Meta):
-            # @classmethod
-            def add_Changed(cls, callback):
-                trace.append(cls)
+        class IMock:
+            _token = -1
 
-            Meta.Changed = event(add_Changed, None)
+            def add_MockEvent(self, callback: Callable) -> Token:
+                cls = type(self)
+                cls._token += 1
+                trace[cls._token] = callback
+                return cls._token
 
-        trace = []
+            def remove_MockEvent(self, token: Token) -> None:
+                del trace[token]
 
-        Mock.Changed += lambda: None
+        class Mock:
+            def as_(self, cls):
+                return cls()
 
-        self.assertEqual(trace, [Mock])
+            @winrt_mixinmethod
+            def add_MockEvent(self: IMock, callback: Callable) -> Token: ...
+
+            @winrt_mixinmethod
+            def remove_MockEvent(self: IMock, token: Token) -> None: ...
+
+            MockEvent = event(add_MockEvent, remove_MockEvent)
+
+        trace = {}
+
+        mock = Mock()
+
+        def callback1(sender, args):
+            pass
+
+        def callback2(sender, args):
+            pass
+
+
+        mock.MockEvent += callback1
+
+        self.assertEqual(trace, {0: callback1})
+
+        mock.MockEvent += callback2
+
+        self.assertEqual(trace, {0: callback1, 1: callback2})
+
+        mock.MockEvent += callback1
+        mock.MockEvent += callback2
+
+        self.assertEqual(trace, {0: callback1, 1: callback2, 2: callback1, 3: callback2})
+
+        mock.MockEvent -= callback2
+
+        self.assertEqual(trace, {0: callback1, 1: callback2, 2: callback1})
+
+        mock.MockEvent -= callback2
+
+        self.assertEqual(trace, {0: callback1, 2: callback1})
+
+        mock.MockEvent.clear()
+
+        self.assertEqual(trace, {})
 
 
 if __name__ == "__main__":
