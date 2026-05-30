@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from ctypes import POINTER
 
-from win32more.Windows.Foundation import EventRegistrationToken
+from win32more.Windows.Foundation import EventRegistrationToken, IPropertyValue
 from win32more.Windows.Foundation.Collections import (
     CollectionChange,
     IIterable,
@@ -56,7 +56,12 @@ def _unbox_any(value):
     if imap is not None:
         return Dict(imap)
 
-    return _box.unbox_value(value)
+    property_value = value.try_as(IPropertyValue)
+    if property_value is not None:
+        return _box.unbox_value(value)
+
+    # Unknown IInspectable
+    return value
 
 
 class List(IInspectable):

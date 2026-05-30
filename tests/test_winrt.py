@@ -532,6 +532,11 @@ class TestWinrt(unittest.TestCase):
         x.reverse()
         self.assertEqual(x[:], [5, 4, 3, 2, 1])
 
+    def test_list_accept_unknown_object(self):
+        x = List()
+        x.append(JsonObject())
+        self.assertIsInstance(x[0], IInspectable)
+
     def test_dict(self):
         x = Dict({"a": 1, "b": 2})
 
@@ -577,6 +582,11 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(x.popitem(), ("a", 1))
         with self.assertRaises(KeyError):
             x.popitem()
+
+    def test_dict_accept_unknown_object(self):
+        x = Dict()
+        x["0"] = JsonObject()
+        self.assertIsInstance(x["0"], IInspectable)
 
     def test_sequence_protocol(self):
         async def device_information_find_all():
