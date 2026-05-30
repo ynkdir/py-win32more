@@ -340,7 +340,7 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(unbox_value(box_value("str")), "str")
         self.assertEqual(box_value("str").as_(str), "str")
 
-        with self.assertRaises(OSError):  # E_NOINTERFACE
+        with self.assertRaises(TypeError):
             unbox_value(StringMap.CreateInstance())
 
         with self.assertRaises(AttributeError):  # 'str' object has not attribute 'as_'

@@ -39,7 +39,9 @@ def unbox_value(value: Any) -> Any:
     if value is None:
         return None
 
-    property_value = value.as_(IPropertyValue)
+    property_value = value.try_as(IPropertyValue)
+    if property_value is None:
+        raise TypeError(f"unbox_value: {value}")
 
     if property_value.Type == PropertyType.Empty:
         return None
@@ -159,15 +161,13 @@ def unbox_value(value: Any) -> Any:
         return r
     # elif property_value.Type == PropertyType.OtherType:
     # elif property_value.Type == PropertyType.OtherTypeArray:
-    else:
-        raise TypeError(f"unbox_value: {property_value.Type}")
+    raise TypeError(f"unbox_value: {property_value.Type}")
 
 
 def unbox_str(value: IInspectable) -> str:
     property_value = value.try_as(IPropertyValue)
-    if property_value is not None:
-        if property_value.Type != PropertyType.String:
-            raise TypeError(f"unbox_str: {property_value.Type}")
+    if property_value is None:
+        raise TypeError(f"unbox_str: {value}")
+    if property_value.Type == PropertyType.String:
         return property_value.GetString()
-
-    raise TypeError(f"unbox_str: {value}")
+    raise TypeError(f"unbox_str: {property_value.Type}")
