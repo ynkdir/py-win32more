@@ -324,6 +324,10 @@ class TestWinrt(unittest.TestCase):
         dummy = IInspectable(0)
         self.assertIs(box_value(dummy), dummy)
 
+        v = box_value(0)
+        self.assertIsNot(box_value(v), v)
+        self.assertIsInstance(box_value(v), IInspectable)
+
         self.assertIsNone(box_value(None))
         self.assertIsNone(unbox_value(box_value(None)))
 

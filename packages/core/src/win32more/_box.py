@@ -14,7 +14,10 @@ def box_value(value: Any) -> IInspectable:
     if value is None:
         return None
     elif isinstance(value, IInspectable):
-        return value
+        # return new reference
+        if not value:
+            return value
+        return value.as_(IInspectable)
     elif isinstance(value, bool):
         return PropertyValue.CreateBoolean(value)
     elif isinstance(value, int):
