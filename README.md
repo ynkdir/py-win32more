@@ -66,6 +66,17 @@ NOTE: This library requires a compatible Windows environment and appropriate per
 python -m pip install win32more
 ```
 
+To ensure that your application works on machines with older versions of Windows App SDK, it is recommended that you pin the following:
+```
+win32more-Microsoft.Windows.SDK.Win32Metadata == 0.8.VERSION
+win32more-Microsoft.Windows.WDK.Win32Metadata == 0.8.VERSION
+win32more-Microsoft.Windows.SDK.Contracts == 0.8.VERSION
+win32more-Microsoft.WindowsAppSDK == 0.8.VERSION
+win32more-Microsoft.Web.WebView2 == 0.8.VERSION
+win32more-Microsoft.Graphics.Win2D == 0.8.VERSION
+```
+where `VERSION` should be replaced by the minimum version of the Windows App SDK you want to work with (see [the NuGet page](https://www.nuget.org/packages/Microsoft.WindowsAppSDK/#versions-body-tab) for the versions).
+
 ## Programming with Win32more
 
 Let's build a simple app with `Win32more`. To begin, create an empty window and display it on the screen.
