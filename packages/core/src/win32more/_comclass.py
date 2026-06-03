@@ -230,6 +230,8 @@ class Vtbl(Structure):
         self._handle_result(restype, args, result)
 
     def _add_argument(self, type_: type, args: list[Any], pyargs: list[Any], exitstack) -> None:
+        from win32more.Windows.Foundation import IReference
+
         if _winrt.is_passarray_class(type_):
             exitstack.enter_context(_winrt.PassArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif _winrt.is_fillarray_class(type_):
@@ -238,10 +240,18 @@ class Vtbl(Structure):
             exitstack.enter_context(_winrt.ReceiveArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif type_ is hstr:
             pyargs.append(str(args.pop(0)))
+        elif issubclass(type_, IReference):
+            v = args.pop(0)
+            if v:
+                pyargs.append(v.Value)
+            else:
+                pyargs.append(None)
         else:
             pyargs.append(args.pop(0))
 
     def _handle_result(self, restype: type, args: list[Any], result: Any) -> Any:
+        from win32more.Windows.Foundation import IReference
+
         if restype is Void:
             pass
         elif _winrt.is_receivearray_class(restype):
@@ -250,10 +260,15 @@ class Vtbl(Structure):
         elif restype is hstr:
             return_pointer = args[0]
             return_pointer[0] = hstr(result)
-        elif is_com_class(restype):
+        elif issubclass(restype, IReference):
+            if result is not None:
+                result = _winrt.Reference[restype._IReference__args[0]](result).as_(restype)
             return_pointer = args[0]
+            return_pointer[0] = result
+        elif is_com_class(restype):
             if result:
                 result.AddRef()
+            return_pointer = args[0]
             return_pointer[0] = result
         else:
             return_pointer = args[0]
