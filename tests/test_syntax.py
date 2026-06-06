@@ -115,9 +115,8 @@ class TestSyntax(unittest.TestCase):
         from win32more.Windows.Foundation import IReference
         from win32more.Windows.Web.Http import HttpProgress
 
-        x = HttpProgress()
-        self.assertIsInstance(x.TotalBytesToSend, IReference)
-        self.assertEqual(x.TotalBytesToSend.__args__, (UInt64,))
+        type = (type for name, type in HttpProgress._fields_ if name == "TotalBytesToSend").__next__()
+        self.assertIs(type, IReference[UInt64])
 
     def test_struct_bitfield(self):
         from win32more import UInt32

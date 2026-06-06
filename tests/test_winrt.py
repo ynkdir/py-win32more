@@ -28,6 +28,7 @@ from win32more._collections import Dict, List, Map, Vector
 from win32more._ro import _get_type_signature, ro_get_parameterized_type_instance_iid
 from win32more._win32 import (
     Enum,
+    Structure,
     commethod,
 )
 from win32more._winrt import (
@@ -49,6 +50,7 @@ from win32more.Windows.Foundation import (
     IAsyncInfo,
     IAsyncOperation,
     IPropertyValue,
+    IReference,
     Point,
     PropertyType,
     PropertyValue,
@@ -855,6 +857,55 @@ class TestWinrt(unittest.TestCase):
         mock.MockEvent.clear()
 
         self.assertEqual(trace, {})
+
+    # FIXME: struct member?  Only Windows.Web.Http.HttpProgress uses IReference.
+    def test_ireference_is_boxed_and_unboxed_implicitly(self):
+        class IMock(IInspectable):
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def test_ireference_int32(self, value: IReference[Int32]) -> Void: ...
+
+            @winrt_commethod(7)
+            def test_ireference_int32_return(self, x: Int32) -> IReference[Int32]: ...
+
+        class Mock(ComClass, IMock):
+            def test_ireference_int32(self, value: IReference[Int32]) -> Void:
+                trace.append(value)
+
+            def test_ireference_int32_return(self, x: Int32) -> IReference[Int32]:
+                if x < 0:
+                    return None
+                return x
+
+        mock = Mock().as_(IMock)
+
+        trace = []
+        mock.test_ireference_int32(42)
+        self.assertEqual(trace, [42])
+
+        trace = []
+        mock.test_ireference_int32(None)
+        self.assertEqual(trace, [None])
+
+        self.assertEqual(mock.test_ireference_int32_return(0), 0)
+        self.assertEqual(mock.test_ireference_int32_return(13), 13)
+        self.assertIsNone(mock.test_ireference_int32_return(-1))
+
+    def test_ireference_is_boxed_and_unboxed_implicitly_struct(self):
+        class S(Structure):
+            x: IReference[Int32]
+
+        S.__commit__()
+
+        s = S()
+        self.assertIsNone(s.x)
+
+        s.x = 42
+        self.assertEqual(s.x, 42)
+
+        s.x = None
+        self.assertIsNone(s.x)
 
 
 if __name__ == "__main__":

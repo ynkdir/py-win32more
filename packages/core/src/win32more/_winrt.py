@@ -32,6 +32,8 @@ from ._win32 import (
     FAILED,
     WINFUNCTYPE,
     Enum,
+    Guid,
+    LazyLoader,
     UInt32,
     Void,
     WinError,
@@ -140,7 +142,7 @@ def winrt_easycast(obj, type_):
     from win32more._box import box_value
     from win32more._collections import Vector
     from win32more._datetime import datetime_to_winrt, timedelta_to_winrt
-    from win32more.Windows.Foundation import DateTime, IReference, TimeSpan
+    from win32more.Windows.Foundation import DateTime, TimeSpan
     from win32more.Windows.Foundation.Collections import IVector
 
     if type_ is IInspectable:
@@ -152,7 +154,7 @@ def winrt_easycast(obj, type_):
         # FIXME: Should I check obj is T of IReference[T]?
         if obj is None:
             return None
-        return box_value(obj).as_(type_)
+        return Reference[type_._IReference__args](obj)
     elif issubclass(type_, DateTime):
         if isinstance(obj, DateTime):
             return obj
@@ -472,6 +474,10 @@ class WinrtMethodCall:
             return result
         elif issubclass(self.restype, Enum):
             return result.value
+        elif issubclass(self.restype, IReference):
+            if not result:
+                return None
+            return result.Value
         elif is_com_class(self.restype):
             if not result:
                 return None
@@ -762,3 +768,29 @@ class ContextManagerProtocol:
         from win32more.Windows.Foundation import IClosable
 
         self.as_(IClosable).Close()
+
+
+# Windows.Foundation
+
+
+class IReference(Generic[T], IInspectable):
+    _classid_ = "Windows.Foundation.IReference"
+    _piid_ = Guid("{61c17706-2d65-11e0-9ae8-d48564015472}")
+
+    @winrt_commethod(6)
+    def get_Value(self) -> T: ...
+
+    Value = property(get_Value, None)
+
+
+LazyLoader.add_predefined("win32more.Windows.Foundation", "IReference", IReference)
+
+
+# T must be winrt type
+class Reference(ComClass, IReference[T]):
+    def __init__(self, cdata: T) -> None:
+        super().__init__()
+        self._cdata = cdata
+
+    def get_Value(self) -> T:
+        return self._cdata

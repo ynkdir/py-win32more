@@ -238,6 +238,12 @@ class Vtbl(Structure):
             exitstack.enter_context(_winrt.ReceiveArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif type_ is hstr:
             pyargs.append(str(args.pop(0)))
+        elif issubclass(type_, _winrt.IReference):
+            v = args.pop(0)
+            if v:
+                pyargs.append(v.Value)
+            else:
+                pyargs.append(None)
         else:
             pyargs.append(args.pop(0))
 
@@ -250,10 +256,15 @@ class Vtbl(Structure):
         elif restype is hstr:
             return_pointer = args[0]
             return_pointer[0] = hstr(result)
-        elif is_com_class(restype):
+        elif issubclass(restype, _winrt.IReference):
+            if result is not None:
+                result = _winrt.Reference[restype._IReference__args[0]](result).as_(restype)
             return_pointer = args[0]
+            return_pointer[0] = result
+        elif is_com_class(restype):
             if result:
                 result.AddRef()
+            return_pointer = args[0]
             return_pointer[0] = result
         else:
             return_pointer = args[0]

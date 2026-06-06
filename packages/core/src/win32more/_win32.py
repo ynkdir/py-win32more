@@ -50,6 +50,17 @@ else:
     from ctypes import WINFUNCTYPE, WinError, windll
 
 
+class _lazy_winrt:
+    def __getattr__(self, name):
+        global _winrt
+        from . import _winrt
+
+        return getattr(_winrt, name)
+
+
+_winrt = _lazy_winrt()
+
+
 Byte = c_ubyte
 SByte = c_byte
 Char = c_wchar
@@ -294,7 +305,7 @@ def _hook_descriptor(cls, struct):
         if issubclass(type_, (c_char_p, c_wchar_p)):
             setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
         # use __dict__[name] to avoid calling descriptor.__get__().
-        setattr(cls, name, EasyCastDescriptor(cls.__dict__[name], type_))
+        setattr(cls, name, HookDescriptor(cls.__dict__[name], name, type_))
 
 
 class Structure(_Structure):
@@ -305,19 +316,35 @@ class Union(_Union):
     __commit__ = classmethod(_struct_union_commit)
 
 
-class EasyCastDescriptor:
-    def __init__(self, original_descriptor, type_):
+class HookDescriptor:
+    def __init__(self, original_descriptor, name, type_):
         self._original_descriptor = original_descriptor
+        self._name = name
         self._type = type_
 
     def __get__(self, instance, owner=None):
         if instance is None:
             # _ctypes/stgdict.c:MakeFields() raises TypeError for non _ctypes.CField type.
             return self._original_descriptor.__get__(instance, owner)
+
+        if issubclass(self._type, _winrt.IReference):
+            value = self._original_descriptor.__get__(instance, owner)
+            if not value:
+                return None
+            return value.Value
+
         return self._original_descriptor.__get__(instance, owner)
 
     def __set__(self, instance, value):
-        self._original_descriptor.__set__(instance, easycast(value, self._type))
+        if issubclass(self._type, _winrt.IReference):
+            if value is not None:
+                value = _winrt.Reference[self._type._IReference__args](value).as_(self._type)
+                # FIXME: keep reference.
+                setattr(instance, "__" + self._name, value)
+        else:
+            value = easycast(value, self._type)
+
+        self._original_descriptor.__set__(instance, value)
 
     @property
     def offset(self):

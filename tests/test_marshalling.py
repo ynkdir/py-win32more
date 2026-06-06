@@ -21,9 +21,9 @@ from win32more import (
     UIntPtr,
 )
 from win32more._win32 import (
-    EasyCastDescriptor,
     Enum,
     ForeignFunctionCall,
+    HookDescriptor,
     Structure,
     cfunctype_pointer,
     commethod,
@@ -668,7 +668,7 @@ class TestMarshalling(unittest.TestCase):
 
         t = T((42,))
         self.assertEqual(t.p_as_intptr, 42)
-        self.assertIsInstance(T.__dict__["p"], EasyCastDescriptor)
+        self.assertIsInstance(T.__dict__["p"], HookDescriptor)
 
 
 if __name__ == "__main__":
