@@ -305,7 +305,7 @@ def _hook_descriptor(cls, struct):
         if issubclass(type_, (c_char_p, c_wchar_p)):
             setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
         # use __dict__[name] to avoid calling descriptor.__get__().
-        setattr(cls, name, HookDescriptor(cls.__dict__[name], type_))
+        setattr(cls, name, HookDescriptor(cls.__dict__[name], name, type_))
 
 
 class Structure(_Structure):
@@ -317,8 +317,9 @@ class Union(_Union):
 
 
 class HookDescriptor:
-    def __init__(self, original_descriptor, type_):
+    def __init__(self, original_descriptor, name, type_):
         self._original_descriptor = original_descriptor
+        self._name = name
         self._type = type_
 
     def __get__(self, instance, owner=None):
@@ -339,7 +340,7 @@ class HookDescriptor:
             if value is not None:
                 value = _winrt.Reference[self._type._IReference__args](value).as_(self._type)
                 # FIXME: keep reference.
-                setattr(instance, "__" + self._original_descriptor.name, value)
+                setattr(instance, "__" + self._name, value)
         else:
             value = easycast(value, self._type)
 
