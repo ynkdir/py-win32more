@@ -28,6 +28,7 @@ from win32more._collections import Dict, List, Map, Vector
 from win32more._ro import _get_type_signature, ro_get_parameterized_type_instance_iid
 from win32more._win32 import (
     Enum,
+    Structure,
     commethod,
 )
 from win32more._winrt import (
@@ -890,6 +891,21 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(mock.test_ireference_int32_return(0), 0)
         self.assertEqual(mock.test_ireference_int32_return(13), 13)
         self.assertIsNone(mock.test_ireference_int32_return(-1))
+
+    def test_ireference_is_boxed_and_unboxed_implicitly_struct(self):
+        class S(Structure):
+            x: IReference[Int32]
+
+        S.__commit__()
+
+        s = S()
+        self.assertIsNone(s.x)
+
+        s.x = 42
+        self.assertEqual(s.x, 42)
+
+        s.x = None
+        self.assertIsNone(s.x)
 
 
 if __name__ == "__main__":
