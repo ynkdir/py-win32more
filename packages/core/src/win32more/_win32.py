@@ -45,9 +45,9 @@ else:
     ARCH = "X86"
 
 if sys.platform == "cygwin":
-    from ._cygwin import ARCH, WINFUNCTYPE, WinError, windll  # noqa: F401
+    from ._cygwin import ARCH, WINFUNCTYPE, FormatError, GetLastError, WinError, windll  # noqa: F401
 else:
-    from ctypes import WINFUNCTYPE, WinError, windll
+    from ctypes import WINFUNCTYPE, FormatError, GetLastError, WinError, windll  # noqa: F401
 
 
 class _lazy_winrt:

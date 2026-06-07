@@ -1,11 +1,6 @@
 from __future__ import annotations
 
-from ctypes import (
-    POINTER,
-    c_wchar_p,
-    cast,
-    pointer,
-)
+from ctypes import POINTER
 
 from ._win32 import (
     WINFUNCTYPE,
@@ -13,7 +8,6 @@ from ._win32 import (
     Guid,
     Int32,
     LazyLoader,
-    SByte,
     String,
     UInt32,
     UIntPtr,
@@ -23,50 +17,16 @@ from ._win32 import (
     winfunctype,
 )
 
-
-def MAKELANGID(p, s):
-    return (s << 10) | p
-
-
-def FormatError(code):
-    lpMsgBuf = c_wchar_p()
-    n = FormatMessageW(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-        None,
-        code,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL),
-        cast(pointer(lpMsgBuf), c_wchar_p),
-        0,
-        None,
-    )
-    if n == 0:
-        return "<no description>"
-    msg = lpMsgBuf.value.rstrip()
-    LocalFree(lpMsgBuf)
-    return msg
-
-
 # Windows.Win32.Foundation
 
 BOOL = Int32
 BSTR = String
-HGLOBAL = VoidPtr
-HLOCAL = VoidPtr
 HRESULT = Int32
 PWSTR = String
-WIN32_ERROR = UInt32
 
 S_OK = 0
 E_FAIL = -2147467259
 E_NOINTERFACE = -2147467262
-
-
-@winfunctype("KERNEL32.dll")
-def GetLastError() -> WIN32_ERROR: ...
-
-
-@winfunctype("KERNEL32.dll")
-def LocalFree(hMem: HLOCAL) -> HLOCAL: ...
 
 
 @winfunctype("OLEAUT32.dll")
@@ -230,30 +190,3 @@ def WindowsGetStringLen(string: HSTRING) -> UInt32: ...
 
 @winfunctype("api-ms-win-core-winrt-string-l1-1-0.dll")
 def WindowsGetStringRawBuffer(string: HSTRING, length: POINTER(UInt32)) -> PWSTR: ...
-
-
-# Windows.Win32.System.Diagnostics.Debug
-
-FORMAT_MESSAGE_OPTIONS = UInt32
-
-FORMAT_MESSAGE_ALLOCATE_BUFFER = 256
-FORMAT_MESSAGE_FROM_SYSTEM = 4096
-FORMAT_MESSAGE_IGNORE_INSERTS = 512
-
-
-@winfunctype("KERNEL32.dll")
-def FormatMessageW(
-    dwFlags: FORMAT_MESSAGE_OPTIONS,
-    lpSource: VoidPtr,
-    dwMessageId: UInt32,
-    dwLanguageId: UInt32,
-    lpBuffer: PWSTR,
-    nSize: UInt32,
-    Arguments: POINTER(POINTER(SByte)),
-) -> UInt32: ...
-
-
-# Windows.Win32.System.SystemServices
-
-LANG_NEUTRAL = 0
-SUBLANG_NEUTRAL = 0

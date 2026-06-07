@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 from ._bstr import bstr
-from ._win32 import FAILED, WinError
+from ._win32 import FAILED, FormatError, WinError
 from ._win32api import (
     HRESULT,
     S_OK,
     CreateErrorInfo,
-    FormatError,
     GetErrorInfo,
     ICreateErrorInfo,
     IErrorInfo,
