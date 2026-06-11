@@ -237,7 +237,7 @@ class ComPtr(c_void_p):
         return instance
 
     def try_as(self, cls):
-        from ._win32api import E_NOINTERFACE
+        E_NOINTERFACE = -2147467262
 
         try:
             return self.as_(cls)
