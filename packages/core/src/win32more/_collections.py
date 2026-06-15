@@ -309,7 +309,7 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
 
     def First(self) -> IIterator[T]:
-        return Iterator[self._T](self._T(v) for v in self._data)
+        return Iterator[self._T](iter(self._data))
 
     def add_VectorChanged(self, vhnd: VectorChangedEventHandler[T]) -> EventRegistrationToken:
         self._observers_count += 1
@@ -324,9 +324,10 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
             observer.Invoke(self, args)
 
     def _addref(self, value: T) -> T:
-        if is_com_class(self._T) and value:
-            value = self._T(value.value, own=True)
-            value.AddRef()
+        if is_com_class(self._T):
+            if not value:
+                return None
+            return value.as_(self._T)
         return value
 
     def _addref_vhnd(self, vhnd: VectorChangedEventHandler[T]) -> VectorChangedEventHandler[T]:

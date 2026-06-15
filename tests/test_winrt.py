@@ -56,7 +56,7 @@ from win32more.Windows.Foundation import (
     PropertyValue,
     Uri,
 )
-from win32more.Windows.Foundation.Collections import IMap, IVector, IVectorView, StringMap
+from win32more.Windows.Foundation.Collections import IIterable, IMap, IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
@@ -412,6 +412,22 @@ class TestWinrt(unittest.TestCase):
 
         self.assertEqual(len(added), 3)
         self.assertEqual(added, released)
+
+    def test_vector_of_runtime_class(self):
+        class IMock(IUnknown):
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            def __init__(self, *args, **kwargs):
+                if kwargs:
+                    super().__init__(**kwargs)
+                else:
+                    super().__init__(*args)
+
+        class Mock(ComClass, IMock):
+            pass
+
+        v = Vector[IMock]([Mock()]).as_(IVector[IMock])
+        self.assertTrue(v.as_(IIterable[IMock]).First().Current)
 
     def test_map(self):
         m = Map[hstr, hstr]().as_(IMap[hstr, hstr])
