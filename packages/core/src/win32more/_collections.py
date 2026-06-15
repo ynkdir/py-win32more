@@ -451,12 +451,16 @@ class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], 
             observer.Invoke(self, args)
 
     def _addref(self, key: K, value: V) -> tuple[K, V]:
-        if is_com_class(self._K) and key:
-            key = self._K(key.value, own=True)
-            key.AddRef()
-        if is_com_class(self._V) and value:
-            value = self._V(value.value, own=True)
-            value.AddRef()
+        if is_com_class(self._K):
+            if not key:
+                key = None
+            else:
+                key = key.as_(self._K)
+        if is_com_class(self._V):
+            if not value:
+                value = None
+            else:
+                value = value.as_(self._V)
         return key, value
 
     def _addref_vhnd(self, vhnd: MapChangedEventHandler[K, V]) -> MapChangedEventHandler[K, V]:

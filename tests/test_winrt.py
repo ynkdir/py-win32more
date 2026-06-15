@@ -495,6 +495,22 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(len(added), 6)
         self.assertEqual(added, released)
 
+    def test_map_of_runtime_class(self):
+        class IMock(IUnknown):
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            def __init__(self, *args, **kwargs):
+                if kwargs:
+                    super().__init__(**kwargs)
+                else:
+                    super().__init__(*args)
+
+        class Mock(ComClass, IMock):
+            pass
+
+        m = Map[hstr, IMock]({"a": Mock()}).as_(IMap[hstr, IMock])
+        self.assertTrue(m["a"])
+
     def test_list(self):
         x = List([1, 2, 3, 4, 5])
 
