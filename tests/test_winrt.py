@@ -24,7 +24,7 @@ from win32more import (
     unbox_value,
 )
 from win32more._box import unbox_str
-from win32more._collections import Dict, List, Map, Vector
+from win32more._collections import Dict, Iterator, List, Map, Vector
 from win32more._ro import _get_type_signature, ro_get_parameterized_type_instance_iid
 from win32more._win32 import (
     Enum,
@@ -56,7 +56,7 @@ from win32more.Windows.Foundation import (
     PropertyValue,
     Uri,
 )
-from win32more.Windows.Foundation.Collections import IIterable, IMap, IVector, IVectorView, StringMap
+from win32more.Windows.Foundation.Collections import IIterable, IIterator, IMap, IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
@@ -510,6 +510,38 @@ class TestWinrt(unittest.TestCase):
 
         m = Map[hstr, IMock]({"a": Mock()}).as_(IMap[hstr, IMock])
         self.assertTrue(m["a"])
+
+    def test_iterator(self):
+        class IMock(IUnknown):
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @commethod(3)
+            def Value(self) -> Int32: ...
+
+        class Mock(ComClass, IMock):
+            def __init__(self, value):
+                super().__init__()
+                self.__value = value
+
+            def Value(self):
+                return self.__value
+
+        r = []
+        it = Iterator[IMock](iter([Mock(1), None, Mock(2)])).as_(IIterator[IMock])
+        while it.HasCurrent:
+            mock = it.Current
+            if mock:
+                r.append(mock.Value())
+            else:
+                r.append(None)
+            it.MoveNext()
+        self.assertEqual(r, [1, None, 2])
+
+        with self.assertRaises(ComError):
+            it.Current
+
+        with self.assertRaises(ComError):
+            it.MoveNext()
 
     def test_list(self):
         x = List([1, 2, 3, 4, 5])

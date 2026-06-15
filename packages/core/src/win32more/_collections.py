@@ -19,11 +19,12 @@ from win32more.Windows.Foundation.Collections import (
     MapChangedEventHandler,
     VectorChangedEventHandler,
 )
+from win32more.Windows.Win32.Foundation import E_BOUNDS
 
 from . import _box
 from ._comclass import ComClass, is_com_class
 from ._hstr import hstr
-from ._win32 import Boolean, UInt32, Void
+from ._win32 import Boolean, UInt32, Void, WinError
 from ._win32api import IInspectable
 from ._winrt import (
     FillArray,
@@ -340,39 +341,43 @@ class Iterator(ComClass, IIterator[T]):
     def __init__(self, it) -> None:
         super().__init__()
 
+        self._sentinel = object()
+
         self._it = it
         try:
             self._current = next(self._it)
         except StopIteration:
-            self._current = None
+            self._current = self._sentinel
 
     def get_Current(self) -> T:
-        if self._current is None:
-            return None
+        if self._current is self._sentinel:
+            raise WinError(E_BOUNDS)
         return self._current
 
     def get_HasCurrent(self) -> Boolean:
-        return self._current is not None
+        return self._current is not self._sentinel
 
     def MoveNext(self) -> Boolean:
+        if self._current is self._sentinel:
+            raise WinError(E_BOUNDS)
         try:
             self._current = next(self._it)
             return True
         except StopIteration:
-            self._current = None
+            self._current = self._sentinel
             return False
 
     def GetMany(self, items: FillArray[T]) -> UInt32:
         numcopied = 0
         for i in range(len(items)):
-            if self._current is None:
+            if self._current is self._sentinel:
                 break
             items[numcopied] = self._current
             numcopied += 1
             try:
                 self._current = next(self._it)
             except StopIteration:
-                self._current = None
+                self._current = self._sentinel
         return numcopied
 
 
