@@ -25,32 +25,17 @@ KEY_APP_USER_MODEL_ID = "Software\\Classes\\AppUserModelId"
 KEY_CLSID = "Software\\Classes\\CLSID"
 
 
-def is_registered(aumid):
-    try:
-        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, f"{KEY_APP_USER_MODEL_ID}\\{aumid}"):
-            pass
-        return True
-    except OSError:
-        pass
-    return False
-
-
-def register_app_user_model_id_and_custom_activator(aumid, custom_activator, cmd):
-    with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_APP_USER_MODEL_ID}\\{aumid}") as key:
-        winreg.SetValueEx(key, "CustomActivator", 0, winreg.REG_SZ, custom_activator)
-    with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_CLSID}\\{custom_activator}\\LocalServer32") as key:
-        winreg.SetValueEx(key, "", 0, winreg.REG_SZ, cmd)
-
-
 # Setup AppUserModelId and CustomActivator registry, so that toast notification can run custom command line.
 def setup_aumid():
     SetCurrentProcessExplicitAppUserModelID(AUMID)
 
-    if is_registered(AUMID):
-        return
-
     cmd = f'"{sys.executable}" "{__file__}" ----AppNotificationActivated:'
-    register_app_user_model_id_and_custom_activator(AUMID, CUSTOM_ACTIVATOR, cmd)
+
+    with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_APP_USER_MODEL_ID}\\{AUMID}") as key:
+        winreg.SetValueEx(key, "CustomActivator", 0, winreg.REG_SZ, CUSTOM_ACTIVATOR)
+
+    with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_CLSID}\\{CUSTOM_ACTIVATOR}\\LocalServer32") as key:
+        winreg.SetValueEx(key, "", 0, winreg.REG_SZ, cmd)
 
 
 def notify():
