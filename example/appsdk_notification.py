@@ -6,7 +6,7 @@
 # "IconUri"="...\icon1.png"
 #
 # [HKEY_CURRENT_USER\Software\Classes\CLSID\{CF597ACA-A2FB-4F02-BD03-FF7351D44055}\LocalServer32]
-# @="\"C:\path\to\python.exe\" \"...\apsdk_notification.py" ----AppNotificationActivated:"
+# @="\"C:\path\to\python.exe\" \"...\apsdk_notification.py\" ----AppNotificationActivated:"
 
 import sys
 import time

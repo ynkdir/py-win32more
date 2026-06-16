@@ -1,17 +1,47 @@
-from ctypes import WinError
+# NOTE: This program add registry key
+#
+# [HKEY_CURRENT_USER\Software\Classes\AppUserModelId\win32more-example-winrt-notification]
+# "CustomActivator"="{CF597ACA-A2FB-4F02-BD03-FF7351D44055}"
+# "DisplayName"="winrt_notification.py"
+# "IconUri"="...\icon1.png"
+#
+# [HKEY_CURRENT_USER\Software\Classes\CLSID\{EECF8B95-96C7-4738-B802-FC02D16CB000}\LocalServer32]
+# @="\"C:\path\to\python.exe\" \"...\apsdk_notification.py\""
+
+import sys
+import time
+import winreg
+from pathlib import Path
 
 from win32more.Windows.Data.Xml.Dom import XmlDocument
 from win32more.Windows.UI.Notifications import ToastNotification, ToastNotificationManager
-from win32more.Windows.Win32.System.WinRT import (
-    RO_INIT_MULTITHREADED,
-    RoInitialize,
-    RoUninitialize,
-)
+from win32more.Windows.Win32.UI.Shell import SetCurrentProcessExplicitAppUserModelID
 
-from win32more import FAILED
+AUMID = "win32more-example-winrt-notification"
+CUSTOM_ACTIVATOR = "{EECF8B95-96C7-4738-B802-FC02D16CB000}"
+DISPLAY_NAME = "winrt_notification.py"
+KEY_APP_USER_MODEL_ID = "Software\\Classes\\AppUserModelId"
+KEY_CLSID = "Software\\Classes\\CLSID"
 
 
-def winrt_notification() -> None:
+# Setup AppUserModelId and CustomActivator registry, so that toast notification can run custom command line.
+def setup_aumid():
+    SetCurrentProcessExplicitAppUserModelID(AUMID)
+
+    cmd = f'"{sys.executable}" "{__file__}"'
+
+    with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_APP_USER_MODEL_ID}\\{AUMID}") as key:
+        winreg.SetValueEx(key, "CustomActivator", 0, winreg.REG_SZ, CUSTOM_ACTIVATOR)
+        winreg.SetValueEx(key, "DisplayName", 0, winreg.REG_SZ, DISPLAY_NAME)
+        winreg.SetValueEx(key, "IconUri", 0, winreg.REG_SZ, str(Path(__file__).with_name("icon1.png")))
+
+    with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_CLSID}\\{CUSTOM_ACTIVATOR}\\LocalServer32") as key:
+        winreg.SetValueEx(key, "", 0, winreg.REG_SZ, cmd)
+
+
+def notify():
+    setup_aumid()
+
     template = """
     <toast>
         <visual>
@@ -29,21 +59,25 @@ def winrt_notification() -> None:
 
     toast_notification = ToastNotification.CreateToastNotification(xml)
 
-    toast_notifier = ToastNotificationManager.CreateToastNotifierWithId(
-        r"{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\WindowsPowerShell\v1.0\powershell.exe"
-    )
+    toast_notifier = ToastNotificationManager.CreateToastNotifierWithId(AUMID)
 
     toast_notifier.Show(toast_notification)
 
 
-def main() -> None:
-    hr = RoInitialize(RO_INIT_MULTITHREADED)
-    if FAILED(hr):
-        raise WinError(hr)
+def notification_activated():
+    print(sys.argv)
+    print("WinrtNotificationActivated!")
+    for i in range(5, 1, -1):
+        print(i)
+        time.sleep(1)
 
-    winrt_notification()
 
-    RoUninitialize()
+def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "-Embedding":
+        # notification run custom activator with -Embedding
+        notification_activated()
+    else:
+        notify()
 
 
 if __name__ == "__main__":
