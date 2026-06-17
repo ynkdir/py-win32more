@@ -6,7 +6,7 @@
 # "IconUri"="...\icon1.png"
 #
 # [HKEY_CURRENT_USER\Software\Classes\CLSID\{EECF8B95-96C7-4738-B802-FC02D16CB000}\LocalServer32]
-# @="\"C:\path\to\python.exe\" \"...\apsdk_notification.py\""
+# @="\"C:\path\to\python.exe\" \"...\winrt_notification.py\""
 
 import sys
 import time
@@ -28,15 +28,13 @@ KEY_CLSID = "Software\\Classes\\CLSID"
 def setup_aumid():
     SetCurrentProcessExplicitAppUserModelID(AUMID)
 
-    cmd = f'"{sys.executable}" "{__file__}"'
-
     with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_APP_USER_MODEL_ID}\\{AUMID}") as key:
         winreg.SetValueEx(key, "CustomActivator", 0, winreg.REG_SZ, CUSTOM_ACTIVATOR)
         winreg.SetValueEx(key, "DisplayName", 0, winreg.REG_SZ, DISPLAY_NAME)
         winreg.SetValueEx(key, "IconUri", 0, winreg.REG_SZ, str(Path(__file__).with_name("icon1.png")))
 
     with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_CLSID}\\{CUSTOM_ACTIVATOR}\\LocalServer32") as key:
-        winreg.SetValueEx(key, "", 0, winreg.REG_SZ, cmd)
+        winreg.SetValueEx(key, "", 0, winreg.REG_SZ, f'"{sys.executable}" "{__file__}"')
 
 
 def notify():

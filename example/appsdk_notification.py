@@ -6,7 +6,7 @@
 # "IconUri"="...\icon1.png"
 #
 # [HKEY_CURRENT_USER\Software\Classes\CLSID\{CF597ACA-A2FB-4F02-BD03-FF7351D44055}\LocalServer32]
-# @="\"C:\path\to\python.exe\" \"...\apsdk_notification.py\" ----AppNotificationActivated:"
+# @="\"C:\path\to\python.exe\" \"...\appsdk_notification.py\" ----AppNotificationActivated:"
 
 import sys
 import time
@@ -26,16 +26,17 @@ KEY_CLSID = "Software\\Classes\\CLSID"
 
 
 # Setup AppUserModelId and CustomActivator registry, so that toast notification can run custom command line.
+# Normally WASDK do this setup.
+# By default, WASDK set LocalServer32 as "{GetModuleFileName()} ----AppNotificationActivated:" and it doesn't work for python.
 def setup_aumid():
     SetCurrentProcessExplicitAppUserModelID(AUMID)
 
-    cmd = f'"{sys.executable}" "{__file__}" ----AppNotificationActivated:'
-
     with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_APP_USER_MODEL_ID}\\{AUMID}") as key:
         winreg.SetValueEx(key, "CustomActivator", 0, winreg.REG_SZ, CUSTOM_ACTIVATOR)
+        # DisplayName and IconUri are set by WASDK.
 
     with winreg.CreateKey(winreg.HKEY_CURRENT_USER, f"{KEY_CLSID}\\{CUSTOM_ACTIVATOR}\\LocalServer32") as key:
-        winreg.SetValueEx(key, "", 0, winreg.REG_SZ, cmd)
+        winreg.SetValueEx(key, "", 0, winreg.REG_SZ, f'"{sys.executable}" "{__file__}" ----AppNotificationActivated:')
 
 
 def notify():
