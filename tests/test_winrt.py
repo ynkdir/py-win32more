@@ -357,7 +357,7 @@ class TestWinrt(unittest.TestCase):
             unbox_str(box_value(1))
 
     def test_vector(self):
-        v = Vector[Int32]().as_(IVector[Int32])
+        v = Vector[Int32]()
 
         v.Append(0)
         v.Append(1)
@@ -400,7 +400,7 @@ class TestWinrt(unittest.TestCase):
         added = set()
         released = set()
 
-        v = Vector[IUnknown]().as_(IVector[IUnknown])
+        v = Vector[IUnknown]()
         v.Append(Mock())
         v.Append(Mock())
         v.Append(Mock())
@@ -426,11 +426,11 @@ class TestWinrt(unittest.TestCase):
         class Mock(ComClass, IMock):
             pass
 
-        v = Vector[IMock]([Mock()]).as_(IVector[IMock])
+        v = Vector[IMock]([Mock()])
         self.assertTrue(v.as_(IIterable[IMock]).First().Current)
 
     def test_map(self):
-        m = Map[hstr, hstr]().as_(IMap[hstr, hstr])
+        m = Map[hstr, hstr]()
 
         m.Insert("a", "1")
         m.Insert("b", "2")
@@ -440,7 +440,7 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(m["a"], "1")
         self.assertEqual(m["b"], "2")
 
-        m = Map[hstr, IInspectable]().as_(IMap[hstr, IInspectable])
+        m = Map[hstr, IInspectable]()
 
         m["x"] = 1
         self.assertIsInstance(m["x"], IInspectable)
@@ -482,7 +482,7 @@ class TestWinrt(unittest.TestCase):
         added = set()
         released = set()
 
-        m = Map[IMock, IMock]().as_(IMap[IMock, IMock])
+        m = Map[IMock, IMock]()
         m[Mock("a")] = Mock("b")
         m[Mock("c")] = Mock("d")
         m[Mock("e")] = Mock("f")
@@ -508,7 +508,7 @@ class TestWinrt(unittest.TestCase):
         class Mock(ComClass, IMock):
             pass
 
-        m = Map[hstr, IMock]({"a": Mock()}).as_(IMap[hstr, IMock])
+        m = Map[hstr, IMock]({"a": Mock()})
         self.assertTrue(m["a"])
 
     def test_iterator(self):
@@ -690,7 +690,7 @@ class TestWinrt(unittest.TestCase):
         self.assertTrue(iterator_succeeded)
 
     def test_comclass_handle_inherited_interfaces(self):
-        v = Vector[Int32]([0, 1, 2]).as_(IVector[Int32])
+        v = Vector[Int32]([0, 1, 2])
         o = IInspectable()
         self.assertEqual(v.QueryInterface(pointer(IUnknown._iid_), pointer(o)), S_OK)
         self.assertEqual(v.QueryInterface(pointer(IInspectable._iid_), pointer(o)), S_OK)

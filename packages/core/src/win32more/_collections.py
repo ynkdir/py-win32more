@@ -65,14 +65,15 @@ def _unbox_any(value):
     return value
 
 
+# A Vector[IInspectable] that automatically boxes and unboxes values.
 class List(IInspectable):
     def __init__(self, inner: list | IVector[IInspectable] | None = None) -> None:
         super().__init__()
 
         if inner is None:
-            self._inner = Vector[IInspectable]().as_(IVector[IInspectable])
+            self._inner = Vector[IInspectable]()
         elif isinstance(inner, list):
-            self._inner = Vector[IInspectable]([_box_any(v) for v in inner]).as_(IVector[IInspectable])
+            self._inner = Vector[IInspectable]([_box_any(v) for v in inner])
         else:
             self._inner = inner.as_(IVector[IInspectable])
 
@@ -149,16 +150,15 @@ class List(IInspectable):
         del self[self.index(value)]
 
 
+# A Map[hstr, IInspectable] that automatically boxes and unboxes values.
 class Dict(IInspectable):
     def __init__(self, inner: dict | IMap[hstr, IInspectable] | None = None) -> None:
         super().__init__()
 
         if inner is None:
-            self._inner = Map[hstr, IInspectable]().as_(IMap[hstr, IInspectable])
+            self._inner = Map[hstr, IInspectable]()
         elif isinstance(inner, dict):
-            self._inner = Map[hstr, IInspectable]({k: _box_any(v) for k, v in inner.items()}).as_(
-                IMap[hstr, IInspectable]
-            )
+            self._inner = Map[hstr, IInspectable]({k: _box_any(v) for k, v in inner.items()})
         else:
             self._inner = inner.as_(IMap[hstr, IInspectable])
 
@@ -244,8 +244,15 @@ class Dict(IInspectable):
         return default
 
 
-class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
-    def __init__(self, lst: list[T] | None = None) -> None:
+class Vector(IVector[T]):
+    def __init__(self, data: list[T] | None = None) -> None:
+        super().__init__()
+        self._inner = VectorImpl[self.__args](data)
+        self.value = self._inner.value
+
+
+class VectorImpl(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
+    def __init__(self, data: list[T] | None = None) -> None:
         super().__init__()
 
         self._T = self.__args[0]
@@ -253,10 +260,10 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
         self._observers = {}
         self._observers_count = 0
 
-        if lst is None:
+        if data is None:
             self._data = []
         else:
-            self._data = [self._addref(v) for v in lst]
+            self._data = [self._addref(v) for v in data]
 
     def GetAt(self, index: UInt32) -> T:
         return self._data[index]
@@ -394,8 +401,15 @@ class VectorChangedEventArgs(ComClass, IVectorChangedEventArgs):
         return self._index
 
 
-class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], IObservableMap[K, V]):
-    def __init__(self, dct: dict[K, V] | None = None) -> None:
+class Map(IMap[K, V]):
+    def __init__(self, data: dict[K, V] | None = None) -> None:
+        super().__init__()
+        self._inner = MapImpl[self.__args](data)
+        self.value = self._inner.value
+
+
+class MapImpl(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], IObservableMap[K, V]):
+    def __init__(self, data: dict[K, V] | None = None) -> None:
         super().__init__()
 
         self._K, self._V = self.__args
@@ -403,10 +417,10 @@ class Map(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V]], 
         self._observers = {}
         self._observers_count = 0
 
-        if dct is None:
+        if data is None:
             self._data = {}
         else:
-            self._data = dict(self._addref(k, v) for k, v in dct.items())
+            self._data = dict(self._addref(k, v) for k, v in data.items())
 
     def Lookup(self, key: K) -> V:
         return self._data[key]
