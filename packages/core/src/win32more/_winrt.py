@@ -143,13 +143,16 @@ def winrt_easycast(obj, type_):
     from win32more._collections import Vector
     from win32more._datetime import datetime_to_winrt, timedelta_to_winrt
     from win32more.Windows.Foundation import DateTime, TimeSpan
-    from win32more.Windows.Foundation.Collections import IVector
+    from win32more.Windows.Foundation.Collections import IIterable, IVector
 
     if type_ is IInspectable:
         return box_value(obj)
     elif issubclass(type_, IVector):
         if isinstance(obj, list):
-            return Vector[type_._IVector__args[0]](obj)
+            return Vector[type_._IVector__args](obj).as_(type_)
+    elif issubclass(type_, IIterable):
+        if isinstance(obj, list):
+            return Vector[type_._IIterable__args](obj).as_(type_)
     elif issubclass(type_, IReference):
         # FIXME: Should I check obj is T of IReference[T]?
         if obj is None:

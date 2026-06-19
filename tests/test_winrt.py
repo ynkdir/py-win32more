@@ -971,6 +971,42 @@ class TestWinrt(unittest.TestCase):
         s.x = None
         self.assertIsNone(s.x)
 
+    def test_ivector_argument_conversion(self):
+        class IMock(IInspectable):
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def f(self, x: IVector[Int32]) -> Void: ...
+
+        class Mock(ComClass, IMock):
+            def f(self, x: IVector[Int32]) -> Void:
+                trace.append(x)
+
+        mock = Mock().as_(IMock)
+
+        trace = []
+        mock.f([1])
+        self.assertIsInstance(trace[0], IVector[Int32])
+        self.assertEqual(trace[0][0], 1)
+
+    def test_iiterable_argument_conversion(self):
+        class IMock(IInspectable):
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def f(self, x: IIterable[Int32]) -> Void: ...
+
+        class Mock(ComClass, IMock):
+            def f(self, x: IIterable[Int32]) -> Void:
+                trace.append(x)
+
+        mock = Mock().as_(IMock)
+
+        trace = []
+        mock.f([1])
+        self.assertIsInstance(trace[0], IIterable[Int32])
+        self.assertEqual(trace[0].First().Current, 1)
+
 
 if __name__ == "__main__":
     unittest.main()
