@@ -12,6 +12,7 @@ from ._win32 import WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr,
 from ._win32api import (
     E_FAIL,
     E_NOINTERFACE,
+    E_OUTOFMEMORY,
     HRESULT,
     HSTRING,
     S_OK,
@@ -112,7 +113,7 @@ class ComClass(ComPtr):
     def GetIids(self, iidCount: POINTER(UInt32), iids: POINTER(POINTER(Guid))) -> HRESULT:
         buf = CoTaskMemAlloc(sizeof(Guid) * len(self._iid_vtbls))
         if buf is None:
-            return E_FAIL
+            return E_OUTOFMEMORY
         iidCount[0] = len(self._iid_vtbls)
         iids[0].contents = Guid.from_address(buf)
         for i, (iid, vtbl) in enumerate(self._iid_vtbls):
