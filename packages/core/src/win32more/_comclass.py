@@ -163,8 +163,17 @@ class Vtbl(Structure):
     def _make_thunk_com(self, method):
         hints = get_type_hints(method._prototype, generic=self._interface)
         restype = hints.pop("return")
-        argtypes = [self._make_allocator(t) for t in hints.values()]
-        closure = partial(self._com_callback_error_check, getattr(self._owner, method._prototype.__name__))
+        argtypes = []
+        for type_ in hints.values():
+            if is_com_class(type_):
+                # Use c_void_p to prevent ctypes from invoking the constructor of a runtime class.
+                # Restore the original type later in _add_argument().
+                argtypes.append(c_void_p)
+            else:
+                argtypes.append(type_)
+        closure = partial(
+            self._com_callback_error_check, getattr(self._owner, method._prototype.__name__), restype, hints
+        )
         thunk = WINFUNCTYPE(restype, c_void_p, *argtypes)(closure)
         self._keep_reference_in_python_world_.append(thunk)
         return cast(thunk, c_void_p)
@@ -183,8 +192,12 @@ class Vtbl(Structure):
             elif _winrt.is_receivearray_class(type_):
                 argtypes.append(POINTER(UInt32))
                 argtypes.append(POINTER(POINTER(type_.__args__[0])))
+            elif is_com_class(type_):
+                # Use c_void_p to prevent ctypes from invoking the constructor of a runtime class.
+                # Restore the original type later in _add_argument().
+                argtypes.append(c_void_p)
             else:
-                argtypes.append(self._make_allocator(type_))
+                argtypes.append(type_)
         if restype is Void:
             pass
         elif _winrt.is_receivearray_class(restype):
@@ -199,19 +212,22 @@ class Vtbl(Structure):
         self._keep_reference_in_python_world_.append(thunk)
         return cast(thunk, c_void_p)
 
-    # allocate winrt runtime class without constructor.
-    def _make_allocator(self, t):
-        if issubclass(t, ComPtr):
-            return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: t(own=False)})
-        return t
-
-    def _com_callback_error_check(self, callback, this, *args):
+    def _com_callback_error_check(self, callback, restype, hints, this, *args):
         try:
-            return callback(*args)
+            return self._com_callback(callback, restype, hints, this, args)
         except Exception as exc:
             logger.exception(f"Unhandled exception caught: {callback}{args}")
             set_error_info(f"{exc.__class__.__name__}: {exc}")
             return E_FAIL
+
+    def _com_callback(self, callback, restype, hints, this, args):
+        args = list(args)
+        with ExitStack() as exitstack:
+            pyargs = []
+            for type_ in hints.values():
+                self._add_argument(type_, args, pyargs, exitstack)
+            result = callback(*pyargs)
+        return result
 
     def _winrt_callback_error_check(self, callback, restype, hints, this, *args):
         try:
@@ -241,11 +257,21 @@ class Vtbl(Structure):
         elif type_ is hstr:
             pyargs.append(str(args.pop(0)))
         elif issubclass(type_, _winrt.IReference):
-            v = args.pop(0)
-            if v:
-                pyargs.append(v.Value)
-            else:
+            p = args.pop(0)
+            if p is None:
                 pyargs.append(None)
+            else:
+                v = type_.from_buffer_copy(c_void_p(p))
+                pyargs.append(v.Value)
+        elif is_com_class(type_):
+            # COM objects are passed as c_void_p to prevent invoking the constructor of the runtime class.
+            # Restore the original type here.
+            p = args.pop(0)
+            if p is None:
+                pyargs.append(None)
+            else:
+                v = type_.from_buffer_copy(c_void_p(p))
+                pyargs.append(v)
         else:
             pyargs.append(args.pop(0))
 
