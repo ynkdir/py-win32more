@@ -134,9 +134,6 @@ class Guid(_Structure):
             and self.Data4[7] == other.Data4[7]
         )
 
-    def __hash__(self):
-        return hash((self.Data1, self.Data2, self.Data3, tuple(self.Data4)))
-
 
 def SUCCEEDED(hr):
     return hr >= 0

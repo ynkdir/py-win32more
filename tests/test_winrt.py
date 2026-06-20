@@ -1019,7 +1019,8 @@ class TestWinrt(unittest.TestCase):
         mock.GetIids(count, iids)
         self.assertEqual(count.value, 4)
         self.assertEqual(
-            set(iids[: count.value]), {IUnknown._iid_, IInspectable._iid_, IAgileObject._iid_, ISelf._iid_}
+            {str(iid) for iid in iids[: count.value]},
+            {str(iid) for iid in [IUnknown._iid_, IInspectable._iid_, IAgileObject._iid_, ISelf._iid_]},
         )
         CoTaskMemFree(iids)
 
