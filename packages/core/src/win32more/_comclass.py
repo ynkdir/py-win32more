@@ -110,10 +110,11 @@ class ComClass(ComPtr):
         return self._refcount
 
     def GetIids(self, iidCount: POINTER(UInt32), iids: POINTER(POINTER(Guid))) -> HRESULT:
-        iidCount[0] = len(self._iid_vtbls)
-        iids[0] = CoTaskMemAlloc(sizeof(VoidPtr) * len(self._iid_vtbls))
-        if iids[0] is None:
+        buf = CoTaskMemAlloc(sizeof(Guid) * len(self._iid_vtbls))
+        if buf is None:
             return E_FAIL
+        iidCount[0] = len(self._iid_vtbls)
+        iids[0].contents = Guid.from_address(buf)
         for i, (iid, vtbl) in enumerate(self._iid_vtbls):
             iids[0][i] = iid
         return S_OK

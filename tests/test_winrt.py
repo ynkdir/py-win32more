@@ -31,6 +31,7 @@ from win32more._win32 import (
     Structure,
     commethod,
 )
+from win32more._win32api import IAgileObject
 from win32more._winrt import (
     FillArray,
     ISelf,
@@ -61,7 +62,7 @@ from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
 from win32more.Windows.Win32.Foundation import E_INVALIDARG, HRESULT, S_OK
-from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
+from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, CoTaskMemFree, IUnknown
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
 if sys.platform == "cygwin":
@@ -1006,6 +1007,21 @@ class TestWinrt(unittest.TestCase):
         mock.f([1])
         self.assertIsInstance(trace[0], IIterable[Int32])
         self.assertEqual(trace[0].First().Current, 1)
+
+    def test_iinspectable_getiids(self):
+        class Mock(ComClass, IInspectable):
+            pass
+
+        mock = Mock().as_(IInspectable)
+
+        count = UInt32()
+        iids = POINTER(Guid)()
+        mock.GetIids(count, iids)
+        self.assertEqual(count.value, 4)
+        self.assertEqual(
+            set(iids[: count.value]), {IUnknown._iid_, IInspectable._iid_, IAgileObject._iid_, ISelf._iid_}
+        )
+        CoTaskMemFree(iids)
 
 
 if __name__ == "__main__":
