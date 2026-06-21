@@ -22,6 +22,7 @@ from win32more.Windows.Win32.UI.Shell import SetCurrentProcessExplicitAppUserMod
 AUMID = "win32more-example-appsdk-notification"
 CUSTOM_ACTIVATOR = "{CF597ACA-A2FB-4F02-BD03-FF7351D44055}"
 DISPLAY_NAME = "appsdk_notification.py"
+ICON_URI = Uri(str(Path(__file__).with_name("icon1.png")))
 KEY_APP_USER_MODEL_ID = "Software\\Classes\\AppUserModelId"
 KEY_CLSID = "Software\\Classes\\CLSID"
 
@@ -68,7 +69,7 @@ def main():
 
     notification_manager = AppNotificationManager.Default
 
-    notification_manager.Register(DISPLAY_NAME, Uri(str(Path(__file__).with_name("icon1.png"))))
+    notification_manager.Register(DISPLAY_NAME, ICON_URI)
 
     args = AppInstance.GetCurrent().GetActivatedEventArgs()
 
