@@ -13,8 +13,9 @@ import time
 import winreg
 from pathlib import Path
 
-from win32more.Microsoft.Windows.AppNotifications import AppNotificationManager
-from win32more.Microsoft.Windows.AppNotifications.Builder import AppNotificationBuilder
+from win32more.Microsoft.Windows.AppLifecycle import AppInstance
+from win32more.Microsoft.Windows.AppNotifications import AppNotificationManager, IAppNotificationActivatedEventArgs
+from win32more.Microsoft.Windows.AppNotifications.Builder import AppNotificationBuilder, AppNotificationButton
 from win32more.Windows.Foundation import Uri
 from win32more.Windows.Win32.UI.Shell import SetCurrentProcessExplicitAppUserModelID
 
@@ -46,7 +47,15 @@ def notify():
 
     notification_manager.Register(DISPLAY_NAME, Uri(str(Path(__file__).with_name("icon1.png"))))
 
-    notification = AppNotificationBuilder().AddText("title").AddText("message").BuildNotification()
+    notification = (
+        AppNotificationBuilder()
+        .AddText("title")
+        .AddText("message")
+        .AddTextBox2("input1", "some input", "input1")
+        .AddButton(AppNotificationButton("Ok").AddArgument("action", "Ok"))
+        .AddButton(AppNotificationButton("Cancel").AddArgument("action", "Cancel"))
+        .BuildNotification()
+    )
 
     notification_manager.Show(notification)
 
@@ -58,11 +67,29 @@ def notify():
 
 
 def notification_activated():
+    setup_aumid()
+
+    notification_manager = AppNotificationManager.Default
+
+    # Need to get ActivatedEventArgs.
+    notification_manager.Register(DISPLAY_NAME, Uri(str(Path(__file__).with_name("icon1.png"))))
+
     print(sys.argv)
     print("AppNotificationActivated!")
+
+    args = AppInstance.GetCurrent().GetActivatedEventArgs()
+    print("Kind=", args.Kind)
+    notification_args = args.Data.try_as(IAppNotificationActivatedEventArgs)
+    if notification_args:
+        print("IAppNotificationActivatedEventArgs:")
+        print("    Argument=", notification_args.Argument)
+        print("    UserInput=", dict(notification_args.UserInput))
+
     for i in range(5, 1, -1):
         print(i)
         time.sleep(1)
+
+    notification_manager.Unregister()
 
 
 def main():
