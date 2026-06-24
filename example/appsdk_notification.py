@@ -8,7 +8,6 @@
 # [HKEY_CURRENT_USER\Software\Classes\CLSID\{CF597ACA-A2FB-4F02-BD03-FF7351D44055}\LocalServer32]
 # @="\"C:\path\to\python.exe\" \"...\appsdk_notification.py\" ----AppNotificationActivated:"
 
-import msvcrt
 import sys
 import threading
 import winreg
@@ -28,7 +27,7 @@ KEY_APP_USER_MODEL_ID = "Software\\Classes\\AppUserModelId"
 KEY_CLSID = "Software\\Classes\\CLSID"
 
 
-handled = threading.Event()
+notification_invoked_event = threading.Event()
 
 
 # Setup AppUserModelId and CustomActivator registry, so that toast notification can run custom command line.
@@ -62,7 +61,7 @@ def notification_invoked(sender, args):
     print("NotificationInvoked!")
     print("    Arguments=", dict(args.Arguments))
     print("    UserInput=", dict(args.UserInput))
-    handled.set()
+    notification_invoked_event.set()
 
 
 def notification_activated(sender, args):
@@ -90,13 +89,14 @@ def main():
     else:
         raise RuntimeError("Unexpected kind:", args.Kind)
 
-    print("Hit any key to exit")
-    while True:
-        if msvcrt.kbhit():
-            msvcrt.getch()
-            break
-        if handled.wait(0.1):
-            break
+    print("Press CTRL-C to exit (or timeout in 10 seconds)")
+    try:
+        for _ in range(10):
+            if notification_invoked_event.wait(1):
+                break
+            print(".", end="", flush=True)
+    except KeyboardInterrupt:
+        pass
 
     # Documentation says:
     #   "After calling Unregister, any subsequent calls to invoke the Notification by the user would launch a new process"
