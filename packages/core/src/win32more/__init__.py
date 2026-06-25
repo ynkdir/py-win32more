@@ -1,10 +1,4 @@
-# ruff: noqa: F401
-from . import _win32api
-from ._box import box_value, unbox_value
-from ._collections import Dict, List
-from ._comclass import ComClass
-from ._comerror import ComError
-from ._datetime import datetime_from_winrt, datetime_to_winrt, timedelta_from_winrt, timedelta_to_winrt
+# ruff: noqa: F401, I001
 from ._win32 import (
     FAILED,
     SUCCEEDED,
@@ -31,6 +25,12 @@ from ._win32 import (
     WinError,
     windll,
 )
+from . import _win32api
+from ._comerror import ComError
+from ._comclass import ComClass
+from ._box import box_value, unbox_value
+from ._datetime import datetime_from_winrt, datetime_to_winrt, timedelta_from_winrt, timedelta_to_winrt
+from ._collections import Dict, List
 
 # Initialize COM Multithreaded Apartment.
 # Call CoInitializeEx(None, COINIT_APARTMENTTHREADED) explicitly for Single-Threaded Apartment.
