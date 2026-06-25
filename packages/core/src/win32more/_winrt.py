@@ -157,7 +157,11 @@ def winrt_easycast(obj, type_):
         # FIXME: Should I check obj is T of IReference[T]?
         if obj is None:
             return None
-        return Reference[type_._IReference__args](obj)
+        # MEMO: Microsoft.UI.Xaml.CalendarDatePicker.put_Date() require IPropertyValue and it doesn't accept IReference[DateTime].
+        try:
+            return box_value(obj).as_(type_)
+        except TypeError:
+            return Reference[type_._IReference__args](obj).as_(type_)
     elif issubclass(type_, DateTime):
         if isinstance(obj, DateTime):
             return obj
