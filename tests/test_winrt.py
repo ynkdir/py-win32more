@@ -4,6 +4,7 @@ import sys
 import unittest
 from concurrent.futures import Future
 from ctypes import POINTER, cast, pointer
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Generic, TypeVar
 
@@ -21,6 +22,7 @@ from win32more import (
     VoidPtr,
     WinError,
     box_value,
+    datetime_from_winrt,
     unbox_value,
 )
 from win32more._box import unbox_str
@@ -58,6 +60,7 @@ from win32more.Windows.Foundation import (
     Uri,
 )
 from win32more.Windows.Foundation.Collections import IIterable, IIterator, IMap, IVector, IVectorView, StringMap
+from win32more.Windows.Globalization import Calendar
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
@@ -1023,6 +1026,17 @@ class TestWinrt(unittest.TestCase):
             {str(iid) for iid in [IUnknown._iid_, IInspectable._iid_, IAgileObject._iid_, ISelf._iid_]},
         )
         CoTaskMemFree(iids)
+
+    def test_datetime(self):
+        cal = Calendar()
+
+        d = datetime(2006, 1, 2, tzinfo=timezone.utc)
+        cal.SetDateTime(d)
+        self.assertEqual(datetime_from_winrt(cal.GetDateTime()).astimezone(timezone.utc), d)
+
+        d = datetime(1800, 1, 2, tzinfo=timezone.utc)
+        cal.SetDateTime(d)
+        self.assertEqual(datetime_from_winrt(cal.GetDateTime()).astimezone(timezone.utc), d)
 
 
 if __name__ == "__main__":
