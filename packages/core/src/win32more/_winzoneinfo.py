@@ -38,6 +38,16 @@ def get_time_zone_information_for_year(year: int, dtz: DYNAMIC_TIME_ZONE_INFORMA
     return tz
 
 
+def timezone_for_local(local: datetime, dtz: DYNAMIC_TIME_ZONE_INFORMATION) -> TIME_ZONE_INFORMATION:
+    local = local.replace(tzinfo=None)
+    tz = get_time_zone_information_for_year(local.year, dtz)
+    tz_prev = get_time_zone_information_for_year(local.year - 1, dtz)
+    transition = datetime(local.year, 1, 1) + timedelta(minutes=tz_prev.Bias - tz.Bias)
+    if local < transition:
+        return tz_prev
+    return tz
+
+
 def current_timezone() -> str:
     tz = DYNAMIC_TIME_ZONE_INFORMATION()
     if GetDynamicTimeZoneInformation(tz) == TIME_ZONE_ID_INVALID:
@@ -93,8 +103,10 @@ class WinZoneInfo(tzinfo):
     def utcoffset(self, local: datetime) -> timedelta:
         return local.replace(tzinfo=None) - tz_specific_local_time_to_system_time_ex(self._dtz, local)
 
+    # dst() is not reliable, since DST transition records can also represent
+    # changes to the standard UTC offset (not just daylight saving transitions).
     def dst(self, local: datetime) -> timedelta:
-        tz = get_time_zone_information_for_year(local.year, self._dtz)
+        tz = timezone_for_local(local, self._dtz)
         return self.utcoffset(local) - timedelta(minutes=-tz.Bias)
 
     def tzname(self, local: datetime) -> str:
