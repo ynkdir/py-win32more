@@ -272,7 +272,7 @@ class VectorImpl(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservable
         return len(self._data)
 
     def GetView(self) -> IVectorView[T]:
-        return self.as_(IVector[self._T])
+        return self.as_(IVectorView[self._T])
 
     def IndexOf(self, value: T, index: POINTER(UInt32)) -> Boolean:
         for i, v in enumerate(self._data):
@@ -432,7 +432,7 @@ class MapImpl(ComClass, IMap[K, V], IMapView[K, V], IIterable[IKeyValuePair[K, V
         return key in self._data
 
     def GetView(self) -> IMapView[K, V]:
-        return self.as_(IMapView[K, V])
+        return self.as_(IMapView[self._K, self._V])
 
     def Insert(self, key: K, value: V) -> Boolean:
         key, value = self._addref(key, value)

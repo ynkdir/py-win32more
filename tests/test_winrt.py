@@ -59,7 +59,15 @@ from win32more.Windows.Foundation import (
     PropertyValue,
     Uri,
 )
-from win32more.Windows.Foundation.Collections import IIterable, IIterator, IMap, IVector, IVectorView, StringMap
+from win32more.Windows.Foundation.Collections import (
+    IIterable,
+    IIterator,
+    IMap,
+    IMapView,
+    IVector,
+    IVectorView,
+    StringMap,
+)
 from win32more.Windows.Globalization import Calendar
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
@@ -700,6 +708,31 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(v.QueryInterface(pointer(IInspectable._iid_), pointer(o)), S_OK)
         self.assertEqual(v.QueryInterface(pointer(IVector._iid_), pointer(o)), S_OK)
         self.assertEqual(v.QueryInterface(pointer(IVectorView._iid_), pointer(o)), S_OK)
+
+    def test_vector_getview_returns_ivectorview(self):
+        view = Vector[Int32]([10, 20, 30]).as_(IVector[Int32]).GetView()
+
+        self.assertEqual(type(view)._iid_, IVectorView[Int32]._iid_)
+
+        # IVector and IVectorView agree on slot 6 and 7 (GetAt, Size) but diverge
+        # after that, so exercise the later slots too.
+        self.assertEqual(view.Size, 3)
+        self.assertEqual(view.GetAt(1), 20)
+        index = UInt32()
+        self.assertTrue(view.IndexOf(20, pointer(index)))
+        self.assertEqual(index.value, 1)
+        items = [None] * 3
+        self.assertEqual(view.GetMany(0, items), 3)
+        self.assertEqual(items, [10, 20, 30])
+
+    def test_map_getview_returns_imapview(self):
+        m = Map[hstr, IInspectable]({"name1": box_value("value1")})
+        view = m.as_(IMap[hstr, IInspectable]).GetView()
+
+        self.assertEqual(type(view)._iid_, IMapView[hstr, IInspectable]._iid_)
+        self.assertEqual(view.Size, 1)
+        self.assertTrue(view.HasKey("name1"))
+        self.assertEqual(unbox_str(view.Lookup("name1")), "value1")
 
     def test_multicastdelegate_must_support_IAgileObject(self):
         def f():
