@@ -3,8 +3,11 @@ from __future__ import annotations
 import logging
 from contextlib import ExitStack
 from ctypes import POINTER, Structure, addressof, c_void_p, cast, py_object, sizeof
+from datetime import datetime, timedelta
 from functools import partial
 from typing import Any
+
+import win32more
 
 from ._comerror import set_error_info
 from ._hstr import hstr
@@ -248,9 +251,6 @@ class Vtbl(Structure):
         self._handle_result(restype, args, result)
 
     def _add_argument(self, type_: type, args: list[Any], pyargs: list[Any], exitstack) -> None:
-        from win32more._datetime import datetime_from_winrt, timedelta_from_winrt
-        from win32more.Windows.Foundation import DateTime, TimeSpan
-
         if _winrt.is_passarray_class(type_):
             exitstack.enter_context(_winrt.PassArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif _winrt.is_fillarray_class(type_):
@@ -259,10 +259,10 @@ class Vtbl(Structure):
             exitstack.enter_context(_winrt.ReceiveArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif type_ is hstr:
             pyargs.append(str(args.pop(0)))
-        elif type_ is DateTime:
-            pyargs.append(datetime_from_winrt(args.pop(0)))
-        elif type_ is TimeSpan:
-            pyargs.append(timedelta_from_winrt(args.pop(0)))
+        elif type_ is win32more.Windows.Foundation.DateTime:
+            pyargs.append(win32more.datetime_from_winrt(args.pop(0)))
+        elif type_ is win32more.Windows.Foundation.TimeSpan:
+            pyargs.append(win32more.timedelta_from_winrt(args.pop(0)))
         elif issubclass(type_, _winrt.IReference):
             p = args.pop(0)
             if p is None:
@@ -283,11 +283,6 @@ class Vtbl(Structure):
             pyargs.append(args.pop(0))
 
     def _handle_result(self, restype: type, args: list[Any], result: Any) -> Any:
-        from datetime import datetime, timedelta
-
-        from win32more._datetime import datetime_to_winrt, timedelta_to_winrt
-        from win32more.Windows.Foundation import DateTime, TimeSpan
-
         if restype is Void:
             pass
         elif _winrt.is_receivearray_class(restype):
@@ -296,14 +291,14 @@ class Vtbl(Structure):
         elif restype is hstr:
             return_pointer = args[0]
             return_pointer[0] = hstr(result)
-        elif restype is DateTime:
+        elif restype is win32more.Windows.Foundation.DateTime:
             if isinstance(result, datetime):
-                result = datetime_to_winrt(result)
+                result = win32more.datetime_to_winrt(result)
             return_pointer = args[0]
             return_pointer[0] = result
-        elif restype is TimeSpan:
+        elif restype is win32more.Windows.Foundation.TimeSpan:
             if isinstance(result, timedelta):
-                result = timedelta_to_winrt(result)
+                result = win32more.timedelta_to_winrt(result)
             return_pointer = args[0]
             return_pointer[0] = result
         elif issubclass(restype, _winrt.IReference):
