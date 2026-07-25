@@ -638,6 +638,17 @@ class TestWinrt(unittest.TestCase):
         x.update([("b", 2)])
         x.update(c=3)
         self.assertEqual(dict(x), {"a": 1, "b": 2, "c": 3})
+        with self.assertRaises(TypeError):
+            x.update({"d": 4}, {"e": 5})
+        self.assertEqual(dict(x), {"a": 1, "b": 2, "c": 3})
+
+        # get() must unbox the same way __getitem__() does.
+        x = Dict({"a": 1, "b": [1, 2, 3]})
+        self.assertEqual(x.get("a"), 1)
+        self.assertEqual(x.get("a"), x["a"])
+        self.assertIsInstance(x.get("b"), List)
+        self.assertIsNone(x.get("c"))
+        self.assertEqual(x.get("c", 42), 42)
 
         x = Dict({"a": 1})
         self.assertEqual(x.setdefault("a", 42), 1)

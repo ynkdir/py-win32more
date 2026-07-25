@@ -198,7 +198,9 @@ class Dict(IInspectable):
             yield _unbox_any(v)
 
     def get(self, key, default=None):
-        return self._inner.get(key, default)
+        if key not in self:
+            return default
+        return self[key]
 
     def clear(self):
         self._inner.Clear()
@@ -221,7 +223,7 @@ class Dict(IInspectable):
         return (k, self.pop(k))
 
     def update(self, *args, **kwargs):
-        if len(args) > 2:
+        if len(args) > 1:
             raise TypeError(f"update expected at most 1 argument, got {len(args)}")
 
         if len(args) == 1:
