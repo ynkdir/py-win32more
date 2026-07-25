@@ -4,8 +4,6 @@ from datetime import datetime, timedelta, timezone
 
 from win32more.Windows.Foundation import DateTime, TimeSpan
 
-from ._winzoneinfo import WinZoneInfo, current_timezone
-
 # FILETIME: 100-nanosecond intervals since January 1, 1601 (UTC)
 FILETIME_EPOCH = datetime(1601, 1, 1, tzinfo=timezone.utc)
 
@@ -24,12 +22,9 @@ def datetime_from_winrt(value: DateTime) -> datetime:
     return utc.astimezone(local_timezone(utc))
 
 
+# <3.15: astimezone() raises OSError for pre-EPOCH(1970) datetime.
 def local_timezone(dt: datetime) -> timezone:
-    try:
-        return dt.astimezone().tzinfo
-    except OSError:
-        # <3.15: astimezone() fails for pre-EPOCH(1970) datetime.  Falls back to custom implementation.
-        return WinZoneInfo(current_timezone())
+    return dt.astimezone().tzinfo
 
 
 def timedelta_to_winrt(value: timedelta) -> TimeSpan:

@@ -1034,10 +1034,6 @@ class TestWinrt(unittest.TestCase):
         cal.SetDateTime(d)
         self.assertEqual(datetime_from_winrt(cal.GetDateTime()).astimezone(timezone.utc), d)
 
-        d = datetime(1800, 1, 2, tzinfo=timezone.utc)
-        cal.SetDateTime(d)
-        self.assertEqual(datetime_from_winrt(cal.GetDateTime()).astimezone(timezone.utc), d)
-
 
 if __name__ == "__main__":
     unittest.main()
