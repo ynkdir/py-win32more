@@ -50,6 +50,7 @@ from win32more.Windows.Data.Xml.Dom import XmlDocument
 from win32more.Windows.Devices.Display import DisplayMonitor
 from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import (
+    DateTime,
     IAsyncInfo,
     IAsyncOperation,
     IPropertyValue,
@@ -1077,6 +1078,9 @@ class TestWinrt(unittest.TestCase):
         d = datetime(2006, 1, 2, tzinfo=timezone.utc)
         cal.SetDateTime(d)
         self.assertEqual(datetime_from_winrt(cal.GetDateTime()).astimezone(timezone.utc), d)
+
+        self.assertEqual(datetime_from_winrt(cal.GetDateTime()).tzinfo, timezone.utc)
+        self.assertEqual(datetime_from_winrt(DateTime(0)), datetime(1601, 1, 1, tzinfo=timezone.utc))
 
 
 if __name__ == "__main__":

@@ -16,10 +16,8 @@ def datetime_to_winrt(value: datetime) -> DateTime:
 
 
 # nanoseconds are dropped
-# FIXME: should return utc?
 def datetime_from_winrt(value: DateTime) -> datetime:
-    utc = FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime // 10)
-    return utc.astimezone(local_timezone(utc))
+    return FILETIME_EPOCH + timedelta(microseconds=value.UniversalTime // 10)
 
 
 # <3.15: astimezone() raises OSError for pre-EPOCH(1970) datetime.
