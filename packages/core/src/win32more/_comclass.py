@@ -248,6 +248,9 @@ class Vtbl(Structure):
         self._handle_result(restype, args, result)
 
     def _add_argument(self, type_: type, args: list[Any], pyargs: list[Any], exitstack) -> None:
+        from win32more._datetime import datetime_from_winrt, timedelta_from_winrt
+        from win32more.Windows.Foundation import DateTime, TimeSpan
+
         if _winrt.is_passarray_class(type_):
             exitstack.enter_context(_winrt.PassArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif _winrt.is_fillarray_class(type_):
@@ -256,6 +259,10 @@ class Vtbl(Structure):
             exitstack.enter_context(_winrt.ReceiveArrayCallback(type_.__args__[0], args.pop(0), args.pop(0), pyargs))
         elif type_ is hstr:
             pyargs.append(str(args.pop(0)))
+        elif type_ is DateTime:
+            pyargs.append(datetime_from_winrt(args.pop(0)))
+        elif type_ is TimeSpan:
+            pyargs.append(timedelta_from_winrt(args.pop(0)))
         elif issubclass(type_, _winrt.IReference):
             p = args.pop(0)
             if p is None:
@@ -276,6 +283,11 @@ class Vtbl(Structure):
             pyargs.append(args.pop(0))
 
     def _handle_result(self, restype: type, args: list[Any], result: Any) -> Any:
+        from datetime import datetime, timedelta
+
+        from win32more._datetime import datetime_to_winrt, timedelta_to_winrt
+        from win32more.Windows.Foundation import DateTime, TimeSpan
+
         if restype is Void:
             pass
         elif _winrt.is_receivearray_class(restype):
@@ -284,6 +296,16 @@ class Vtbl(Structure):
         elif restype is hstr:
             return_pointer = args[0]
             return_pointer[0] = hstr(result)
+        elif restype is DateTime:
+            if isinstance(result, datetime):
+                result = datetime_to_winrt(result)
+            return_pointer = args[0]
+            return_pointer[0] = result
+        elif restype is TimeSpan:
+            if isinstance(result, timedelta):
+                result = timedelta_to_winrt(result)
+            return_pointer = args[0]
+            return_pointer[0] = result
         elif issubclass(restype, _winrt.IReference):
             if result is not None:
                 result = _winrt.Reference[restype._IReference__args[0]](result).as_(restype)

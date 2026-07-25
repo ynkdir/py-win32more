@@ -475,6 +475,9 @@ class WinrtMethodCall:
         return result
 
     def _handle_result(self, result: Any) -> Any:
+        from win32more._datetime import datetime_from_winrt, timedelta_from_winrt
+        from win32more.Windows.Foundation import DateTime, TimeSpan
+
         if self.restype is Void:
             return None
         elif is_receivearray_class(self.restype):
@@ -493,6 +496,10 @@ class WinrtMethodCall:
             return str(result)
         elif is_simple_cdata(self.restype):
             return result.value
+        elif self.restype is DateTime:
+            return datetime_from_winrt(result)
+        elif self.restype is TimeSpan:
+            return timedelta_from_winrt(result)
         return result
 
 

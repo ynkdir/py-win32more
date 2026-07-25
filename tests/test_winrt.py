@@ -4,7 +4,7 @@ import sys
 import unittest
 from concurrent.futures import Future
 from ctypes import POINTER, cast, pointer
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable, Generic, TypeVar
 
@@ -58,6 +58,7 @@ from win32more.Windows.Foundation import (
     Point,
     PropertyType,
     PropertyValue,
+    TimeSpan,
     Uri,
 )
 from win32more.Windows.Foundation.Collections import (
@@ -1075,12 +1076,104 @@ class TestWinrt(unittest.TestCase):
     def test_datetime(self):
         cal = Calendar()
 
+        # DateTime is accepted as datetime and returned as datetime, in UTC.
         d = datetime(2006, 1, 2, tzinfo=timezone.utc)
         cal.SetDateTime(d)
-        self.assertEqual(datetime_from_winrt(cal.GetDateTime()).astimezone(timezone.utc), d)
+        self.assertIsInstance(cal.GetDateTime(), datetime)
+        self.assertEqual(cal.GetDateTime(), d)
+        self.assertEqual(cal.GetDateTime().tzinfo, timezone.utc)
 
-        self.assertEqual(datetime_from_winrt(cal.GetDateTime()).tzinfo, timezone.utc)
         self.assertEqual(datetime_from_winrt(DateTime(0)), datetime(1601, 1, 1, tzinfo=timezone.utc))
+
+    def test_datetime_timespan_are_converted_in_results(self):
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def get_datetime(self) -> DateTime: ...
+
+            @winrt_commethod(7)
+            def get_timespan(self) -> TimeSpan: ...
+
+            @winrt_commethod(8)
+            def get_raw_datetime(self) -> DateTime: ...
+
+            @winrt_commethod(9)
+            def get_raw_timespan(self) -> TimeSpan: ...
+
+            @winrt_commethod(10)
+            def get_optional_datetime(self) -> IReference[DateTime]: ...
+
+        class Mock(ComClass, IMock):
+            # A callback may return a python type ...
+            def get_datetime(self) -> DateTime:
+                return datetime(1601, 1, 1, tzinfo=timezone.utc)
+
+            def get_timespan(self) -> TimeSpan:
+                return timedelta(seconds=-1.5)
+
+            # ... or a raw WinRT struct.
+            def get_raw_datetime(self) -> DateTime:
+                return DateTime(0)
+
+            def get_raw_timespan(self) -> TimeSpan:
+                return TimeSpan(-15_000_000)  # -1.5s, in 100ns units
+
+            # IReference[T] wraps the value itself, so it still needs a raw struct.
+            def get_optional_datetime(self) -> IReference[DateTime]:
+                return DateTime(0)
+
+        mock = Mock().as_(IMock)
+
+        self.assertEqual(mock.get_datetime(), datetime(1601, 1, 1, tzinfo=timezone.utc))
+        self.assertEqual(mock.get_timespan(), timedelta(seconds=-1.5))
+        self.assertEqual(mock.get_raw_datetime(), datetime(1601, 1, 1, tzinfo=timezone.utc))
+        self.assertEqual(mock.get_raw_timespan(), timedelta(seconds=-1.5))
+        self.assertEqual(mock.get_optional_datetime(), datetime(1601, 1, 1, tzinfo=timezone.utc))
+
+    def test_datetime_timespan_are_converted_in_callback_arguments(self):
+        received = []
+
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def echo_datetime(self, value: DateTime) -> DateTime: ...
+
+            @winrt_commethod(7)
+            def echo_timespan(self, value: TimeSpan) -> TimeSpan: ...
+
+            @winrt_commethod(8)
+            def echo_optional_datetime(self, value: IReference[DateTime]) -> Void: ...
+
+        class Mock(ComClass, IMock):
+            def echo_datetime(self, value: datetime) -> datetime:
+                received.append(value)
+                return value
+
+            def echo_timespan(self, value: timedelta) -> timedelta:
+                received.append(value)
+                return value
+
+            def echo_optional_datetime(self, value: datetime) -> None:
+                received.append(value)
+
+        mock = Mock().as_(IMock)
+
+        d = datetime(1601, 1, 1, tzinfo=timezone.utc)
+        t = timedelta(seconds=-1.5)
+
+        # Round trips through both directions: the caller converts to DateTime, the
+        # callback receives datetime, returns datetime, and the caller converts back.
+        self.assertEqual(mock.echo_datetime(d), d)
+        self.assertEqual(mock.echo_timespan(t), t)
+        mock.echo_optional_datetime(d)
+
+        self.assertEqual(received, [d, t, d])
+        for value, expected in zip(received, [datetime, timedelta, datetime]):
+            self.assertIsInstance(value, expected)
 
 
 if __name__ == "__main__":
