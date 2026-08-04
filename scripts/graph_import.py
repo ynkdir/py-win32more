@@ -8,23 +8,21 @@ from pathlib import Path
 def find_import(file: str) -> list[str]:
     dependencies = []
     tree = ast.parse(Path(file).read_text())
+    module_parts = filename_to_modulename(file).split(".")
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             for alias in node.names:
                 dependencies.append(alias.name)
         elif isinstance(node, ast.ImportFrom):
-            names = []
-            p = Path(file)
-            for _ in range(node.level):
-                p = p.parent
-                names.insert(0, p.name)
+            if node.level == 0:
+                base_parts = []
+            else:
+                base_parts = module_parts[: -node.level]
             if node.module is None:
                 for alias in node.names:
-                    module = ".".join(names + [alias.name])
-                    dependencies.append(module)
+                    dependencies.append(".".join(base_parts + [alias.name]))
             else:
-                module = ".".join(names + [node.module])
-                dependencies.append(module)
+                dependencies.append(".".join(base_parts + [node.module]))
     return dependencies
 
 
@@ -63,7 +61,7 @@ def render_graph(graph: dict) -> str:
     writer.write("graph TB\n")
     for module, dependencies in graph.items():
         for dependency in dependencies:
-            writer.write(f"    {module}-->{dependency}\n")
+            writer.write(f'    "{module}"-->"{dependency}"\n')
     return writer.getvalue()
 
 
