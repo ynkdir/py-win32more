@@ -66,10 +66,10 @@ from win32more.Windows.Foundation.Collections import (
     IIterator,
     IMap,
     IMapView,
+    IObservableVector,
     IVector,
     IVectorView,
     StringMap,
-    IObservableVector,
 )
 from win32more.Windows.Globalization import Calendar
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
@@ -1180,7 +1180,6 @@ class TestWinrt(unittest.TestCase):
         ov = Vector[Int32]([1, 2, 3]).as_(IObservableVector[Int32])
         self.assertEqual(len(ov), 3)
         self.assertEqual([v for v in ov], [1, 2, 3])
-
 
 
 if __name__ == "__main__":

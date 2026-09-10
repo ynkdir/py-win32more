@@ -682,22 +682,25 @@ class SequenceProtocol(Generic[T]):
 
     # IObservableVector implements IVector but does not inherit it.
     # Ensure interface for protocol.
-    def __ensure_IVectorView(self):
-        from win32more.Windows.Foundation.Collections import IVectorView
-
-        return self.as_(IVectorView[self.__args])
-
     def __ensure_IVector(self):
         from win32more.Windows.Foundation.Collections import IVector
 
         return self.as_(IVector[self.__args])
 
+    def __ensure_IVector_or_IVectorView(self):
+        from win32more.Windows.Foundation.Collections import IVector, IVectorView
+
+        r = self.try_as(IVector[self.__args])
+        if r is None:
+            r = self.as_(IVectorView[self.__args])
+        return r
+
     def __len__(self):
-        self = self.__ensure_IVectorView()
+        self = self.__ensure_IVector_or_IVectorView()
         return self.Size
 
     def __getitem__(self, index):
-        self = self.__ensure_IVectorView()
+        self = self.__ensure_IVector_or_IVectorView()
         if isinstance(index, slice):
             return [self[i] for i in range(*index.indices(len(self)))]
         elif isinstance(index, int):
