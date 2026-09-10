@@ -66,6 +66,7 @@ from win32more.Windows.Foundation.Collections import (
     IIterator,
     IMap,
     IMapView,
+    IObservableVector,
     IVector,
     IVectorView,
     StringMap,
@@ -1174,6 +1175,11 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(received, [d, t, d])
         for value, expected in zip(received, [datetime, timedelta, datetime]):
             self.assertIsInstance(value, expected)
+
+    def test_observable_vector_has_sequence_protocol(self):
+        ov = Vector[Int32]([1, 2, 3]).as_(IObservableVector[Int32])
+        self.assertEqual(len(ov), 3)
+        self.assertEqual([v for v in ov], [1, 2, 3])
 
 
 if __name__ == "__main__":
