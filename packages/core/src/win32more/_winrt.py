@@ -677,14 +677,30 @@ class IterableProtocol:
             iterator.MoveNext()
 
 
-class SequenceProtocol:
-    def __class_getitem__(cls, key):
-        return cls
+class SequenceProtocol(Generic[T]):
+    __class_getitem__ = classmethod(generic_class_getitem)
+
+    # IObservableVector implements IVector but does not inherit it.
+    # Ensure interface for protocol.
+    def __ensure_IVector(self):
+        from win32more.Windows.Foundation.Collections import IVector
+
+        return self.as_(IVector[self.__args])
+
+    def __ensure_IVector_or_IVectorView(self):
+        from win32more.Windows.Foundation.Collections import IVector, IVectorView
+
+        r = self.try_as(IVector[self.__args])
+        if r is None:
+            r = self.as_(IVectorView[self.__args])
+        return r
 
     def __len__(self):
+        self = self.__ensure_IVector_or_IVectorView()
         return self.Size
 
     def __getitem__(self, index):
+        self = self.__ensure_IVector_or_IVectorView()
         if isinstance(index, slice):
             return [self[i] for i in range(*index.indices(len(self)))]
         elif isinstance(index, int):
@@ -697,6 +713,7 @@ class SequenceProtocol:
             raise TypeError(f"list indices must be integers or slices, not {type(index).__name__}")
 
     def __setitem__(self, index, value):
+        self = self.__ensure_IVector()
         if isinstance(index, slice):
             # FIXME:
             lst = [None] * len(self)
@@ -713,6 +730,7 @@ class SequenceProtocol:
             raise TypeError(f"list indices must be integers or slices, not {type(index).__name__}")
 
     def __delitem__(self, index):
+        self = self.__ensure_IVector()
         if index < 0:
             index += len(self)
         if index < 0 or len(self) <= index:
