@@ -356,7 +356,6 @@ class FunctionPointer:
 
 class Enum:
     def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
-        assert not td.custom_attributes.has_supported_architecture()
         self._td = td
         self._formatter = formatter
 
@@ -370,6 +369,8 @@ class Enum:
 
     @property
     def supported_architecture(self) -> list[str]:
+        if self._td.custom_attributes.has_supported_architecture():
+            return self._td.custom_attributes.get_supported_architecture()
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
