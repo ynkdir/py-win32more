@@ -175,7 +175,10 @@ class Builder:
 
     def recipe(self, id: str, version: str) -> dict:
         if id == "Microsoft.Windows.SDK.Win32Metadata":
-            return RECIPES["Microsoft.Windows.SDK.Win32Metadata"]
+            if NuGetVersion.parse(version) < NuGetVersion.parse("71.0.45-preview"):
+                return RECIPES["Microsoft.Windows.SDK.Win32Metadata"]
+            else:
+                return RECIPES["Microsoft.Windows.SDK.Win32Metadata.71.0.45"]
         elif id == "Microsoft.Windows.WDK.Win32Metadata":
             return RECIPES["Microsoft.Windows.WDK.Win32Metadata"]
         elif id == "Microsoft.Windows.SDK.Contracts":
@@ -395,6 +398,20 @@ RECIPES = {
         "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
         "known_packages": ["Microsoft.Windows.SDK.Win32Metadata"],
         "metadata": [("Microsoft.Windows.SDK.Win32Metadata", "Windows.Win32.winmd")],
+        "assets": [],
+        "versioninfo": None,
+        "prerelease_is_release": True,
+    },
+    "Microsoft.Windows.SDK.Win32Metadata.71.0.45": {
+        "id": "Microsoft.Windows.SDK.Win32Metadata",
+        "dependencies": ["Microsoft.Windows.SDK.Contracts"],
+        "core_dependencies": ["core"],
+        "extra_install": [("Microsoft.Windows.SDK.Contracts", "10.0.26100.7705")],
+        "known_packages": ["Microsoft.Windows.SDK.Win32Metadata"],
+        "metadata": [
+            ("Microsoft.Windows.SDK.Win32Metadata", "Windows.Win32.winmd"),
+            ("Microsoft.Windows.SDK.Win32Metadata", "Microsoft.Direct3D.D3D12.winmd"),
+        ],
         "assets": [],
         "versioninfo": None,
         "prerelease_is_release": True,
