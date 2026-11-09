@@ -49,6 +49,9 @@ if sys.platform == "cygwin":
 else:
     from ctypes import WINFUNCTYPE, FormatError, GetLastError, WinError, windll  # noqa: F401
 
+# NATIVE_COM: the platform provides the COM runtime (OLE32/OLEAUT32).
+NATIVE_COM = sys.platform in ("win32", "cygwin")
+
 
 class _lazy_winrt:
     def __getattr__(self, name):

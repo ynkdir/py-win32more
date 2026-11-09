@@ -220,7 +220,10 @@ class Vtbl(Structure):
             return self._com_callback(callback, restype, hints, this, args)
         except Exception as exc:
             logger.exception(f"Unhandled exception caught: {callback}{args}")
-            set_error_info(f"{exc.__class__.__name__}: {exc}")
+            try:
+                set_error_info(f"{exc.__class__.__name__}: {exc}")
+            except OSError:
+                pass  # no error info support; still report the failure
             return E_FAIL
 
     def _com_callback(self, callback, restype, hints, this, args):

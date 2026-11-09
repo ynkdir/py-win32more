@@ -1,5 +1,7 @@
 import platform
-from ctypes import CFUNCTYPE, POINTER, c_char_p, c_uint, c_uint32, c_void_p, c_wchar_p, cast, cdll, pointer
+from ctypes import c_char_p, c_uint, c_uint32, c_void_p, c_wchar_p, cast, cdll, pointer
+
+from ._winfunctype import WINFUNCTYPE  # noqa: F401
 
 if platform.machine() != "x86_64":
     raise RuntimeError(f"{platform.machine()} is not supported")
@@ -62,32 +64,6 @@ def WinError(code=None, descr=None):
     e = OSError(code, descr)
     e.winerror = code
     return e
-
-
-def WINFUNCTYPE(restype, *argtypes, use_errno=False, use_last_error=False):
-    def __new__(cls, *args):
-        if len(args) >= 2 and isinstance(args[0], int):
-            return ComMethod(restype, argtypes, use_errno, use_last_error, *args)
-        return functype_new(cls, *args)
-
-    functype = CFUNCTYPE(restype, *argtypes, use_errno=use_errno, use_last_error=use_last_error)
-    if functype.__new__.__module__ != __name__:
-        functype_new = functype.__new__
-        functype.__new__ = __new__
-    return functype
-
-
-class ComMethod:
-    def __init__(self, restype, argtypes, use_errno, use_last_error, vtbl_index, name, paramflags=None, iid=None):
-        self._vtbl_index = vtbl_index
-        self._functype = CFUNCTYPE(restype, c_void_p, *argtypes, use_errno=use_errno, use_last_error=use_last_error)
-
-    def __call__(self, this, *args, **kwargs):
-        pvtbl = cast(this, POINTER(POINTER(c_void_p)))
-        func = self._functype(pvtbl[0][self._vtbl_index])
-        # WORKAROUND: return_length and return are passed as kwargs.
-        _args = list(args) + list(kwargs.values())
-        return func(this, *_args)
 
 
 CCP_POSIX_TO_WIN_W = 1

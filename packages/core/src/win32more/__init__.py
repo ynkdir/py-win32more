@@ -1,6 +1,7 @@
 # ruff: noqa: F401, I001
 from ._win32 import (
     FAILED,
+    NATIVE_COM,
     SUCCEEDED,
     WINFUNCTYPE,
     Boolean,
@@ -34,5 +35,6 @@ from ._collections import Dict, List
 
 # Initialize COM Multithreaded Apartment.
 # Call CoInitializeEx(None, COINIT_APARTMENTTHREADED) explicitly for Single-Threaded Apartment.
-if FAILED(_win32api.CoIncrementMTAUsage(VoidPtr())):
+# There is no COM runtime to initialize on other platforms.
+if NATIVE_COM and FAILED(_win32api.CoIncrementMTAUsage(VoidPtr())):
     raise WinError()
