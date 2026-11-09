@@ -3,6 +3,7 @@ from __future__ import annotations
 from ctypes import POINTER
 
 from ._win32 import (
+    NATIVE_COM,
     WINFUNCTYPE,
     ComPtr,
     Guid,
@@ -191,3 +192,7 @@ def WindowsGetStringLen(string: HSTRING) -> UInt32: ...
 
 @winfunctype("api-ms-win-core-winrt-string-l1-1-0.dll")
 def WindowsGetStringRawBuffer(string: HSTRING, length: POINTER(UInt32)) -> PWSTR: ...
+
+
+if not NATIVE_COM:
+    from ._posix import CoTaskMemAlloc, CoTaskMemFree, SysAllocStringLen, SysFreeString, SysStringLen  # noqa: F401
